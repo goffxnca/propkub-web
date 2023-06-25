@@ -22,7 +22,7 @@ const ContactForm = () => {
   } = useForm();
 
   const submitHandler = (data) => {
-    console.log(data);
+    // console.log(data);
   };
 
   return (
