@@ -54,18 +54,18 @@ const Stats = ({ myPosts }) => {
       changeType: "decrease",
       note: "**นี่คือจำนวนครั้งที่กดดูไลน์ แต่ทางเราไม่ทราบว่าผู้เช้าชมประกาศแอดไลน์ไปหาท่านหรือไม่",
     },
-    {
-      id: 5,
-      name: "ติด Google",
-      stat: myPosts.filter((p) => !!p.indexed).length || 0,
-      icon: SearchIcon,
-      change: "122",
-      changeType: "increase",
-      link: {
-        caption: "อ่านเพิ่มเติมเกี่ยวกับการติด Google",
-        href: "https://propkub.com/guides/google-indexing",
-      },
-    },
+    // {
+    //   id: 5,
+    //   name: "ติด Google",
+    //   stat: myPosts.filter((p) => !!p.indexed).length || 0,
+    //   icon: SearchIcon,
+    //   change: "122",
+    //   changeType: "increase",
+    //   link: {
+    //     caption: "อ่านเพิ่มเติมเกี่ยวกับการติด Google",
+    //     href: "https://propkub.com/guides/google-indexing",
+    //   },
+    // },
   ];
 
   return (
