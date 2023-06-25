@@ -115,12 +115,12 @@ const Header = () => {
       href: "/login",
       icon: PencilAltIcon,
     },
-    {
-      name: "คำถามที่พบบ่อย",
-      description: "Speak directly to your customers in a more meaningful way.",
-      href: "/faq",
-      icon: QuestionMarkCircleIcon,
-    },
+    // {
+    //   name: "คำถามที่พบบ่อย",
+    //   description: "Speak directly to your customers in a more meaningful way.",
+    //   href: "/faq",
+    //   icon: QuestionMarkCircleIcon,
+    // },
     // {
     //   name: "บทความ",
     //   description: "Speak directly to your customers in a more meaningful way.",
@@ -265,11 +265,11 @@ const Header = () => {
                   บทความ
                 </a>
               </Link> */}
-              <Link href="/faq">
+              {/* <Link href="/faq">
                 <a className="text-base font-medium text-gray-500 hover:text-gray-900">
                   คำถามที่พบบ่อย
                 </a>
-              </Link>
+              </Link> */}
               <Link href="/contact">
                 <a className="text-base font-medium text-gray-500 hover:text-gray-900">
                   ติดต่อเรา
