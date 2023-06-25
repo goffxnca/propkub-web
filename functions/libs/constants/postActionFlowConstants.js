@@ -1,0 +1,133 @@
+const {
+  EMAIL_POST_CREATED,
+  EMAIL_POST_MOVEMENT,
+  EMAIL_POST_UPDATED,
+  EMAIL_POST_FULFILLED,
+  EMAIL_POST_CLOSED,
+} = require("../constant");
+
+const POST_ACTION_FLOWS = [
+  {
+    actionName: "CreatePost",
+    actionLabel: "สร้างประกาศ",
+    roles: ["agent", "admin"],
+    fromStatus: "",
+    toStatus: "active",
+    fromSubStatus: "",
+    toSubStatus: "created",
+    email: {
+      requireSend: true,
+      templateId: EMAIL_POST_CREATED,
+    },
+    notification: {
+      requireSend: false,
+      notificationLabel: "",
+    },
+  },
+  {
+    actionName: "RequestIndex",
+    actionLabel: "เรียก Google ประมวลผลประกาศ",
+    roles: ["admin"],
+    fromStatus: "active",
+    toStatus: "active",
+    fromSubStatus: "created",
+    toSubStatus: "requested_index",
+    email: {
+      requireSend: false,
+      templateId: EMAIL_POST_MOVEMENT,
+    },
+    notification: {
+      requireSend: true,
+      notificationLabel: "เรียก Google ประมวลผลประกาศ ({postNumber})",
+    },
+  },
+  {
+    actionName: "MarkIndexed",
+    actionLabel: "ประกาศติด Google",
+    roles: ["admin"],
+    fromStatus: "active",
+    toStatus: "active",
+    fromSubStatus: "requested_index",
+    toSubStatus: "indexed",
+    email: {
+      requireSend: true,
+      templateId: EMAIL_POST_MOVEMENT,
+    },
+    notification: {
+      requireSend: true,
+      notificationLabel: "ประกาศติด Google เรียบร้อย ({postNumber})",
+    },
+  },
+  {
+    actionName: "UpdatePost",
+    actionLabel: "อัพเดทรายละเอียดประกาศ",
+    roles: ["agent", "admin"],
+    fromStatus: "active",
+    toStatus: "active",
+    fromSubStatus: "<CURRENT_VALUE>",
+    toSubStatus: "<CURRENT_VALUE>",
+    email: {
+      requireSend: true,
+      templateId: EMAIL_POST_UPDATED,
+    },
+    notification: {
+      requireSend: false,
+      notificationLabel: "",
+    },
+  },
+  {
+    actionName: "ReportPost",
+    actionLabel: "ประกาศถูกรายงานผิดกฏ",
+    roles: ["all"],
+    fromStatus: "active",
+    toStatus: "active",
+    fromSubStatus: "<CURRENT_VALUE>",
+    toSubStatus: "reported",
+    email: {
+      requireSend: true,
+      templateId: "EMAIL_POST_REPORTED",
+    },
+    notification: {
+      requireSend: true,
+      notificationLabel: "ประกาศถูกรายงานผิดกฏ ({postNumber})",
+    },
+  },
+  {
+    actionName: "FulfillPost",
+    actionLabel: "ประกาศปิดการขาย",
+    roles: ["agent", "admin"],
+    fromStatus: "active",
+    toStatus: "inactive",
+    fromSubStatus: "<CURRENT_VALUE>",
+    toSubStatus: "fulfilled",
+    email: {
+      requireSend: true,
+      templateId: EMAIL_POST_FULFILLED,
+    },
+    notification: {
+      requireSend: true,
+      notificationLabel: "ประกาศปิดการขาย ({postNumber})",
+    },
+  },
+  {
+    actionName: "ClosePost",
+    actionLabel: "ปิดประกาศ",
+    roles: ["admin"],
+    fromStatus: "active",
+    toStatus: "inactive",
+    fromSubStatus: "<CURRENT_VALUE>",
+    toSubStatus: "closed",
+    email: {
+      requireSend: true,
+      templateId: EMAIL_POST_CLOSED,
+    },
+    notification: {
+      requireSend: true,
+      notificationLabel: "ประกาศถูกปิดใช้งาน ({postNumber})",
+    },
+  },
+];
+
+module.exports = {
+  POST_ACTION_FLOWS,
+};
