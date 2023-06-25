@@ -1,0 +1,34 @@
+const IS_DEV = process.env.ENV === "dev";
+const IS_PROD = process.env.ENV === "prod";
+const SITE_DOMAIN = process.env.SITE_DOMAIN;
+
+const NO_REPLY_EMAIL = "PropKub.com <noreply@propkub.com>";
+const SUPPORT_EMAIL = "PropKub.com <support@propkub.com>";
+
+const EMAIL_WELCOME = "d-ffed4c0cdf084db4b2023da771315b76";
+const EMAIL_CONFIRM_OLD_USERS = "d-ec31864f8ed746cdb398d4e62d46d59d"; //NOT USE ANYMORE
+const EMAIL_POST_CREATED = "d-9a5f4b47ebf44b0a8367b781dd503dda";
+const EMAIL_POST_MOVEMENT = "d-bbdf8783f4a1494a91221dd1bdab8c50";
+const EMAIL_POST_UPDATED = "d-3e74c848e6ce45f0af7120276948ca73";
+const EMAIL_POST_REPORTED = "PUT LATER";
+const EMAIL_POST_FULFILLED = "d-ad3274cb633b410eb7c8c46a818bf2a1";
+const EMAIL_POST_CLOSED = "d-3cce9d482946494fbfc238f25f4738fe";
+
+const REGION = "asia-southeast1";
+
+module.exports = {
+  EMAIL_WELCOME,
+  EMAIL_CONFIRM_OLD_USERS,
+  EMAIL_POST_CREATED,
+  EMAIL_POST_MOVEMENT,
+  EMAIL_POST_UPDATED,
+  EMAIL_POST_REPORTED,
+  EMAIL_POST_FULFILLED,
+  EMAIL_POST_CLOSED,
+  NO_REPLY_EMAIL,
+  SUPPORT_EMAIL,
+  IS_DEV,
+  IS_PROD,
+  SITE_DOMAIN,
+  REGION,
+};

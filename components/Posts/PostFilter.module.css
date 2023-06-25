@@ -1,0 +1,15 @@
+.postTypeActive {
+  @apply md:px-16 text-blue-500 font-bold text-xl;
+}
+
+.postTypeInActive {
+  @apply opacity-20;
+}
+
+.assetTypeActive {
+  @apply lg:px-10  text-blue-500 font-bold;
+}
+
+.assetTypeInActive {
+  @apply opacity-20;
+}

@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* image galleries */
+.image-gallery-content .image-gallery-image {
+  height: 100%;
+}
+
+.image-gallery-thumbnail-image {
+  height: 100px;
+  object-fit: cover;
+}
+
+.image-gallery-slide {
+  height: 24rem;
+}
+
+.fullscreen .image-gallery-slide {
+  height: auto !important;
+}
+
+.fullscreen .image-gallery-image {
+  height: 600px;
+}
+
+.fullscreen {
+  margin-top: 10%;
+}
+
+/* google maps */
+.google-maps {
+  position: relative;
+  padding-bottom: 75%;
+  height: 0;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.google-maps iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* forms */
+/* Chrome, Safari, Edge, Opera */
+.hide-spin > input::-webkit-outer-spin-button,
+.hide-spin > input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.hide-spin > input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* React Quill Editor */
+.ql-container {
+  height: 400px !important;
+}
+
+.ql-editor {
+  font-family: "Prompt";
+}
+
+.ql-toolbar,
+.ql-container {
+  border: none !important;
+}
+
+.ql-container {
+  border-top: 1px solid #ccc !important;
+}
+
+.ql-editor > p > img {
+  display: inline-block;
+  margin-right: 2px;
+}
+
+.wysiwyg-content ul {
+  list-style-type: disc;
+  margin-left: 30px;
+}
+
+.wysiwyg-content ol {
+  list-style-type: decimal;
+  margin-left: 30px;
+}
+
+.wysiwyg-content a {
+  color: hsl(206deg 100% 40%);
+  text-decoration: underline;
+}
+
+.wysiwyg-content a:hover {
+  color: hsl(206deg 100% 52%);
+}
+
+input[type="password"] {
+  font-family: Verdana;
+  letter-spacing: 0.125em;
+}
+
+select:disabled {
+  background-color: #f9fafb;
+}
