@@ -77,7 +77,7 @@ const ProfileImageInput = ({
       const fileUrl = URL.createObjectURL(resizedFile);
 
       if (resizedFile && fileUrl) {
-        setFile(file);
+        setFile(resizedFile);
         setFileUrl(fileUrl);
 
         console.log(
