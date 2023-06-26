@@ -26,7 +26,7 @@ const MediaSection = ({
             รูปภาพ
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            คุณสามารถอัพโหลดรูปภาพได้จำนวน 3-10 รูปต่อ 1 ประกาศ
+            คุณสามารถอัพโหลดรูปภาพได้จำนวน 3-5 รูปต่อ 1 ประกาศ
           </p>
         </div>
 
@@ -36,7 +36,7 @@ const MediaSection = ({
               <UploadImagesInput
                 id="images"
                 label="รูปภาพ"
-                maxFile={10}
+                maxFile={5}
                 register={() =>
                   register("images", {
                     required: "กรุณาอัพโหลดภาพของประกาศจำนวน 3-10 ภาพ",
