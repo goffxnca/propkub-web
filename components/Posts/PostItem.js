@@ -71,14 +71,20 @@ const PostItem = ({
             <span className="absolute top-2 rounded-r-full bg-gray-lighter py-0.5 px-2 text-sm text-gray-hard z-20 shadow-md">
               {postTypeFormat + assetTypeFormat}
             </span>
-            <Image
+            {/* <Image
               src={thumbnail}
               alt={thumbnailAlt}
               className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md md:rounded-none"
               width={250}
               height={192}
               layout="responsive"
-            />
+            /> */}
+
+            <img
+              src={thumbnail}
+              alt={thumbnailAlt}
+              className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md md:rounded-none"
+            ></img>
           </div>
 
           <div className="md:w-3/5 p-2 md:relative">

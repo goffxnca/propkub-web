@@ -42,14 +42,19 @@ const SimilarPostItem = ({
             <span className="absolute top-1 bg-gray-lighter py-0.5 px-2 text-sm text-gray-hard z-20 shadow-md rounded-r-md">
               {postTypeFormat + assetTypeFormat}
             </span>
-            <Image
+            {/* <Image
               src={thumbnail}
               alt={thumbnailAlt}
               className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md group-hover:rounded-md"
               width={250}
               height={192}
               layout="responsive"
-            />
+            /> */}
+            <img
+              src={thumbnail}
+              alt={thumbnailAlt}
+              className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md group-hover:rounded-md"
+            ></img>
             <div className="right-0 bottom-0 text-primary z-10">
               <span className="text-md">฿{priceWithFormat}</span>
               <span className="text-sm">{priceUnitFormat}</span>

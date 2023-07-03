@@ -14,22 +14,31 @@ const PostImageGallery = ({ images }) => {
       renderItem={(item) => (
         <div className="max-h-[80vh] h-[600px] w-full">
           <div className="">
-            <Image
+            {/* <Image
               className="image-gallery-image"
               src={item.original}
               layout="fill"
               objectFit="contain"
-            ></Image>
+            ></Image> */}
+
+            <div className="flex justify-center">
+              <img className="" src={item.original}></img>
+            </div>
           </div>
         </div>
       )}
       renderThumbInner={(item) => (
-        <Image
+        // <Image
+        //   src={item.thumbnail}
+        //   width={184}
+        //   height={200}
+        //   objectFit="cover"
+        // ></Image>
+
+        <img
           src={item.thumbnail}
-          width={184}
-          height={200}
-          objectFit="cover"
-        ></Image>
+          className="h-[100px] w-[92px] object-cover"
+        ></img>
       )}
     />
   );

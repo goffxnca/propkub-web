@@ -17,13 +17,18 @@ const PostDetailAgent = ({ postId, agentInfo, isSold }) => {
     <>
       <div className="flex flex-col items-center justify-center">
         <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
-          <Image
+          {/* <Image
             src={`${agentInfo.profileImg || "/user.png"}`}
             alt=""
             className="w-32 h-auto object-cover"
             height={150}
             width={150}
-          />
+          /> */}
+          <img
+            src={`${agentInfo.profileImg || "/user.png"}`}
+            alt=""
+            className="w-full h-full object-cover"
+          ></img>
         </div>
 
         <div className="pt-1">

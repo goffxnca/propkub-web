@@ -370,13 +370,18 @@ const Header = () => {
                     <div
                       className={`w-8 h-8 rounded-full border border-gray-200 `}
                     >
-                      <Image
+                      {/* <Image
                         src={`${user.photoURL || "/user.png"}`}
                         alt=""
                         className="rounded-full object-cover"
                         height={120}
                         width={120}
-                      />
+                      /> */}
+                      <img
+                        src={`${user.photoURL || "/user.png"}`}
+                        alt=""
+                        className="rounded-full w-full h-full object-cover"
+                      ></img>
                     </div>
 
                     <span className="hidden ml-2 text-gray-700 text-sm font-medium lg:block">
@@ -463,13 +468,19 @@ const Header = () => {
                       <div
                         className={`w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200 `}
                       >
-                        <Image
+                        {/* <Image
                           src={`${user.photoURL || "/user.png"}`}
                           alt=""
                           className="w-32 h-auto object-cover"
                           height={120}
                           width={120}
-                        />
+                        /> */}
+
+                        <img
+                          src={`${user.photoURL || "/user.png"}`}
+                          alt=""
+                          className="h-full w-full object-cover"
+                        ></img>
                       </div>
 
                       <div className="text-primary font-bold ml-2">
