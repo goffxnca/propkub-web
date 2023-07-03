@@ -8,6 +8,7 @@ const {
   NO_REPLY_EMAIL,
   REGION,
   EMAIL_CONFIRM_OLD_USERS,
+  TEMPLATE_LIST,
 } = require("./libs/constant");
 
 const {
@@ -534,6 +535,69 @@ exports.tempSendConfirmEmail = functions
       }
     } catch (error) {
       functions.logger.error(error.message, { input: { email } });
+      throw error;
+    }
+  });
+
+exports.sendEmailToUser = functions
+  .region(REGION)
+  .https.onCall(async (data) => {
+    const { email, templateId } = data;
+    try {
+      if (!email) {
+        throw new functions.https.HttpsError(
+          "invalid-argument",
+          `User email required`
+        );
+      }
+
+      if (!templateId) {
+        throw new functions.https.HttpsError(
+          "invalid-argument",
+          `Template id is required`
+        );
+      }
+
+      if (!TEMPLATE_LIST.includes(templateId)) {
+        throw new functions.https.HttpsError(
+          "invalid-argument",
+          `Template id is not correct`
+        );
+      }
+
+      const userQuerySnapshot = await admin
+        .firestore()
+        .collection("/users")
+        .where("email", "==", email) //Remove this line if later we want to send to all users. be careful that sendgrid only allow to send 100 emails/day
+        .get();
+
+      const users = [];
+      userQuerySnapshot.forEach((doc) => {
+        const userData = doc.data();
+        users.push({ email: userData.email, name: userData.name });
+      });
+
+      if (users.length > 0) {
+        const emailPromises = users.map(({ email, name }) =>
+          sendEmail({
+            from: NO_REPLY_EMAIL,
+            to: email,
+            templateId: templateId,
+            templateData: {
+              name:
+                (name && name.replace("คุณ", "")) || "ผู้ใช้งาน PropKub.com",
+            },
+          })
+        );
+
+        await Promise.all(emailPromises);
+
+        return { message: "Emails sent successfully", users: users };
+      } else {
+        return "No users found";
+      }
+    } catch (error) {
+      functions.logger.error(error.message, { input: { email, templateId } });
       throw error;
     }
   });
