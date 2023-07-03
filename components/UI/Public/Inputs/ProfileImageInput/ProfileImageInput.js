@@ -103,13 +103,18 @@ const ProfileImageInput = ({
           <div
             className={`w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200 ${errorStyle}`}
           >
-            <Image
+            {/* <Image
               src={`${fileUrl || "/user.png"}`}
               alt=""
               className="w-32 h-auto object-cover"
               height={120}
               width={120}
-            />
+            /> */}
+            <img
+              src={`${fileUrl || "/user.png"}`}
+              alt=""
+              className="w-32 h-32 object-cover"
+            ></img>
           </div>
 
           <button
