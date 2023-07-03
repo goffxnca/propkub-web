@@ -53,7 +53,7 @@ const SimilarPostItem = ({
             <img
               src={thumbnail}
               alt={thumbnailAlt}
-              className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md group-hover:rounded-md"
+              className="w-[200px] h-[150px] object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md group-hover:rounded-md"
             ></img>
             <div className="right-0 bottom-0 text-primary z-10">
               <span className="text-md">฿{priceWithFormat}</span>
