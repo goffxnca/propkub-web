@@ -1,8 +1,5 @@
 {
   "projects": {
-    "dev": "hahome-dev",
-    "prod": "hahome-prod"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "hahome-dev"
+  }
 }
