@@ -49,7 +49,7 @@ const PostDetail = ({ post, similarPosts, postViews }) => {
           <Card>
             <PostDetailAgent
               postId={post.id}
-              agentInfo={post.contact || post.createdBy}
+              agentInfo={post.createdBy}
               isSold={isSold}
             />
           </Card>

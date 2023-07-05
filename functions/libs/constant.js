@@ -1,5 +1,5 @@
-const IS_DEV = process.env.ENV === "dev";
-const IS_PROD = process.env.ENV === "prod";
+const IS_DEV = process.env.APP_ENV === "dev";
+const IS_PROD = process.env.APP_ENV === "prod";
 const SITE_DOMAIN = process.env.SITE_DOMAIN;
 
 const NO_REPLY_EMAIL = "PropKub.com <noreply@propkub.com>";
