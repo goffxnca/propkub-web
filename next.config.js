@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const { version } = require("./package.json");
+
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
@@ -8,6 +10,9 @@ const nextConfig = {
       "tailwindui.com",
       "images.unsplash.com",
     ],
+  },
+  publicRuntimeConfig: {
+    version: version,
   },
 };
 
