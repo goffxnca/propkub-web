@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "hahome-dev"
+    "default": "hahome-dev",
+    "dev": "hahome-dev",
+    "prod": "hahome-prod"
   }
 }
