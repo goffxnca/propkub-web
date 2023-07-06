@@ -113,7 +113,7 @@ const ProfileImageInput = ({
             <img
               src={`${fileUrl || "/user.png"}`}
               alt=""
-              className="w-32 h-32 object-cover"
+              className="h-full w-full object-cover"
             ></img>
           </div>
 
