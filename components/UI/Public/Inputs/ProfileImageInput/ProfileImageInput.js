@@ -83,9 +83,9 @@ const ProfileImageInput = ({
         console.log(
           `resize! from ${(file.size / 1024).toFixed(2)}kb to ${(
             resizedFile.size / 1024
-          ).toFixed(2)}kb = new file is ${
-            (resizedFile.size * 100) / file.size
-          }% of old file`
+          ).toFixed(2)}kb = new file is now ${(
+            file.size / resizedFile.size
+          ).toFixed(2)}X smaller than old file`
         );
       }
     });
