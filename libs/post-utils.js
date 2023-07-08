@@ -60,6 +60,54 @@ export const getAllActivePosts = async (records = 0) => {
   return posts;
 };
 
+export const getAllActivePostsForSitemap = async () => {
+  const q = query(
+    postsCollectionRef,
+    where("status", "==", "active"),
+    orderBy("createdAt", "desc")
+  );
+
+  const postsDocs = await getDocs(q);
+  const posts = [];
+  postsDocs.forEach((doc) => {
+    posts.push({
+      ...doc.data(),
+      id: doc.id,
+      createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
+      updatedAt: null,
+      legal: null,
+    });
+  });
+  return posts;
+};
+
+export const getLatestActivePostForSitemap = async () => {
+  const q = query(
+    postsCollectionRef,
+    where("status", "==", "active"),
+    orderBy("createdAt", "desc"),
+    limit(1)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.empty) {
+    return null;
+  }
+
+  const doc = querySnapshot.docs[0];
+
+  const latestActivePost = {
+    ...doc.data(),
+    id: doc.id,
+    createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
+    updatedAt: null,
+    legal: null,
+  };
+
+  return latestActivePost;
+};
+
 export const getAllActivePostsByLocation = async (
   assetType,
   locationType,
