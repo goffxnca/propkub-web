@@ -13,7 +13,7 @@ function generateSiteMap(lastModForPropertySitemap) {
           <lastmod>${lastModForPropertySitemap}</lastmod>
       </sitemap>
       <sitemap>
-          <loc>https://propkub.com/land-sitemap.xml</loc>
+          <loc>https://propkub.com/land-province-sitemap.xml</loc>
           <lastmod>2023-07-08T00:00:00.00Z</lastmod>
       </sitemap>
   </sitemapindex>
