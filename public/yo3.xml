@@ -2,9 +2,11 @@
 <sitemapindex
 	xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<sitemap>
-		<loc>https://propkub.com/core-sitemap.xml</loc>
+		<loc>https://propkub.com/main-sitemap.xml</loc>
+		<lastmod>2023-07-08T10:00:00+00:00</lastmod>
 	</sitemap>
 	<sitemap>
 		<loc>https://propkub.com/property-sitemap.xml</loc>
+		<lastmod>2023-07-08T10:00:00+00:00</lastmod>
 	</sitemap>
 </sitemapindex>

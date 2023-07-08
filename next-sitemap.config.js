@@ -1,24 +1,33 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: "https://propkub.com",
-  sitemapSize: 10000,
-  sitemapBaseFileName: "pk-sitemap",
+  sitemapSize: 5000,
+  // sitemapBaseFileName: "pk-sitemap",
+  changefreq: "monthly",
+  priority: 0.5,
   generateRobotsTxt: false,
+
   exclude: [
-    "/profile",
+    "/account/*",
+    "/agent/*",
+    "/auth/*",
+    "/condo/*",
+    "/guides/*",
+    "/404",
     "/about",
-    "/agent/addpost",
     "/blog",
     "/career",
     "/commercial",
-    "/condo/rent",
-    "/condo/sale",
     "/condominium",
+    "/cool",
+    "/createpost",
     "/dashboard",
     "/house",
     "/land",
+    "/profile",
     "/test",
     "/townhome",
+    "/trigger",
     "/xncamf",
   ],
   transform: async (config, path) => {
@@ -42,10 +51,6 @@ module.exports = {
       {
         path: "/property/",
         config: { changefreq: "weekly", priority: "0.9" },
-      },
-      {
-        path: "/createpost",
-        config: { changefreq: "monthly", priority: "0.9" },
       },
       {
         path: "/",
