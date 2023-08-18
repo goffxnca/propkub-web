@@ -237,7 +237,8 @@ const PostDetailBody = ({ post, postViews, images }) => {
           lng={post?.address?.location?.lng}
         />
 
-        {post?.address?.location?.h >= 0 && (
+        {/* {post?.address?.location?.h >= 0 && ( */}
+        {true && (
           <>
             <span className="text-sm text-gray-500">
               ด้านล่างเป็นแผนที่ Streetview โดยสังเขป
