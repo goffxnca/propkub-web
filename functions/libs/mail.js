@@ -24,7 +24,7 @@ const sendEmail = async ({
       ...templateData,
       titlePrefix: IS_PROD ? "" : "[TEST]",
     },
-    // bcc: "phattharawit.s@gmail.com", //add to support@propkub.com later & once stable dropped.
+    bcc: "phattharawit.s@gmail.com", //add to support@propkub.com later & once stable dropped.
   };
 
   return sgMail.send(msg);
