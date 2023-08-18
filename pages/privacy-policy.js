@@ -4,12 +4,11 @@ const PrivacyPolicyPage = () => {
   return (
     <>
       <Head>
-        <title>{genPageTitle(" นโยบายความเป็นส่วนตัว PropKub.com")}</title>
+        <title>นโยบายความเป็นส่วนตัว PropKub.com</title>
         <meta
           name="description"
           content="นโยบายความเป็นส่วนตัวของเว็บไซต์ PropKub.com อธิบายถึงข้อมูลส่วนบุคคลของผู้ใช้งานที่เราเก็บรวบรวม แหล่งที่มาของข้อมูล วัตถุประสงค์ในการประมวลผลข้อมูล รวมถึงระยะเวลาในการจัดเก็บรักษาข้อมูลส่วนบุคคล นอกจากนี้ยังอธิบายถึงสิทธิ์ต่างๆของเจ้าของข้อมูลที่สามารถร้องขอให้ทีมงานช่วยดำเนินการให้"
         />
-        <link rel="canonical" href={BASE_SITE_URL + "/faq"} />
       </Head>
       <div className="relative overflow-hidden bg-white py-16">
         <div className="hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-full lg:[overflow-anchor:none]">
