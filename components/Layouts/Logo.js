@@ -9,8 +9,8 @@ const Logo = ({ onClick, size = "medium" }) => {
         <span className="sr-only">PropKub.com Logo</span>
         <img
           className="h-9"
-          src="/propkub.com-logo2.svg"
-          alt="propkub.com logo2"
+          src="/propkub.com-logo4.png"
+          alt="propkub.com logo4"
         />
       </a>
     </Link>
