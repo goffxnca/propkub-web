@@ -36,7 +36,7 @@ const MainLayout = (props) => {
       {/* <AddLine /> */}
       {/* <UserSidebar /> */}
       {/* Leave gap for google ads  */}
-      <div className="md:h-40"></div>
+      {/* <div className="md:h-40"></div> */}
     </div>
   );
 };
