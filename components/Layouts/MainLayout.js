@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-// import Banner from "../Banner/Banner";
+import Banner from "../Banner/Banner";
 import AddLine from "../Socials/AddLine";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -24,11 +24,11 @@ const MainLayout = (props) => {
           }
         />
       )} */}
-      {/* <Banner
+      <Banner
         message={
-          "PropKub.com ได้ปรับปรุงระบบยืนยันตัวตน สำหรับสมาชิกเดิมโปรดตรวจสอบอีเมลของคุณและยืนยันการเป็นเจ้าของ"
+          "PropKub.com ขอความร่วมมือผู้ลงประกาศต่างๆ ไม่ลงประกาศเดิมที่มีเนื้อหา/ทรัพย์เดียวกัน ซ้ำซ้อนหลายๆประกาศ เรากำลังเร่งพัฒนาระบบดันประกาศให้แล้วเสร็จเร็วๆนี้"
         }
-      /> */}
+      />
 
       <Header />
       <main className="min-h-screen py-4">{props.children}</main>
