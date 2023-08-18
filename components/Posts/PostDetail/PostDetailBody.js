@@ -241,9 +241,10 @@ const PostDetailBody = ({ post, postViews, images }) => {
         {true && (
           <>
             <span className="text-sm text-gray-500">
-              ด้านล่างเป็นภาพ Google Streetview ณ จุดที่ผู้ลงประกาศปัก Map
-              คุณสามารถเลื่อนซ้ายขวาเพื่อดูบรรยากาศรอบๆได้ (โปรดทราบว่าในบางจุด
-              ภาพของ Google Map Streetview อาจไม่อัพเดทเป็นภาพปีปัจจุบัน)
+              ด้านล่างเป็นภาพ Google Map Streetview ณ จุดที่ผู้ลงประกาศปัก Map
+              คุณสามารถเลื่อนซ้ายขวาเพื่อดูบรรยากาศรอบๆได้
+              (โปรดทราบว่าในบางกรณี/บางพื้นที่
+              ภาพของอาจไม่อัพเดทเป็นของปีปัจจุบัน)
             </span>
             <PostMap
               mode="streetview"
