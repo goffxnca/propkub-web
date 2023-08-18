@@ -88,7 +88,7 @@ const PostItem = ({
           </div>
 
           <div className="md:w-3/5 p-2 md:relative">
-            <h4 className="text-gray-harder mb-2 overflow-x-hidden">{title}</h4>
+            <h3 className="text-gray-harder mb-2 overflow-x-hidden">{title}</h3>
 
             <div className="md:absolute bottom-0 left-0 right-0">
               <ul className="flex mb-2 ml-2">
