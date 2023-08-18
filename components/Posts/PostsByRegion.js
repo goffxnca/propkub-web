@@ -24,7 +24,7 @@ const PostByRegion = ({
                 rel="noopener noreferrer"
                 className="text-gray-500"
               >
-                {province.name}
+                <h3>{province.name}</h3>
               </a>
             </Link>
           </li>

@@ -205,7 +205,7 @@ const PostFilter = ({ onSearch, onReset }) => {
 
   return (
     <Fragment>
-      <div className="lg:max-w-7xl mx-auto my-10 p-2">
+      <div className="lg:max-w-7xl mx-auto my-4 p-2">
         <div className="relative bg-primary shadow-md rounded-lg overflow-hidden">
           <div className="">
             <div className="relative h-auto">

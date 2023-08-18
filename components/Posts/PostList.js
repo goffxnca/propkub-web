@@ -89,14 +89,18 @@ const PostList = ({ posts, provinces }) => {
 
   return (
     <div className="lg:max-w-7xl mx-auto">
+      <h1 className="text-2xl font-extrabold tracking-tight text-gray-600 p-2 text-center">
+        ลงประกาศอสังหาฯฟรีที่ Propkub.com
+      </h1>
+
       <PostFilter onSearch={searchHandler} onReset={resetHandler} />
 
       {/* ผลการค้นหา */}
       <div>
         <Element name="searchResult">
-          <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 p-2">
+          <h2 className="text-xl font-extrabold tracking-tight text-gray-700 p-2">
             {listHeadingLabel}
-          </h1>
+          </h2>
         </Element>
 
         {/* 30 Recent posts with thumbnail */}
