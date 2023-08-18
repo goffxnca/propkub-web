@@ -90,7 +90,7 @@ const PostList = ({ posts, provinces }) => {
   return (
     <div className="lg:max-w-7xl mx-auto">
       <h1 className="text-2xl font-extrabold tracking-tight text-gray-600 p-2 text-center hidden">
-        ลงประกาศอสังหาฯฟรีที่ Propkub.com
+        ลงประกาศอสังหาฟรี Propkub.com
       </h1>
 
       <PostFilter onSearch={searchHandler} onReset={resetHandler} />
