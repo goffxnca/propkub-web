@@ -224,7 +224,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
 
       <LineBreak />
       <div>
-        <Heading size="3" label="ทำเลที่ตั้ง" />
+        <Heading size="2" label="ทำเลที่ตั้ง" />
 
         <address className="not-italic">
           <div className="flex items-center">
