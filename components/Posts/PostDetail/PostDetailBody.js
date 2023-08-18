@@ -243,8 +243,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
             <span className="text-sm text-gray-500">
               ด้านล่างเป็นภาพ Google Map Streetview ณ จุดที่ผู้ลงประกาศปัก Map
               คุณสามารถเลื่อนซ้ายขวาเพื่อดูบรรยากาศรอบๆได้
-              (โปรดทราบว่าในบางกรณี/บางพื้นที่
-              ภาพของอาจไม่อัพเดทเป็นของปีปัจจุบัน)
+              (โปรดทราบว่าในบางกรณี/บางพื้นที่ ภาพอาจไม่อัพเดทตรงกับปีปัจจุบัน)
             </span>
             <PostMap
               mode="streetview"
