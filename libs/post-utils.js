@@ -155,7 +155,7 @@ export const getSixSimilarPosts = async ({ assetType, postType }) => {
     where("postType", "==", postType),
     where("status", "==", "active"),
     orderBy("createdAt", "desc"),
-    limit(21) //we will exclude the origin post from here from js later so get 7 as query too complex
+    limit(11) //we will exclude the origin post from here from js later so get 7 as query too complex
   );
 
   const postDocs = await getDocs(q);
