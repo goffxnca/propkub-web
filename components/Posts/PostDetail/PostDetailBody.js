@@ -241,9 +241,9 @@ const PostDetailBody = ({ post, postViews, images }) => {
         {true && (
           <>
             <span className="text-sm text-gray-500">
-              ด้านล่างเป็นแผนที่ Streetview โดยสังเขป
-              (หากไม่เจอที่ตั้งทรัพย์/โครงการ
-              ลองเลื่อนหมุนแผนที่ด้านล่างไปซ้าย/ขวา เพื่อดูรอบๆ)
+              ด้านล่างเป็นภาพ Google Streetview ณ จุดที่ผู้ลงประกาศปัก Map
+              คุณสามารถเลื่อนซ้ายขวาเพื่อดูบรรยากาศรอบๆได้ (โปรดทราบว่าในบางจุด
+              ภาพของ Google Map Streetview อาจไม่อัพเดทเป็นภาพปีปัจจุบัน)
             </span>
             <PostMap
               mode="streetview"
