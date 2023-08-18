@@ -38,7 +38,11 @@ const PostDetail = ({ post, similarPosts, postViews }) => {
         <div className="md:w-2/3 border border-gray-50">
           {post && (
             <Card>
-              <PostDetailBody post={post} postViews={postViews} />
+              <PostDetailBody
+                post={post}
+                postViews={postViews}
+                images={images}
+              />
             </Card>
           )}
           {/* <pre>{JSON.stringify(post.createdBy, null, 2)}</pre> */}

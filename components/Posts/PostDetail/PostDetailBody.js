@@ -26,7 +26,7 @@ const sanitizerOptions = {
   allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br", "a"],
 };
 
-const PostDetailBody = ({ post, postViews }) => {
+const PostDetailBody = ({ post, postViews, images }) => {
   const router = useRouter();
 
   const studioSpec = post?.isStudio
@@ -252,6 +252,22 @@ const PostDetailBody = ({ post, postViews }) => {
             />
           </>
         )}
+      </div>
+
+      <LineBreak />
+      <div className="wysiwyg-content">
+        <Heading size="2" label="รูปภาพ" />
+        <ul className="">
+          <li className="list-none">
+            {images.map((image, index) => (
+              <img
+                key={index}
+                src={image.original}
+                className="mx-auto mt-2"
+              ></img>
+            ))}
+          </li>
+        </ul>
       </div>
 
       <LineBreak />
