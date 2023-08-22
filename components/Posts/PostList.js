@@ -89,7 +89,7 @@ const PostList = ({ posts, provinces }) => {
 
   return (
     <div className="lg:max-w-7xl mx-auto">
-      <h1 className="text-2xl font-extrabold tracking-tight text-gray-600 p-2 text-center hidden">
+      <h1 className="text-2xl font-extrabold tracking-tight text-gray-500 p-2 text-center">
         ลงประกาศอสังหาฟรี Propkub.com
       </h1>
 
