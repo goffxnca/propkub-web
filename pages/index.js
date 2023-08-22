@@ -14,7 +14,7 @@ const HomePage = ({ posts, provinces }) => {
   return (
     <>
       <Head>
-        <title>{genPageTitle("")}</title>
+        <title>ลงประกาศอสังหาฟรี Propkub.com</title>
         <meta
           name="description"
           content="PropKub.com ตัวช่วยค้นหา/ลงประกาศ อสังหาริมทรัพย์ทุกประเทศ ไม่ว่าจะเป็นการซื้อ-ขาย-เช่า บ้าน ที่ดิน ทาวน์โฮม คอนโด อาคารพาณิชย์ ใช้งานฟรีไม่มีค่าใช้จ่าย"
