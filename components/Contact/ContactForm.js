@@ -46,8 +46,6 @@ const ContactForm = () => {
     <div className="">
       <div className="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:px-8 ">
         <div className="relative bg-white shadow-xl rounded-lg">
-          <h2 className="sr-only">ติดต่อ PropKub.com</h2>
-
           <div className="grid grid-cols-1 lg:grid-cols-3">
             {/* Contact information */}
             <div className="relative overflow-hidden bg-indigo-700 py-10 px-6 sm:px-10 xl:p-12 rounded-lg">
@@ -150,9 +148,9 @@ const ContactForm = () => {
                   </defs>
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-white">
+              <h1 className="text-lg font-medium text-white">
                 ติดต่อ PropKub.com
-              </h3>
+              </h1>
               <p className="mt-6 max-w-3xl text-base text-indigo-50">
                 เรามีทีมงานมืออาชีพพร้อมช่วยเหลือคุณตลอดเวลา
                 โปรดกรอกข้อมูลด้านล่างเพื่อรับการติดต่อกลับ
@@ -266,9 +264,9 @@ const ContactForm = () => {
 
             {/* Contact form */}
             <div className="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
-              <h3 className="text-lg font-medium text-gray-900">
+              <h2 className="text-lg font-medium text-gray-900">
                 กรอกรายละเอียดการติดต่อ
-              </h3>
+              </h2>
               <form
                 onSubmit={handleSubmit(submitHandler)}
                 className="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8"
