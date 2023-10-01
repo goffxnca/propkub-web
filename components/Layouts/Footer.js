@@ -78,7 +78,8 @@ const Footer = () => {
           ))}
         </div> */}
         <p className="text-center text-base text-gray-400">
-          Copyright &copy; 2022 PropKub.com - All rights reserved.
+          Copyright &copy; 2022 PropKub.com - All rights reserved (Developed By
+          Goff Phattharawit).
           <span className="text-xs ml-2 text-gray-200">
             v.{publicRuntimeConfig.version}:
             {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.substring(0, 4)}
