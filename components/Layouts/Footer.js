@@ -78,16 +78,23 @@ const Footer = () => {
           ))}
         </div> */}
         <p className="text-center text-base text-gray-400">
-          Copyright &copy; 2022 PropKub.com - All rights reserved (Developed By
-          <a href="https://webfessional.com" target="_blank" rel="noreferrer">
+          Copyright &copy; 2022 PropKub.com - All rights reserved
+        </p>
+        <div className="text-gray-400 text-sm text-center mt-2">
+          Developed By{" "}
+          <a
+            href="https://webfessional.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-blue-300 underline"
+          >
             WebFessional
           </a>
-          ).
           <span className="text-xs ml-2 text-gray-200">
             v.{publicRuntimeConfig.version}:
             {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.substring(0, 4)}
           </span>
-        </p>
+        </div>
 
         {/* <a
           href={"https://github.com/goffxnca"}
