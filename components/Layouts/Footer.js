@@ -81,7 +81,7 @@ const Footer = () => {
           Copyright &copy; 2022 PropKub.com - All rights reserved
         </p>
         <div className="text-gray-400 text-sm text-center mt-2">
-          Developed By{" "}
+          {/* Developed By{" "}
           <a
             href="https://webfessional.com"
             target="_blank"
@@ -89,7 +89,7 @@ const Footer = () => {
             className="text-blue-300 underline"
           >
             WebFessional
-          </a>
+          </a> */}
           <span className="text-xs ml-2 text-gray-200">
             v.{publicRuntimeConfig.version}:
             {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.substring(0, 4)}
