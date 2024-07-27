@@ -344,14 +344,14 @@ export const addNewPost = async (postData, user) => {
 
     debugger;
 
-    const response = await fetch("https://geolocation-db.com/json/");
-    const data = await response.json();
+    // const response = await fetch("https://geolocation-db.com/json/");
+    // const data = await response.json();
     const uInfo = {
       // ip: data.IPv4,
       // city: data.city,
       // lat: data.latitude,
       // lng: data.longitude,
-      ...data,
+      // ...data,
       ua: navigator?.userAgent || "N/A",
     };
 
