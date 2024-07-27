@@ -39,19 +39,19 @@ const ProfileForm = ({ profile }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [warningMessages, setWarningMessages] = useState([]);
 
-  const submitHandler = (data) => {
-    setSaving(true);
-    updateUserProfile(data, profile.id)
-      .then(() => {
-        const timer = setTimeout(() => {
-          setShowSuccessModal(true);
-          setSaving(false);
-          clearTimeout(timer);
-        }, 10000);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const submitHandler = async (data) => {
+    try {
+      console.log("Profile update initiated.");
+      setSaving(true);
+      await updateUserProfile(data, profile.id);
+      const timer = setTimeout(() => {
+        setShowSuccessModal(true);
+        setSaving(false);
+      }, 10000);
+      return () => clearTimeout(timer); // Cleanup function to clear the timeout
+    } catch (error) {
+      console.error("Profile update failed:", error);
+    }
   };
 
   useEffect(() => {

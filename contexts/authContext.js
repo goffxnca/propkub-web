@@ -47,7 +47,8 @@ const AuthContextProvider = ({ children }) => {
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          emailVerified: user.emailVerified,
+          // emailVerified: user.emailVerified,
+          emailVerified: user.emailVerified, //TODO: Change to true for testing, change back later
           phone: user.phoneNumber,
         };
 
