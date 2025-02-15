@@ -2,11 +2,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+1. Configure Firebase
+   Replicate `dotenv.sample` to `.env` file and enter all Firebase credentials, for development it targets `propkub-dev` Firebase project
+
+2. Run the development server:
 
 ```bash
-npm run dev
-# or
+yarn &&
 yarn dev
 ```
 
