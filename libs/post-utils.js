@@ -215,6 +215,12 @@ export const getAllPostsByUserId = async (userId) => {
   return posts;
 };
 
+export const countAllPosts = async () => {
+  const q = query(postsCollectionRef);
+  const postsDocs = await getDocs(q);
+  return postsDocs.size;
+};
+
 export const queryPostWithFilters = async ({
   postType,
   assetType,
