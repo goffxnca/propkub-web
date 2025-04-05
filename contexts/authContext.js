@@ -30,7 +30,7 @@ const initialContext = {
 const authContext = createContext(initialContext);
 
 const AuthContextProvider = ({ children }) => {
-  console.log("AuthContextProvider ran...");
+  // console.log("AuthContextProvider ran...");
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -77,7 +77,7 @@ const AuthContextProvider = ({ children }) => {
 
     return () => {
       unsubscriber();
-      console.log("UNMOUNTED AuthContextProvider");
+      // console.log("UNMOUNTED AuthContextProvider");
     };
   }, []);
 

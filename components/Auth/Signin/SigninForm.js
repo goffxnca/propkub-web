@@ -115,10 +115,11 @@ const SiginInForm = () => {
 
             <div className="text-sm text-center  mt-2">
               ยังไม่มีบัญชี?
-              <Link href="/signup">
-                <a className="text-primary hover:text-primary-hover ml-2">
-                  สมัครใช้งาน
-                </a>
+              <Link
+                href="/signup"
+                className="text-primary hover:text-primary-hover ml-2"
+              >
+                สมัครใช้งาน
               </Link>
             </div>
             {/* <div className="mt-6">

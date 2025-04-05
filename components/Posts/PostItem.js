@@ -61,17 +61,17 @@ const PostItem = ({
 
   return (
     <li className="w-full lg:w-1/2 p-2 group">
-      <Link href={postLink}>
-        <a
-          target="_blank"
-          rel="noopener noreferrer"
-          className="md:flex rounded-md bg-white shadow-md cursor-pointer transition-all group-hover:shadow-xl group-hover:bg-gray-50"
-        >
-          <div className="md:w-2/5 h-64 md:h-48 overflow-hidden rounded-md rounded-t-md md:rounded-none md:rounded-l-md relative">
-            <span className="absolute top-2 rounded-r-full bg-gray-lighter py-0.5 px-2 text-sm text-gray-hard z-20 shadow-md">
-              {postTypeFormat + assetTypeFormat}
-            </span>
-            {/* <Image
+      <Link
+        href={postLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="md:flex rounded-md bg-white shadow-md cursor-pointer transition-all group-hover:shadow-xl group-hover:bg-gray-50"
+      >
+        <div className="md:w-2/5 h-64 md:h-48 overflow-hidden rounded-md rounded-t-md md:rounded-none md:rounded-l-md relative">
+          <span className="absolute top-2 rounded-r-full bg-gray-lighter py-0.5 px-2 text-sm text-gray-hard z-20 shadow-md">
+            {postTypeFormat + assetTypeFormat}
+          </span>
+          {/* <Image
               src={thumbnail}
               alt={thumbnailAlt}
               className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md md:rounded-none"
@@ -80,48 +80,45 @@ const PostItem = ({
               layout="responsive"
             /> */}
 
-            <img
-              src={thumbnail}
-              alt={thumbnailAlt}
-              className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md md:rounded-none"
-            ></img>
-          </div>
+          <img
+            src={thumbnail}
+            alt={thumbnailAlt}
+            className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md md:rounded-none"
+          ></img>
+        </div>
 
-          <div className="md:w-3/5 p-2 md:relative">
-            <h3 className="text-gray-harder mb-2 overflow-x-hidden">{title}</h3>
+        <div className="md:w-3/5 p-2 md:relative">
+          <h3 className="text-gray-harder mb-2 overflow-x-hidden">{title}</h3>
 
-            <div className="md:absolute bottom-0 left-0 right-0">
-              <ul className="flex mb-2 ml-2">
-                {specsFormat.map((spec) => (
-                  <SpecItemWithCircle
-                    key={spec.id}
-                    Icon={spec.icon}
-                    label={spec.label}
-                  />
-                ))}
-              </ul>
+          <div className="md:absolute bottom-0 left-0 right-0">
+            <ul className="flex mb-2 ml-2">
+              {specsFormat.map((spec) => (
+                <SpecItemWithCircle
+                  key={spec.id}
+                  Icon={spec.icon}
+                  label={spec.label}
+                />
+              ))}
+            </ul>
 
-              <div className="border-t border-solid border-l-gray-light pl-2 pt-2 md:py-2">
-                <div className="flex items-center justify-between">
-                  <div className="text-primary mr-2">
-                    <span className="text-xl font-bold">
-                      ฿{priceWithFormat}
-                    </span>
-                    <span className="text-sm">{priceUnitFormat}</span>
-                  </div>
-
-                  <address className="not-italic">
-                    <SpecItemWithCircle
-                      Icon={LocationIcon}
-                      label={addressFormat}
-                      circle={false}
-                    />
-                  </address>
+            <div className="border-t border-solid border-l-gray-light pl-2 pt-2 md:py-2">
+              <div className="flex items-center justify-between">
+                <div className="text-primary mr-2">
+                  <span className="text-xl font-bold">฿{priceWithFormat}</span>
+                  <span className="text-sm">{priceUnitFormat}</span>
                 </div>
+
+                <address className="not-italic">
+                  <SpecItemWithCircle
+                    Icon={LocationIcon}
+                    label={addressFormat}
+                    circle={false}
+                  />
+                </address>
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </Link>
     </li>
   );

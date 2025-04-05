@@ -13,14 +13,9 @@ const Breadcrumbs = ({ items }) => {
       >
         <li className="flex">
           <div className="flex items-center">
-            <Link href={"/"}>
-              <a className="text-gray-400 hover:text-gray-500">
-                <HomeIcon
-                  className="h-5 w-5 flex-shrink-0"
-                  aria-hidden="true"
-                />
-                <span className="sr-only">Home</span>
-              </a>
+            <Link href={"/"} className="text-gray-400 hover:text-gray-500">
+              <HomeIcon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+              <span className="sr-only">Home</span>
             </Link>
           </div>
         </li>

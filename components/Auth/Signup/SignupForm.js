@@ -185,10 +185,11 @@ const SignupForm = () => {
 
             <div className="text-sm text-center  mt-2">
               มีบัญชีอยู่แล้ว?
-              <Link href="/login">
-                <a className="text-primary hover:text-primary-hover ml-2">
-                  เข้าสู่ระบบ
-                </a>
+              <Link
+                href="/login"
+                className="text-primary hover:text-primary-hover ml-2"
+              >
+                เข้าสู่ระบบ
               </Link>
             </div>
 
