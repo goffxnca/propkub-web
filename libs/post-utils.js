@@ -366,7 +366,6 @@ export const addNewPost = async (postData, user) => {
     const acceptInfo = {
       accept: postData.accept,
       acceptTerm: ACCEPT_POST_MSG,
-      allowShare: false,
     };
 
     const newPost = {

@@ -28,16 +28,6 @@ const ConfirmSection = ({ register, unregister, errors }) => {
                 error={errors.accept}
               />
             </div>
-
-            {/* <div className="col-span-6">
-              <CheckboxInput
-                id="allowShare"
-                label={ACCEPT_POST_FBSHARE}
-                register={() => register("allowShare", {})}
-                unregister={unregister}
-                error={errors.allowShare}
-              />
-            </div> */}
           </div>
         </div>
       </div>
