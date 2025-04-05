@@ -35,7 +35,7 @@ const AgentContactSection = ({
                 register={() =>
                   register("contactInfo.name", {
                     required: "กรุณาระบุชื่อผู้ประกาศ",
-                    minLength: { ...minLength(6, "ชื่อผู้ประกาศ") },
+                    minLength: { ...minLength(3, "ชื่อผู้ประกาศ") },
                     maxLength: { ...maxLength(30, "ชื่อผู้ประกาศ") },
                   })
                 }
