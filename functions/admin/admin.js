@@ -137,124 +137,6 @@ const adminGetPostById = functions.region(REGION).https.onCall(async (data) => {
   }
 });
 
-const adminMarkPostAsRequestedIndex = functions
-  .region(REGION)
-  .https.onCall(async (data) => {
-    const { postId } = data;
-    try {
-      if (!postId) {
-        throw new functions.https.HttpsError(
-          "invalid-argument",
-          `Post id is required`
-        );
-      }
-
-      const postDoc = await admin
-        .firestore()
-        .collection("/posts")
-        .doc(postId)
-        .get();
-
-      if (!postDoc.exists) {
-        throw new functions.https.HttpsError(
-          "not-found",
-          `Post id:${postId} not found`
-        );
-      }
-
-      const post = { postId, ...postDoc.data() };
-      const { slug, indexed } = post;
-
-      if (indexed) {
-        throw new functions.https.HttpsError(
-          "already-exists",
-          `Post id:${postId} is already indexed`
-        );
-      }
-
-      await addPostAction({
-        post: post,
-        actionName: "RequestIndex",
-        customEmailTemplateData: {
-          postUrl: `${SITE_DOMAIN}/property/${slug}?a=email&t=requested_index`,
-        },
-        addPostActionByAdmin: true,
-      });
-
-      const message = `Post id:${postId} is reqested for indexing successfully`;
-      functions.logger.info(message);
-
-      return {
-        status: "OK",
-        message,
-      };
-    } catch (error) {
-      functions.logger.error(error.message, { input: data });
-      throw error;
-    }
-  });
-
-const adminMarkPostAsIndexed = functions
-  .region(REGION)
-  .https.onCall(async (data) => {
-    const { postId } = data;
-    try {
-      if (!postId) {
-        throw new functions.https.HttpsError(
-          "invalid-argument",
-          `Post id is required`
-        );
-      }
-
-      const postDoc = await admin
-        .firestore()
-        .collection("/posts")
-        .doc(postId)
-        .get();
-
-      if (!postDoc.exists) {
-        throw new functions.https.HttpsError(
-          "not-found",
-          `Post id:${postId} not found`
-        );
-      }
-
-      const post = { postId, ...postDoc.data() };
-      const { slug, indexed } = post;
-
-      if (indexed) {
-        throw new functions.https.HttpsError(
-          "already-exists",
-          `Post id:${postId} is already indexed`
-        );
-      }
-
-      await admin.firestore().collection("/posts").doc(postId).update({
-        indexed: true,
-      });
-
-      await addPostAction({
-        post: post,
-        actionName: "MarkIndexed",
-        customEmailTemplateData: {
-          postUrl: `${SITE_DOMAIN}/property/${slug}?a=email&t=indexed`,
-        },
-        addPostActionByAdmin: true,
-      });
-
-      const message = `Post id:${postId} is marked as indexed successfully`;
-      functions.logger.info(message);
-
-      return {
-        status: "OK",
-        message,
-      };
-    } catch (error) {
-      functions.logger.error(error.message, { input: data });
-      throw error;
-    }
-  });
-
 const adminMarkPostAsFulfilled = functions
   .region(REGION)
   .https.onCall(async (data) => {
@@ -362,9 +244,7 @@ module.exports = {
   adminGetPostById,
   adminGetLatestTenPosts,
   adminGetPostsBySubStatus,
-  adminMarkPostAsRequestedIndex,
   adminGetPostsWithRequestedIndexMoreThan3Days,
-  adminMarkPostAsIndexed,
   adminMarkPostAsFulfilled,
   adminMarkPostAsClosed,
 };

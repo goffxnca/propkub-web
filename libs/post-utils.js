@@ -397,7 +397,6 @@ export const addNewPost = async (postData, user) => {
       refId: sanitizeHtml(postData.refId) || "",
       status: "active",
       postNumber: getUnixEpochTime(),
-      indexed: false,
       createdAt: serverTimestamp(),
       createdBy: {
         userId: user?.userId || "",

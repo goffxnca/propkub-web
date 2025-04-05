@@ -96,16 +96,6 @@ const MyPropertyList = ({ myPosts = [] }) => {
                 </div>
               ),
             },
-            // {
-            //   title: "ติด Google?",
-            //   field: "indexed",
-            //   resolver: (item) =>
-            //     item.indexed ? (
-            //       <CheckIcon className="w-6 h-6 text-green-600 font-extrabold" />
-            //     ) : (
-            //       <ClockIcon className="w-4 h-4" />
-            //     ),
-            // },
             {
               title: "สถานะ",
               field: "status",

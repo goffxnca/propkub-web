@@ -25,40 +25,6 @@ const POST_ACTION_FLOWS = [
     },
   },
   {
-    actionName: "RequestIndex",
-    actionLabel: "เรียก Google ประมวลผลประกาศ",
-    roles: ["admin"],
-    fromStatus: "active",
-    toStatus: "active",
-    fromSubStatus: "created",
-    toSubStatus: "requested_index",
-    email: {
-      requireSend: false,
-      templateId: EMAIL_POST_MOVEMENT,
-    },
-    notification: {
-      requireSend: true,
-      notificationLabel: "เรียก Google ประมวลผลประกาศ ({postNumber})",
-    },
-  },
-  {
-    actionName: "MarkIndexed",
-    actionLabel: "ประกาศติด Google",
-    roles: ["admin"],
-    fromStatus: "active",
-    toStatus: "active",
-    fromSubStatus: "requested_index",
-    toSubStatus: "indexed",
-    email: {
-      requireSend: true,
-      templateId: EMAIL_POST_MOVEMENT,
-    },
-    notification: {
-      requireSend: true,
-      notificationLabel: "ประกาศติด Google เรียบร้อย ({postNumber})",
-    },
-  },
-  {
     actionName: "UpdatePost",
     actionLabel: "อัพเดทรายละเอียดประกาศ",
     roles: ["agent", "admin"],
