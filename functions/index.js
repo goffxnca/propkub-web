@@ -15,8 +15,6 @@ const {
   adminGetLatestTenPosts,
   adminGetPostsBySubStatus,
   adminGetPostById,
-  adminMarkPostAsIndexed,
-  adminMarkPostAsRequestedIndex,
   adminGetPostsWithRequestedIndexMoreThan3Days,
   adminMarkPostAsFulfilled,
   adminMarkPostAsClosed,
@@ -606,8 +604,6 @@ exports.sendEmailToUser = functions
 exports.adminGetLatestTenPosts = adminGetLatestTenPosts;
 exports.adminGetPostsBySubStatus = adminGetPostsBySubStatus;
 exports.adminGetPostById = adminGetPostById;
-exports.adminMarkPostAsIndexed = adminMarkPostAsIndexed;
-exports.adminMarkPostAsRequestedIndex = adminMarkPostAsRequestedIndex;
 exports.adminGetPostsWithRequestedIndexMoreThan3Days =
   adminGetPostsWithRequestedIndexMoreThan3Days;
 exports.adminMarkPostAsFulfilled = adminMarkPostAsFulfilled;

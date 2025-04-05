@@ -16,18 +16,6 @@ const postActions = [
     iconBackground: "green",
   },
   {
-    id: "RequestIndex",
-    label: "เรียก Google ประมวลผลประกาศ",
-    icon: GlobeAltIcon,
-    iconBackground: "green",
-  },
-  {
-    id: "MarkIndexed",
-    label: "ประกาศติด Google",
-    icon: SearchIcon,
-    iconBackground: "green",
-  },
-  {
     id: "UpdatePost",
     label: "อัพเดทรายละเอียดประกาศ",
     icon: PencilIcon,
