@@ -10,9 +10,7 @@ const sendEmail = async ({
   to,
 }) => {
   functions.logger.info("sendEmail Called with immediate return");
-  sgMail.setApiKey(
-    "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"
-  ); //put in env later
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
     to, //dynamic later
