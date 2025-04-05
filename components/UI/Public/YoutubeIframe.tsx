@@ -1,10 +1,14 @@
 import { getYoutubeVideoId } from "../../../libs/string-utils";
 import styles from "./YoutubeIframe.module.css";
 
-const YoutubeIframe = ({ youtubeUrl = "" }) => {
+interface YoutubeIframeProps {
+  youtubeUrl?: string;
+}
+
+const YoutubeIframe: React.FC<YoutubeIframeProps> = ({ youtubeUrl = "" }) => {
   const youtubeVideoId = getYoutubeVideoId(youtubeUrl);
 
-  if (!youtubeVideoId) return;
+  if (!youtubeVideoId) return null;
 
   return (
     <div className={styles.iframeContainer}>
@@ -22,4 +26,4 @@ const YoutubeIframe = ({ youtubeUrl = "" }) => {
   );
 };
 
-export default YoutubeIframe;
+export default YoutubeIframe; 
