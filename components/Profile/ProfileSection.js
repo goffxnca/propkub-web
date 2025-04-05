@@ -43,7 +43,7 @@ const ProfileSection = ({
                 register={() =>
                   register("name", {
                     required: "กรุณาระบุชื่อ",
-                    minLength: { ...minLength(6, "ชื่อ") },
+                    minLength: { ...minLength(3, "ชื่อ") },
                     maxLength: { ...maxLength(30, "ชื่อ") },
                   })
                 }
