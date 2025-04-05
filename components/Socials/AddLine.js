@@ -1,4 +1,4 @@
-import LineIcon from "../Icons/LineIcon";
+import LineIcon from "../../components/Icons/LineIcon";
 const AddLine = () => {
   return (
     <div className="fixed bg-[#01B902] bottom-0 right-0 z-40 rounded-tl-md cursor-pointer">
