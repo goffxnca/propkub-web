@@ -4,10 +4,8 @@ import { forwardRef } from "react";
 const MenuLinkItem = forwardRef((props, ref) => {
   let { href, children, onClick, ...rest } = props;
   return (
-    <Link href={href}>
-      <a ref={ref} {...rest} onClick={onClick}>
-        {children}
-      </a>
+    <Link href={href} ref={ref} {...rest} onClick={onClick}>
+      {children}
     </Link>
   );
 });

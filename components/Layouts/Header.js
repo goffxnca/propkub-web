@@ -246,17 +246,19 @@ const Header = () => {
                 </a>
               </Link> */}
 
-              <Link href="/">
-                <a className="text-base font-medium text-gray-500 hover:text-gray-900">
-                  หน้าแรก
-                </a>
+              <Link
+                href="/"
+                className="text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                หน้าแรก
               </Link>
 
               {!isAgent && (
-                <Link href="/login">
-                  <a className="text-base font-medium text-gray-500 hover:text-gray-900">
-                    ลงประกาศฟรี
-                  </a>
+                <Link
+                  href="/login"
+                  className="text-base font-medium text-gray-500 hover:text-gray-900"
+                >
+                  ลงประกาศฟรี
                 </Link>
               )}
 
@@ -270,10 +272,11 @@ const Header = () => {
                   คำถามที่พบบ่อย
                 </a>
               </Link> */}
-              <Link href="/contact">
-                <a className="text-base font-medium text-gray-500 hover:text-gray-900">
-                  ติดต่อเรา
-                </a>
+              <Link
+                href="/contact"
+                className="text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                ติดต่อเรา
               </Link>
               {/* 
               <Link href="/house">
@@ -304,19 +307,18 @@ const Header = () => {
           {/* Desktop actions */}
           {!loading && !isAuthenticated && (
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-              <Link href="/login">
-                <a className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                  เข้าสู่ระบบ
-                </a>
+              <Link
+                href="/login"
+                className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                เข้าสู่ระบบ
               </Link>
 
-              <Link href="/signup">
-                <a className="ml-8 whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                  สมัครใช้งาน
-                </a>
-                {/* <a className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-primary-hover">
-                  สมัครใช้งาน
-                </a> */}
+              <Link
+                href="/signup"
+                className="ml-8 whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
+              >
+                สมัครใช้งาน
               </Link>
             </div>
           )}
@@ -508,26 +510,25 @@ const Header = () => {
                       {mobileMenus.map((item, idx) => (
                         <div key={item.name}>
                           <li className="list-none">
-                            <Link href={item.href}>
-                              <a
-                                className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                                // onClick={close}
-                                onClick={(e) => {
-                                  close();
-                                  if (item.onClick) {
-                                    e.preventDefault();
-                                    item.onClick();
-                                  }
-                                }}
-                              >
-                                <item.icon
-                                  className="flex-shrink-0 h-6 w-6 text-indigo-600"
-                                  aria-hidden="true"
-                                />
-                                <span className="ml-3 text-base font-medium text-gray-900">
-                                  {item.name}
-                                </span>
-                              </a>
+                            <Link
+                              href={item.href}
+                              className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                              // onClick={close}
+                              onClick={(e) => {
+                                close();
+                                if (item.onClick) {
+                                  e.preventDefault();
+                                  item.onClick();
+                                }
+                              }}
+                            >
+                              <item.icon
+                                className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                                aria-hidden="true"
+                              />
+                              <span className="ml-3 text-base font-medium text-gray-900">
+                                {item.name}
+                              </span>
                             </Link>
                           </li>
                           {item.lineBreak && mobileMenus.length - idx > 1 && (
@@ -543,22 +544,20 @@ const Header = () => {
               {!loading && !isAuthenticated && (
                 <div className="py-6 px-5 space-y-6">
                   <div className="flex gap-4">
-                    <Link href="/signup">
-                      <a
-                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-primary-hover"
-                        onClick={close}
-                      >
-                        สมัครใช้งาน
-                      </a>
+                    <Link
+                      href="/signup"
+                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-primary-hover"
+                      onClick={close}
+                    >
+                      สมัครใช้งาน
                     </Link>
 
-                    <Link href="/login">
-                      <a
-                        className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-accent hover:bg-accent-hover"
-                        onClick={close}
-                      >
-                        เข้าสู่ระบบ
-                      </a>
+                    <Link
+                      href="/login"
+                      className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-accent hover:bg-accent-hover"
+                      onClick={close}
+                    >
+                      เข้าสู่ระบบ
                     </Link>
                   </div>
                 </div>

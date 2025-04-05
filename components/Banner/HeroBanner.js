@@ -15,10 +15,11 @@ const HeroBanner = () => {
           ลงประกาศได้ฟรีโดยไม่ต้องสมัครสมาชิก
         </p>
 
-        <Link href="/createpost">
-          <a className="mt-8 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-indigo-600 hover:bg-indigo-50 sm:w-auto">
-            ลงประกาศเลย
-          </a>
+        <Link
+          href="/createpost"
+          className="mt-8 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-indigo-600 hover:bg-indigo-50 sm:w-auto"
+        >
+          ลงประกาศเลย
         </Link>
       </div>
     </div>

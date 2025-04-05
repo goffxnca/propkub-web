@@ -18,14 +18,11 @@ const PostByRegion = ({
             {/* lock this PostsByRegion to be type sell & location type province for now */}
             <Link
               href={`/${assetId}/spv${province.id}/${assetName}-${province.name}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500"
             >
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500"
-              >
-                <h3>{province.name}</h3>
-              </a>
+              <h3>{province.name}</h3>
             </Link>
           </li>
         ))}

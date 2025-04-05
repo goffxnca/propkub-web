@@ -88,14 +88,13 @@ const LandPostsByLocation = ({
           <ul className="flex w-full flex-wrap">
             {subLocations.map((subLocation) => (
               <li key={subLocation.id} className="mx-2">
-                <Link href={subLocation.href}>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-500"
-                  >
-                    {subLocation.name}
-                  </a>
+                <Link
+                  href={subLocation.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-500"
+                >
+                  {subLocation.name}
                 </Link>
               </li>
             ))}
