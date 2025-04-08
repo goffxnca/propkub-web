@@ -1,4 +1,6 @@
-const HouseLaptopIcon = ({ className }) => {
+import { IconProps } from "./types";
+
+const HouseLaptopIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,12 @@
 import { SpeakerphoneIcon, XIcon } from "@heroicons/react/outline";
 
-export default function Banner({ onAction, onClose, message }) {
+interface BannerProps {
+  onAction?: () => void;
+  onClose?: () => void;
+  message: string;
+}
+
+const Banner = ({ onAction, onClose, message }: BannerProps) => {
   return (
     <>
       <div className="bg-primary">
@@ -37,4 +43,6 @@ export default function Banner({ onAction, onClose, message }) {
       </div>
     </>
   );
-}
+};
+
+export default Banner;
