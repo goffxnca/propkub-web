@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 const posts = [
   {
     title: "Boost your conversion rate",
