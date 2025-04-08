@@ -1,4 +1,6 @@
-const SpinnerIcon = ({ className }) => {
+import { IconProps } from './types';
+
+const SpinnerIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

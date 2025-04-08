@@ -1,9 +1,11 @@
-const UserIcon = ({ className }) => {
+import { IconProps } from "./types";
+
+const UserIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 448 512"
-      className={`w-20 h-20 text-gray-500 m-32`}
+      className={`w-4 h-4 ${className}`}
     >
       <path
         fill="currentColor"

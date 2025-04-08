@@ -1,4 +1,6 @@
-const DumbbellIcon = ({ className }) => {
+import { IconProps } from './types';
+
+const DumbbellIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

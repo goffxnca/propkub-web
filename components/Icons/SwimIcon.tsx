@@ -1,4 +1,6 @@
-const SwimIcon = ({ className }) => {
+import { IconProps } from './types';
+
+const SwimIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

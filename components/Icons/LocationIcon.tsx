@@ -1,4 +1,6 @@
-const LocationIcon = ({ className }) => {
+import { IconProps } from './types';
+
+const LocationIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

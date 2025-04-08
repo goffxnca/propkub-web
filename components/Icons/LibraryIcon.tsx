@@ -1,4 +1,6 @@
-const BedIcon = ({ className }) => {
+import { IconProps } from './types';
+
+const LibraryIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,4 +15,4 @@ const BedIcon = ({ className }) => {
   );
 };
 
-export default BedIcon;
+export default LibraryIcon;
