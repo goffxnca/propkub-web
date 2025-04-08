@@ -1,4 +1,6 @@
-const VanIcon = ({ className }) => {
+import { IconProps } from "./types";
+
+const VanIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
