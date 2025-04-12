@@ -8,9 +8,36 @@ import {
   SearchIcon,
 } from "@heroicons/react/outline";
 import { joinClasses } from "../../libs/utils/style-utils";
+import React, { SVGProps } from "react";
 
-const Stats = ({ myPosts }) => {
-  const stats = [
+interface Post {
+  postViews?: number;
+  phoneViews?: number;
+  lineViews?: number;
+}
+
+interface Link {
+  href: string;
+  caption: string;
+}
+
+interface StatItem {
+  id: number;
+  name: string;
+  stat: number;
+  icon: (props: any) => React.ReactElement;
+  change: string;
+  changeType: "increase" | "decrease";
+  note?: string;
+  link?: Link;
+}
+
+interface StatsProps {
+  myPosts: Post[];
+}
+
+const Stats = ({ myPosts }: StatsProps) => {
+  const stats: StatItem[] = [
     {
       id: 1,
       name: "ประกาศของฉันทั้งหมด",

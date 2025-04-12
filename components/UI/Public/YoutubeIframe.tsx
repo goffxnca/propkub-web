@@ -5,7 +5,7 @@ interface YoutubeIframeProps {
   youtubeUrl?: string;
 }
 
-const YoutubeIframe: React.FC<YoutubeIframeProps> = ({ youtubeUrl = "" }) => {
+const YoutubeIframe = ({ youtubeUrl = "" }: YoutubeIframeProps) => {
   const youtubeVideoId = getYoutubeVideoId(youtubeUrl);
 
   if (!youtubeVideoId) return null;
