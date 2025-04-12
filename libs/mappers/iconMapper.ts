@@ -38,7 +38,13 @@ import MailboxIcon from "../../components/Icons/Mailbox";
 import ChairIcon from "../../components/Icons/ChairIcon";
 import EatIcon from "../../components/Icons/EatIcon";
 
-const icons = {
+type IconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
+
+interface Icons {
+  [key: string]: IconComponent;
+}
+
+const icons: Icons = {
   location: LocationIcon,
   studio: StudioRoomIcon,
   beds: BedIcon,
@@ -87,7 +93,7 @@ const icons = {
   table3: ChairIcon,
 };
 
-const getIcon = (iconName) => {
+const getIcon = (iconName: string): IconComponent => {
   return icons[iconName] ?? LocationIcon;
 };
 
