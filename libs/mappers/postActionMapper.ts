@@ -7,8 +7,9 @@ import {
   LockClosedIcon,
   GlobeAltIcon,
 } from "@heroicons/react/solid";
+import { PostAction } from "../../src/types/misc/postAction";
 
-const postActions = [
+const postActions: PostAction[] = [
   {
     id: "CreatePost",
     label: "สร้างประกาศ",
@@ -40,8 +41,9 @@ const postActions = [
     iconBackground: "gray",
   },
 ];
-const getPostActionById = (postActionId) => {
-  return postActions.find((p) => p.id === postActionId) || {};
+
+const getPostActionById = (postActionId: string): PostAction => {
+  return postActions.find((p) => p.id === postActionId);
 };
 
 export { getPostActionById };
