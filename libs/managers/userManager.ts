@@ -13,10 +13,11 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { uploadFileToStorage } from "../utils/file-utils";
+import { User, UserProfile } from "../../src/types/user";
 
 const usersCollectionRef = collection(db, "users");
 
-const getUserById = async (userId) => {
+const getUserById = async (userId: string): Promise<User> => {
   const docRef = doc(usersCollectionRef, userId);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
@@ -24,10 +25,10 @@ const getUserById = async (userId) => {
     id: docSnap.id,
     ...data,
     createdAt: new Date().toLocaleString("th"),
-  };
+  } as User;
 };
 
-const updateUserProfile = async (userProfile, userId) => {
+const updateUserProfile = async (userProfile: UserProfile, userId: string): Promise<void> => {
   const docRef = doc(usersCollectionRef, userId);
   const docId = docRef.id;
   const file = userProfile.profileImg.fileData;
