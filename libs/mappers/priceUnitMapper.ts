@@ -1,4 +1,7 @@
-const timeMatricUnits = [
+import { getAllAreaUnits } from "./areaUnitMapper";
+import { PriceUnit, PricePerUnitMapping } from '../../src/types/misc/priceUnit';
+
+const timeMatricUnits: PriceUnit[] = [
   { id: "year", label: "ปี" },
   { id: "month", label: "เดือน" },
   { id: "week", label: "สัปดาห์" },
@@ -7,9 +10,7 @@ const timeMatricUnits = [
 
 const areaMatricUnits = getAllAreaUnits();
 
-import { getAllAreaUnits } from "./areaUnitMapper";
-
-const pricePerUnitMapping = [
+const pricePerUnitMapping: PricePerUnitMapping[] = [
   { assetType: "condo", postType: "sale", units: [] },
   { assetType: "condo", postType: "rent", units: [...timeMatricUnits] },
   { assetType: "townhome", postType: "sale", units: [] },
@@ -22,14 +23,14 @@ const pricePerUnitMapping = [
   { assetType: "land", postType: "rent", units: [...areaMatricUnits] },
 ];
 
-const getPriceUnit = (priceUnit) => {
+const getPriceUnit = (priceUnit: string): string => {
   return (
     timeMatricUnits.concat(areaMatricUnits).find((p) => p.id === priceUnit)
       ?.label ?? "N/A"
   );
 };
 
-const getPriceUnitList = (assetType, postType) => {
+const getPriceUnitList = (assetType: string, postType: string): PriceUnit[] => {
   return (
     pricePerUnitMapping.find(
       (p) => p.assetType === assetType && p.postType === postType
