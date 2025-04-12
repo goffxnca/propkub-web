@@ -5,7 +5,7 @@ import {
   GetNotificationsResponse,
   ReadNotificationParams,
   ReadNotificationResponse,
-} from "../../src/types/Notification";
+} from "../../src/types/models/notification";
 
 const getNotifications = async ({
   userId,

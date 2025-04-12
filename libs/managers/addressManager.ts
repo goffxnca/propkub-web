@@ -12,7 +12,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import { Province, District, SubDistrict, LocationBreadcrumb } from "../../src/types/address";
+import { Province, District, SubDistrict, LocationBreadcrumb } from "../../src/types/models/address";
 
 const provincesCollectionRef = collection(db, "provinces");
 const districtsCollectionRef = collection(db, "districts");

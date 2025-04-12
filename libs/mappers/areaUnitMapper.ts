@@ -1,4 +1,4 @@
-import { AreaUnit } from "../../src/types/areaUnit";
+import { AreaUnit } from "../../src/types/misc/areaUnit";
 
 const areaUnits: AreaUnit[] = [
   { id: "whole", label: "ยกแปลง", ignorePrefix: true },

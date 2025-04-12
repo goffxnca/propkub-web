@@ -1,6 +1,6 @@
 import { collection, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
-import { Counter } from "../../src/types/counter";
+import { Counter } from "../../src/types/models/counter";
 
 const counterCollectionRef = collection(db, "counters");
 

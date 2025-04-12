@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
-import { Migration, MigrationResult } from "../../src/types/migration";
+import { Migration, MigrationResult } from "../../src/types/models/_migration";
 
 const migrationsCollectionRef = collection(db, "_migrations");
 

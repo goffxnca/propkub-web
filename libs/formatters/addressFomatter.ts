@@ -1,4 +1,4 @@
-import { Address } from '../../src/types/address';
+import { Address } from '../../src/types/models/address';
 
 const formatAddress = (address: Address): string => {
   const { provinceLabel, districtLabel, subDistrictLabel } = address;

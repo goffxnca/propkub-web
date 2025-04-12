@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { uploadFileToStorage } from "../utils/file-utils";
-import { User, UserProfile } from "../../src/types/user";
+import { User, UserProfile } from "../../src/types/models/user";
 
 const usersCollectionRef = collection(db, "users");
 

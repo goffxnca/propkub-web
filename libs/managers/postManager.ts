@@ -1,6 +1,6 @@
 import { httpsCallable, HttpsCallableResult } from "firebase/functions";
 import { firebaseFunctions } from "../firebase";
-import { GetPostViewResponse, IncreaseViewResponse } from "../../src/types/Post";
+import { GetPostViewResponse, IncreaseViewResponse } from "../../src/types/models/post";
 
 const getPostView = async (postId: string): Promise<GetPostViewResponse> => {
   const getPostViewRef = httpsCallable(firebaseFunctions, "getPostView");
