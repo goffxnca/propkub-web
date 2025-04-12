@@ -5,7 +5,7 @@ import {
   GetPostActionsResponse,
   AdminMarkPostAsFulfilledParams,
   AdminMarkPostAsFulfilledResponse,
-} from "../../src/types/postAction";
+} from "../../src/types/models/postAction";
 
 const getPostActions = async (
   postId: string
