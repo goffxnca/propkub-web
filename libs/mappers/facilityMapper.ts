@@ -1,4 +1,6 @@
-const facilities = [
+import { Facility, FacilitiesObject } from '../../src/types/misc/facility';
+
+const facilities: Facility[] = [
   { id: "ac", label: "แอร์" },
   { id: "wardrobe", label: "ตู้เสื้อผ้า" },
   { id: "sofa", label: "โซฟา" },
@@ -40,27 +42,27 @@ const facilities = [
   { id: "commercial", label: "ค้าขายได้", forLand: true },
 ];
 
-const getFacility = (facilityId) => {
+const getFacility = (facilityId: string): string => {
   return facilities.find((f) => f.id === facilityId)?.label ?? "N/A";
 };
 
-const getFacilityArray = (facilitiesObject) => {
-  const facilityArray = [];
+const getFacilityArray = (facilitiesObject: FacilitiesObject): Facility[] => {
+  const facilityArray: string[] = [];
   for (const [key, value] of Object.entries(facilitiesObject)) {
     if (value) {
       facilityArray.push(key);
     }
   }
-  return facilityArray.map((facilityArrayItem) =>
-    facilities.find((facility) => facility.id === facilityArrayItem)
-  );
+  return facilityArray
+    .map((facilityArrayItem) => facilities.find((facility) => facility.id === facilityArrayItem))
+    .filter((facility): facility is Facility => facility !== undefined);
 };
 
-const getLandFacilities = () => {
+const getLandFacilities = (): Facility[] => {
   return facilities.filter((f) => f.forLand);
 };
 
-const getNonLandFacilities = () => {
+const getNonLandFacilities = (): Facility[] => {
   return facilities.filter((f) => !f.forLand);
 };
 
