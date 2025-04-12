@@ -1,3 +1,4 @@
+import { IconComponent } from "../../src/types/misc/iconComponent";
 import LocationIcon from "../../components/Icons/LocationIcon";
 import BedIcon from "../../components/Icons/BedIcon";
 import BathIcon from "../../components/Icons/BathIcon";
@@ -37,8 +38,6 @@ import StudioRoomIcon from "../../components/Icons/StudioRoomIcon";
 import MailboxIcon from "../../components/Icons/Mailbox";
 import ChairIcon from "../../components/Icons/ChairIcon";
 import EatIcon from "../../components/Icons/EatIcon";
-
-type IconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
 
 interface Icons {
   [key: string]: IconComponent;
