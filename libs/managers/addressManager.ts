@@ -12,6 +12,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import { Province, District, SubDistrict, LocationBreadcrumb } from "../../src/types/address";
 
 const provincesCollectionRef = collection(db, "provinces");
 const districtsCollectionRef = collection(db, "districts");
@@ -22,11 +23,11 @@ const subDistrictsCollectionRef = collection(db, "subDistricts");
 // import districts from "../../data/districts.json";
 // import subDistricts from "../../data/subDistricts.json";
 
-const provinces = [];
-const districts = [];
-const subDistricts = [];
+const provinces: Province[] = [];
+const districts: District[] = [];
+const subDistricts: SubDistrict[] = [];
 
-const seedProvinces = async () => {
+const seedProvinces = async (): Promise<void> => {
   return;
   provinces.forEach(async (province) => {
     const result = await setDoc(doc(provincesCollectionRef, province.id), {
@@ -37,7 +38,7 @@ const seedProvinces = async () => {
   });
 };
 
-const seedDistricts = async () => {
+const seedDistricts = async (): Promise<void> => {
   return;
   districts.forEach(async (district) => {
     const result = await setDoc(doc(districtsCollectionRef, district.id), {
@@ -48,7 +49,7 @@ const seedDistricts = async () => {
   });
 };
 
-const seedSubDistricts = async () => {
+const seedSubDistricts = async (): Promise<void> => {
   return;
   subDistricts.forEach(async (subDistrict) => {
     const result = await setDoc(
@@ -62,21 +63,21 @@ const seedSubDistricts = async () => {
   });
 };
 
-const getAllProvinces = async () => {
+const getAllProvinces = async (): Promise<Province[]> => {
   const q = query(provincesCollectionRef, orderBy("name"));
 
   const provincesDocs = await getDocs(q);
-  const provinces = [];
+  const provinces: Province[] = [];
   provincesDocs.forEach((doc) => {
     provinces.push({
       ...doc.data(),
       id: doc.id,
-    });
+    } as Province);
   });
   return provinces;
 };
 
-const getAllProvincesByRegionId = async (regionId) => {
+const getAllProvincesByRegionId = async (regionId: string): Promise<Province[]> => {
   const q = query(
     provincesCollectionRef,
     where("regionId", "==", regionId),
@@ -84,17 +85,17 @@ const getAllProvincesByRegionId = async (regionId) => {
   );
 
   const provincesDocs = await getDocs(q);
-  const provinces = [];
+  const provinces: Province[] = [];
   provincesDocs.forEach((doc) => {
     provinces.push({
       ...doc.data(),
       id: doc.id,
-    });
+    } as Province);
   });
   return provinces;
 };
 
-const getAllDistrictsByProvinceId = async (provinceId) => {
+const getAllDistrictsByProvinceId = async (provinceId: string): Promise<District[]> => {
   const q = query(
     districtsCollectionRef,
     where("provinceId", "==", provinceId),
@@ -102,17 +103,17 @@ const getAllDistrictsByProvinceId = async (provinceId) => {
   );
 
   const districtsDocs = await getDocs(q);
-  const districts = [];
+  const districts: District[] = [];
   districtsDocs.forEach((doc) => {
     districts.push({
       ...doc.data(),
       id: doc.id,
-    });
+    } as District);
   });
   return districts;
 };
 
-const getAllSubDistrictsByDistrictId = async (districtId) => {
+const getAllSubDistrictsByDistrictId = async (districtId: string): Promise<SubDistrict[]> => {
   const q = query(
     subDistrictsCollectionRef,
     where("districtId", "==", districtId),
@@ -120,51 +121,50 @@ const getAllSubDistrictsByDistrictId = async (districtId) => {
   );
 
   const subDistrictsDocs = await getDocs(q);
-  const subDistricts = [];
+  const subDistricts: SubDistrict[] = [];
   subDistrictsDocs.forEach((doc) => {
     subDistricts.push({
       ...doc.data(),
       id: doc.id,
-    });
+    } as SubDistrict);
   });
   return subDistricts;
 };
 
-const getProvinceById = async (id) => {
+const getProvinceById = async (id: string): Promise<Province> => {
   const docRef = doc(provincesCollectionRef, id);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   return {
     id: docSnap.id,
     ...data,
-  };
+  } as Province;
 };
 
-const getDistrictById = async (id) => {
+const getDistrictById = async (id: string): Promise<District> => {
   const docRef = doc(districtsCollectionRef, id);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   return {
     id: docSnap.id,
     ...data,
-  };
+  } as District;
 };
 
-const getSubdistrictById = async (id) => {
+const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
   const docRef = doc(subDistrictsCollectionRef, id);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
   return {
     id: docSnap.id,
     ...data,
-  };
+  } as SubDistrict;
 };
 
-const getBreadcrumbs = async (locationtId, locationType) => {
-  let breadcrumbs = [];
+const getBreadcrumbs = async (locationtId: string, locationType: 'pv' | 'dt' | 'sd'): Promise<LocationBreadcrumb[]> => {
+  let breadcrumbs: LocationBreadcrumb[] = [];
 
   if (locationType === "sd") {
-    debugger;
     const subdistrict = await getSubdistrictById(locationtId);
     breadcrumbs.unshift({ ...subdistrict, type: "sd" });
 
