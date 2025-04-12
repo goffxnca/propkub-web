@@ -12,12 +12,12 @@ import {
   getNonLandFacilities,
 } from "../../../libs/mappers/facilityMapper";
 import TextWithUnitInput from "../../UI/Public/Inputs/TextWithUnitInput";
-import { getDropwnOptions } from "../../../libs/mappers/dropdownOptionsMapper";
+import { getDropdownOptions } from "../../../libs/mappers/dropdownOptionsMapper";
 import { useEffect, useMemo } from "react";
 import TextEditorInput from "../../UI/Public/Inputs/TextEditorInput";
 import CheckboxInput from "../../UI/Public/Inputs/CheckboxInput";
 
-const genericDropdownItems = getDropwnOptions(5);
+const genericDropdownItems = getDropdownOptions(5);
 
 const BasicSection = ({
   register,
