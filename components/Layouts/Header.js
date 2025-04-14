@@ -195,7 +195,7 @@ const Header = () => {
 
   return (
     <Popover className="relative bg-white shadow-sm">
-      {bannerActive && <Banner onClose={closeHeaderBannerHandler} />}
+      {/* {bannerActive && <Banner onClose={closeHeaderBannerHandler} />} */}
       <div className="mx-auto ">
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-4 md:justify-start md:space-x-10 px-4 sm:px-6">
           {/* Logo */}
