@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Banner from "../Banner/Banner";
-import AddLine from "../Socials/AddLine";
 import Footer from "./Footer";
 import Header from "./Header";
 import { ReactNode } from "react";
@@ -29,11 +28,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           }
         />
       )} */}
-      <Banner
+      {/* <Banner
         message={
           "Propkub กำลังปรับปรุงระบบใหม่ เพื่อเพิ่มความปลอดภัย และช่วยให้การลงประกาศของคุณ เร็วขึ้นและง่ายขึ้น ในวันที่ 18 พฤษภาคม 2568 คุณจะได้รับอีเมลสำหรับตั้งรหัสผ่านใหม่ เพื่อใช้งานระบบล็อกอินเวอร์ชันใหม่ — หลังจากตั้งรหัสผ่านเรียบร้อย คุณจะสามารถใช้งานเว็บไซต์ได้ตามปกติ พร้อมทั้งสัมผัสประสบการณ์การโพสต์ประกาศด้วย AI อัจฉริยะรูปแบบใหม่"
         }
-      />
+      /> */}
 
       <Header />
       <main className="min-h-screen py-4">{children}</main>
