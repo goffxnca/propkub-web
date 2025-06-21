@@ -34,9 +34,6 @@ const SignupForm = () => {
     clearError();
   }, []);
 
-  // if (loading) return <div>Auth Loading...</div>;
-  // if (error) return <div>Error: {error}</div>;
-
   const roleItems = [
     // {
     //   id: "normal",

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { authContext } from "../../../contexts/authContext";
 
@@ -20,12 +20,15 @@ const SiginInForm = () => {
     formState: { errors },
   } = useForm();
 
-  const { signin, loading, error } = useContext(authContext);
+  const { signin, loading, error, clearError } = useContext(authContext);
+
+  useEffect(() => {
+    clearError();
+  }, []);
 
   const submitHandler = (data) => {
     signin(data.email, data.password);
   };
-
 
   return (
     <>
