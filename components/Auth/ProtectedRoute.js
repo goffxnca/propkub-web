@@ -4,20 +4,20 @@ import { authContext } from "../../contexts/authContext";
 import Loader from "../UI/Common/modals/Loader";
 
 const ProtectedRoute = ({ children, redirectTo = "/" }) => {
-  const { loading, isAuthenticated } = useContext(authContext);
+  const { initializing, isAuthenticated } = useContext(authContext);
   const router = useRouter();
 
   useEffect(() => {
-    if (!loading && !isAuthenticated) {
+    if (!initializing && !isAuthenticated) {
       console.log(
         "[Auth-Protected] User not authenticated, redirecting to:",
         redirectTo
       );
       router.push(redirectTo);
     }
-  }, [loading, isAuthenticated, router, redirectTo]);
+  }, [initializing, isAuthenticated, router, redirectTo]);
 
-  if (loading) {
+  if (initializing || !isAuthenticated) {
     return <Loader />;
   }
 
