@@ -1,11 +1,12 @@
 import Head from "next/head";
 import SignupForm from "../components/Auth/Signup/SignupForm";
 import AuthLayout from "../components/Layouts/AuthLayout";
+import GuestOnlyRoute from "../components/Auth/GuestOnlyRoute";
 import { BASE_SITE_URL } from "../libs/constants";
 import { genPageTitle } from "../libs/seo-utils";
 
 const SignupPage = () => (
-  <>
+  <GuestOnlyRoute>
     <Head>
       <title>{genPageTitle("ลงทะเบียนใช้งาน")}</title>
       <meta
@@ -15,7 +16,7 @@ const SignupPage = () => (
       <link rel="canonical" href={BASE_SITE_URL + "/signup"} />
     </Head>
     <SignupForm />
-  </>
+  </GuestOnlyRoute>
 );
 
 export default SignupPage;

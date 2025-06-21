@@ -1,24 +1,8 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
-import { useContext } from "react";
-import { authContext } from "../../contexts/authContext";
 import Logo from "./Logo";
 
 const AuthLayout = ({ children }) => {
-  const router = useRouter();
-  const { isAuthenticated, isAgent, isNormalUser } = useContext(authContext);
-
-  // if (loading) {
-  //   return <div>MAN GO BACK TO HOMEPAGE NOW1</div>;
-  // }
-
-  if (isAuthenticated) {
-    if (isAgent) {
-      router.replace("/profile");
-    } else if (isNormalUser) {
-      router.replace("/");
-    }
-  }
+  // Auth redirection is now handled by GuestOnlyRoute component
 
   return (
     <div className="relative  w-screen h-screen">
