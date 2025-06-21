@@ -11,6 +11,7 @@ import { getNotifications } from "../libs/managers/notificationManager";
 import { getFirebaseErrorLabel } from "../libs/mappers/firebaseErrorCodeMapper";
 import { apiClient } from "../lib/api/client";
 import { tokenManager } from "../lib/api/tokenManager";
+import { t } from "../lib/utils/translator";
 
 const initialContext = {
   user: null,
@@ -85,7 +86,7 @@ const AuthContextProvider = ({ children }) => {
       setLoading(false);
       
     } catch (error) {
-      const errorMessage = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+      const errorMessage = t(error.message);
       setError(errorMessage);
       setLoading(false);
       console.error("[Auth] Login failed:", error.message);
@@ -113,7 +114,7 @@ const AuthContextProvider = ({ children }) => {
       setLoading(false);
 
     } catch (error) {
-      const errorMessage = error.message || "ข้อมูลการลงทะเบียนไม่ถูกต้อง";
+      const errorMessage = t(error.message);
       setError(errorMessage);
       setLoading(false);
       console.error("[Auth] Signup failed:", error.message);
