@@ -22,6 +22,7 @@ const initialContext = {
   signin: (email, password) => {},
   signup: (email, password, role) => {},
   signout: (redirectTo) => {},
+  initializing: false,
   loading: false,
   notifications: [],
   markNotificationAsRead: (notificationId) => {},
@@ -34,7 +35,8 @@ const authContext = createContext(initialContext);
 const AuthContextProvider = ({ children }) => {
   // console.log("AuthContextProvider ran...");
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [initializing, setInitializing] = useState(true);  // For initial auth check
+  const [loading, setLoading] = useState(false);           // For login/signup operations
   const [error, setError] = useState("");
   const router = useRouter();
   const [notifications, setNotifications] = useState([]);
@@ -51,35 +53,43 @@ const AuthContextProvider = ({ children }) => {
           console.log("[Auth] User profile restored:", userProfile);
 
           setUser(userProfile);
-          setLoading(false);
+          setInitializing(false);
         } else {
           console.log("[Auth] No JWT token found");
           setUser(null);
-          setLoading(false);
+          setInitializing(false);
         }
       } catch (error) {
         console.error("[Auth] Initialization failed:", error);
         tokenManager.removeToken();
         setUser(null);
-        setLoading(false);
+        setInitializing(false);
       }
     };
 
     initializeAuth();
   }, []);
 
-  const signin = (email, password) => {
+  const signin = async (email, password) => {
     setLoading(true);
-    signInWithEmailAndPassword(firebaseAuth, email, password)
-      .then((result) => {
-        setLoading(false);
-        console.log("signin success");
-      })
-      .catch((error) => {
-        setError("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
-        setLoading(false);
-        console.error(`signin failed: ${error.message}`);
-      });
+    try {
+      console.log("[Auth] Login attempt for:", email);
+      
+      const result = await apiClient.auth.login(email, password);
+      console.log("[Auth] Login successful:", result);
+      
+      tokenManager.setToken(result.accessToken);
+      const userProfile = await apiClient.auth.getProfile();
+      console.log("[Auth] User profile fetched after login:", userProfile);
+      setUser(userProfile);
+      setLoading(false);
+      
+    } catch (error) {
+      const errorMessage = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+      setError(errorMessage);
+      setLoading(false);
+      console.error("[Auth] Login failed:", error.message);
+    }
   };
 
   const signup = async (email, password, name, isAgent) => {
@@ -99,9 +109,7 @@ const AuthContextProvider = ({ children }) => {
 
       const userProfile = await apiClient.auth.getProfile();
       console.log("[Auth] User profile fetched after signup:", userProfile);
-
       setUser(userProfile);
-
       setLoading(false);
 
     } catch (error) {
@@ -112,19 +120,19 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const signout = (redirectTo) => {
-    if (!redirectTo) {
-      signOut(firebaseAuth);
-    } else {
-      router.push(redirectTo).then(() => {
-        signOut(firebaseAuth)
-          .then((result) => {
-            console.log("signout success");
-          })
-          .catch((err) => {
-            console.error("signout failed", err);
-          });
-      });
+  const signout = async (redirectTo = "/") => {
+    setLoading(true);
+    try {
+      console.log("[Auth] Logout initiated...");
+      
+      tokenManager.removeToken();
+      setUser(null);
+      setLoading(false);
+      console.log("[Auth] Logout successful");
+      router.push(redirectTo);
+    } catch (error) {
+      console.error("[Auth] Logout failed:", error.message);
+      setLoading(false);
     }
   };
 
@@ -162,6 +170,7 @@ const AuthContextProvider = ({ children }) => {
     signin,
     signup,
     signout,
+    initializing,
     loading,
     error,
     clearError,

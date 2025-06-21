@@ -4,7 +4,7 @@ import { authContext } from '../../contexts/authContext';
 import Loader from '../UI/Common/modals/Loader';
 
 const GuestOnlyRoute = ({ children, redirectTo = null }) => {
-  const { loading, isAuthenticated, isAgent } = useContext(authContext);
+  const { initializing, isAuthenticated, isAgent } = useContext(authContext);
   const router = useRouter();
 
   useEffect(() => {
@@ -15,10 +15,9 @@ const GuestOnlyRoute = ({ children, redirectTo = null }) => {
     }
   }, [isAuthenticated, isAgent, router, redirectTo]);
 
-  if (loading) {
+  if (initializing) {
     return <Loader />;
   }
-
 
   return children;
 };
