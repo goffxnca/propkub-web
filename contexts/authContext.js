@@ -9,6 +9,7 @@ import { createContext, useEffect, useState } from "react";
 import { firebaseAuth, firebaseFunctions } from "../libs/firebase";
 import { getNotifications } from "../libs/managers/notificationManager";
 import { getFirebaseErrorLabel } from "../libs/mappers/firebaseErrorCodeMapper";
+import { apiClient } from "../lib/api/client";
 
 const initialContext = {
   user: null,
@@ -95,39 +96,21 @@ const AuthContextProvider = ({ children }) => {
       });
   };
 
-  const signup = (email, password, name, role) => {
+  const signup = async (email, password, name, isAgent) => {
     setLoading(true);
-    createUserWithEmailAndPassword(firebaseAuth, email, password)
-      .then((cred) => {
-        const postUserSignup = httpsCallable(
-          firebaseFunctions,
-          "postUserSignup"
-        );
-        postUserSignup({
-          uid: cred.user.uid,
-          email: cred.user.email,
-          role: role,
-          name: name,
-        })
-          .then((result) => {
-            console.log("signup success");
-            firebaseAuth.currentUser.getIdTokenResult(true).then(() => {
-              window.document.location.replace("/profile");
-            });
-          })
-          .catch((error) => {
-            throw error;
-          });
-      })
-      .catch((error) => {
-        if (error.code) {
-          const errorMessage =
-            getFirebaseErrorLabel(error.code) || "ข้อมูลการลงทะเบียนไม่ถูกต้อง";
-          setError(errorMessage);
-        }
-        setLoading(false);
-        console.error(`signup failed: ${error.message}`);
-      });
+    try {
+      const result = await apiClient.auth.signup(name, email, password, isAgent);
+      console.log("signup success", result);
+      
+      // Redirect to profile on success
+      // window.document.location.replace("/profile");
+      
+    } catch (error) {
+      const errorMessage = error.message || "ข้อมูลการลงทะเบียนไม่ถูกต้อง";
+      setError(errorMessage);
+      setLoading(false);
+      console.error(`signup failed: ${error.message}`);
+    }
   };
 
   const signout = (redirectTo) => {

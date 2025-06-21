@@ -13,6 +13,7 @@ const TextInput = ({
   leadingSlot,
   tailingSlot,
   error,
+  info,
   register = () => ({}),
   unregister = () => ({}),
   children,
@@ -38,7 +39,7 @@ const TextInput = ({
   }, []);
 
   return (
-    <BaseInput id={id} label={label} error={error?.message}>
+    <BaseInput id={id} label={label} error={error?.message} info={info}>
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <span className="text-gray-500 sm:text-sm">{leadingSlot}</span>

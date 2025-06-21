@@ -27,7 +27,7 @@ const SignupForm = () => {
 
   const submitHandler = (data) => {
     console.log(data);
-    signup(data.email, data.password, data.name, data.role);
+    signup(data.email, data.password, data.name, data.isAgent || false);
   };
 
   useEffect(() => {
@@ -65,20 +65,21 @@ const SignupForm = () => {
             </div>
             <br />
             <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
-              {/* <TextInput
+              <TextInput
                 id="name"
-                label="ชื่อ"
+                label="ชื่อผู้ใช้งาน"
                 register={() =>
                   register("name", {
                     required: "กรุณาระบุชื่อ",
-                    minLength: { ...minLength(6, "ชื่อ") },
+                    minLength: { ...minLength(5, "ชื่อ") },
                     maxLength: { ...maxLength(30, "ชื่อ") },
                   })
                 }
-                placeholder="สมชาย ABC Property"
+                placeholder="สมชาย"
                 unregister={unregister}
                 error={errors.name}
-              /> */}
+                info="สามารถเปลี่ยนได้ภายหลัง"
+              />
 
               <TextInput
                 id="email"
@@ -108,19 +109,20 @@ const SignupForm = () => {
                 error={errors.password}
               />
 
-              <RadioVerticalListInput
-                id="role"
-                label="ประเภทบัญชี"
-                items={roleItems}
-                register={() =>
-                  register("role", {
-                    required: "กรุณาประเภทบัญชี",
-                  })
-                }
-                unregister={unregister}
-                setValue={setValue}
-                error={errors.role}
-              />
+              <div className="flex items-center">
+                <input
+                  id="isAgent"
+                  type="checkbox"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  {...register("isAgent")}
+                />
+                <label htmlFor="isAgent" className="ml-3 text-sm text-gray-700">
+                  <span className="font-medium">ฉันเป็นนายหน้าอสังหาริมทรัพย์ (Agent)</span>
+                  <div className="text-gray-500 text-xs mt-1">
+                    ฉันต้องการลงประกาศจำนวนมาก และใช้งานระบบสนับสนุนการทำงานต่างๆ ของ Agent (ไม่มีค่าใช้จ่าย)
+                  </div>
+                </label>
+              </div>
 
               {/* <div>
                 <label
