@@ -10,6 +10,7 @@ import { firebaseAuth, firebaseFunctions } from "../libs/firebase";
 import { getNotifications } from "../libs/managers/notificationManager";
 import { getFirebaseErrorLabel } from "../libs/mappers/firebaseErrorCodeMapper";
 import { apiClient } from "../lib/api/client";
+import { tokenManager } from "../lib/api/tokenManager";
 
 const initialContext = {
   user: null,
@@ -39,47 +40,32 @@ const AuthContextProvider = ({ children }) => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    console.log("ONLY ONE TIME!!");
+    console.log("[Auth] Initialization...");
 
-    const unsubscriber = firebaseAuth.onAuthStateChanged((user) => {
-      if (user) {
-        const userData = {
-          userId: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          // emailVerified: user.emailVerified,
-          emailVerified: user.emailVerified, //TODO: Change to true for testing, change back later
-          phone: user.phoneNumber,
-        };
+    const initializeAuth = async () => {
+      try {
+        if (tokenManager.hasToken()) {
+          console.log("[Auth] JWT token found, fetching user profile...");
 
-        user.getIdTokenResult().then((result) => {
-          userData.role = result.claims.role;
-          userData.line = result.claims.line;
-          console.log("onAuthStateChanged", userData);
-          if (userData.role) {
-            setUser(userData);
-            setLoading(false);
+          const userProfile = await apiClient.auth.getProfile();
+          console.log("[Auth] User profile restored:", userProfile);
 
-            if (userData.role === "agent") {
-              //TODO: Get Notification By User Id
-              getNotifications(user.uid).then((response) => {
-                setNotifications(response.data);
-              });
-            }
-          }
-        });
-      } else {
-        console.log("onAuthStateChanged", "none");
+          setUser(userProfile);
+          setLoading(false);
+        } else {
+          console.log("[Auth] No JWT token found");
+          setUser(null);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error("[Auth] Initialization failed:", error);
+        tokenManager.removeToken();
         setUser(null);
         setLoading(false);
       }
-    });
-
-    return () => {
-      unsubscriber();
-      // console.log("UNMOUNTED AuthContextProvider");
     };
+
+    initializeAuth();
   }, []);
 
   const signin = (email, password) => {
@@ -99,17 +85,30 @@ const AuthContextProvider = ({ children }) => {
   const signup = async (email, password, name, isAgent) => {
     setLoading(true);
     try {
-      const result = await apiClient.auth.signup(name, email, password, isAgent);
-      console.log("signup success", result);
-      
-      // Redirect to profile on success
-      // window.document.location.replace("/profile");
-      
+      console.log("[Auth] Signup attempt for:", email);
+
+      const result = await apiClient.auth.signup(
+        name,
+        email,
+        password,
+        isAgent
+      );
+      console.log("[Auth] Signup successful:", result);
+
+      tokenManager.setToken(result.accessToken);
+
+      const userProfile = await apiClient.auth.getProfile();
+      console.log("[Auth] User profile fetched after signup:", userProfile);
+
+      setUser(userProfile);
+
+      setLoading(false);
+
     } catch (error) {
       const errorMessage = error.message || "ข้อมูลการลงทะเบียนไม่ถูกต้อง";
       setError(errorMessage);
       setLoading(false);
-      console.error(`signup failed: ${error.message}`);
+      console.error("[Auth] Signup failed:", error.message);
     }
   };
 
