@@ -11,14 +11,14 @@ import { genPageTitle } from "../libs/seo-utils";
 import ProtectedRoute from "../components/Auth/ProtectedRoute";
 
 const ProfilePage = () => {
+  const { user } = useContext(authContext);
 
   return (
     <ProtectedRoute>
       <Head>
         <title>{genPageTitle("โปรไฟล์ของฉัน")}</title>
       </Head>
-      <p>Profile Page</p>
-      {/* <ProfileForm profile={userProfile} /> */}
+      <ProfileForm profile={user} />
     </ProtectedRoute>
   );
 };
