@@ -29,6 +29,7 @@ const initialContext = {
   markNotificationAsRead: (notificationId) => {},
   error: "",
   clearError: () => {},
+  setUser: () => {}
 };
 
 const authContext = createContext(initialContext);
@@ -177,6 +178,7 @@ const AuthContextProvider = ({ children }) => {
     clearError,
     notifications,
     markNotificationAsRead,
+    setUser
   };
 
   // if (loading) {
