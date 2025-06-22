@@ -13,6 +13,7 @@ import Logo from "../../Layouts/Logo";
 import Button from "../../UI/Public/Button";
 import TextInput from "../../UI/Public/Inputs/TextInput";
 import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
+import FacebookLoginButton from "../../UI/Public/SocialLogin/FacebookLoginButton";
 import Modal from "../../UI/Public/Modal";
 
 const SiginInForm = () => {
@@ -50,9 +51,12 @@ const SiginInForm = () => {
             </div>
             <br />
             
-            <div className="mb-6">
+            <div className="mb-6 space-y-3">
               <GoogleLoginButton 
                 text="ล็อกอินด้วย Google"
+              />
+              <FacebookLoginButton 
+                text="ล็อกอินด้วย Facebook"
               />
             </div>
 

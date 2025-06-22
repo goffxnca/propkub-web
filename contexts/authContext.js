@@ -29,7 +29,7 @@ const initialContext = {
   markNotificationAsRead: (notificationId) => {},
   error: "",
   clearError: () => {},
-  setUser: () => {}
+  setUser: () => {},
 };
 
 const authContext = createContext(initialContext);
@@ -37,8 +37,8 @@ const authContext = createContext(initialContext);
 const AuthContextProvider = ({ children }) => {
   // console.log("AuthContextProvider ran...");
   const [user, setUser] = useState(null);
-  const [initializing, setInitializing] = useState(true);  // For initial auth check
-  const [loading, setLoading] = useState(false);           // For login/signup operations
+  const [initializing, setInitializing] = useState(true); // For initial auth check
+  const [loading, setLoading] = useState(false); // For login/signup operations
   const [error, setError] = useState("");
   const router = useRouter();
   const [notifications, setNotifications] = useState([]);
@@ -54,7 +54,11 @@ const AuthContextProvider = ({ children }) => {
           const userProfile = await apiClient.auth.getProfile();
           console.log("[Auth] User profile restored:", userProfile);
 
-          setUser(userProfile);
+          if (userProfile) {
+            setUser(userProfile);
+          } else {
+            tokenManager.removeToken();
+          }
           setInitializing(false);
         } else {
           console.log("[Auth] No JWT token found");
@@ -76,16 +80,15 @@ const AuthContextProvider = ({ children }) => {
     setLoading(true);
     try {
       console.log("[Auth] Login attempt for:", email);
-      
+
       const result = await apiClient.auth.login(email, password);
       console.log("[Auth] Login successful:", result);
-      
+
       tokenManager.setToken(result.accessToken);
       const userProfile = await apiClient.auth.getProfile();
       console.log("[Auth] User profile fetched after login:", userProfile);
       setUser(userProfile);
       setLoading(false);
-      
     } catch (error) {
       const errorMessage = t(error.message);
       setError(errorMessage);
@@ -113,7 +116,6 @@ const AuthContextProvider = ({ children }) => {
       console.log("[Auth] User profile fetched after signup:", userProfile);
       setUser(userProfile);
       setLoading(false);
-
     } catch (error) {
       const errorMessage = t(error.message);
       setError(errorMessage);
@@ -126,7 +128,7 @@ const AuthContextProvider = ({ children }) => {
     setLoading(true);
     try {
       console.log("[Auth] Logout initiated...");
-      
+
       tokenManager.removeToken();
       setUser(null);
       setLoading(false);
@@ -178,7 +180,7 @@ const AuthContextProvider = ({ children }) => {
     clearError,
     notifications,
     markNotificationAsRead,
-    setUser
+    setUser,
   };
 
   // if (loading) {
