@@ -14,6 +14,7 @@ import Button from "../../UI/Public/Button";
 import RadioVerticalListInput from "../../UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput";
 import TextInput from "../../UI/Public/Inputs/TextInput";
 import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
+import FacebookLoginButton from "../../UI/Public/SocialLogin/FacebookLoginButton";
 import Modal from "../../UI/Public/Modal";
 
 const SignupForm = () => {
@@ -69,8 +70,9 @@ const SignupForm = () => {
             </div>
             <br />
 
-            <div className="mb-6">
+            <div className="mb-6 space-y-3">
               <GoogleLoginButton text="ลงทะเบียนด้วย Google" />
+              <FacebookLoginButton text="ลงทะเบียนด้วย Facebook" />
             </div>
 
             <div className="relative mb-6">
