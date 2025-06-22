@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { authContext } from "../../../contexts/authContext";
+import { ExclamationIcon } from "@heroicons/react/outline";
 
 import {
   EmailPattern,
@@ -11,6 +12,8 @@ import {
 import Logo from "../../Layouts/Logo";
 import Button from "../../UI/Public/Button";
 import TextInput from "../../UI/Public/Inputs/TextInput";
+import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
+import Modal from "../../UI/Public/Modal";
 
 const SiginInForm = () => {
   const {
@@ -25,6 +28,10 @@ const SiginInForm = () => {
   useEffect(() => {
     clearError();
   }, []);
+
+  const handleCloseErrorModal = () => {
+    clearError();
+  };
 
   const submitHandler = (data) => {
     signin(data.email, data.password);
@@ -42,6 +49,24 @@ const SiginInForm = () => {
               <Logo />
             </div>
             <br />
+            
+            <div className="mb-6">
+              <GoogleLoginButton 
+                text="ล็อกอินด้วย Google"
+              />
+            </div>
+
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">
+                  หรือ
+                </span>
+              </div>
+            </div>
+            
             <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
               <TextInput
                 id="email"
@@ -95,7 +120,6 @@ const SiginInForm = () => {
                   </a>
                 </div>
               </div> */}
-              <div className="text-red-400 text-xs text-center">{error}</div>
               <div>
                 {/* <button
                   type="submit"
@@ -195,6 +219,16 @@ const SiginInForm = () => {
           </div>
         </div>
       </div>
+      
+      <Modal
+        visible={!!error}
+        Icon={ExclamationIcon}
+        type="warning"
+        title="เกิดข้อผิดพลาด"
+        desc={error}
+        buttonCaption="ตกลง"
+        onClose={handleCloseErrorModal}
+      />
     </>
   );
 };
