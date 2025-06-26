@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { authContext } from "../../../contexts/authContext";
 import { ExclamationIcon } from "@heroicons/react/outline";
@@ -15,8 +15,11 @@ import TextInput from "../../UI/Public/Inputs/TextInput";
 import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
 import FacebookLoginButton from "../../UI/Public/SocialLogin/FacebookLoginButton";
 import Modal from "../../UI/Public/Modal";
+import ForgotPasswordModal from "../ForgotPasswordModal";
 
 const SiginInForm = () => {
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  
   const {
     register,
     unregister,
@@ -32,6 +35,15 @@ const SiginInForm = () => {
 
   const handleCloseErrorModal = () => {
     clearError();
+  };
+
+  const handleForgotPasswordClick = (e) => {
+    e.preventDefault();
+    setShowForgotPasswordModal(true);
+  };
+
+  const handleCloseForgotPasswordModal = () => {
+    setShowForgotPasswordModal(false);
   };
 
   const submitHandler = (data) => {
@@ -99,8 +111,8 @@ const SiginInForm = () => {
                 error={errors.password}
               />
               {/* TODO: implement later after v1.0 */}
-              {/* <div className="flex items-center justify-between">
-                <div className="flex items-center">
+              <div className="flex items-center justify-between">
+                {/* <div className="flex items-center">
                   <input
                     id="remember-me"
                     name="remember-me"
@@ -113,17 +125,18 @@ const SiginInForm = () => {
                   >
                     Remember me
                   </label>
-                </div>
+                </div> */}
 
                 <div className="text-sm">
                   <a
                     href="#"
+                    onClick={handleForgotPasswordClick}
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    จำรหัสผ่านไม่ได้?
+                    ลืมรหัสผ่าน?
                   </a>
                 </div>
-              </div> */}
+              </div>
               <div>
                 {/* <button
                   type="submit"
@@ -232,6 +245,11 @@ const SiginInForm = () => {
         desc={error}
         buttonCaption="ตกลง"
         onClose={handleCloseErrorModal}
+      />
+      
+      <ForgotPasswordModal
+        visible={showForgotPasswordModal}
+        onClose={handleCloseForgotPasswordModal}
       />
     </>
   );
