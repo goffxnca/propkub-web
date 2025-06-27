@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import Modal from "../components/UI/Public/Modal";
 import { authContext } from "../contexts/authContext";
 import { InformationCircleIcon } from "@heroicons/react/outline";
-import ProfileForm from "../components/Profile/ProfileForm";
+import ProfileScreen from "../components/Profile/ProfileScreen";
 import { getUserById } from "../libs/managers/userManager";
 import Loader from "../components/UI/Common/modals/Loader";
 import Head from "next/head";
@@ -18,7 +18,7 @@ const ProfilePage = () => {
       <Head>
         <title>{genPageTitle("โปรไฟล์ของฉัน")}</title>
       </Head>
-      <ProfileForm profile={user} />
+      <ProfileScreen profile={user} />
     </ProtectedRoute>
   );
 };
