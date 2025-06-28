@@ -103,30 +103,6 @@ const AccountDetailsSection = ({ user }) => {
               </div>
             )}
 
-            {/* Last Login */}
-            {user.lastLoginAt && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  เข้าสู่ระบบครั้งล่าสุด
-                </label>
-                <div className="mt-1 flex items-center space-x-2">
-                  <LoginIcon className="w-4 h-4 text-gray-400" />
-                  <span className="text-sm text-gray-900">
-                    {formatLastLogin(user.lastLoginAt)}
-                  </span>
-                  {lastLoginProviderInfo && (
-                    <>
-                      <span className="text-sm text-gray-500">ผ่าน</span>
-                      <span className="text-lg">{lastLoginProviderInfo.icon}</span>
-                      <span className={`text-sm ${lastLoginProviderInfo.color}`}>
-                        {lastLoginProviderInfo.name}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </div>
-            )}
-
             {/* Terms of Service */}
             {user.tosAccepted && (
               <div>
