@@ -7,6 +7,7 @@ import {
   maxLength,
   minLength,
   MobilePhonePattern,
+  LineIdPattern,
 } from "../../libs/form-validator";
 import ProfileImageInput from "../UI/Public/Inputs/ProfileImageInput/ProfileImageInput";
 import Button from "../UI/Public/Button";
@@ -123,8 +124,7 @@ const ProfileSection = ({ userProfile }) => {
                     register={() =>
                       register("line", {
                         required: "กรุณาระบุไลน์ไอดี",
-                        minLength: { ...minLength(4, "ไลน์ไอดี") },
-                        maxLength: { ...maxLength(30, "ไลน์ไอดี") },
+                        pattern: LineIdPattern("ไลน์ไอดี"),
                       })
                     }
                     unregister={unregister}
