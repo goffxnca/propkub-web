@@ -6,12 +6,13 @@ import { authContext } from "../../contexts/authContext";
 import { minLength, maxLength } from "../../libs/form-validator";
 import TextInput from "../UI/Public/Inputs/TextInput";
 import Modal from "../UI/Public/Modal";
+import { getThaiFullDateTimeString } from "../../libs/date-utils";
 
 const PersonalInfoSection = ({ user }) => {
   const { setUser } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [backendError, setBackendError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const {
     register,
@@ -28,7 +29,7 @@ const PersonalInfoSection = ({ user }) => {
 
   const handleEdit = () => {
     setIsEditing(true);
-    setBackendError("");
+    setApiError("");
     reset({
       name: user.name || ""
     });
@@ -36,7 +37,7 @@ const PersonalInfoSection = ({ user }) => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    setBackendError("");
+    setApiError("");
     reset({
       name: user.name || ""
     });
@@ -44,7 +45,7 @@ const PersonalInfoSection = ({ user }) => {
 
   const handleSave = async (formData) => {
     setIsSaving(true);
-    setBackendError("");
+    setApiError("");
     
     try {
       console.log("Saving personal info:", formData);
@@ -56,14 +57,14 @@ const PersonalInfoSection = ({ user }) => {
       console.log("Personal info saved successfully!");
     } catch (error) {
       console.error("Failed to save personal info:", error);
-      setBackendError(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      setApiError(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleCloseBackendErrorModal = () => {
-    setBackendError("");
+  const handleCloseApiErrorModal = () => {
+    setApiError("");
   };
 
   const getVerificationStatus = () => {
@@ -88,7 +89,7 @@ const PersonalInfoSection = ({ user }) => {
     if (user.role === 'agent') {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-          นักขายอสังหาริมทรัพย์
+          นายหน้าอสังหาริมทรัพย์
         </span>
       );
     }
@@ -217,13 +218,7 @@ const PersonalInfoSection = ({ user }) => {
                   </label>
                   <div className="mt-1 flex items-center space-x-2">
                     <span className="text-sm text-gray-900">
-                      {new Date(user.lastLoginAt).toLocaleDateString('th-TH', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })}
+                      {getThaiFullDateTimeString(user.lastLoginAt)}
                     </span>
                     <span className="text-sm text-gray-500">ผ่าน</span>
                     <div className="inline-flex items-center">
@@ -246,13 +241,7 @@ const PersonalInfoSection = ({ user }) => {
                   </label>
                   <div className="mt-1">
                     <span className="text-sm text-gray-900">
-                      {new Date(user.updatedAt).toLocaleDateString('th-TH', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })}
+                      {getThaiFullDateTimeString(user.updatedAt)}
                     </span>
                   </div>
                 </div>
@@ -263,13 +252,13 @@ const PersonalInfoSection = ({ user }) => {
       </div>
 
       <Modal
-        visible={!!backendError}
+        visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
         title="เกิดข้อผิดพลาด"
-        desc={backendError}
+        desc={apiError}
         buttonCaption="ตกลง"
-        onClose={handleCloseBackendErrorModal}
+        onClose={handleCloseApiErrorModal}
       />
     </div>
   );

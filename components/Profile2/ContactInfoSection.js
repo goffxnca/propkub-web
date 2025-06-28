@@ -11,7 +11,7 @@ const ContactInfoSection = ({ user }) => {
   const { setUser } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [backendError, setBackendError] = useState("");
+  const [apiError, setApiError] = useState("");
 
   const {
     register,
@@ -29,7 +29,7 @@ const ContactInfoSection = ({ user }) => {
 
   const handleEdit = () => {
     setIsEditing(true);
-    setBackendError("");
+    setApiError("");
     reset({
       phone: user.phone || "",
       line: user.line || ""
@@ -38,7 +38,7 @@ const ContactInfoSection = ({ user }) => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    setBackendError("");
+    setApiError("");
     reset({
       phone: user.phone || "",
       line: user.line || ""
@@ -47,7 +47,7 @@ const ContactInfoSection = ({ user }) => {
 
   const handleSave = async (formData) => {
     setIsSaving(true);
-    setBackendError("");
+    setApiError("");
     
     try {
       console.log("Saving contact info:", formData);
@@ -60,14 +60,14 @@ const ContactInfoSection = ({ user }) => {
       console.log("Contact info saved successfully!");
     } catch (error) {
       console.error("Failed to save contact info:", error);
-      setBackendError(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      setApiError(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleCloseBackendErrorModal = () => {
-    setBackendError("");
+  const handleCloseApiErrorModal = () => {
+    setApiError("");
   };
   const formatPhoneNumber = (phone) => {
     if (!phone) return null;
@@ -237,15 +237,15 @@ const ContactInfoSection = ({ user }) => {
         </div>
       </div>
 
-      {/* Backend Error Modal */}
+      {/* API Error Modal */}
       <Modal
-        visible={!!backendError}
+        visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
         title="เกิดข้อผิดพลาด"
-        desc={backendError}
+        desc={apiError}
         buttonCaption="ตกลง"
-        onClose={handleCloseBackendErrorModal}
+        onClose={handleCloseApiErrorModal}
       />
     </div>
   );
