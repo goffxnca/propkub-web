@@ -14,8 +14,19 @@ const getLocalDateTimeByISODateString = (isoDateSting) => {
   return `${date.toLocaleDateString("th")} ${time}`;
 };
 
+const getThaiFullDateTimeString = (isoDateString) => {
+  return new Date(isoDateString).toLocaleDateString('th-TH', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+};
+
 export {
   getUnixEpochTime,
   getLocalDateByISODateString,
   getLocalDateTimeByISODateString,
+  getThaiFullDateTimeString,
 };
