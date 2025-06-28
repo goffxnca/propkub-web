@@ -53,9 +53,7 @@ const ContactInfoSection = ({ user }) => {
       console.log("Saving contact info:", formData);
       
       const updatedUser = await apiClient.auth.updateProfile(formData);
-      
       setUser(updatedUser);
-      
       setIsEditing(false);
       console.log("Contact info saved successfully!");
     } catch (error) {
