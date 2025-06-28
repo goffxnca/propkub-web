@@ -95,6 +95,19 @@ const PersonalInfoSection = ({ user }) => {
     return null;
   };
 
+  const getProviderInfo = (provider) => {
+    switch (provider) {
+      case 'EMAIL':
+        return { icon: '✉️', name: 'อีเมล' };
+      case 'GOOGLE':
+        return { icon: '🔍', name: 'Google' };
+      case 'FACEBOOK':
+        return { icon: '📘', name: 'Facebook' };
+      default:
+        return { icon: '✉️', name: 'อีเมล' };
+    }
+  };
+
   const verification = getVerificationStatus();
   const VerificationIcon = verification.icon;
 
@@ -195,6 +208,55 @@ const PersonalInfoSection = ({ user }) => {
                   </div>
                 </div>
               </div>
+
+              {/* Last Login */}
+              {user.lastLoginAt && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    เข้าสู่ระบบครั้งล่าสุด
+                  </label>
+                  <div className="mt-1 flex items-center space-x-2">
+                    <span className="text-sm text-gray-900">
+                      {new Date(user.lastLoginAt).toLocaleDateString('th-TH', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </span>
+                    <span className="text-sm text-gray-500">ผ่าน</span>
+                    <div className="inline-flex items-center">
+                      <span className="text-sm mr-1">
+                        {getProviderInfo(user.lastLoginProvider).icon}
+                      </span>
+                      <span className="text-sm text-gray-900">
+                        {getProviderInfo(user.lastLoginProvider).name}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Last Updated */}
+              {user.updatedAt && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    อัพเดทล่าสุด
+                  </label>
+                  <div className="mt-1">
+                    <span className="text-sm text-gray-900">
+                      {new Date(user.updatedAt).toLocaleDateString('th-TH', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </span>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
