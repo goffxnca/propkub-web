@@ -8,14 +8,14 @@ const maxfileSizeMB = 10;
 const ProfileImageInput = ({
   id,
   label,
-  error,
+  formError,
   originFileUrl = "",
   register = () => ({}),
   unregister = () => ({}),
   setValue = () => ({}),
   disabled = false,
 }) => {
-  const errorStyle = error ? "border border-red-300" : "";
+  const errorStyle = formError ? "border border-red-300" : "";
 
   useEffect(() => {
     return () => {
@@ -26,7 +26,7 @@ const ProfileImageInput = ({
   const fileRef = useRef();
   const [file, setFile] = useState(null);
   const [fileUrl, setFileUrl] = useState(originFileUrl);
-  const [alert, setAlert] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (fileUrl) {
@@ -43,7 +43,7 @@ const ProfileImageInput = ({
   }, [fileUrl, file]);
 
   const filesSelectedHandler = async (event) => {
-    setAlert(null);
+    setError(null);
     const selectedFile = event.target.files[0];
     if (!selectedFile) {
       return;
@@ -66,12 +66,12 @@ const ProfileImageInput = ({
     }
 
     if (errorMessages.length > 0) {
-      return setAlert({
+      setError({
         title: "ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้",
         messages: errorMessages,
       });
+      return;
     }
-  
 
     const resizedFile = await resizeFile(selectedFile);
     const newFileUrl = URL.createObjectURL(resizedFile);
@@ -83,15 +83,11 @@ const ProfileImageInput = ({
       console.log(
         `Image resized from ${(selectedFile.size / 1024).toFixed(2)}kb to ${(
           resizedFile.size / 1024
-        ).toFixed(2)}kb = ${(
-          selectedFile.size / resizedFile.size
-        ).toFixed(2)}X smaller`
+        ).toFixed(2)}kb = ${(selectedFile.size / resizedFile.size).toFixed(
+          2
+        )}X smaller`
       );
     }
-  };
-
-  const handleCloseAlert = () => {
-    setAlert(null);
   };
 
   return (
@@ -101,10 +97,10 @@ const ProfileImageInput = ({
           {label}
         </label>
       )}
-      
+
       <div className="relative">
         <input id={id} type="text" name={id} {...register()} hidden />
-        
+
         <div className="mt-1 flex items-center space-x-5">
           <div
             className={`w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200 ${errorStyle}`}
@@ -139,23 +135,25 @@ const ProfileImageInput = ({
           />
         </div>
 
-        {error && (
-          <p className="text-red-400 text-xs py-1 mt-1">{error.message}</p>
+        {formError && (
+          <p className="text-red-400 text-xs py-1 mt-1">{formError.message}</p>
         )}
       </div>
 
       {/* Error Modal */}
       <Modal
-        visible={!!alert}
+        visible={!!error}
         Icon={ExclamationIcon}
         type="warning"
-        title={alert?.title}
-        desc={alert?.messages?.join(", ")}
+        title={error?.title}
+        desc={error?.messages?.join(", ")}
         buttonCaption="ตกลง"
-        onClose={handleCloseAlert}
+        onClose={() => {
+          setError(null);
+        }}
       />
     </div>
   );
 };
 
-export default ProfileImageInput; 
+export default ProfileImageInput;
