@@ -1,4 +1,5 @@
 import { CalendarIcon, LoginIcon } from "@heroicons/react/outline";
+import { getThaiFullDateTimeString } from "../../libs/date-utils";
 
 const AccountDetailsSection = ({ user }) => {
   const getProviderDisplay = (provider) => {
@@ -8,6 +9,22 @@ const AccountDetailsSection = ({ user }) => {
       'facebook': { name: 'Facebook', icon: '🔗', color: 'text-blue-800' }
     };
     return providerMap[provider] || { name: provider, icon: '🔗', color: 'text-gray-600' };
+  };
+
+  const getLoginProviderInfo = (provider) => {
+    if (!provider) return { icon: "✉️", name: "อีเมล" };
+    
+    const normalizedProvider = provider.toLowerCase();
+    switch (normalizedProvider) {
+      case "email":
+        return { icon: "✉️", name: "อีเมล" };
+      case "google":
+        return { icon: "🔍", name: "Google" };
+      case "facebook":
+        return { icon: "📘", name: "Facebook" };
+      default:
+        return { icon: "✉️", name: "อีเมล" };
+    }
   };
 
   const formatDate = (dateString) => {
@@ -98,6 +115,45 @@ const AccountDetailsSection = ({ user }) => {
                 <div className="mt-1">
                   <span className="text-sm text-gray-900 font-mono">
                     #{user.cid}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Last Login */}
+            {user.lastLoginAt && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  เข้าสู่ระบบครั้งล่าสุด
+                </label>
+                <div className="mt-1 flex items-center space-x-2">
+                  <LoginIcon className="w-4 h-4 text-gray-400" />
+                  <span className="text-sm text-gray-900">
+                    {getThaiFullDateTimeString(user.lastLoginAt)}
+                  </span>
+                  <span className="text-sm text-gray-500">ผ่าน</span>
+                  <div className="inline-flex items-center">
+                    <span className="text-sm mr-1">
+                      {getLoginProviderInfo(user.lastLoginProvider).icon}
+                    </span>
+                    <span className="text-sm text-gray-900">
+                      {getLoginProviderInfo(user.lastLoginProvider).name}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Last Updated */}
+            {user.updatedAt && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  อัพเดทล่าสุด
+                </label>
+                <div className="mt-1 flex items-center space-x-2">
+                  <CalendarIcon className="w-4 h-4 text-gray-400" />
+                  <span className="text-sm text-gray-900">
+                    {getThaiFullDateTimeString(user.updatedAt)}
                   </span>
                 </div>
               </div>
