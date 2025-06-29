@@ -1,29 +1,58 @@
-import { CalendarIcon, LoginIcon } from "@heroicons/react/outline";
+import { CalendarIcon, LoginIcon, MailIcon } from "@heroicons/react/outline";
 import { getThaiFullDateTimeString } from "../../libs/date-utils";
+import GoogleIcon from "../Icons/GoogleIcon";
+import FacebookIcon from "../Icons/FacebookIcon";
 
 const AccountDetailsSection = ({ user }) => {
   const getProviderDisplay = (provider) => {
     const providerMap = {
-      'email': { name: 'อีเมล', icon: '✉️', color: 'text-gray-600' },
-      'google': { name: 'Google', icon: '🔗', color: 'text-blue-600' },
-      'facebook': { name: 'Facebook', icon: '🔗', color: 'text-blue-800' }
+      'email': { 
+        name: 'อีเมล', 
+        icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
+        color: 'text-gray-600' 
+      },
+      'google': { 
+        name: 'Google', 
+        icon: <GoogleIcon />, 
+        color: 'text-blue-600' 
+      },
+      'facebook': { 
+        name: 'Facebook', 
+        icon: <FacebookIcon className="text-blue-600" />, 
+        color: 'text-blue-800' 
+      }
     };
     return providerMap[provider] || { name: provider, icon: '🔗', color: 'text-gray-600' };
   };
 
   const getLoginProviderInfo = (provider) => {
-    if (!provider) return { icon: "✉️", name: "อีเมล" };
+    if (!provider) return { 
+      icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
+      name: "อีเมล" 
+    };
     
     const normalizedProvider = provider.toLowerCase();
     switch (normalizedProvider) {
       case "email":
-        return { icon: "✉️", name: "อีเมล" };
+        return { 
+          icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
+          name: "อีเมล" 
+        };
       case "google":
-        return { icon: "🔍", name: "Google" };
+        return { 
+          icon: <GoogleIcon />, 
+          name: "Google" 
+        };
       case "facebook":
-        return { icon: "📘", name: "Facebook" };
+        return { 
+          icon: <FacebookIcon className="text-blue-600" />, 
+          name: "Facebook" 
+        };
       default:
-        return { icon: "✉️", name: "อีเมล" };
+        return { 
+          icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
+          name: "อีเมล" 
+        };
     }
   };
 
@@ -86,7 +115,7 @@ const AccountDetailsSection = ({ user }) => {
                 สมัครสมาชิกด้วย
               </label>
               <div className="mt-1 flex items-center space-x-2">
-                <span className="text-lg">{providerInfo.icon}</span>
+                {providerInfo.icon}
                 <span className={`text-sm font-medium ${providerInfo.color}`}>
                   {providerInfo.name}
                 </span>
@@ -133,9 +162,6 @@ const AccountDetailsSection = ({ user }) => {
                   </span>
                   <span className="text-sm text-gray-500">ผ่าน</span>
                   <div className="inline-flex items-center">
-                    <span className="text-sm mr-1">
-                      {getLoginProviderInfo(user.lastLoginProvider).icon}
-                    </span>
                     <span className="text-sm text-gray-900">
                       {getLoginProviderInfo(user.lastLoginProvider).name}
                     </span>
