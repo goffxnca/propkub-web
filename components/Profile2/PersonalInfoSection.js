@@ -7,6 +7,8 @@ import { minLength, maxLength } from "../../libs/form-validator";
 import TextInput from "../UI/Public/Inputs/TextInput";
 import Modal from "../UI/Public/Modal";
 import { getThaiFullDateTimeString } from "../../libs/date-utils";
+import ProfileImageInput from "./ProfileImageInput";
+import { uploadFileToStorage } from "../../libs/utils/file-utils";
 
 const PersonalInfoSection = ({ user }) => {
   const { setUser } = useContext(authContext);
@@ -23,7 +25,8 @@ const PersonalInfoSection = ({ user }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: user.name || ""
+      name: user.name || "",
+      profileImg: user.profileImg || ""
     }
   });
 
@@ -31,7 +34,8 @@ const PersonalInfoSection = ({ user }) => {
     setIsEditing(true);
     setApiError("");
     reset({
-      name: user.name || ""
+      name: user.name || "",
+      profileImg: user.profileImg || ""
     });
   };
 
@@ -39,7 +43,8 @@ const PersonalInfoSection = ({ user }) => {
     setIsEditing(false);
     setApiError("");
     reset({
-      name: user.name || ""
+      name: user.name || "",
+      profileImg: user.profileImg || ""
     });
   };
 
@@ -49,12 +54,38 @@ const PersonalInfoSection = ({ user }) => {
     
     try {
       console.log("Saving personal info:", formData);
-      const updatedUser = await apiClient.auth.updateProfile(formData);
       
+      // Prepare final data
+      const finalData = { name: formData.name };
+      
+      // Check if profile image was changed
+      if (formData.profileImg?.changed) {
+        console.log("Uploading new profile image...");
+        
+        // Upload to Firebase Storage
+        const imageUrl = await uploadFileToStorage(
+          "us", 
+          user._id, 
+          formData.profileImg.file
+        );
+        
+        if (!imageUrl) {
+          throw new Error("ไม่สามารถอัพโหลดรูปโปรไฟล์ได้");
+        }
+        
+        finalData.profileImg = imageUrl;
+        console.log("Profile image uploaded successfully:", imageUrl);
+      }
+      
+      // Send to NestJS backend
+      const updatedUser = await apiClient.auth.updateProfile(finalData);
+      
+      // Update state
       setUser(updatedUser);
-      
       setIsEditing(false);
+      
       console.log("Personal info saved successfully!");
+      
     } catch (error) {
       console.error("Failed to save personal info:", error);
       setApiError(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
@@ -140,17 +171,22 @@ const PersonalInfoSection = ({ user }) => {
           <div className="space-y-6">
             {/* Profile Image and Name Row */}
             <div className="flex items-center space-x-6">
-              <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
-                <img
-                  src={user.profileImg || "/user.png"}
-                  alt="Profile"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              
-              <div className="flex-1">
-                {isEditing ? (
-                  <form onSubmit={handleSubmit(handleSave)} className="space-y-3">
+              {isEditing ? (
+                <form onSubmit={handleSubmit(handleSave)} className="w-full">
+                  <div className="space-y-4">
+                    {/* Profile Image Input */}
+                    <ProfileImageInput
+                      id="profileImg"
+                      label="รูปโปรไฟล์"
+                      register={() => register("profileImg")}
+                      originFileUrl={user.profileImg}
+                      unregister={unregister}
+                      error={errors.profileImg}
+                      setValue={setValue}
+                      disabled={isSaving}
+                    />
+
+                    {/* Name Input */}
                     <TextInput
                       id="name"
                       label="ชื่อ"
@@ -164,8 +200,10 @@ const PersonalInfoSection = ({ user }) => {
                       unregister={unregister}
                       error={errors.name}
                       placeholder="ระบุชื่อของคุณ"
+                      disabled={isSaving}
                     />
 
+                    {/* Action Buttons */}
                     <div className="flex space-x-3">
                       <button
                         type="submit"
@@ -185,14 +223,26 @@ const PersonalInfoSection = ({ user }) => {
                         ยกเลิก
                       </button>
                     </div>
-                  </form>
-                ) : (
-                  <div>
-                    <h4 className="text-xl font-semibold text-gray-900">{user.name}</h4>
-                    {getRoleBadge()}
                   </div>
-                )}
-              </div>
+                </form>
+              ) : (
+                <>
+                  <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
+                    <img
+                      src={user.profileImg || "/user.png"}
+                      alt="Profile"
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  
+                  <div className="flex-1">
+                    <div>
+                      <h4 className="text-xl font-semibold text-gray-900">{user.name}</h4>
+                      {getRoleBadge()}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Email and Verification */}
