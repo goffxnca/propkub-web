@@ -1,4 +1,11 @@
-import { CheckCircleIcon, ExclamationCircleIcon, PencilIcon, CheckIcon, XIcon, ExclamationIcon } from "@heroicons/react/outline";
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  PencilIcon,
+  CheckIcon,
+  XIcon,
+  ExclamationIcon,
+} from "@heroicons/react/outline";
 import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { apiClient } from "../../lib/api/client";
@@ -18,7 +25,7 @@ const PersonalInfoSection = ({ user }) => {
 
   const getDefaultFormValues = () => ({
     name: user.name || "",
-    profileImg: user.profileImg || ""
+    profileImg: user.profileImg || "",
   });
 
   const {
@@ -29,7 +36,7 @@ const PersonalInfoSection = ({ user }) => {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: getDefaultFormValues()
+    defaultValues: getDefaultFormValues(),
   });
 
   const handleEdit = () => {
@@ -47,39 +54,37 @@ const PersonalInfoSection = ({ user }) => {
   const handleSave = async (formData) => {
     setIsSaving(true);
     setApiError("");
-    
+
     try {
       console.log("Saving personal info:", formData);
-      
+
       const finalData = { name: formData.name };
-      
+
       if (formData.profileImg?.changed) {
         console.log("Uploading new profile image...");
-        
+
         const imageUrl = await uploadFileToStorage(
-          "us", 
-          user._id, 
+          "us",
+          user._id,
           formData.profileImg.file
         );
-        
+
         if (!imageUrl) {
           throw new Error("ไม่สามารถอัพโหลดรูปโปรไฟล์ได้");
         }
-        
+
         finalData.profileImg = imageUrl;
         console.log("Profile image uploaded successfully:", imageUrl);
       }
-      
+
       const updatedUser = await apiClient.auth.updateProfile(finalData);
-      
       setUser(updatedUser);
       setIsEditing(false);
-      
+
       console.log("Personal info saved successfully!");
-      
     } catch (error) {
       console.error("Failed to save personal info:", error);
-      setApiError(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      setApiError("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
     } finally {
       setIsSaving(false);
     }
@@ -95,20 +100,20 @@ const PersonalInfoSection = ({ user }) => {
         text: "ยืนยันแล้ว",
         icon: CheckCircleIcon,
         color: "text-green-600",
-        bgColor: "bg-green-100"
+        bgColor: "bg-green-100",
       };
     } else {
       return {
         text: "ยังไม่ยืนยัน",
         icon: ExclamationCircleIcon,
         color: "text-yellow-600",
-        bgColor: "bg-yellow-100"
+        bgColor: "bg-yellow-100",
       };
     }
   };
 
   const getRoleBadge = () => {
-    if (user.role === 'agent') {
+    if (user.role === "agent") {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
           นายหน้าอสังหาริมทรัพย์
@@ -120,14 +125,14 @@ const PersonalInfoSection = ({ user }) => {
 
   const getProviderInfo = (provider) => {
     switch (provider) {
-      case 'EMAIL':
-        return { icon: '✉️', name: 'อีเมล' };
-      case 'GOOGLE':
-        return { icon: '🔍', name: 'Google' };
-      case 'FACEBOOK':
-        return { icon: '📘', name: 'Facebook' };
+      case "EMAIL":
+        return { icon: "✉️", name: "อีเมล" };
+      case "GOOGLE":
+        return { icon: "🔍", name: "Google" };
+      case "FACEBOOK":
+        return { icon: "📘", name: "Facebook" };
       default:
-        return { icon: '✉️', name: 'อีเมล' };
+        return { icon: "✉️", name: "อีเมล" };
     }
   };
 
@@ -202,7 +207,7 @@ const PersonalInfoSection = ({ user }) => {
                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                       >
                         <CheckIcon className="w-4 h-4 mr-1" />
-                        {isSaving ? 'กำลังบันทึก...' : 'บันทึก'}
+                        {isSaving ? "กำลังบันทึก..." : "บันทึก"}
                       </button>
                       <button
                         type="button"
@@ -225,10 +230,12 @@ const PersonalInfoSection = ({ user }) => {
                       className="h-full w-full object-cover"
                     />
                   </div>
-                  
+
                   <div className="flex-1">
                     <div>
-                      <h4 className="text-xl font-semibold text-gray-900">{user.name}</h4>
+                      <h4 className="text-xl font-semibold text-gray-900">
+                        {user.name}
+                      </h4>
                       {getRoleBadge()}
                     </div>
                   </div>
@@ -244,7 +251,9 @@ const PersonalInfoSection = ({ user }) => {
                 </label>
                 <div className="mt-1 flex items-center space-x-3">
                   <span className="text-sm text-gray-900">{user.email}</span>
-                  <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${verification.bgColor} ${verification.color}`}>
+                  <div
+                    className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${verification.bgColor} ${verification.color}`}
+                  >
                     <VerificationIcon className="w-3 h-3 mr-1" />
                     {verification.text}
                   </div>
@@ -305,4 +314,4 @@ const PersonalInfoSection = ({ user }) => {
   );
 };
 
-export default PersonalInfoSection; 
+export default PersonalInfoSection;
