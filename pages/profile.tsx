@@ -3,9 +3,9 @@ import Head from "next/head";
 import { authContext } from "../contexts/authContext";
 import { genPageTitle } from "../libs/seo-utils";
 import ProtectedRoute from "../components/Auth/ProtectedRoute";
-import Profile2Screen from "../components/Profile2/Profile2Screen";
+import ProfileScreen from "../components/Profile/ProfileScreen";
 
-const Profile2Page = () => {
+const ProfilePage = () => {
   const { user } = useContext(authContext);
 
   return (
@@ -13,9 +13,9 @@ const Profile2Page = () => {
       <Head>
         <title>{genPageTitle("โปรไฟล์ของฉัน")}</title>
       </Head>
-      <Profile2Screen user={user} />
+      <ProfileScreen user={user} />
     </ProtectedRoute>
   );
 };
 
-export default Profile2Page; 
+export default ProfilePage; 

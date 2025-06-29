@@ -8,7 +8,7 @@ import ContactInfoSection from "./ContactInfoSection";
 import AccountDetailsSection from "./AccountDetailsSection";
 import AccountSecuritySection from "./AccountSecuritySection";
 
-const Profile2Screen = ({ user }) => {
+const ProfileScreen = ({ user }) => {
   const { isProfileComplete } = useContext(authContext);
   const router = useRouter();
   const [warningMessages, setWarningMessages] = useState([]);
@@ -66,4 +66,4 @@ const Profile2Screen = ({ user }) => {
   );
 };
 
-export default Profile2Screen; 
+export default ProfileScreen; 
