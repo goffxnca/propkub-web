@@ -247,18 +247,6 @@ const AccountSecuritySection = ({ user }) => {
                 เคล็ดลับความปลอดภัย
               </label>
               <div className="space-y-2">
-                <div className="flex items-start space-x-2">
-                  <span className="text-green-500 text-sm">✓</span>
-                  <span className="text-sm text-gray-700">
-                    อีเมลของคุณ{user.emailVerified ? 'ได้รับการยืนยันแล้ว' : 'ยังไม่ได้รับการยืนยัน'}
-                  </span>
-                </div>
-                <div className="flex items-start space-x-2">
-                  <span className="text-green-500 text-sm">✓</span>
-                  <span className="text-sm text-gray-700">
-                    คุณเข้าสู่ระบบด้วย {user.provider === 'email' ? 'อีเมลและรหัสผ่าน' : user.provider === 'google' ? 'Google' : 'Facebook'} ที่ปลอดภัย
-                  </span>
-                </div>
                 {user.provider === 'email' && (
                   <div className="flex items-start space-x-2">
                     <span className="text-yellow-500 text-sm">!</span>
