@@ -158,11 +158,10 @@ const AuthContextProvider = ({ children }) => {
   const isProfileComplete =
     user &&
     user.email &&
-    user.displayName &&
+    user.name &&
     user.phone &&
     user.line &&
-    user.photoURL &&
-    ["agent", "admin"].includes(user.role);
+    user.profileImg
 
   const authValue = {
     user,
