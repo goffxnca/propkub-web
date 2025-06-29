@@ -55,14 +55,11 @@ const PersonalInfoSection = ({ user }) => {
     try {
       console.log("Saving personal info:", formData);
       
-      // Prepare final data
       const finalData = { name: formData.name };
       
-      // Check if profile image was changed
       if (formData.profileImg?.changed) {
         console.log("Uploading new profile image...");
         
-        // Upload to Firebase Storage
         const imageUrl = await uploadFileToStorage(
           "us", 
           user._id, 
@@ -77,10 +74,8 @@ const PersonalInfoSection = ({ user }) => {
         console.log("Profile image uploaded successfully:", imageUrl);
       }
       
-      // Send to NestJS backend
       const updatedUser = await apiClient.auth.updateProfile(finalData);
       
-      // Update state
       setUser(updatedUser);
       setIsEditing(false);
       
