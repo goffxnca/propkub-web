@@ -16,6 +16,11 @@ const PersonalInfoSection = ({ user }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [apiError, setApiError] = useState("");
 
+  const getDefaultFormValues = () => ({
+    name: user.name || "",
+    profileImg: user.profileImg || ""
+  });
+
   const {
     register,
     unregister,
@@ -24,28 +29,19 @@ const PersonalInfoSection = ({ user }) => {
     reset,
     formState: { errors },
   } = useForm({
-    defaultValues: {
-      name: user.name || "",
-      profileImg: user.profileImg || ""
-    }
+    defaultValues: getDefaultFormValues()
   });
 
   const handleEdit = () => {
     setIsEditing(true);
     setApiError("");
-    reset({
-      name: user.name || "",
-      profileImg: user.profileImg || ""
-    });
+    reset(getDefaultFormValues());
   };
 
   const handleCancel = () => {
     setIsEditing(false);
     setApiError("");
-    reset({
-      name: user.name || "",
-      profileImg: user.profileImg || ""
-    });
+    reset(getDefaultFormValues());
   };
 
   const handleSave = async (formData) => {
