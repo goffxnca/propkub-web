@@ -35,7 +35,7 @@ const AccountSecuritySection = ({ user }) => {
       return {
         hasPassword: false,
         canChangePassword: false,
-        message: `คุณเข้าสู่ระบบด้วย ${user.provider === 'google' ? 'Google' : 'Facebook'} ไม่จำเป็นต้องมีรหัสผ่าน`
+        message: `คุณลงทะเบียนด้วย ${user.provider === 'google' ? 'Google' : 'Facebook'} Acccount ไม่จำเป็นต้องมีรหัสผ่าน`
       };
     }
   };

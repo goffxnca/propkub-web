@@ -7,6 +7,7 @@ import PersonalInfoSection from "./PersonalInfoSection";
 import ContactInfoSection from "./ContactInfoSection";
 import AccountDetailsSection from "./AccountDetailsSection";
 import AccountSecuritySection from "./AccountSecuritySection";
+import SocialConnectionsSection from "./SocialConnectionsSection";
 
 const ProfileScreen = ({ user }) => {
   const { isProfileComplete } = useContext(authContext);
@@ -60,6 +61,7 @@ const ProfileScreen = ({ user }) => {
         <PersonalInfoSection user={user} />
         <AccountDetailsSection user={user} />
         <ContactInfoSection user={user} />
+        <SocialConnectionsSection user={user} />
         <AccountSecuritySection user={user} />
       </div>
     </div>
