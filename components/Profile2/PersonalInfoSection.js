@@ -172,7 +172,7 @@ const PersonalInfoSection = ({ user }) => {
                       register={() => register("profileImg")}
                       originFileUrl={user.profileImg}
                       unregister={unregister}
-                      error={errors.profileImg}
+                      formError={errors.profileImg}
                       setValue={setValue}
                       disabled={isSaving}
                     />
