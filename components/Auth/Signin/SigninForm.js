@@ -59,7 +59,7 @@ const SiginInForm = () => {
               ล็อกอินเข้าสู่ระบบ
             </h1>
             <div className="flex justify-center">
-              <Logo />
+              {/* <Logo /> */}
             </div>
             <br />
             

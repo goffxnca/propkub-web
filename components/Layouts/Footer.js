@@ -77,9 +77,9 @@ const Footer = () => {
             </Link>
           ))}
         </div> */}
-        <p className="text-center text-base text-gray-400">
+        {/* <p className="text-center text-base text-gray-400">
           Copyright &copy; 2024 PropKub.com - All rights reserved
-        </p>
+        </p> */}
         <div className="text-gray-400 text-sm text-center mt-2">
           {/* Developed By{" "}
           <a

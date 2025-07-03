@@ -22,7 +22,7 @@ const AuthLayout = ({ children }) => {
       <div className="z-10">{children}</div>
 
       <div className="absolute top-0 left-0 w-screen p-4">
-        <Logo />
+        {/* <Logo /> */}
       </div>
     </div>
   );
