@@ -200,7 +200,7 @@ const Header = () => {
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-4 md:justify-start md:space-x-10 px-4 sm:px-6">
           {/* Logo */}
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            <Logo />
+            {/* <Logo /> */}
           </div>
 
           {/* Mobile Notifications */}
@@ -460,7 +460,7 @@ const Header = () => {
                 <div className="flex items-center justify-between">
                   {!user && (
                     <div>
-                      <Logo onClick={close} />
+                      {/* <Logo onClick={close} /> */}
                     </div>
                   )}
 

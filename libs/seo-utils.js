@@ -1,6 +1,6 @@
 const genPageTitle = (title) => {
   return title
-    ? `${title.substring()} | PropKub.com`
+    ? `${title.substring()}`
     : "PropKub.com - ลงประกาศขาย/ให้เช่า คอนโด บ้าน ที่ดินฟรี";
 };
 

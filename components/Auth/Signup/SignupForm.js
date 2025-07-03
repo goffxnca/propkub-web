@@ -66,7 +66,7 @@ const SignupForm = () => {
               ลงทะเบียนใช้งาน
             </h1>
             <div className="flex justify-center">
-              <Logo />
+              {/* <Logo /> */}
             </div>
             <br />
 
