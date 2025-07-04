@@ -13,7 +13,7 @@ const LinkGoogleAccountButton = ({
     
     // Create structured state object
     const stateObject = {
-      mode: "jojo",
+      mode: "link",
       email: currentUserEmail,
       provider: "google"
     };
