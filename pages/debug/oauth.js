@@ -18,6 +18,26 @@ const DebugOAuth = () => {
       label: "Test OAuth Server Error",
       url: "/auth/callback?error=server_error",
       description: "Test server error"
+    },
+    {
+      label: "Test Email Mismatch (Linking)",
+      url: "/auth/callback?error=email_mismatch&expectedEmail=user@example.com&provider=google",
+      description: "Test linking failure due to email mismatch"
+    },
+    {
+      label: "Test Missing Email (Linking)",
+      url: "/auth/callback?error=missing_email",
+      description: "Test linking failure due to missing email parameter"
+    },
+    {
+      label: "Test Linking Failed",
+      url: "/auth/callback?error=linking_failed",
+      description: "Test general linking failure"
+    },
+    {
+      label: "Test Already Linked",
+      url: "/auth/callback?error=already_linked&provider=google",
+      description: "Test error when account is already linked"
     }
   ];
 
