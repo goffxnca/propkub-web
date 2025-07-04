@@ -2,6 +2,7 @@ import {  CheckCircleIcon, XCircleIcon } from "@heroicons/react/outline";
 import GoogleIcon from "../Icons/GoogleIcon";
 import FacebookIcon from "../Icons/FacebookIcon";
 import { MailIcon } from "@heroicons/react/outline";
+import LinkGoogleAccountButton from "../UI/LinkGoogleAccountButton";
 
 const SocialConnectionsSection = ({ user }) => {
 
@@ -85,8 +86,18 @@ const SocialConnectionsSection = ({ user }) => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <XCircleIcon className="w-5 h-5 text-gray-400" />
-          <span className="text-sm font-medium text-gray-600">ยังไม่เชื่อมต่อ</span>
+          {provider === 'google' ? (
+            <LinkGoogleAccountButton
+              currentUserEmail={user.email}
+              size="sm"
+              buttonText="เชื่อมต่อ"
+            />
+          ) : (
+            <>
+              <XCircleIcon className="w-5 h-5 text-gray-400" />
+              <span className="text-sm font-medium text-gray-600">ยังไม่เชื่อมต่อ</span>
+            </>
+          )}
         </div>
       </div>
     );
