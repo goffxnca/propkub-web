@@ -10,14 +10,9 @@ const DebugOAuth = () => {
       description: "Test OAuth failure"
     },
     {
-      label: "Test OAuth Access Denied",
-      url: "/auth/callback?error=access_denied",
-      description: "Test user denied access"
-    },
-    {
-      label: "Test OAuth Server Error",
-      url: "/auth/callback?error=server_error",
-      description: "Test server error"
+      label: "Test OAuth Cancel",
+      url: "/auth/callback?error=oauth_cancelled&provider=facebook",
+      description: "Test user cancel oauth"
     },
     {
       label: "Test Email Mismatch (Linking)",
