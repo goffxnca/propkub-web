@@ -3,6 +3,7 @@ import GoogleIcon from "../Icons/GoogleIcon";
 import FacebookIcon from "../Icons/FacebookIcon";
 import { MailIcon } from "@heroicons/react/outline";
 import LinkGoogleAccountButton from "../UI/LinkGoogleAccountButton";
+import LinkFacebookAccountButton from "../UI/LinkFacebookAccountButton";
 
 const SocialConnectionsSection = ({ user }) => {
 
@@ -88,6 +89,12 @@ const SocialConnectionsSection = ({ user }) => {
         <div className="flex items-center space-x-2">
           {provider === 'google' ? (
             <LinkGoogleAccountButton
+              currentUserEmail={user.email}
+              size="sm"
+              buttonText="เชื่อมต่อ"
+            />
+          ) : provider === 'facebook' ? (
+            <LinkFacebookAccountButton
               currentUserEmail={user.email}
               size="sm"
               buttonText="เชื่อมต่อ"

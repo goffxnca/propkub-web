@@ -67,6 +67,8 @@ const AuthCallback = () => {
             setError("เกิดข้อผิดพลาดในการเชื่อมต่อบัญชี กรุณาลองใหม่อีกครั้ง");
           } else if (error === 'already_linked') {
             setError(`บัญชี ${formatProviderName(provider)} นี้เชื่อมต่ออยู่แล้ว กรุณารีเฟรชหน้าเว็บ`);
+          } else if (error === 'oauth_cancelled') {
+            setError(`การเชื่อมต่อบัญชี ${formatProviderName(provider)} ถูกยกเลิก`);
           } else {
             setError("เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง");
           }
@@ -106,11 +108,7 @@ const AuthCallback = () => {
 
   const handleCloseErrorModal = () => {
     const { error } = router.query;
-    if (error === 'email_mismatch' || error === 'missing_email' || error === 'linking_failed' || error === 'already_linked') {
       router.push("/profile");
-    } else {
-      router.push("/login");
-    }
   };
 
   return (
