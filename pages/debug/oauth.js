@@ -25,11 +25,6 @@ const DebugOAuth = () => {
       description: "Test linking failure due to email mismatch"
     },
     {
-      label: "Test Missing Email (Linking)",
-      url: "/auth/callback?error=missing_email",
-      description: "Test linking failure due to missing email parameter"
-    },
-    {
       label: "Test Linking Failed",
       url: "/auth/callback?error=linking_failed",
       description: "Test general linking failure"
