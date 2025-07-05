@@ -37,6 +37,20 @@ const AuthCallback = () => {
     }
   };
 
+  const handleAuthSuccess = async ({ token, provider, isLinking }) => {
+    tokenManager.setToken(token);
+    const userProfile = await apiClient.auth.getProfile();
+    setUser(userProfile);
+    setIsProcessing(false);
+
+    if (isLinking) {
+      setLinkProvider(provider);
+      setShowLinkSuccess(true);
+    } else {
+      router.push("/profile");
+    }
+  };
+
   useEffect(() => {
     const handleCallback = async () => {
       try {
@@ -49,8 +63,6 @@ const AuthCallback = () => {
           
           if (error === 'email_mismatch') {
             setError(`เชื่อมต่อไม่ได้ กรุณาใช้บัญชี ${formatProviderName(provider)} ที่ผูกกับอีเมล: ${expectedEmail || 'email'}`);
-          } else if (error === 'missing_email') {
-            setError("ข้อมูลอีเมลไม่ครบถ้วน กรุณาลองใหม่อีกครั้ง");
           } else if (error === 'linking_failed') {
             setError("เกิดข้อผิดพลาดในการเชื่อมต่อบัญชี กรุณาลองใหม่อีกครั้ง");
           } else if (error === 'already_linked') {
@@ -69,28 +81,15 @@ const AuthCallback = () => {
         }
 
         // Handle linking success
-        if (success === 'link_success') {
+        if (success === 'linking') {
           console.log("[AuthCallback] Account linking successful:", { provider });
-          tokenManager.setToken(token);
-          const userProfile = await apiClient.auth.getProfile();
-          setUser(userProfile);
-          setLinkProvider(provider);
-          setShowLinkSuccess(true);
-          setIsProcessing(false);
+          await handleAuthSuccess({ token, provider, isLinking: true });
           return;
         }
 
         // Handle regular login/signup success
         console.log("[AuthCallback] Login successful:", { accessToken: token });
-
-        tokenManager.setToken(token);
-        const userProfile = await apiClient.auth.getProfile();
-        console.log(
-          "[AuthCallback] User profile fetched after social login:",
-          userProfile
-        );
-        setUser(userProfile);
-        router.push("/profile");
+        await handleAuthSuccess({ token, provider, isLinking: false });
       } catch (error) {
         console.error("[AuthCallback] Error processing callback:", error);
         tokenManager.removeToken();
