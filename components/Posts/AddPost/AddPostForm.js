@@ -142,7 +142,7 @@ const AddPostForm = ({ isMember, postData }) => {
     setSaving(true);
 
     if (isEditMode) {
-      debugger;
+      
       //UPDATE MODE
       updatePost(postData.id, data, user)
         .then((result) => {
