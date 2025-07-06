@@ -138,7 +138,7 @@ const AuthCallback = () => {
         type="success"
         title={`เชื่อมต่อบัญชี ${formatProviderName(linkProvider)} สำเร็จ!`}
         desc={<>
-          <p className="mt-2 text-gray-500">ครั้งถัดไปคุณสามารถเข้าสู่ระบบด้วยบัญชี {formatProviderName(linkProvider)} นี้ได้ทันที</p>
+          <p className="mt-2 text-gray-500">ครั้งถัดไปคุณสามารถเข้าสู่ระบบด้วยบัญชี {formatProviderName(linkProvider)} นี้ได้เช่นกัน</p>
         </>}
         buttonCaption="ตกลง"
         onClose={() => router.push("/profile")}
