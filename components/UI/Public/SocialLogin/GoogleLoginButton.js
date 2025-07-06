@@ -1,9 +1,11 @@
+import { envConfig } from "../../../../libs/envConfig";
+
 const GoogleLoginButton = ({ 
   text = "เชื่อมต่อด้วย Google"
 }) => {
   const handleGoogleOAuth = () => {
     console.log('[Auth] Initiating Google OAuth');
-    window.location.href = 'http://localhost:3000/auth/google';
+    window.location.href = `${envConfig.apiUrl()}/auth/google`;
   };
 
   return (

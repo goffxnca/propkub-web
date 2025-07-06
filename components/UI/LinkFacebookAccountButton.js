@@ -1,3 +1,4 @@
+import { envConfig } from "../../libs/envConfig";
 import FacebookIcon from "../Icons/FacebookIcon";
 
 const LinkFacebookAccountButton = ({ 
@@ -21,7 +22,7 @@ const LinkFacebookAccountButton = ({
     };
     
     const state = JSON.stringify(stateObject);
-    const linkingUrl = `http://localhost:3000/auth/facebook?state=${encodeURIComponent(state)}`;
+    const linkingUrl = `${envConfig.apiUrl()}/auth/facebook?state=${encodeURIComponent(state)}`;
     window.location.href = linkingUrl;
   };
 
