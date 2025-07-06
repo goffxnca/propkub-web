@@ -59,7 +59,7 @@ const LocationSection = ({
 
     if (watchRegionId) {
       getAllProvincesByRegionId(watchRegionId).then((result) => {
-        debugger;
+        
         setProvinceList(result);
       });
     } else {
@@ -73,7 +73,7 @@ const LocationSection = ({
 
     if (watchProvinceId) {
       getAllDistrictsByProvinceId(watchProvinceId).then((result) => {
-        debugger;
+        
         setDistrictList(result);
       });
     } else {
@@ -87,7 +87,7 @@ const LocationSection = ({
 
     if (watchDistrictId) {
       getAllSubDistrictsByDistrictId(watchDistrictId).then((result) => {
-        debugger;
+        
         setSubDistrictList(result);
       });
     } else {
@@ -96,7 +96,7 @@ const LocationSection = ({
   }, [watchDistrictId]);
 
   const renderMap = () => {
-    debugger;
+    
     if (watchSubDistrictId && mapSearchQuotaRemaining) {
       console.log("watchSubDistrictId changed!!");
       const districtElem = document.getElementById("address.districtId");
@@ -356,7 +356,7 @@ const LocationSection = ({
                     <GoogleMap
                       address={mapAddress}
                       onLocationSelected={(location) => {
-                        debugger;
+                        
                         setValue(
                           "address.location",
                           location
