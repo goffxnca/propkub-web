@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { ShieldCheckIcon, KeyIcon, ExclamationIcon, CheckIcon, XIcon } from "@heroicons/react/outline";
+import {
+  ShieldCheckIcon,
+  KeyIcon,
+  ExclamationIcon,
+  CheckIcon,
+  XIcon,
+} from "@heroicons/react/outline";
 import TextInput from "../UI/Public/Inputs/TextInput";
 import Modal from "../UI/Public/Modal";
 import { minLength, maxLength } from "../../libs/form-validator";
@@ -24,18 +30,20 @@ const AccountSecuritySection = ({ user }) => {
 
   const getPasswordStatus = () => {
     // Users who signed up with email have passwords
-    if (user.provider === 'email') {
+    if (user.provider === "email") {
       return {
         hasPassword: true,
         canChangePassword: true,
-        message: 'คุณสามารถเปลี่ยนรหัสผ่านได้'
+        message: "คุณสามารถเปลี่ยนรหัสผ่านได้",
       };
     } else {
       // Users who signed up with Google/Facebook don't have passwords
       return {
         hasPassword: false,
         canChangePassword: false,
-        message: `คุณลงทะเบียนด้วย ${user.provider === 'google' ? 'Google' : 'Facebook'} Acccount ไม่จำเป็นต้องมีรหัสผ่าน`
+        message: `คุณลงทะเบียนด้วย ${
+          user.provider === "google" ? "Google" : "Facebook"
+        } Acccount ไม่จำเป็นต้องมีรหัสผ่าน`,
       };
     }
   };
@@ -65,7 +73,8 @@ const AccountSecuritySection = ({ user }) => {
       setIsEditing(false);
       reset();
     } catch (error) {
-      const errorMessage = t(error.message) || "เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน";
+      const errorMessage =
+        t(error.message) || "เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน";
       setApiError(errorMessage);
     } finally {
       setIsSaving(false);
@@ -87,7 +96,7 @@ const AccountSecuritySection = ({ user }) => {
   useEffect(() => {
     if (isEditing) {
       setTimeout(() => {
-        const currentPasswordInput = document.getElementById('currentPassword');
+        const currentPasswordInput = document.getElementById("currentPassword");
         if (currentPasswordInput) {
           currentPasswordInput.focus();
         }
@@ -143,7 +152,10 @@ const AccountSecuritySection = ({ user }) => {
                       </div>
                     ) : (
                       <div className="border border-gray-200 rounded-lg p-4">
-                        <form onSubmit={handleSubmit(handleSave)} className="space-y-4">
+                        <form
+                          onSubmit={handleSubmit(handleSave)}
+                          className="space-y-4"
+                        >
                           <div className="grid grid-cols-1 gap-4">
                             <div className="password-input-thai">
                               <TextInput
@@ -154,8 +166,12 @@ const AccountSecuritySection = ({ user }) => {
                                 register={() =>
                                   register("currentPassword", {
                                     required: "กรุณาระบุรหัสผ่านปัจจุบัน",
-                                    minLength: { ...minLength(6, "รหัสผ่านปัจจุบัน") },
-                                    maxLength: { ...maxLength(64, "รหัสผ่านปัจจุบัน") },
+                                    minLength: {
+                                      ...minLength(6, "รหัสผ่านปัจจุบัน"),
+                                    },
+                                    maxLength: {
+                                      ...maxLength(64, "รหัสผ่านปัจจุบัน"),
+                                    },
                                   })
                                 }
                                 unregister={unregister}
@@ -172,8 +188,12 @@ const AccountSecuritySection = ({ user }) => {
                                 register={() =>
                                   register("newPassword", {
                                     required: "กรุณาระบุรหัสผ่านใหม่",
-                                    minLength: { ...minLength(6, "รหัสผ่านใหม่") },
-                                    maxLength: { ...maxLength(64, "รหัสผ่านใหม่") },
+                                    minLength: {
+                                      ...minLength(6, "รหัสผ่านใหม่"),
+                                    },
+                                    maxLength: {
+                                      ...maxLength(64, "รหัสผ่านใหม่"),
+                                    },
                                   })
                                 }
                                 unregister={unregister}
@@ -191,7 +211,8 @@ const AccountSecuritySection = ({ user }) => {
                                   register("confirmPassword", {
                                     required: "กรุณายืนยันรหัสผ่านใหม่",
                                     validate: (value) =>
-                                      value === newPassword || "รหัสผ่านไม่ตรงกัน",
+                                      value === newPassword ||
+                                      "รหัสผ่านไม่ตรงกัน",
                                   })
                                 }
                                 unregister={unregister}
@@ -207,7 +228,7 @@ const AccountSecuritySection = ({ user }) => {
                               className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                             >
                               <CheckIcon className="w-4 h-4 mr-1" />
-                              {isSaving ? 'กำลังบันทึก...' : 'เปลี่ยนรหัสผ่าน'}
+                              {isSaving ? "กำลังบันทึก..." : "เปลี่ยนรหัสผ่าน"}
                             </button>
                             <button
                               type="button"
@@ -242,21 +263,21 @@ const AccountSecuritySection = ({ user }) => {
             </div>
 
             {/* Security Tips */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
-                เคล็ดลับความปลอดภัย
-              </label>
-              <div className="space-y-2">
-                {user.provider === 'email' && (
+            {user.provider === "email" && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  เคล็ดลับความปลอดภัย
+                </label>
+                <div className="space-y-2">
                   <div className="flex items-start space-x-2">
                     <span className="text-yellow-500 text-sm">!</span>
                     <span className="text-sm text-gray-700">
                       แนะนำให้เปลี่ยนรหัสผ่านเป็นระยะๆ เพื่อความปลอดภัย
                     </span>
                   </div>
-                )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -286,4 +307,4 @@ const AccountSecuritySection = ({ user }) => {
   );
 };
 
-export default AccountSecuritySection; 
+export default AccountSecuritySection;
