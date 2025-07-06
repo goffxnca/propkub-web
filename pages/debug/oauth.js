@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { envConfig } from "../../libs/envConfig"
 
 const DebugOAuth = () => {
   const router = useRouter();
@@ -69,7 +70,7 @@ const DebugOAuth = () => {
             <h3 className="font-medium text-gray-900 mb-4">Real OAuth Testing</h3>
             <div className="space-y-2">
               <button
-                onClick={() => window.location.href = 'http://localhost:3000/auth/google'}
+                onClick={() => window.location.href = `${envConfig.apiUrl()}/auth/google`}
                 className="w-full px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
               >
                 Test Real Google OAuth

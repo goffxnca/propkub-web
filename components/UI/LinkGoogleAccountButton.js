@@ -1,3 +1,5 @@
+import { envConfig } from "../../libs/envConfig";
+
 const LinkGoogleAccountButton = ({ 
   currentUserEmail,
   size = "sm",
@@ -19,7 +21,7 @@ const LinkGoogleAccountButton = ({
     };
     
     const state = JSON.stringify(stateObject);
-    const linkingUrl = `http://localhost:3000/auth/google?state=${encodeURIComponent(state)}`;
+    const linkingUrl = `${envConfig.apiUrl()}/auth/google?state=${encodeURIComponent(state)}`;
     window.location.href = linkingUrl;
   };
 
