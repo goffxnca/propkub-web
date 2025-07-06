@@ -4,7 +4,7 @@ import Head from "next/head";
 // import StatsBanner from "../components/Banner/Stats";
 import PostList from "../components/Posts/PostList";
 import { BASE_SITE_URL } from "../libs/constants";
-import { getAllProvinces } from "../libs/managers/addressManager";
+import { fetchProvincesServerSide } from "../libs/managers/addressManager";
 import { getAllActivePosts } from "../libs/post-utils";
 import { genPageTitle } from "../libs/seo-utils";
 
@@ -30,7 +30,7 @@ const HomePage = ({ posts, provinces }) => {
 
 export async function getStaticProps() {
   const posts = await getAllActivePosts(process.env.HOMEPAGE_LIMIT);
-  const provinces = await getAllProvinces();
+  const provinces = await fetchProvincesServerSide();
 
   const returnProps = {
     props: {
@@ -39,6 +39,26 @@ export async function getStaticProps() {
     },
   };
 
+  /**
+   * Next.js Incremental Static Regeneration (ISR) Configuration
+   * 
+   * Development Mode:
+   * - getStaticProps runs on EVERY request
+   * - provinces will be fetched from API on every page load
+   * - revalidation setting has no effect
+   * 
+   * Production Mode:
+   * - Initial: Runs at build time, creates static HTML/JSON
+   * - Subsequent: Page revalidates based on HOMEPAGE_REVALIDATION seconds
+   * - If HOMEPAGE_REVALIDATION=1800 (30 mins):
+   *   1. First visit after 30 mins triggers background regeneration
+   *   2. New visitors continue seeing old version until regeneration completes
+   *   3. fetchProvincesServerSide() only runs during these regenerations
+   *   4. Client-side still uses localStorage cache independent of this setting
+   * 
+   * Note: This affects both posts and provinces data freshness.
+   * Choose HOMEPAGE_REVALIDATION based on how often this data changes.
+   */
   const revalidateInSecond = process.env.HOMEPAGE_REVALIDATION;
 
   if (revalidateInSecond) {

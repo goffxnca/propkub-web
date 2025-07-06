@@ -12,7 +12,22 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../firebase";
-import { Province, District, SubDistrict, LocationBreadcrumb } from "../../src/types/models/address";
+import { apiClient } from "../../lib/api/client";
+import {
+  Province,
+  District,
+  SubDistrict,
+  LocationBreadcrumb,
+} from "../../src/types/models/address";
+
+const PROVINCE_CACHE_KEY = "provinces";
+const CACHE_VERSION = "1.0";
+
+interface CachedProvinces {
+  timestamp: number;
+  data: Province[];
+  version: string;
+}
 
 const provincesCollectionRef = collection(db, "provinces");
 const districtsCollectionRef = collection(db, "districts");
@@ -63,39 +78,59 @@ const seedSubDistricts = async (): Promise<void> => {
   });
 };
 
-const getAllProvinces = async (): Promise<Province[]> => {
-  const q = query(provincesCollectionRef, orderBy("name"));
+const fetchProvincesFromAPI = async (): Promise<Province[]> => {
+  const response = await apiClient.provinces.getAll();
+  return response as unknown as Province[];
+};
 
-  const provincesDocs = await getDocs(q);
-  const provinces: Province[] = [];
-  provincesDocs.forEach((doc) => {
-    provinces.push({
-      ...doc.data(),
-      id: doc.id,
-    } as Province);
-  });
+export const fetchProvincesServerSide = async () => {
+  return fetchProvincesFromAPI();
+};
+
+export const fetchProvincesClientSide = async (): Promise<Province[]> => {
+  const cached = localStorage.getItem(PROVINCE_CACHE_KEY);
+  if (cached) {
+    try {
+      const parsedCache = JSON.parse(cached) as CachedProvinces;
+      if (parsedCache.version === CACHE_VERSION) {
+        return parsedCache.data;
+      }
+    } catch (e) {
+      console.warn("Failed to parse provinces cache:", e);
+    }
+  }
+
+  const provinces = await fetchProvincesFromAPI();
+
+  const cacheData: CachedProvinces = {
+    timestamp: Date.now(),
+    data: provinces,
+    version: CACHE_VERSION,
+  };
+  localStorage.setItem(PROVINCE_CACHE_KEY, JSON.stringify(cacheData));
+
   return provinces;
 };
 
-const getAllProvincesByRegionId = async (regionId: string): Promise<Province[]> => {
-  const q = query(
-    provincesCollectionRef,
-    where("regionId", "==", regionId),
-    orderBy("name")
-  );
-
-  const provincesDocs = await getDocs(q);
-  const provinces: Province[] = [];
-  provincesDocs.forEach((doc) => {
-    provinces.push({
-      ...doc.data(),
-      id: doc.id,
-    } as Province);
-  });
-  return provinces;
+const getAllProvincesByRegionId = async (
+  regionId: string
+): Promise<Province[]> => {
+  const provinces = await fetchProvincesClientSide();
+  return provinces.filter((p) => p.regionId === regionId);
 };
 
-const getAllDistrictsByProvinceId = async (provinceId: string): Promise<District[]> => {
+const getProvinceById = async (id: string): Promise<Province> => {
+  const provinces = await fetchProvincesClientSide();
+  const province = provinces.find((p) => p.id === id);
+  if (!province) {
+    throw new Error(`Province with ID ${id} not found`);
+  }
+  return province;
+};
+
+const getAllDistrictsByProvinceId = async (
+  provinceId: string
+): Promise<District[]> => {
   const q = query(
     districtsCollectionRef,
     where("provinceId", "==", provinceId),
@@ -113,7 +148,9 @@ const getAllDistrictsByProvinceId = async (provinceId: string): Promise<District
   return districts;
 };
 
-const getAllSubDistrictsByDistrictId = async (districtId: string): Promise<SubDistrict[]> => {
+const getAllSubDistrictsByDistrictId = async (
+  districtId: string
+): Promise<SubDistrict[]> => {
   const q = query(
     subDistrictsCollectionRef,
     where("districtId", "==", districtId),
@@ -129,16 +166,6 @@ const getAllSubDistrictsByDistrictId = async (districtId: string): Promise<SubDi
     } as SubDistrict);
   });
   return subDistricts;
-};
-
-const getProvinceById = async (id: string): Promise<Province> => {
-  const docRef = doc(provincesCollectionRef, id);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
-  return {
-    id: docSnap.id,
-    ...data,
-  } as Province;
 };
 
 const getDistrictById = async (id: string): Promise<District> => {
@@ -161,7 +188,10 @@ const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
   } as SubDistrict;
 };
 
-const getBreadcrumbs = async (locationtId: string, locationType: 'pv' | 'dt' | 'sd'): Promise<LocationBreadcrumb[]> => {
+const getBreadcrumbs = async (
+  locationtId: string,
+  locationType: "pv" | "dt" | "sd"
+): Promise<LocationBreadcrumb[]> => {
   let breadcrumbs: LocationBreadcrumb[] = [];
 
   if (locationType === "sd") {
@@ -195,7 +225,6 @@ export {
   // seedProvinces,
   // seedDistricts,
   // seedSubDistricts,
-  getAllProvinces,
   getAllProvincesByRegionId,
   getAllDistrictsByProvinceId,
   getAllSubDistrictsByDistrictId,
