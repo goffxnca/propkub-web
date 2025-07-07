@@ -11,7 +11,7 @@ import { getNotifications } from "../libs/managers/notificationManager";
 import { getFirebaseErrorLabel } from "../libs/mappers/firebaseErrorCodeMapper";
 import { apiClient } from "../lib/api/client";
 import { tokenManager } from "../lib/api/tokenManager";
-import { t } from "../lib/utils/translator";
+import { t } from "../libs/translator";
 
 const initialContext = {
   user: null,

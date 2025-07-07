@@ -6,7 +6,7 @@ import TextInput from "../UI/Public/Inputs/TextInput";
 import Button from "../UI/Public/Button";
 import { EmailPattern } from "../../libs/form-validator";
 import { apiClient } from "../../lib/api/client";
-import { t } from "../../lib/utils/translator";
+import { t } from "../../libs/translator";
 
 const ForgotPasswordModal = ({ visible, onClose }) => {
   const [loading, setLoading] = useState(false);
