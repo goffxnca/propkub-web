@@ -22,8 +22,8 @@ import Loader from "../UI/Common/modals/Loader";
 import Image from "next/image";
 import { Router, useRouter } from "next/router";
 import {
-  getAllDistrictsByProvinceId,
   getAllProvincesByRegionId,
+  fetchDistrictsByProvinceId,
   getAllSubDistrictsByDistrictId,
 } from "../../libs/managers/addressManager";
 
@@ -182,7 +182,7 @@ const PostFilter = ({ onSearch, onReset }) => {
     setSearchFilter((state) => ({ ...state, districtId: "" }));
 
     if (searchFilter.provinceId) {
-      getAllDistrictsByProvinceId(searchFilter.provinceId).then((result) => {
+      fetchDistrictsByProvinceId(searchFilter.provinceId).then((result) => {
         setDistrictList(result);
       });
     } else {

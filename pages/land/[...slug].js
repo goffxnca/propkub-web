@@ -4,7 +4,8 @@ import PostItem from "../../components/Posts/PostItem";
 import Breadcrumbs from "../../components/UI/Public/Breadcrumbs";
 import { getLocationPrefix } from "../../libs/location-utils";
 import {
-  getAllDistrictsByProvinceId,
+  getAllProvincesByRegionId,
+  fetchDistrictsByProvinceId,
   getAllSubDistrictsByDistrictId,
   getBreadcrumbs,
 } from "../../libs/managers/addressManager";
@@ -137,10 +138,10 @@ export async function getServerSideProps({ params, resolvedUrl }) {
 
   //Get all other locations under some location
   const subLocations = await (locationType === "pv"
-    ? getAllDistrictsByProvinceId(locationCode)
+    ? getAllProvincesByRegionId(locationCode)
     : locationType === "dt"
-    ? getAllSubDistrictsByDistrictId(locationCode)
-    : []);
+    ? fetchDistrictsByProvinceId(locationCode)
+    : getAllSubDistrictsByDistrictId(locationCode));
 
   //Get breadcrumbs
   const breadcrumbList = await getBreadcrumbs(locationCode, locationType);
