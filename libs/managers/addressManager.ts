@@ -1,17 +1,3 @@
-import {
-  collection,
-  setDoc,
-  doc,
-  getDocs,
-  getDoc,
-  query,
-  where,
-  updateDoc,
-  addDoc,
-  orderBy,
-  serverTimestamp,
-} from "firebase/firestore";
-import { db } from "../firebase";
 import { apiClient } from "../../lib/api/client";
 import {
   Province,
@@ -28,19 +14,6 @@ interface CachedProvinces {
   data: Province[];
   version: string;
 }
-
-const provincesCollectionRef = collection(db, "provinces");
-const districtsCollectionRef = collection(db, "districts");
-const subDistrictsCollectionRef = collection(db, "subDistricts");
-
-// UNCOMMENT THIS LATER FOR INITIAL SEEDING
-// import provinces from "../../data/provinces.json";
-// import districts from "../../data/districts.json";
-// import subDistricts from "../../data/subDistricts.json";
-
-const provinces: Province[] = [];
-const districts: District[] = [];
-const subDistricts: SubDistrict[] = [];
 
 const fetchProvincesFromAPI = async (): Promise<Province[]> => {
   const response = await apiClient.provinces.getAll();
@@ -107,23 +80,13 @@ const fetchSubDistrictsByDistrictId = async (
 };
 
 const getDistrictById = async (id: string): Promise<District> => {
-  const docRef = doc(districtsCollectionRef, id);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
-  return {
-    id: docSnap.id,
-    ...data,
-  } as District;
+  const response = await apiClient.districts.getById(id);
+  return response as unknown as District;
 };
 
 const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
-  const docRef = doc(subDistrictsCollectionRef, id);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
-  return {
-    id: docSnap.id,
-    ...data,
-  } as SubDistrict;
+  const response = await apiClient.subDistricts.getById(id);
+  return response as unknown as SubDistrict;
 };
 
 const getBreadcrumbs = async (
