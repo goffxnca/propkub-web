@@ -11,7 +11,7 @@ import TextInput from "../UI/Public/Inputs/TextInput";
 import Modal from "../UI/Public/Modal";
 import { minLength, maxLength } from "../../libs/form-validator";
 import { apiClient } from "../../lib/api/client";
-import { t } from "../../lib/utils/translator";
+import { t } from "../../libs/translator";
 
 const AccountSecuritySection = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
