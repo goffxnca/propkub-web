@@ -5,7 +5,7 @@ import { MailIcon, CheckIcon, ExclamationCircleIcon, XIcon } from "@heroicons/re
 import TextInput from "../UI/Public/Inputs/TextInput";
 import Button from "../UI/Public/Button";
 import { EmailPattern } from "../../libs/form-validator";
-import { apiClient } from "../../lib/api/client";
+import { apiClient } from "../../libs/client";
 import { t } from "../../libs/translator";
 
 const ForgotPasswordModal = ({ visible, onClose }) => {

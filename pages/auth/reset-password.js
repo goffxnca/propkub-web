@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "../../components/UI/Public/Modal";
-import { apiClient } from "../../lib/api/client";
+import { apiClient } from "../../libs/client";
 import { CheckIcon, ExclamationCircleIcon } from "@heroicons/react/outline";
 import { genPageTitle } from "../../libs/seo-utils";
 import Head from "next/head";

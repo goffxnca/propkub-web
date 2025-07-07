@@ -9,7 +9,7 @@ import { createContext, useEffect, useState } from "react";
 import { firebaseAuth, firebaseFunctions } from "../libs/firebase";
 import { getNotifications } from "../libs/managers/notificationManager";
 import { getFirebaseErrorLabel } from "../libs/mappers/firebaseErrorCodeMapper";
-import { apiClient } from "../lib/api/client";
+import { apiClient } from "../libs/client";
 import { tokenManager } from "../libs/tokenManager";
 import { t } from "../libs/translator";
 

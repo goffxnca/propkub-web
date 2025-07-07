@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { tokenManager } from '../../libs/tokenManager';
-import { envConfig } from '../../libs/envConfig';
+import { tokenManager } from './tokenManager';
+import { envConfig } from './envConfig';
 
 
 const apiInstance = axios.create({

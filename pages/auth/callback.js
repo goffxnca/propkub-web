@@ -1,7 +1,7 @@
 import { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { authContext } from "../../contexts/authContext";
-import { apiClient } from "../../lib/api/client";
+import { apiClient } from "../../libs/client";
 import { ExclamationIcon, CheckIcon } from "@heroicons/react/outline";
 import Loader from "../../components/UI/Common/modals/Loader";
 import Modal from "../../components/UI/Public/Modal";

@@ -1,4 +1,4 @@
-import { apiClient } from "../../lib/api/client";
+import { apiClient } from "../../libs/client";
 import {
   Province,
   District,
