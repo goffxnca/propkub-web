@@ -10,7 +10,7 @@ import Loader from "../../components/UI/Common/modals/Loader";
 import TextInput from "../../components/UI/Public/Inputs/TextInput";
 import Button from "../../components/UI/Public/Button";
 import { minLength, maxLength } from "../../libs/form-validator";
-import { t } from "../../lib/utils/translator";
+import { t } from "../../libs/translator";
 import GuestOnlyRoute from "../../components/Auth/GuestOnlyRoute";
 
 const ResetPasswordPage = () => {
