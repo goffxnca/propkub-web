@@ -16,8 +16,6 @@ const initialContext = {
   signout: (redirectTo) => {},
   initializing: false,
   loading: false,
-  notifications: [],
-  markNotificationAsRead: (notificationId) => {},
   error: "",
   clearError: () => {},
   setUser: () => {},
@@ -26,13 +24,11 @@ const initialContext = {
 const authContext = createContext(initialContext);
 
 const AuthContextProvider = ({ children }) => {
-  // console.log("AuthContextProvider ran...");
   const [user, setUser] = useState(null);
-  const [initializing, setInitializing] = useState(true); // For initial auth check
-  const [loading, setLoading] = useState(false); // For login/signup operations
+  const [initializing, setInitializing] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
     console.log("[Auth] Initialization...");
@@ -131,13 +127,6 @@ const AuthContextProvider = ({ children }) => {
     }
   };
 
-  const markNotificationAsRead = (notificationId) => {
-    const updatedNotifictions = notifications.map((noti) =>
-      noti.id === notificationId ? { ...noti, read: true } : noti
-    );
-    setNotifications(updatedNotifictions);
-  };
-
   const clearError = () => {
     setError(false);
   };
@@ -152,7 +141,7 @@ const AuthContextProvider = ({ children }) => {
     user.name &&
     user.phone &&
     user.line &&
-    user.profileImg
+    user.profileImg;
 
   const authValue = {
     user,
@@ -168,18 +157,11 @@ const AuthContextProvider = ({ children }) => {
     loading,
     error,
     clearError,
-    notifications,
-    markNotificationAsRead,
     setUser,
   };
 
-  // if (loading) {
-  //   return <div>LOADING!!!.....</div>;
-  // }
-
   return (
     <authContext.Provider value={authValue}>
-      {/* isAuthenticated:{isAuthenticated.toString()} */}
       {children}
     </authContext.Provider>
   );
