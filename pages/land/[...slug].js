@@ -6,7 +6,7 @@ import { getLocationPrefix } from "../../libs/location-utils";
 import {
   getAllProvincesByRegionId,
   fetchDistrictsByProvinceId,
-  getAllSubDistrictsByDistrictId,
+  fetchSubDistrictsByDistrictId,
   getBreadcrumbs,
 } from "../../libs/managers/addressManager";
 import { getAllActivePostsByLocation } from "../../libs/post-utils";
@@ -137,11 +137,13 @@ export async function getServerSideProps({ params, resolvedUrl }) {
   );
 
   //Get all other locations under some location
-  const subLocations = await (locationType === "pv"
-    ? getAllProvincesByRegionId(locationCode)
-    : locationType === "dt"
-    ? fetchDistrictsByProvinceId(locationCode)
-    : getAllSubDistrictsByDistrictId(locationCode));
+  const subLocations = await (
+    locationCode.startsWith("p")
+      ? getAllProvincesByRegionId(locationCode)
+      : locationCode.startsWith("d")
+      ? fetchDistrictsByProvinceId(locationCode)
+      : fetchSubDistrictsByDistrictId(locationCode)
+  );
 
   //Get breadcrumbs
   const breadcrumbList = await getBreadcrumbs(locationCode, locationType);

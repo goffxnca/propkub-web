@@ -99,24 +99,11 @@ const fetchDistrictsByProvinceId = async (
   return response as unknown as District[];
 };
 
-const getAllSubDistrictsByDistrictId = async (
+const fetchSubDistrictsByDistrictId = async (
   districtId: string
 ): Promise<SubDistrict[]> => {
-  const q = query(
-    subDistrictsCollectionRef,
-    where("districtId", "==", districtId),
-    orderBy("name")
-  );
-
-  const subDistrictsDocs = await getDocs(q);
-  const subDistricts: SubDistrict[] = [];
-  subDistrictsDocs.forEach((doc) => {
-    subDistricts.push({
-      ...doc.data(),
-      id: doc.id,
-    } as SubDistrict);
-  });
-  return subDistricts;
+  const response = await apiClient.subDistricts.getByDistrictId(districtId);
+  return response as unknown as SubDistrict[];
 };
 
 const getDistrictById = async (id: string): Promise<District> => {
@@ -175,6 +162,6 @@ const getBreadcrumbs = async (
 export {
   getAllProvincesByRegionId,
   fetchDistrictsByProvinceId,
-  getAllSubDistrictsByDistrictId,
+  fetchSubDistrictsByDistrictId,
   getBreadcrumbs,
 };
