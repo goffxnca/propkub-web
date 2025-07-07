@@ -22,7 +22,7 @@ import Loader from "../UI/Common/modals/Loader";
 import Image from "next/image";
 import { Router, useRouter } from "next/router";
 import {
-  getAllProvincesByRegionId,
+  fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
 } from "../../libs/managers/addressManager";
@@ -164,7 +164,7 @@ const PostFilter = ({ onSearch, onReset }) => {
     setSearchFilter((state) => ({ ...state, provinceId: "" }));
 
     if (searchFilter.regionId) {
-      getAllProvincesByRegionId(searchFilter.regionId).then((result) => {
+      fetchProvincesByRegionId(searchFilter.regionId).then((result) => {
         setProvinceList(result);
         // if (searchFilter.regionId === "r2") {
         //   setSearchFilter((state) => ({ ...state, provinceId: "p1" }));

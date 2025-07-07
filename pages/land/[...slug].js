@@ -4,7 +4,7 @@ import PostItem from "../../components/Posts/PostItem";
 import Breadcrumbs from "../../components/UI/Public/Breadcrumbs";
 import { getLocationPrefix } from "../../libs/location-utils";
 import {
-  getAllProvincesByRegionId,
+  fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
   getBreadcrumbs,
@@ -139,7 +139,7 @@ export async function getServerSideProps({ params, resolvedUrl }) {
   //Get all other locations under some location
   const subLocations = await (
     locationCode.startsWith("p")
-      ? getAllProvincesByRegionId(locationCode)
+      ? fetchProvincesByRegionId(locationCode)
       : locationCode.startsWith("d")
       ? fetchDistrictsByProvinceId(locationCode)
       : fetchSubDistrictsByDistrictId(locationCode)
