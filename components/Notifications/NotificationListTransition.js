@@ -1,6 +1,5 @@
 import { Transition, Menu } from "@headlessui/react";
 import { Fragment } from "react";
-import { readNotification } from "../../libs/managers/notificationManager";
 import { joinClasses } from "../../libs/utils/style-utils";
 import MenuLinkItem from "../UI/Public/MenuLinkItem";
 import NotificationItem from "./NotificationItem";
