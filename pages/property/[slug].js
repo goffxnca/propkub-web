@@ -13,7 +13,6 @@ import { BASE_SITE_URL } from "../../libs/constants";
 import { useEffect, useState } from "react";
 import { getPostView, increasePostView } from "../../libs/managers/postManager";
 import { useRouter } from "next/router";
-import { addLog } from "../../libs/managers/logManager";
 
 const PropertyDetailPage = ({ post, similarPosts }) => {
   const [postViews, setPostViews] = useState(-1);
@@ -31,22 +30,6 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
         });
     }
   }, [router.asPath]);
-
-  useEffect(() => {
-    const { a, t } = router.query;
-    if (a && t) {
-      //add log when clicking from email
-      addLog({
-        action: a,
-        type: t,
-        payload: {
-          postId: post.id,
-          postNumber: post.postNumber,
-          link: window.location.href,
-        },
-      });
-    }
-  }, [router.query]);
 
   return (
     <>
