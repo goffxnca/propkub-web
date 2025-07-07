@@ -6,7 +6,7 @@ import TextInput from "../../UI/Public/Inputs/TextInput";
 import Modal from "../../UI/Public/Modal";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import {
-  getAllProvincesByRegionId,
+  fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
 } from "../../../libs/managers/addressManager";
@@ -58,7 +58,7 @@ const LocationSection = ({
     setValue("address.provinceId", "", { shouldValidate: submitCount > 0 });
 
     if (watchRegionId) {
-      getAllProvincesByRegionId(watchRegionId).then((result) => {
+      fetchProvincesByRegionId(watchRegionId).then((result) => {
         
         setProvinceList(result);
       });

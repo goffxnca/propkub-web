@@ -49,7 +49,7 @@ export const fetchProvincesClientSide = async (): Promise<Province[]> => {
   return provinces;
 };
 
-const getAllProvincesByRegionId = async (
+const fetchProvincesByRegionId = async (
   regionId: string
 ): Promise<Province[]> => {
   const provinces = await fetchProvincesClientSide();
@@ -123,7 +123,7 @@ const getBreadcrumbs = async (
 };
 
 export {
-  getAllProvincesByRegionId,
+  fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
   getBreadcrumbs,
