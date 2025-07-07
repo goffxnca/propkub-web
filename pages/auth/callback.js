@@ -1,13 +1,13 @@
 import { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/router";
 import { authContext } from "../../contexts/authContext";
-import { tokenManager } from "../../lib/api/tokenManager";
 import { apiClient } from "../../lib/api/client";
 import { ExclamationIcon, CheckIcon } from "@heroicons/react/outline";
 import Loader from "../../components/UI/Common/modals/Loader";
 import Modal from "../../components/UI/Public/Modal";
 import GoogleIcon from "../../components/Icons/GoogleIcon";
 import FacebookIcon from "../../components/Icons/FacebookIcon";
+import { tokenManager } from "../../libs/tokenManager";
 
 const AuthCallback = () => {
   const router = useRouter();

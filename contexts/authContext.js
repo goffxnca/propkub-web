@@ -10,7 +10,7 @@ import { firebaseAuth, firebaseFunctions } from "../libs/firebase";
 import { getNotifications } from "../libs/managers/notificationManager";
 import { getFirebaseErrorLabel } from "../libs/mappers/firebaseErrorCodeMapper";
 import { apiClient } from "../lib/api/client";
-import { tokenManager } from "../lib/api/tokenManager";
+import { tokenManager } from "../libs/tokenManager";
 import { t } from "../libs/translator";
 
 const initialContext = {
