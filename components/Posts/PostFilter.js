@@ -8,9 +8,6 @@ import DollarIcon from "../Icons/DollarIcon";
 import { SearchIcon, ArrowRightIcon } from "@heroicons/react/solid";
 
 import regions from "../../data/regions.json";
-// import provinces from "../../data/provinces.json";
-// import districts from "../../data/districts.json";
-// import subDistricts from "../../data/subDistricts.json";
 
 import { assetTypes } from "../../libs/mappers/assetTypeMapper";
 import { conditions } from "../../libs/mappers/conditionMapper";
