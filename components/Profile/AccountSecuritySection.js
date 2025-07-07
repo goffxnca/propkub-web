@@ -10,7 +10,7 @@ import {
 import TextInput from "../UI/Public/Inputs/TextInput";
 import Modal from "../UI/Public/Modal";
 import { minLength, maxLength } from "../../libs/form-validator";
-import { apiClient } from "../../lib/api/client";
+import { apiClient } from "../../libs/client";
 import { t } from "../../libs/translator";
 
 const AccountSecuritySection = ({ user }) => {

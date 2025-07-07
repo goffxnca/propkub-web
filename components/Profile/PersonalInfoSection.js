@@ -8,7 +8,7 @@ import {
 } from "@heroicons/react/outline";
 import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { apiClient } from "../../lib/api/client";
+import { apiClient } from "../../libs/client";
 import { authContext } from "../../contexts/authContext";
 import { minLength, maxLength } from "../../libs/form-validator";
 import TextInput from "../UI/Public/Inputs/TextInput";
