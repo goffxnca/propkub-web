@@ -24,7 +24,7 @@ import { Router, useRouter } from "next/router";
 import {
   getAllProvincesByRegionId,
   fetchDistrictsByProvinceId,
-  getAllSubDistrictsByDistrictId,
+  fetchSubDistrictsByDistrictId,
 } from "../../libs/managers/addressManager";
 
 const postTypes = [
@@ -195,7 +195,7 @@ const PostFilter = ({ onSearch, onReset }) => {
     setSearchFilter((state) => ({ ...state, subDistrictId: "" }));
 
     if (searchFilter.districtId) {
-      getAllSubDistrictsByDistrictId(searchFilter.districtId).then((result) => {
+      fetchSubDistrictsByDistrictId(searchFilter.districtId).then((result) => {
         setSubDistrictList(result);
       });
     } else {

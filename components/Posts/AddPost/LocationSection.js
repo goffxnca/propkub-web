@@ -8,7 +8,7 @@ import { LocationMarkerIcon } from "@heroicons/react/outline";
 import {
   getAllProvincesByRegionId,
   fetchDistrictsByProvinceId,
-  getAllSubDistrictsByDistrictId,
+  fetchSubDistrictsByDistrictId,
 } from "../../../libs/managers/addressManager";
 import {
   getDistrictPrefix,
@@ -85,8 +85,7 @@ const LocationSection = ({
     setValue("address.subDistrictId", "", { shouldValidate: submitCount > 0 });
 
     if (watchDistrictId) {
-      getAllSubDistrictsByDistrictId(watchDistrictId).then((result) => {
-        
+      fetchSubDistrictsByDistrictId(watchDistrictId).then((result) => {
         setSubDistrictList(result);
       });
     } else {
