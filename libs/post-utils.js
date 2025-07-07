@@ -15,7 +15,6 @@ import {
 
 import posts from "../data/posts.json";
 import { db } from "../libs/firebase";
-// import { getAddressWithLabels } from "./mappers/addressMapper";
 import { getFacilityArray } from "./mappers/facilityMapper";
 import { convertSpecToDbFormat } from "./mappers/specMapper";
 import { genPostId, genSlug } from "./string-utils";
