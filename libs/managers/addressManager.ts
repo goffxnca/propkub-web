@@ -42,42 +42,6 @@ const provinces: Province[] = [];
 const districts: District[] = [];
 const subDistricts: SubDistrict[] = [];
 
-const seedProvinces = async (): Promise<void> => {
-  return;
-  provinces.forEach(async (province) => {
-    const result = await setDoc(doc(provincesCollectionRef, province.id), {
-      name: province.name,
-      regionId: province.regionId,
-    });
-    console.log(result);
-  });
-};
-
-const seedDistricts = async (): Promise<void> => {
-  return;
-  districts.forEach(async (district) => {
-    const result = await setDoc(doc(districtsCollectionRef, district.id), {
-      name: district.name,
-      provinceId: district.provinceId,
-    });
-    console.log(result);
-  });
-};
-
-const seedSubDistricts = async (): Promise<void> => {
-  return;
-  subDistricts.forEach(async (subDistrict) => {
-    const result = await setDoc(
-      doc(subDistrictsCollectionRef, subDistrict.id),
-      {
-        name: subDistrict.name,
-        districtId: subDistrict.districtId,
-      }
-    );
-    console.log(result);
-  });
-};
-
 const fetchProvincesFromAPI = async (): Promise<Province[]> => {
   const response = await apiClient.provinces.getAll();
   return response as unknown as Province[];
@@ -128,24 +92,11 @@ const getProvinceById = async (id: string): Promise<Province> => {
   return province;
 };
 
-const getAllDistrictsByProvinceId = async (
+const fetchDistrictsByProvinceId = async (
   provinceId: string
 ): Promise<District[]> => {
-  const q = query(
-    districtsCollectionRef,
-    where("provinceId", "==", provinceId),
-    orderBy("name")
-  );
-
-  const districtsDocs = await getDocs(q);
-  const districts: District[] = [];
-  districtsDocs.forEach((doc) => {
-    districts.push({
-      ...doc.data(),
-      id: doc.id,
-    } as District);
-  });
-  return districts;
+  const response = await apiClient.districts.getByProvinceId(provinceId);
+  return response as unknown as District[];
 };
 
 const getAllSubDistrictsByDistrictId = async (
@@ -222,11 +173,8 @@ const getBreadcrumbs = async (
 };
 
 export {
-  // seedProvinces,
-  // seedDistricts,
-  // seedSubDistricts,
   getAllProvincesByRegionId,
-  getAllDistrictsByProvinceId,
+  fetchDistrictsByProvinceId,
   getAllSubDistrictsByDistrictId,
   getBreadcrumbs,
 };

@@ -6,8 +6,8 @@ import TextInput from "../../UI/Public/Inputs/TextInput";
 import Modal from "../../UI/Public/Modal";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import {
-  getAllDistrictsByProvinceId,
   getAllProvincesByRegionId,
+  fetchDistrictsByProvinceId,
   getAllSubDistrictsByDistrictId,
 } from "../../../libs/managers/addressManager";
 import {
@@ -72,8 +72,7 @@ const LocationSection = ({
     setValue("address.districtId", "", { shouldValidate: submitCount > 0 });
 
     if (watchProvinceId) {
-      getAllDistrictsByProvinceId(watchProvinceId).then((result) => {
-        
+      fetchDistrictsByProvinceId(watchProvinceId).then((result) => {
         setDistrictList(result);
       });
     } else {
