@@ -21,13 +21,11 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
     setSaving(true);
     deactivatePost(postId, user)
       .then((result) => {
-        debugger;
         console.log(result);
         setShowDeactivateResultModal(true);
         setSaving(false);
       })
       .catch((error) => {
-        debugger;
         console.error(error);
       });
   };
