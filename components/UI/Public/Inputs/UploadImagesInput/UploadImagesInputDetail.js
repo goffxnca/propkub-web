@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import CirclePlus from "../../../../Icons/CirclePlus";
 import ImagePreviewItem from "./UploadImagePreviewItem";
-import Alert from "../../Alert";
+import InlineError from "../../InlineError";
 import { resizeFile } from "../../../../../libs/utils/file-utils";
 
 const UploadImagesInputDetail = ({
@@ -15,12 +15,12 @@ const UploadImagesInputDetail = ({
   const [files, setFiles] = useState([]); //track list of resized files
   const [originalFiles, setOriginalFiles] = useState([]); //trakc original file (un-resized), used to detect the choosing the same file twice
   const [fileUrls, setFileUrls] = useState([]);
-  const [alert, setAlert] = useState(null);
+  const [inlineError, setInlineError] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     if (files.length === maxFile) {
-      setAlert(null);
+      setInlineError(null);
     }
 
     if (isMounted) {
@@ -39,7 +39,7 @@ const UploadImagesInputDetail = ({
     const totalBrowsingFile = uploadFiles.length;
 
     if (totalBrowsedFile + totalBrowsingFile > maxFile) {
-      return setAlert({
+      return setInlineError({
         title: "แจ้งเตือน",
         messages: [`อนุญาตให้อัพโหลดได้สูงสุดจำนวน ${maxFile} ไฟล์เท่านั้น`],
       });
@@ -54,7 +54,7 @@ const UploadImagesInputDetail = ({
     const errorMessages = [];
 
     for (const file of uploadFiles) {
-      setAlert(null);
+      setInlineError(null);
 
       //validate file type
       if (!allowedFileTypes.includes(file.type)) {
@@ -102,7 +102,7 @@ const UploadImagesInputDetail = ({
     }
 
     // Array.from(uploadFiles).forEach((file) => {
-    //   setAlert(null);
+    //   setInlineError(null);
 
     //   //validate file type
     //   if (!allowedFileTypes.includes(file.type)) {
@@ -144,7 +144,7 @@ const UploadImagesInputDetail = ({
     // });
 
     if (errorMessages.length > 0) {
-      setAlert({
+      setInlineError({
         title: "ไม่สามารถอัพโหลดและพรีวิวไฟล์เหล่านี้ได้",
         messages: errorMessages,
       });
@@ -172,10 +172,6 @@ const UploadImagesInputDetail = ({
     setOriginalFiles((prevOriginalFiles) =>
       prevOriginalFiles.filter((p, idx) => idx !== imageIndex)
     );
-  };
-
-  const closeAlertHandler = () => {
-    setAlert(null);
   };
 
   return (
@@ -212,12 +208,12 @@ const UploadImagesInputDetail = ({
         hidden={true}
       />
       {/* <input value="test" /> */}
-      {alert && (
-        <Alert
-          title={alert.title}
-          messages={alert.messages}
+      {inlineError && (
+        <InlineError
+          title={inlineError.title}
+          messages={inlineError.messages}
           closeAfterMS={5000}
-          onClose={closeAlertHandler}
+          onClose={() => setInlineError(null)}
         />
       )}
     </div>
