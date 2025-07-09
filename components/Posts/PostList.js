@@ -26,7 +26,6 @@ const PostList = ({ posts, provinces }) => {
     } = filters;
 
     const results = await queryPostWithFilters(filters);
-    debugger;
     console.log(results);
 
     // let results = posts;

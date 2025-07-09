@@ -304,7 +304,7 @@ export const getPostById = async (postId) => {
   const docRef = doc(postsCollectionRef, postId);
   const docSnap = await getDoc(docRef);
   const data = docSnap.data();
-  debugger;
+
   return data
     ? {
         id: docSnap.id,
@@ -346,8 +346,6 @@ export const addNewPost = async (postData, user) => {
           passcode: postData.contactInfo.passcode || "",
         }
       : null;
-
-    debugger;
 
     // const response = await fetch("https://geolocation-db.com/json/");
     // const data = await response.json();
@@ -410,7 +408,6 @@ export const addNewPost = async (postData, user) => {
       legal: { uInfo, acceptInfo },
     };
 
-    debugger;
     if (customContactInfo) {
       newPost.contact = customContactInfo;
     }
@@ -467,7 +464,6 @@ export const updatePost = async (postId, postData, user) => {
     },
   };
 
-  debugger;
   if (customContactInfo) {
     toBeUpdatedPost.contact = customContactInfo;
   }
