@@ -1,6 +1,6 @@
 import { ExclamationCircleIcon } from "@heroicons/react/solid";
 
-const Alert2 = ({
+const Alert = ({
   alertTitle = "",
   messages = [],
   showButton = false,
@@ -44,4 +44,4 @@ const Alert2 = ({
   );
 };
 
-export default Alert2;
+export default Alert;
