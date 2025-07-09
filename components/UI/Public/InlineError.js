@@ -2,7 +2,7 @@
 import { ExclamationIcon } from "@heroicons/react/solid";
 import { useEffect } from "react";
 
-const Alert = ({ title, messages, closeAfterMS, onClose }) => {
+const InlineError = ({ title, messages, closeAfterMS, onClose }) => {
   let timer;
   //   useEffect(() => {
   //     if (closeAfterMS && onClose) {
@@ -49,4 +49,4 @@ const Alert = ({ title, messages, closeAfterMS, onClose }) => {
   );
 };
 
-export default Alert;
+export default InlineError;
