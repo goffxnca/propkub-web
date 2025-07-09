@@ -242,6 +242,7 @@ const AddPostForm = ({ isMember, postData }) => {
         className="space-y-6 relative"
         onSubmit={handleSubmit(submitHandler)}
       >
+        {/* Profile warning messages */}
         {warningMessages.length > 0 && (
           <>
             <Alert2
@@ -263,6 +264,7 @@ const AddPostForm = ({ isMember, postData }) => {
           </>
         )}
 
+        {/* Main basic section */}
         <BasicSection
           register={register}
           unregister={unregister}
@@ -273,6 +275,7 @@ const AddPostForm = ({ isMember, postData }) => {
           defaultValues={defaultValues}
         />
 
+        {/* Allow setting images/medias only in Create Mode */}
         {!isEditMode && (
           <MediaSection
             register={register}
@@ -284,6 +287,7 @@ const AddPostForm = ({ isMember, postData }) => {
           />
         )}
 
+        {/* Allow setting locations only in Create Mode */}
         {!isEditMode && (
           <LocationSection
             register={register}
@@ -298,6 +302,7 @@ const AddPostForm = ({ isMember, postData }) => {
           />
         )}
 
+        {/* Enter Custom Contact Section */}
         {allowInputCustomContact && (
           <AgentContactSection
             register={register}
@@ -310,6 +315,7 @@ const AddPostForm = ({ isMember, postData }) => {
           />
         )}
 
+        {/* Confirm Post Creation Section*/}
         <ConfirmSection
           register={register}
           unregister={unregister}
@@ -320,7 +326,7 @@ const AddPostForm = ({ isMember, postData }) => {
           submitCount={submitCount}
         />
 
-        {/* Map */}
+        {/* Post Success Modal */}
         <Modal
           visible={showSuccessModal}
           title={modalSuccessTitle}
@@ -332,6 +338,7 @@ const AddPostForm = ({ isMember, postData }) => {
           }}
         />
 
+        {/* Deactive Success Modal */}
         <Modal
           visible={showDeactivateResultModal}
           title="ปิดประกาศสำเร็จ"
@@ -343,6 +350,7 @@ const AddPostForm = ({ isMember, postData }) => {
           }}
         />
 
+        {/* Confirm Post Deactivation */}
         <Confirm
           visible={showDeactivePostConfirmModal}
           title="ปิดประกาศ"
@@ -354,8 +362,7 @@ const AddPostForm = ({ isMember, postData }) => {
           }}
         />
 
-        {/* <SettingSection /> */}
-
+        {/* Footer Buttons */}
         {allowCreatePost && (
           <div className="flex-row md:flex md:justify-between md:flex-row-reverse md:gap-4 md:w-60 md:ml-auto">
             <Button type="submit" variant="primary" loading={saving}>
