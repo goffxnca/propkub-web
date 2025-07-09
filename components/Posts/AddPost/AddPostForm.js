@@ -19,7 +19,7 @@ import AgentContactSection from "./AgentContactSection";
 // import Banner from "../../Banner/Banner";
 import ConfirmSection from "./ConfirmSection";
 import Confirm from "../../UI/Public/Modals/Confirm";
-import Alert2 from "../../UI/Public/Alert2";
+import Alert from "../../UI/Public/Alert";
 
 const AddPostForm = ({ isMember, postData }) => {
   console.log("PostForm");
@@ -245,7 +245,7 @@ const AddPostForm = ({ isMember, postData }) => {
         {/* Profile warning messages */}
         {warningMessages.length > 0 && (
           <>
-            <Alert2
+            <Alert
               alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
               messages={warningMessages}
               showButton={true}

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import PageTitle from "../UI/Private/PageTitle";
 import { authContext } from "../../contexts/authContext";
-import Alert2 from "../UI/Public/Alert2";
+import Alert from "../UI/Public/Alert";
 import PersonalInfoSection from "./PersonalInfoSection";
 import ContactInfoSection from "./ContactInfoSection";
 import AccountDetailsSection from "./AccountDetailsSection";
@@ -45,7 +45,7 @@ const ProfileScreen = ({ user }) => {
 
       {warningMessages.length > 0 && (
         <div className="mb-6">
-          <Alert2
+          <Alert
             alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
             messages={warningMessages}
             showButton={true}
