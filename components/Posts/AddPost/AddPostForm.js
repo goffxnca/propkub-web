@@ -126,9 +126,9 @@ const AddPostForm = ({ isMember, postData }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showDeactivePostConfirmModal, setShowDeactivePostConfirmModal] =
     useState(false);
-
   const [showDeactivateResultModal, setShowDeactivateResultModal] =
     useState(false);
+  const [warningMessages, setWarningMessages] = useState([]);
 
   const modalSuccessTitle = isEditMode
     ? "อัพเดทประกาศสำเร็จ"
@@ -137,12 +137,18 @@ const AddPostForm = ({ isMember, postData }) => {
     ? "ประกาศของคุณได้รับการอัพเดทเรียบร้อยแล้ว"
     : "ประกาศของคุณได้รับการเผยแพร่เป็นสาธารณะแล้ว และจะปรากฏบนหน้าแรกใน 30 นาที";
 
+  const modeLabel = isEditMode ? "แก้ไขประกาศ" : "ลงประกาศ";
+  const pageTitle =
+    modeLabel + (isMember ? ` (เอเจ้นท์)` : " (ผู้ใช้งานทั่วไป)");
+
+  const allowCreatePost = isMember ? isProfileComplete : true;
+  const allowInputCustomContact = isMember ? isAdmin : true;
+
   const submitHandler = (data) => {
     console.log(data);
     setSaving(true);
 
     if (isEditMode) {
-      
       //UPDATE MODE
       updatePost(postData.id, data, user)
         .then((result) => {
@@ -208,16 +214,6 @@ const AddPostForm = ({ isMember, postData }) => {
       });
   };
 
-  const modeLabel = isEditMode ? "แก้ไขประกาศ" : "ลงประกาศ";
-  const pageTitle =
-    modeLabel + (isMember ? ` (เอเจ้นท์)` : " (ผู้ใช้งานทั่วไป)");
-
-  const allowCreatePost = isMember ? isProfileComplete : true;
-  const allowInputCustomContact = isMember ? isAdmin : true;
-
-  //TODO: TODAY! Check the same creating post permission as same as profile page
-
-  const [warningMessages, setWarningMessages] = useState([]);
   useEffect(() => {
     if (user) {
       const messages = [];
