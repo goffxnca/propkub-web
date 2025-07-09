@@ -366,46 +366,29 @@ export const addNewPost = async (postData, user) => {
     };
 
     const newPost = {
-      postType: postData.postType || "",
-      assetType: postData.assetType || "",
-      condition: postData.condition || "",
+      // Required
       title: sanitizeHtml(postData.title, sanitizerOptions) || "",
-      slug:
-        genSlug(sanitizeHtml(postData.title, sanitizerOptions)).substring(
-          0,
-          70
-        ) +
-        "_" +
-        docId,
       desc: sanitizeHtml(postData.desc_html) || "",
-      thumbnail: downloadUrls[0] || "",
-      images: downloadUrls || [],
-      video: sanitizeHtml(postData.video, sanitizerOptions) || "",
+      assetType: postData.assetType || "",
+      postType: postData.postType || "",
       price: postData.price || 0,
-      priceUnit: postData.priceUnit || "",
-      area: postData.area || 0,
-      areaUnit: postData.areaUnit || "",
+      isDraft: false,
+      thumbnail: downloadUrls[0] || "",
+      isStudio: postData.isStudio || false,
+      images: downloadUrls || [],
+      facilities: getFacilityArray(postData.facilities) || [],
+      specs: convertSpecToDbFormat(postData.specs) || [],
+      address: postData.address || {},
+
+      // Optional
+      video: sanitizeHtml(postData.video, sanitizerOptions) || "",
       land: postData.land || 0,
       landUnit: postData.landUnit || "",
-      address: postData.address || {},
-      isStudio: postData.isStudio || false,
-      specs: convertSpecToDbFormat(postData.specs) || [],
-      facilities: getFacilityArray(postData.facilities) || [],
+      area: postData.area || 0,
+      areaUnit: postData.areaUnit || "",
+      priceUnit: postData.priceUnit || "",
+      condition: postData.condition || "",
       refId: sanitizeHtml(postData.refId) || "",
-      status: "active",
-      postNumber: getUnixEpochTime(),
-      createdAt: serverTimestamp(),
-      createdBy: {
-        userId: user?.userId || "",
-        email: user?.email || "",
-        role: user?.role || "",
-        name: user?.displayName || "",
-        phone: user?.phone?.replace("+66", "0") || "",
-        profileImg: user?.photoURL || "",
-        line: user?.line || "",
-      },
-      isMember: !!user,
-      legal: { uInfo, acceptInfo },
     };
 
     if (customContactInfo) {

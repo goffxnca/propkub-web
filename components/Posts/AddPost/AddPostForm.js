@@ -145,8 +145,8 @@ const AddPostForm = ({ isMember, postData }) => {
   const allowInputCustomContact = isMember ? isAdmin : true;
 
   const submitHandler = (data) => {
-    console.log(data);
-    setSaving(true);
+    console.log("Raw FormData", JSON.stringify(data));
+    // setSaving(true);
 
     if (isEditMode) {
       //UPDATE MODE
@@ -186,18 +186,20 @@ const AddPostForm = ({ isMember, postData }) => {
           subDistrictLabel,
         },
       };
-      console.log(formData);
 
-      addNewPost(formData, user)
-        .then((result) => {
-          console.log(result);
-          setPostSlug(result.slug);
-          setShowSuccessModal(true);
-          setSaving(false);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      console.log("Adjusted FormData", formData);
+      console.log("Adjusted FormData (Stringified)",JSON.stringify(formData));
+
+      // addNewPost(formData, user)
+      //   .then((result) => {
+      //     console.log(result);
+      //     setPostSlug(result.slug);
+      //     setShowSuccessModal(true);
+      //     setSaving(false);
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
     }
   };
 
