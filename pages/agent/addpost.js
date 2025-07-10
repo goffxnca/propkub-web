@@ -9,7 +9,7 @@ const AddPostPage = () => {
       <Head>
         <title>{genPageTitle("ลงประกาศ (เอเจันท์)")}</title>
       </Head>
-      <AddPostForm isMember={true} />
+      <AddPostForm />
     </ProtectedRoute>
   );
 };

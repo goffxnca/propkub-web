@@ -21,7 +21,7 @@ import ConfirmSection from "./ConfirmSection";
 import Confirm from "../../UI/Public/Modals/Confirm";
 import Alert from "../../UI/Public/Alert";
 
-const AddPostForm = ({ isMember, postData }) => {
+const AddPostForm = ({ postData }) => {
   console.log("PostForm");
   // console.log("postData", postData);
 
@@ -74,7 +74,7 @@ const AddPostForm = ({ isMember, postData }) => {
   } = useForm({ defaultValues: defaultValues });
 
   const router = useRouter();
-  const { user, isProfileComplete } = useContext(authContext);
+  const { user, isAgent, isProfileComplete } = useContext(authContext);
 
   const [saving, setSaving] = useState(false);
   const [postSlug, setPostSlug] = useState("");
@@ -94,9 +94,9 @@ const AddPostForm = ({ isMember, postData }) => {
 
   const modeLabel = isEditMode ? "แก้ไขประกาศ" : "ลงประกาศ";
   const pageTitle =
-    modeLabel + (isMember ? ` (เอเจ้นท์)` : " (ผู้ใช้งานทั่วไป)");
+    modeLabel + (isAgent ? ` (เอเจ้นท์)` : " (ผู้ใช้งานทั่วไป)");
 
-  const allowCreatePost = isMember ? isProfileComplete : true;
+  const allowCreatePost = isAgent ? isProfileComplete : true;
 
   const submitHandler = async (data) => {
     console.log("Raw FormData", JSON.stringify(data));

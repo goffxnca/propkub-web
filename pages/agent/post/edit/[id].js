@@ -32,7 +32,7 @@ const AgentPropertyEditPage = () => {
       <Head>
         <title>{genPageTitle("แก้ไขประกาศ")}</title>
       </Head>
-      {post && <AddPostForm isMember={true} postData={post} />}
+      {post && <AddPostForm postData={post} />}
     </>
   );
 };
