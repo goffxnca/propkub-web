@@ -12,12 +12,9 @@ import {
   limit,
   serverTimestamp,
 } from "firebase/firestore";
-
-import posts from "../data/posts.json";
 import { db } from "../libs/firebase";
 import { getFacilityArray } from "./mappers/facilityMapper";
 import { convertSpecToDbFormat } from "./mappers/specMapper";
-import { genPostId, genSlug } from "./string-utils";
 import sanitizeHtml from "sanitize-html";
 import { getUnixEpochTime } from "./date-utils";
 import { uploadFileToStorage } from "./utils/file-utils";
@@ -27,15 +24,8 @@ import { apiClient } from "./client";
 
 const postsCollectionRef = collection(db, "posts");
 
-export const seedPosts = async () => {
-  posts.forEach(async (post) => {
-    const randomId = Date.now().toString();
-    const result = await setDoc(doc(postsCollectionRef, randomId), {
-      ...post,
-      slug: post.slug + "_" + randomId,
-    });
-    console.log(result);
-  });
+const sanitizerOptions = {
+  allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
 };
 
 export const getAllActivePosts = async (records = 0) => {
@@ -380,10 +370,6 @@ export const addNewPost2 = async (postData, user) => {
     "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
   ];
 
-  const sanitizerOptions = {
-    allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
-  };
-
   // Prepare data for new API
   const newPost = {
     // Required fields
@@ -414,7 +400,6 @@ export const addNewPost2 = async (postData, user) => {
   console.log("Calling new API with data:", newPost);
 
   const result = await apiClient.posts.create(newPost);
-  console.log("API response:", result);
 
   return {
     slug: result.slug,
@@ -423,20 +408,6 @@ export const addNewPost2 = async (postData, user) => {
 };
 
 export const updatePost = async (postId, postData, user) => {
-  const sanitizerOptions = {
-    allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
-  };
-
-  const customContactInfo = postData.contactInfo
-    ? {
-        name: postData.contactInfo.name || "",
-        phone: postData.contactInfo.phone || "",
-        line: postData.contactInfo.line || "",
-        passcode: postData.contactInfo.passcode || "",
-        profileImg: process.env.NEXT_PUBLIC_AGENT_DEFAULT_IMAGE || "",
-      }
-    : null;
-
   const toBeUpdatedPost = {
     title: sanitizeHtml(postData.title, sanitizerOptions) || "",
     assetType: postData.assetType || "",
@@ -465,10 +436,6 @@ export const updatePost = async (postId, postData, user) => {
     },
   };
 
-  if (customContactInfo) {
-    toBeUpdatedPost.contact = customContactInfo;
-  }
-
   console.log(toBeUpdatedPost);
 
   //TODO: using firebase function for server validate data later
@@ -479,33 +446,3 @@ export const updatePost = async (postId, postData, user) => {
 export const deactivatePost = async (postId, user) => {
   return adminMarkPostAsFulfilled(postId);
 };
-
-// export const tempUpdateCID = async () => {
-//   const q = query(
-//     postsCollectionRef,
-//     orderBy("createdAt", "asc")
-//     // limit(10)
-//   );
-
-//   const allPostDocs = await getDocs(q);
-//   const posts = [];
-//   let counter = 0;
-//   allPostDocs.forEach((docu) => {
-//     const postId = docu.id;
-//     const updateData = async () => {
-//       console.log(postId, counter);
-
-//       const toBeUpdatedPost = {
-//         cid: counter,
-//       };
-
-//       //TODO: using firebase function for server validate data later
-//       const docRef = doc(db, "posts", postId);
-//       await updateDoc(docRef, toBeUpdatedPost);
-//     };
-//     counter++;
-//     return updateData();
-//   });
-//   return posts;
-// };
-// trigger

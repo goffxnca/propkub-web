@@ -9,7 +9,6 @@ const initialContext = {
   isAuthenticated: false,
   isNormalUser: false,
   isAgent: false,
-  isAdmin: false,
   isProfileComplete: false,
   signin: (email, password) => {},
   signup: (email, password, role) => {},
@@ -134,7 +133,6 @@ const AuthContextProvider = ({ children }) => {
   const isAuthenticated = !!user;
   const isNormalUser = user && user.role === "normal";
   const isAgent = user && user.role === "agent";
-  const isAdmin = user && user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
   const isProfileComplete =
     user &&
     user.email &&
@@ -148,7 +146,6 @@ const AuthContextProvider = ({ children }) => {
     isAuthenticated,
     isNormalUser,
     isAgent,
-    isAdmin,
     isProfileComplete,
     signin,
     signup,
@@ -161,9 +158,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    <authContext.Provider value={authValue}>
-      {children}
-    </authContext.Provider>
+    <authContext.Provider value={authValue}>{children}</authContext.Provider>
   );
 };
 
