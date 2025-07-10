@@ -5,6 +5,7 @@ import {
   addNewPost,
   updatePost,
   deactivatePost,
+  addNewPost2,
 } from "../../../libs/post-utils";
 import MediaSection from "./MediaSection";
 import Modal from "../../UI/Public/Modal";
@@ -145,16 +146,16 @@ const AddPostForm = ({ isMember, postData }) => {
       console.log("Adjusted FormData", formData);
       console.log("Adjusted FormData (Stringified)", JSON.stringify(formData));
 
-      // addNewPost(formData, user)
-      //   .then((result) => {
-      //     console.log(result);
-      //     setPostSlug(result.slug);
-      //     setShowSuccessModal(true);
-      //     setSaving(false);
-      //   })
-      //   .catch((error) => {
-      //     console.error(error);
-      //   });
+      addNewPost2(formData, user)
+        .then((result) => {
+          console.log("post success", result);
+          setPostSlug(result.slug);
+          setShowSuccessModal(true);
+          setSaving(false);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 
@@ -278,7 +279,8 @@ const AddPostForm = ({ isMember, postData }) => {
           buttonCaption="ไปยังประกาศ"
           Icon={CheckIcon}
           onClose={() => {
-            router.push(postSlug ? `/property/${postSlug}` : "/");
+            setShowSuccessModal(false);
+            // router.push(postSlug ? `/property/${postSlug}` : "/");
           }}
         />
 
