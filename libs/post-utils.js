@@ -23,6 +23,7 @@ import { getUnixEpochTime } from "./date-utils";
 import { uploadFileToStorage } from "./utils/file-utils";
 import { ACCEPT_POST_MSG } from "./constants";
 import { adminMarkPostAsFulfilled } from "./managers/postActionManager";
+import { apiClient } from "./client";
 
 const postsCollectionRef = collection(db, "posts");
 
@@ -337,34 +338,6 @@ export const addNewPost = async (postData, user) => {
       allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
     };
 
-    const customContactInfo = postData.contactInfo
-      ? {
-          name: postData.contactInfo.name || "",
-          phone: postData.contactInfo.phone || "",
-          line: postData.contactInfo.line || "",
-          profileImg: process.env.NEXT_PUBLIC_AGENT_DEFAULT_IMAGE || "",
-          passcode: postData.contactInfo.passcode || "",
-        }
-      : null;
-
-    // const response = await fetch("https://geolocation-db.com/json/");
-    // const data = await response.json();
-    const uInfo = {
-      // ip: data.IPv4,
-      // city: data.city,
-      // lat: data.latitude,
-      // lng: data.longitude,
-      // ...data,
-      ua: navigator?.userAgent || "N/A",
-    };
-
-    // const postNumber = await genPostId();
-
-    const acceptInfo = {
-      accept: postData.accept,
-      acceptTerm: ACCEPT_POST_MSG,
-    };
-
     const newPost = {
       // Required
       title: sanitizeHtml(postData.title, sanitizerOptions) || "",
@@ -391,10 +364,6 @@ export const addNewPost = async (postData, user) => {
       refId: sanitizeHtml(postData.refId) || "",
     };
 
-    if (customContactInfo) {
-      newPost.contact = customContactInfo;
-    }
-
     console.log(newPost);
 
     //TODO: using firebase function for server validate data later
@@ -402,6 +371,55 @@ export const addNewPost = async (postData, user) => {
       return { slug: newPost.slug };
     });
   });
+};
+
+export const addNewPost2 = async (postData, user) => {
+  const staticImageUrls = [
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+    "https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800",
+    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+  ];
+
+  const sanitizerOptions = {
+    allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
+  };
+
+  // Prepare data for new API
+  const newPost = {
+    // Required fields
+    title: sanitizeHtml(postData.title, sanitizerOptions) || "", //
+    desc: sanitizeHtml(postData.desc_html || postData.desc) || "", //
+    assetType: postData.assetType || "", //
+    postType: postData.postType || "", //
+    price: postData.price || 0, //
+    isDraft: false, //
+    thumbnail: staticImageUrls[0], //
+    isStudio: postData.isStudio || false, //
+    images: staticImageUrls, //
+    facilities: getFacilityArray(postData.facilities) || [], //
+    specs: convertSpecToDbFormat(postData.specs) || [], //
+    address: postData.address || {}, //
+
+    // Optional fields
+    video: sanitizeHtml(postData.video || "", sanitizerOptions) || undefined,
+    land: postData.land,
+    landUnit: postData.landUnit,
+    area: postData.area,
+    areaUnit: postData.areaUnit,
+    priceUnit: postData.priceUnit,
+    condition: postData.condition,
+    refId: sanitizeHtml(postData.refId || "", sanitizerOptions) || undefined,
+  };
+
+  console.log("Calling new API with data:", newPost);
+
+  const result = await apiClient.posts.create(newPost);
+  console.log("API response:", result);
+
+  return {
+    slug: result.slug,
+    id: result._id || result.id,
+  };
 };
 
 export const updatePost = async (postId, postData, user) => {
