@@ -27,70 +27,24 @@ const AddPostForm = ({ isMember, postData }) => {
 
   const isEditMode = !!postData;
 
-  // const defaultValues = isEditMode
-  //   ? {
-  //       title: "wow",
-  //       assetType: "condo",
-  //       postType: "rent",
-  //       condition: "used",
-  //       price: 20000,
-  //       priceUnit: "day",
-  //       area: "19.6",
-  //       areaUnit: "sqw",
-  //       land: "50.5",
-  //       landUnit: "ngan",
-  //       isStudio: false,
-  //       specs: {
-  //         beds: 4,
-  //         baths: 3,
-  //         kitchens: 2,
-  //         parkings: 1,
-  //       },
-  //       desc: "<ul><li>One</li><li>Two</li></ul>",
-  //       facilities: { ac: true, sofa: true },
-  //       refId: "AG22",
-  //       address: {
-  //         regionId: "r2",
-  //         provinceId: "p2",
-  //         districtId: "d1106",
-  //         subDistrictId: "s110602",
-  //         location: { lat: 13.8110162, lng: 100.5709232 },
-  //       },
-
-  //       contactInfo: {
-  //         name: "hey",
-  //         phone: "024444444",
-  //         line: "@cool",
-  //         passcode: "cool",
-  //       },
-  //     }
-  //   : {};
-
   const defaultValues = isEditMode
     ? {
         title: postData.title,
+        desc: postData.desc,
         assetType: postData.assetType,
         postType: postData.postType,
-        condition: postData.condition,
         price: postData.price,
-        priceUnit: postData.priceUnit,
-        area: postData.area,
-        areaUnit: postData.areaUnit,
-        land: postData.land,
-        landUnit: postData.landUnit,
         isStudio: postData.isStudio,
+        facilities: postData.facilities.reduce(
+          (a, v) => ({ ...a, [v.id]: true }),
+          {}
+        ),
         specs: {
           beds: postData.specs.find((s) => s.id === "beds")?.value || 0,
           baths: postData.specs.find((s) => s.id === "baths")?.value || 0,
           kitchens: postData.specs.find((s) => s.id === "kitchens")?.value || 0,
           parkings: postData.specs.find((s) => s.id === "parkings")?.value || 0,
         },
-        desc: postData.desc,
-        facilities: postData.facilities.reduce(
-          (a, v) => ({ ...a, [v.id]: true }),
-          {}
-        ),
-        refId: postData.refId,
         address: {
           //atm, edit mode we dont allow to edit location stuff, too much too handle!
           regionId: "r2",
@@ -99,12 +53,13 @@ const AddPostForm = ({ isMember, postData }) => {
           subDistrictId: "s110602",
           location: { lat: 13.8110162, lng: 100.5709232 },
         },
-        contactInfo: {
-          name: postData?.contact?.name,
-          phone: postData?.contact?.phone,
-          line: postData?.contact?.line,
-          passcode: postData?.contact?.passcode,
-        },
+        land: postData.land,
+        landUnit: postData.landUnit,
+        area: postData.area,
+        areaUnit: postData.areaUnit,
+        priceUnit: postData.priceUnit,
+        condition: postData.condition,
+        refId: postData.refId,
       }
     : {};
 
@@ -188,7 +143,7 @@ const AddPostForm = ({ isMember, postData }) => {
       };
 
       console.log("Adjusted FormData", formData);
-      console.log("Adjusted FormData (Stringified)",JSON.stringify(formData));
+      console.log("Adjusted FormData (Stringified)", JSON.stringify(formData));
 
       // addNewPost(formData, user)
       //   .then((result) => {
@@ -301,19 +256,6 @@ const AddPostForm = ({ isMember, postData }) => {
             submitCount={submitCount}
             isEditMode={isEditMode}
             defaultValues={defaultValues}
-          />
-        )}
-
-        {/* Enter Custom Contact Section */}
-        {allowInputCustomContact && (
-          <AgentContactSection
-            register={register}
-            unregister={unregister}
-            watch={watch}
-            setValue={setValue}
-            errors={errors}
-            isEditMode={isEditMode}
-            isMember={isMember}
           />
         )}
 
