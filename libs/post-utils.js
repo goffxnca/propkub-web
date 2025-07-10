@@ -387,14 +387,14 @@ export const addNewPost2 = async (postData, user) => {
     address: postData.address,
 
     // Optional fields
-    video: sanitizeHtml(postData.video, sanitizerOptions) || undefined,
-    land: postData.land,
-    landUnit: postData.landUnit,
-    area: postData.area,
-    areaUnit: postData.areaUnit,
-    priceUnit: postData.priceUnit,
-    condition: postData.condition,
-    refId: sanitizeHtml(postData.refId, sanitizerOptions) || undefined,
+    // video: sanitizeHtml(postData.video, sanitizerOptions) || undefined,
+    // land: postData.land,
+    // landUnit: postData.landUnit,
+    // area: postData.area,
+    // areaUnit: postData.areaUnit,
+    // priceUnit: postData.priceUnit,
+    // condition: postData.condition,
+    // refId: sanitizeHtml(postData.refId, sanitizerOptions) || undefined,
   };
 
   console.log("Calling new API with data:", newPost);
