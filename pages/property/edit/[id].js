@@ -36,9 +36,7 @@ const PropertyEditPage = () => {
           }}
         />
       )}
-      {post && passcodeChecked && (
-        <AddPostForm isMember={false} postData={post} />
-      )}
+      {post && passcodeChecked && <AddPostForm postData={post} />}
     </>
   );
 };
