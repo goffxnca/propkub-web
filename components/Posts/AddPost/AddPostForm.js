@@ -99,7 +99,7 @@ const AddPostForm = ({ postData }) => {
   const allowCreatePost = isAgent ? isProfileComplete : true;
 
   const submitHandler = async (data) => {
-    console.log("Raw FormData", JSON.stringify(data));
+    console.log("Raw FormData", data);
     setSaving(true);
 
     try {
@@ -157,7 +157,6 @@ const AddPostForm = ({ postData }) => {
       }
     } catch (error) {
       console.error(error);
-      setSaving(false);
     }
   };
 

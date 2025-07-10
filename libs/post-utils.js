@@ -373,28 +373,28 @@ export const addNewPost2 = async (postData, user) => {
   // Prepare data for new API
   const newPost = {
     // Required fields
-    title: sanitizeHtml(postData.title, sanitizerOptions) || "", //
-    desc: sanitizeHtml(postData.desc_html || postData.desc) || "", //
-    assetType: postData.assetType || "", //
-    postType: postData.postType || "", //
-    price: postData.price || 0, //
-    isDraft: false, //
-    thumbnail: staticImageUrls[0], //
-    isStudio: postData.isStudio || false, //
-    images: staticImageUrls, //
-    facilities: getFacilityArray(postData.facilities) || [], //
-    specs: convertSpecToDbFormat(postData.specs) || [], //
-    address: postData.address || {}, //
+    title: sanitizeHtml(postData.title, sanitizerOptions),
+    desc: sanitizeHtml(postData.desc_html),
+    assetType: postData.assetType,
+    postType: postData.postType,
+    price: postData.price,
+    isDraft: false,
+    thumbnail: staticImageUrls[0],
+    isStudio: postData.isStudio,
+    images: staticImageUrls,
+    facilities: getFacilityArray(postData.facilities),
+    specs: convertSpecToDbFormat(postData.specs),
+    address: postData.address,
 
     // Optional fields
-    video: sanitizeHtml(postData.video || "", sanitizerOptions) || undefined,
+    video: sanitizeHtml(postData.video, sanitizerOptions) || undefined,
     land: postData.land,
     landUnit: postData.landUnit,
     area: postData.area,
     areaUnit: postData.areaUnit,
     priceUnit: postData.priceUnit,
     condition: postData.condition,
-    refId: sanitizeHtml(postData.refId || "", sanitizerOptions) || undefined,
+    refId: sanitizeHtml(postData.refId, sanitizerOptions) || undefined,
   };
 
   console.log("Calling new API with data:", newPost);
