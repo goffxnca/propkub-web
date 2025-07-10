@@ -21,6 +21,7 @@ import { uploadFileToStorage } from "./utils/file-utils";
 import { ACCEPT_POST_MSG } from "./constants";
 import { adminMarkPostAsFulfilled } from "./managers/postActionManager";
 import { apiClient } from "./client";
+import { populateAddressLabels } from "./utils/address-utils";
 
 const postsCollectionRef = collection(db, "posts");
 
@@ -363,7 +364,7 @@ export const addNewPost = async (postData, user) => {
   });
 };
 
-export const addNewPost2 = async (postData, user) => {
+export const addNewPost2 = async (postData) => {
   const staticImageUrls = [
     "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
     "https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800",
@@ -384,7 +385,7 @@ export const addNewPost2 = async (postData, user) => {
     images: staticImageUrls,
     facilities: getFacilityArray(postData.facilities),
     specs: convertSpecToDbFormat(postData.specs),
-    address: postData.address,
+    address: populateAddressLabels(postData.address),
 
     // Optional fields
     // video: sanitizeHtml(postData.video, sanitizerOptions) || undefined,
@@ -407,7 +408,7 @@ export const addNewPost2 = async (postData, user) => {
   };
 };
 
-export const updatePost = async (postId, postData, user) => {
+export const updatePost = async (postId, postData) => {
   const toBeUpdatedPost = {
     title: sanitizeHtml(postData.title, sanitizerOptions) || "",
     assetType: postData.assetType || "",
@@ -425,15 +426,6 @@ export const updatePost = async (postId, postData, user) => {
     facilities: getFacilityArray(postData.facilities) || [],
     refId: sanitizeHtml(postData.refId) || "",
     updatedAt: serverTimestamp(),
-    updatedBy: {
-      userId: user?.userId || "",
-      email: user?.email || "",
-      role: user?.role || "",
-      name: user?.displayName || "",
-      phone: user?.phone?.replace("+66", "0") || "",
-      profileImg: user?.photoURL || "",
-      line: user?.line || "",
-    },
   };
 
   console.log(toBeUpdatedPost);
