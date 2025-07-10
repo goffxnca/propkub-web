@@ -9,7 +9,11 @@ import {
 } from "../../../libs/post-utils";
 import MediaSection from "./MediaSection";
 import Modal from "../../UI/Public/Modal";
-import { CheckIcon, LockClosedIcon } from "@heroicons/react/outline";
+import {
+  CheckIcon,
+  LockClosedIcon,
+  ExclamationIcon,
+} from "@heroicons/react/outline";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Button from "../../UI/Public/Button";
@@ -84,6 +88,8 @@ const AddPostForm = ({ postData }) => {
   const [showDeactivateResultModal, setShowDeactivateResultModal] =
     useState(false);
   const [warningMessages, setWarningMessages] = useState([]);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const modalSuccessTitle = isEditMode
     ? "อัพเดทประกาศสำเร็จ"
@@ -156,7 +162,13 @@ const AddPostForm = ({ postData }) => {
         setSaving(false);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Post creation/update error:", error);
+      setErrorMessage(
+        "เกิดข้อผิดพลาดในการสร้างประกาศ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง"
+      );
+
+      setSaving(false);
+      setShowErrorModal(true);
     }
   };
 
@@ -282,6 +294,20 @@ const AddPostForm = ({ postData }) => {
           onClose={() => {
             setShowSuccessModal(false);
             // router.push(postSlug ? `/property/${postSlug}` : "/");
+          }}
+        />
+
+        {/* Error Modal */}
+        <Modal
+          visible={showErrorModal}
+          type="warning"
+          title="เกิดข้อผิดพลาด"
+          desc={errorMessage}
+          buttonCaption="ตกลง"
+          Icon={ExclamationIcon}
+          onClose={() => {
+            setShowErrorModal(false);
+            setErrorMessage("");
           }}
         />
 
