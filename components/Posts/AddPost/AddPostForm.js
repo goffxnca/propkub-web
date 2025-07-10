@@ -104,58 +104,21 @@ const AddPostForm = ({ postData }) => {
 
   const allowCreatePost = isAgent ? isProfileComplete : true;
 
-  const submitHandler = async (data) => {
-    console.log("Raw FormData", data);
+  const submitHandler = async (formData) => {
+    console.log("Raw FormData", formData);
     setSaving(true);
 
     try {
       if (isEditMode) {
         //UPDATE MODE
-        const result = await updatePost(postData.id, data, user);
+        const result = await updatePost(postData.id, formData);
         console.log(result);
         setPostSlug(postData.slug);
         setShowSuccessModal(true);
         setSaving(false);
       } else {
         // CREATE MODE
-        //We also want to save the name of province, district, subDistrict to db right away not just ids, so they can be ready to use in next fetch,
-        //but the SelectInput component now track only ids and no display name(label) that's why we need to manually grab it here.
-        //TODO: Change SelectInput component to track both values&display labels
-        //Note: these workaround codes below is quite silly btw.
-        const provinceElem = document.getElementById("address.provinceId");
-        const provinceLabel = provinceElem.item(
-          provinceElem.selectedIndex
-        ).label;
-
-        const districtElem = document.getElementById("address.districtId");
-        const districtLabel = districtElem.item(
-          districtElem.selectedIndex
-        ).label;
-
-        const subDistrictElem = document.getElementById(
-          "address.subDistrictId"
-        );
-        const subDistrictLabel = subDistrictElem.item(
-          subDistrictElem.selectedIndex
-        ).label;
-
-        const formData = {
-          ...data,
-          address: {
-            ...data.address,
-            provinceLabel,
-            districtLabel,
-            subDistrictLabel,
-          },
-        };
-
-        console.log("Adjusted FormData", formData);
-        console.log(
-          "Adjusted FormData (Stringified)",
-          JSON.stringify(formData)
-        );
-
-        const result = await addNewPost2(formData, user);
+        const result = await addNewPost2(formData);
         console.log("post success", result);
         setPostSlug(result.slug);
         setShowSuccessModal(true);
