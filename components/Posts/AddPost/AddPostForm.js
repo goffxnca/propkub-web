@@ -74,7 +74,7 @@ const AddPostForm = ({ isMember, postData }) => {
   } = useForm({ defaultValues: defaultValues });
 
   const router = useRouter();
-  const { user, isAdmin, isProfileComplete } = useContext(authContext);
+  const { user, isProfileComplete } = useContext(authContext);
 
   const [saving, setSaving] = useState(false);
   const [postSlug, setPostSlug] = useState("");
@@ -97,7 +97,6 @@ const AddPostForm = ({ isMember, postData }) => {
     modeLabel + (isMember ? ` (เอเจ้นท์)` : " (ผู้ใช้งานทั่วไป)");
 
   const allowCreatePost = isMember ? isProfileComplete : true;
-  const allowInputCustomContact = isMember ? isAdmin : true;
 
   const submitHandler = async (data) => {
     console.log("Raw FormData", JSON.stringify(data));
