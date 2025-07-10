@@ -154,7 +154,7 @@ const BasicSection = ({
               />
             </div>
 
-            {/* {!isLand && (
+            {!isLand && (
               <div className="col-span-6 sm:col-span-3">
                 <TextWithUnitInput
                   id="area"
@@ -183,7 +183,7 @@ const BasicSection = ({
                   setValue={setValue}
                 />
               </div>
-            )} */}
+            )}
 
             {!isCondo && (
               <div className="col-span-6 sm:col-span-3">

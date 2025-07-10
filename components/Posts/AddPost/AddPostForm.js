@@ -38,7 +38,6 @@ const AddPostForm = ({ postData }) => {
         assetType: postData.assetType,
         postType: postData.postType,
         price: postData.price,
-        isStudio: postData.isStudio,
         facilities: postData.facilities.reduce(
           (a, v) => ({ ...a, [v.id]: true }),
           {}
@@ -57,6 +56,7 @@ const AddPostForm = ({ postData }) => {
           subDistrictId: "s110602",
           location: { lat: 13.8110162, lng: 100.5709232 },
         },
+        isStudio: postData.isStudio,
         land: postData.land,
         landUnit: postData.landUnit,
         area: postData.area,

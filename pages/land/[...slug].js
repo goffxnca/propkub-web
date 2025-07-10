@@ -137,13 +137,11 @@ export async function getServerSideProps({ params, resolvedUrl }) {
   );
 
   //Get all other locations under some location
-  const subLocations = await (
-    locationCode.startsWith("p")
-      ? fetchProvincesByRegionId(locationCode)
-      : locationCode.startsWith("d")
-      ? fetchDistrictsByProvinceId(locationCode)
-      : fetchSubDistrictsByDistrictId(locationCode)
-  );
+  const subLocations = await (locationCode.startsWith("p")
+    ? fetchProvincesByRegionId(locationCode)
+    : locationCode.startsWith("d")
+    ? fetchDistrictsByProvinceId(locationCode)
+    : fetchSubDistrictsByDistrictId(locationCode));
 
   //Get breadcrumbs
   const breadcrumbList = await getBreadcrumbs(locationCode, locationType);
