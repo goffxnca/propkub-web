@@ -16,7 +16,6 @@ import Button from "../../UI/Public/Button";
 import { authContext } from "../../../contexts/authContext";
 import AddDoc from "../../Icons/AddDoc";
 import PageTitle from "../../UI/Private/PageTitle";
-import AgentContactSection from "./AgentContactSection";
 // import Banner from "../../Banner/Banner";
 import ConfirmSection from "./ConfirmSection";
 import Confirm from "../../UI/Public/Modals/Confirm";
