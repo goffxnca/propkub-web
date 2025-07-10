@@ -106,7 +106,6 @@ const BasicSection = ({
               />
             </div>
 
-            {/* 
             {!isLand && (
               <div className="col-span-6 sm:col-span-3">
                 <SelectInput
@@ -122,7 +121,7 @@ const BasicSection = ({
                   error={errors?.condition}
                 />
               </div>
-            )} */}
+            )}
 
             <div className="col-span-6 sm:col-span-3">
               <TextWithUnitInput

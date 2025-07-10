@@ -387,15 +387,15 @@ export const addNewPost2 = async (postData) => {
     address: populateAddressLabels(postData.address),
 
     // Optional fields
-    // isStudio: postData.isStudio,
+    isStudio: postData.isStudio,
     // video: sanitizeHtml(postData.video, sanitizerOptions) || undefined,
     land: postData.land,
     landUnit: postData.landUnit,
     area: postData.area,
     areaUnit: postData.areaUnit,
     priceUnit: postData.priceUnit,
-    // condition: postData.condition,
-    // refId: sanitizeHtml(postData.refId, sanitizerOptions) || undefined,
+    condition: postData.condition,
+    refId: sanitizeHtml(postData.refId, sanitizerOptions) || undefined,
   };
 
   console.log("Calling new API with data:", newPost);
