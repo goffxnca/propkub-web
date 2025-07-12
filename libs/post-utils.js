@@ -312,69 +312,10 @@ export const getPostById = async (postId) => {
     : null;
 };
 
-export const addNewPost = async (postData, user) => {
-  const docRef = doc(postsCollectionRef);
-  const docId = docRef.id;
-
-  return Promise.all(
-    postData.images.map((file) => uploadFileToStorage("po", docId, file))
-  ).then(async (downloadUrls) => {
-    if (downloadUrls.length !== postData.images.length) {
-      throw new Error(
-        `Failed creating post, only ${downloadUrls}/${postData.images.length} uploaded successfully`
-      );
-    }
-
-    const sanitizerOptions = {
-      allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
-    };
-
-    const newPost = {
-      // Required
-      title: sanitizeHtml(postData.title, sanitizerOptions) || "",
-      desc: sanitizeHtml(postData.desc_html) || "",
-      assetType: postData.assetType || "",
-      postType: postData.postType || "",
-      price: postData.price || 0,
-      isDraft: false,
-      thumbnail: downloadUrls[0] || "",
-      images: downloadUrls || [],
-      facilities: getFacilityArray(postData.facilities) || [],
-      specs: convertSpecToDbFormat(postData.specs) || [],
-      address: postData.address || {},
-
-      // Optional
-      isStudio: postData.isStudio || false,
-      video: sanitizeHtml(postData.video, sanitizerOptions) || "",
-      land: postData.land || 0,
-      landUnit: postData.landUnit || "",
-      area: postData.area || 0,
-      areaUnit: postData.areaUnit || "",
-      priceUnit: postData.priceUnit || "",
-      condition: postData.condition || "",
-      refId: sanitizeHtml(postData.refId) || "",
-    };
-
-    console.log(newPost);
-
-    //TODO: using firebase function for server validate data later
-    return setDoc(docRef, newPost).then(() => {
-      return { slug: newPost.slug };
-    });
-  });
-};
-
-export const addNewPost2 = async (postData) => {
-  const staticImageUrls = [
-    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
-    "https://images.unsplash.com/photo-1571055107559-3e67626fa8be?w=800",
-    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
-  ];
-
+export const addNewPost = async (postData) => {
+  let downloadUrls;
   const postNumber = getUnixEpochTime();
 
-  // Upload images to Firebase storage with postNumber as folder name
-  let downloadUrls;
   try {
     downloadUrls = await Promise.all(
       postData.images.map((file) => uploadFileToStorage("po", postNumber, file))
@@ -420,8 +361,6 @@ export const addNewPost2 = async (postData) => {
     condition: postData.condition,
     refId: sanitizeHtml(postData.refId, sanitizerOptions) || undefined,
   };
-
-  console.log("Calling new API with data:", newPost);
 
   const result = await apiClient.posts.create(newPost);
 
