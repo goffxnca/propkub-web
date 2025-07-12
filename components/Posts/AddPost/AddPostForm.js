@@ -5,7 +5,6 @@ import {
   addNewPost,
   updatePost,
   deactivatePost,
-  addNewPost,
 } from "../../../libs/post-utils";
 import MediaSection from "./MediaSection";
 import Modal from "../../UI/Public/Modal";

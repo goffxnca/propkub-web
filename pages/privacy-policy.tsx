@@ -134,16 +134,12 @@ const PrivacyPolicyPage = () => {
             <p>เราจะเก็บรวบรวมข้อมูลส่วนบุคคลดังต่อไปนี้</p>
             <ol>
               <li>
-                ข้อมูลการเข้าถึงเว็บไซต์ของท่าน โดยระบบ Analytics และ Ads เช่น
+                ข้อมูลการเข้าถึงเว็บไซต์ของท่าน โดยระบบ Analytics เช่น
                 <a
                   href="https://analytics.google.com/analytics/academy/"
                   className="mx-1"
                 >
                   Google Analytics
-                </a>
-                ,
-                <a href="https://ads.google.com/home/" className="mx-1">
-                  Google Ads
                 </a>
               </li>
               <li>
