@@ -12,12 +12,9 @@ import PostActionList from "./PostActionList";
 import PostDetailStats from "./PostDetailStats";
 import { getSubStatusLabelById } from "../../../libs/mappers/subStatusMapper";
 import PostActionConsole from "./PostActionConsole";
+import { SANITIZE_OPTIONS } from "../../../libs/constants";
 
 const PostDetailPreview = ({ post, postActions }) => {
-  const sanitizerOptions = {
-    allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
-  };
-
   const postType = useMemo(() => getPostType(post.postType), [post.postType]);
 
   const assetType = useMemo(
@@ -31,7 +28,7 @@ const PostDetailPreview = ({ post, postActions }) => {
   );
 
   const purifiedDescInfo = useMemo(
-    () => sanitizeHtml(post.desc, sanitizerOptions),
+    () => sanitizeHtml(post.desc, SANITIZE_OPTIONS),
     [post.desc]
   );
 

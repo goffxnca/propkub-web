@@ -21,10 +21,7 @@ import {
 } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import SpinnerIcon from "../../Icons/SpinnerIcon";
-
-const sanitizerOptions = {
-  allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br", "a"],
-};
+import { SANITIZE_OPTIONS } from "../../../libs/constants";
 
 const PostDetailBody = ({ post, postViews, images }) => {
   const router = useRouter();
@@ -77,7 +74,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
   );
 
   const purifiedDescInfo = useMemo(
-    () => sanitizeHtml(post.desc, sanitizerOptions),
+    () => sanitizeHtml(post.desc, SANITIZE_OPTIONS),
     [post.desc]
   );
 
