@@ -371,17 +371,40 @@ export const addNewPost2 = async (postData) => {
     "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
   ];
 
+  const postNumber = getUnixEpochTime();
+
+  // Upload images to Firebase storage with postNumber as folder name
+  let downloadUrls;
+  try {
+    downloadUrls = await Promise.all(
+      postData.images.map((file) => uploadFileToStorage("po", postNumber, file))
+    );
+
+    if (downloadUrls.length !== postData.images.length) {
+      throw new Error(
+        `Failed uploading images, only ${downloadUrls.length}/${postData.images.length} uploaded successfully`
+      );
+    }
+  } catch (error) {
+    console.error(
+      `Firebase Storage upload failed for postNumber: ${postNumber}`,
+      error
+    );
+    throw error;
+  }
+
   // Prepare data for new API
   const newPost = {
     // Required fields
+    postNumber: postNumber,
     title: sanitizeHtml(postData.title, sanitizerOptions),
     desc: sanitizeHtml(postData.desc_html),
     assetType: postData.assetType,
     postType: postData.postType,
     price: postData.price,
     isDraft: false,
-    thumbnail: staticImageUrls[0],
-    images: staticImageUrls,
+    thumbnail: downloadUrls[0],
+    images: downloadUrls,
     facilities: getFacilityArray(postData.facilities),
     specs: convertSpecToDbFormat(postData.specs),
     address: populateAddressLabels(postData.address),
