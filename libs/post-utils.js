@@ -18,16 +18,12 @@ import { convertSpecToDbFormat } from "./mappers/specMapper";
 import sanitizeHtml from "sanitize-html";
 import { getUnixEpochTime } from "./date-utils";
 import { uploadFileToStorage } from "./utils/file-utils";
-import { ACCEPT_POST_MSG } from "./constants";
+import { ACCEPT_POST_MSG, SANITIZE_OPTIONS } from "./constants";
 import { adminMarkPostAsFulfilled } from "./managers/postActionManager";
 import { apiClient } from "./client";
 import { populateAddressLabels } from "./utils/address-utils";
 
 const postsCollectionRef = collection(db, "posts");
-
-const sanitizerOptions = {
-  allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
-};
 
 export const getAllActivePosts = async (records = 0) => {
   const q = query(
@@ -338,7 +334,7 @@ export const addNewPost = async (postData) => {
   const newPost = {
     // Required fields
     postNumber: postNumber,
-    title: sanitizeHtml(postData.title, sanitizerOptions),
+    title: sanitizeHtml(postData.title, SANITIZE_OPTIONS),
     desc: sanitizeHtml(postData.desc_html),
     assetType: postData.assetType,
     postType: postData.postType,
@@ -352,14 +348,14 @@ export const addNewPost = async (postData) => {
 
     // Optional fields
     isStudio: postData.isStudio,
-    // video: sanitizeHtml(postData.video, sanitizerOptions) || undefined,
+    // video: sanitizeHtml(postData.video, SANITIZE_OPTIONS) || undefined,
     land: postData.land,
     landUnit: postData.landUnit,
     area: postData.area,
     areaUnit: postData.areaUnit,
     priceUnit: postData.priceUnit,
     condition: postData.condition,
-    refId: sanitizeHtml(postData.refId, sanitizerOptions) || undefined,
+    refId: sanitizeHtml(postData.refId, SANITIZE_OPTIONS) || undefined,
   };
 
   const result = await apiClient.posts.create(newPost);
@@ -372,7 +368,7 @@ export const addNewPost = async (postData) => {
 
 export const updatePost = async (postId, postData) => {
   const toBeUpdatedPost = {
-    title: sanitizeHtml(postData.title, sanitizerOptions) || "",
+    title: sanitizeHtml(postData.title, SANITIZE_OPTIONS) || "",
     assetType: postData.assetType || "",
     postType: postData.postType || "",
     condition: postData.condition || "",
