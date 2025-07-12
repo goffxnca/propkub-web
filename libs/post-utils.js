@@ -334,8 +334,8 @@ export const addNewPost = async (postData) => {
   const newPost = {
     // Required fields
     postNumber: postNumber,
-    title: sanitizeHtml(postData.title, SANITIZE_OPTIONS),
-    desc: sanitizeHtml(postData.desc_html),
+    title: postData.title,
+    desc: postData.desc_html,
     assetType: postData.assetType,
     postType: postData.postType,
     price: postData.price,
@@ -348,14 +348,14 @@ export const addNewPost = async (postData) => {
 
     // Optional fields
     isStudio: postData.isStudio,
-    // video: sanitizeHtml(postData.video, SANITIZE_OPTIONS) || undefined,
+    // video: postData.video || undefined,
     land: postData.land,
     landUnit: postData.landUnit,
     area: postData.area,
     areaUnit: postData.areaUnit,
     priceUnit: postData.priceUnit,
     condition: postData.condition,
-    refId: sanitizeHtml(postData.refId, SANITIZE_OPTIONS) || undefined,
+    refId: postData.refId || undefined,
   };
 
   const result = await apiClient.posts.create(newPost);
