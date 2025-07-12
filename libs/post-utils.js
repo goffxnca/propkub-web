@@ -360,10 +360,7 @@ export const addNewPost = async (postData) => {
 
   const result = await apiClient.posts.create(newPost);
 
-  return {
-    slug: result.slug,
-    id: result._id || result.id,
-  };
+  return result;
 };
 
 export const updatePost = async (postId, postData) => {
