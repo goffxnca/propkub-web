@@ -5,7 +5,7 @@ import {
   addNewPost,
   updatePost,
   deactivatePost,
-  addNewPost2,
+  addNewPost,
 } from "../../../libs/post-utils";
 import MediaSection from "./MediaSection";
 import Modal from "../../UI/Public/Modal";
@@ -118,7 +118,7 @@ const AddPostForm = ({ postData }) => {
         setSaving(false);
       } else {
         // CREATE MODE
-        const result = await addNewPost2(formData);
+        const result = await addNewPost(formData);
         console.log("post success", result);
         setPostSlug(result.slug);
         setShowSuccessModal(true);
