@@ -1,13 +1,11 @@
 import {
   collection,
-  setDoc,
   doc,
   getDocs,
   getDoc,
   query,
   where,
   updateDoc,
-  addDoc,
   orderBy,
   limit,
   serverTimestamp,
@@ -18,7 +16,7 @@ import { convertSpecToDbFormat } from "./mappers/specMapper";
 import sanitizeHtml from "sanitize-html";
 import { getUnixEpochTime } from "./date-utils";
 import { uploadFileToStorage } from "./utils/file-utils";
-import { ACCEPT_POST_MSG, SANITIZE_OPTIONS } from "./constants";
+import { SANITIZE_OPTIONS } from "./constants";
 import { adminMarkPostAsFulfilled } from "./managers/postActionManager";
 import { apiClient } from "./client";
 import { populateAddressLabels } from "./utils/address-utils";
@@ -180,25 +178,8 @@ export const getAllPublicPosts = async (records = 0) => {
   return posts;
 };
 
-export const getAllPostsByUserId = async (userId) => {
-  const q = query(
-    postsCollectionRef,
-    where("createdBy.userId", "==", userId),
-    orderBy("createdAt", "desc")
-    // limit(10)
-  );
-
-  const postsDocs = await getDocs(q);
-  const posts = [];
-  postsDocs.forEach((doc) => {
-    posts.push({
-      ...doc.data(),
-      id: doc.id,
-      createdAt: new Date(doc.data().createdAt.toMillis()).toLocaleDateString(),
-      updatedAt: null,
-      legal: null,
-    });
-  });
+export const getMyPosts = async (limit = 20, offset = 0) => {
+  const posts = await apiClient.posts.getMyPosts(limit, offset);
   return posts;
 };
 

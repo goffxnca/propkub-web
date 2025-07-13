@@ -1,5 +1,4 @@
 import { getStatusLabelById } from "../../../libs/mappers/statusMapper";
-import { getSubStatusLabelById } from "../../../libs/mappers/subStatusMapper";
 import Card from "../../UI/Public/Card";
 import PostImageGallery from "../PostImageGallery";
 import PostDetailAgent from "./PostDetailAgent";
@@ -17,7 +16,7 @@ const PostDetail = ({ post, similarPosts, postViews }) => {
   const titleStatusPrefix =
     post.status === "active"
       ? ""
-      : `(สถานะ${getSubStatusLabelById(post.subStatus)}) `;
+      : `(สถานะ${getStatusLabelById(post.status)}) `;
 
   const isSold = post.status === "sold";
   return (
