@@ -17,24 +17,34 @@ import {
 
 import { useState, useEffect } from "react";
 import { getMyPosts } from "../../libs/post-utils";
+import usePagination from "../../hooks/usePagination";
+import Pagination from "../UI/Public/Pagination";
+import Loader from "../UI/Common/modals/Loader";
 
 const MyPropertyList = () => {
-  const [myPosts, setMyPosts] = useState([]);
-  const [apiError, setApiError] = useState("");
   const router = useRouter();
+  const {
+    data: myPosts,
+    loading,
+    error,
+    page,
+    perPage,
+    totalCount,
+    totalPages,
+    hasNextPage,
+    hasPrevPage,
+    goToPage,
+    nextPage,
+    prevPage,
+  } = usePagination(getMyPosts, 10);
+
+  const [apiError, setApiError] = useState("");
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const postsResult = await getMyPosts(10, 0);
-        setMyPosts(postsResult);
-      } catch (error) {
-        console.error("Error fetching my posts:", error);
-        setApiError("เกิดข้อผิดพลาดในการโหลดข้อมูลประกาศ");
-      }
-    };
-    fetchPosts();
-  }, []);
+    if (error) {
+      setApiError(error);
+    }
+  }, [error]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
@@ -45,13 +55,9 @@ const MyPropertyList = () => {
       <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            {/* <h1 className="text-xl font-semibold text-gray-900">
-              ประกาศทั้งหมดของฉัน
-            </h1> */}
-            {/* <p className="mt-2 text-sm text-gray-700">
-              A list of all the users in your account including their name,
-              title, email and role.
-            </p> */}
+            <h1 className="text-xl font-semibold text-gray-900">
+              ประกาศทั้งหมด
+            </h1>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <Button
@@ -98,6 +104,7 @@ const MyPropertyList = () => {
               ),
             },
             { title: "เลขประกาศ", field: "postNumber" },
+            // { title: "#", field: "cid" },
             {
               title: "ลงวันที่",
               field: "createdAt",
@@ -171,7 +178,20 @@ const MyPropertyList = () => {
             },
           ]}
         />
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+          hasNextPage={hasNextPage}
+          hasPrevPage={hasPrevPage}
+          goToPage={goToPage}
+          nextPage={nextPage}
+          prevPage={prevPage}
+          totalCount={totalCount}
+          perPage={perPage}
+        />
       </div>
+
+      {loading && <Loader />}
 
       <Modal
         visible={!!apiError}
