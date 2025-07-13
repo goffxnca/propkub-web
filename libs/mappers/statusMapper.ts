@@ -1,8 +1,11 @@
-import { PostStatus } from '../../src/types/misc/postStatus';
+import { PostStatus } from "../../src/types/misc/postStatus";
 
 const postStatuses: PostStatus[] = [
-  { id: "active", label: "ใช้งาน" },
-  { id: "inactive", label: "ปิดการใช้งาน" },
+  { id: "draft", label: "ร่าง" },
+  { id: "active", label: "เผยแพร่แล้ว" },
+  { id: "hold", label: "พักการใช้งาน" },
+  { id: "sold", label: "ขายแล้ว" },
+  { id: "closed", label: "ปิดประกาศ" },
 ];
 
 const getStatusLabelById = (statusId: string): string => {

@@ -11,9 +11,11 @@ import { joinClasses } from "../../libs/utils/style-utils";
 import React, { SVGProps } from "react";
 
 interface Post {
-  postViews?: number;
-  phoneViews?: number;
-  lineViews?: number;
+  views?: {
+    post?: number;
+    phone?: number;
+    line?: number;
+  };
 }
 
 interface Link {
@@ -50,7 +52,7 @@ const Stats = ({ myPosts }: StatsProps) => {
       id: 2,
       name: "เข้าชม (ครั้ง)",
       stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.postViews || 0),
+        (partialSum, p) => partialSum + (p.views?.post || 0),
         0
       ),
       icon: EyeIcon,
@@ -61,7 +63,7 @@ const Stats = ({ myPosts }: StatsProps) => {
       id: 3,
       name: "กดดูเบอร์ (ครั้ง)",
       stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.phoneViews || 0),
+        (partialSum, p) => partialSum + (p.views?.phone || 0),
         0
       ),
       icon: PhoneIcon,
@@ -73,7 +75,7 @@ const Stats = ({ myPosts }: StatsProps) => {
       id: 4,
       name: "กดดูไลน์ (ครั้ง)",
       stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.lineViews || 0),
+        (partialSum, p) => partialSum + (p.views?.line || 0),
         0
       ),
       icon: ChatIcon,

@@ -8,18 +8,33 @@ import PageTitle from "../UI/Private/PageTitle";
 import Button from "../UI/Public/Button";
 import DataTable from "../UI/Public/DataTable/DataTable";
 import Stats from "./Stats";
+import Modal from "../UI/Public/Modal";
 import {
-  EyeIcon,
-  PencilAltIcon,
   SearchIcon,
-  ClockIcon,
-  CheckIcon,
   GlobeAltIcon,
+  ExclamationIcon,
 } from "@heroicons/react/outline";
-import { getSubStatusLabelById } from "../../libs/mappers/subStatusMapper";
 
-const MyPropertyList = ({ myPosts = [] }) => {
+import { useState, useEffect } from "react";
+import { getMyPosts } from "../../libs/post-utils";
+
+const MyPropertyList = () => {
+  const [myPosts, setMyPosts] = useState([]);
+  const [apiError, setApiError] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const postsResult = await getMyPosts(10, 0);
+        setMyPosts(postsResult);
+      } catch (error) {
+        console.error("Error fetching my posts:", error);
+        setApiError("เกิดข้อผิดพลาดในการโหลดข้อมูลประกาศ");
+      }
+    };
+    fetchPosts();
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
@@ -73,7 +88,7 @@ const MyPropertyList = ({ myPosts = [] }) => {
               field: "view",
               custom: (item) => (
                 <a
-                  href={`/account/posts/${item.id}`}
+                  href={`/account/posts/${item._id}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-primary text-xs hover:text-primary-hover hover:underline"
@@ -82,10 +97,15 @@ const MyPropertyList = ({ myPosts = [] }) => {
                 </a>
               ),
             },
-            { title: "#", field: "postNumber" },
-            { title: "วันที่", field: "createdAt" },
+            { title: "เลขประกาศ", field: "postNumber" },
             {
-              title: "รูป",
+              title: "ลงวันที่",
+              field: "createdAt",
+              resolver: (item) =>
+                new Date(item.createdAt).toLocaleDateString("th-TH"),
+            },
+            {
+              title: "รูปภาพ",
               field: "image",
               custom: (item) => (
                 <div className="h-12 w-12 ">
@@ -103,15 +123,21 @@ const MyPropertyList = ({ myPosts = [] }) => {
                 <span
                   className={`rounded-full ${
                     item.status === "active"
-                      ? "bg-green-100  text-green-800"
+                      ? "bg-green-100 text-green-800"
+                      : item.status === "draft"
+                      ? "bg-yellow-100 text-yellow-800"
+                      : item.status === "hold"
+                      ? "bg-orange-100 text-orange-800"
+                      : item.status === "sold"
+                      ? "bg-blue-100 text-blue-800"
                       : "bg-red-100 text-red-800"
-                  }  px-2 text-xs leading-5`}
+                  } px-2 text-xs leading-5`}
                 >
-                  {getSubStatusLabelById(item.subStatus)}
+                  {getStatusLabelById(item.status)}
                 </span>
               ),
             },
-            { title: "หัวข้อ", field: "title" },
+            { title: "หัวข้อประกาศ", field: "title" },
             {
               title: "ประเภท",
               field: "assetType",
@@ -131,21 +157,33 @@ const MyPropertyList = ({ myPosts = [] }) => {
             {
               title: "เข้าชม",
               field: "postViews",
-              resolver: (item) => item.postViews || 0,
+              resolver: (item) => item.views?.post || 0,
             },
             {
               title: "ดูเบอร์",
               field: "phoneViews",
-              resolver: (item) => item.phoneViews || 0,
+              resolver: (item) => item.views?.phone || 0,
             },
             {
               title: "ดูไลน์",
               field: "lineViews",
-              resolver: (item) => item.lineViews || 0,
+              resolver: (item) => item.views?.line || 0,
             },
           ]}
         />
       </div>
+
+      <Modal
+        visible={!!apiError}
+        Icon={ExclamationIcon}
+        type="warning"
+        title="เกิดข้อผิดพลาด"
+        desc={apiError}
+        buttonCaption="ตกลง"
+        onClose={() => {
+          setApiError("");
+        }}
+      />
     </div>
   );
 };

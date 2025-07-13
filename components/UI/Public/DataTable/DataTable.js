@@ -49,7 +49,7 @@ const DataTable = ({ items = [], columns = [] }) => {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {items.map((item) => (
-                  <tr key={item.id}>
+                  <tr key={item._id || item.id}>
                     {columns.map((col) => (
                       <td
                         key={col.field}

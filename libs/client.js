@@ -127,5 +127,9 @@ export const apiClient = {
     async create(postData) {
       return apiInstance.post("/posts", postData);
     },
+
+    async getMyPosts(limit = 20, offset = 0) {
+      return apiInstance.get(`/posts/me?limit=${limit}&offset=${offset}`);
+    },
   },
 };

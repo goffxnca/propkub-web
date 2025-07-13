@@ -10,7 +10,6 @@ import { formatAddressFull } from "../../../libs/formatters/addressFomatter";
 import { getStatusLabelById } from "../../../libs/mappers/statusMapper";
 import PostActionList from "./PostActionList";
 import PostDetailStats from "./PostDetailStats";
-import { getSubStatusLabelById } from "../../../libs/mappers/subStatusMapper";
 import PostActionConsole from "./PostActionConsole";
 import { SANITIZE_OPTIONS } from "../../../libs/constants";
 
@@ -52,8 +51,7 @@ const PostDetailPreview = ({ post, postActions }) => {
   const agentRefNumber = post.refNumber || "-";
   const address = formatAddressFull(post.address);
 
-  // const status = getStatusLabelById(post.status);
-  const subStatus = getSubStatusLabelById(post.subStatus);
+  const status = getStatusLabelById(post.status);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,11 +89,17 @@ const PostDetailPreview = ({ post, postActions }) => {
                   <span
                     className={`rounded-full ${
                       post.status === "active"
-                        ? "bg-green-100  text-green-800"
+                        ? "bg-green-100 text-green-800"
+                        : post.status === "draft"
+                        ? "bg-yellow-100 text-yellow-800"
+                        : post.status === "hold"
+                        ? "bg-orange-100 text-orange-800"
+                        : post.status === "sold"
+                        ? "bg-blue-100 text-blue-800"
                         : "bg-red-100 text-red-800"
-                    }  px-2 text-xs leading-5`}
+                    } px-2 text-xs leading-5`}
                   >
-                    {subStatus}
+                    {status}
                   </span>
                 </dd>
               </div>
