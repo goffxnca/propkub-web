@@ -1,22 +1,9 @@
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/solid";
 import {
   EyeIcon,
   DocumentDuplicateIcon,
-  ShareIcon,
   PhoneIcon,
   ChatIcon,
-  SearchIcon,
 } from "@heroicons/react/outline";
-import { joinClasses } from "../../libs/utils/style-utils";
-import React, { SVGProps } from "react";
-
-interface Post {
-  views?: {
-    post?: number;
-    phone?: number;
-    line?: number;
-  };
-}
 
 interface Link {
   href: string;
@@ -35,15 +22,23 @@ interface StatItem {
 }
 
 interface StatsProps {
-  myPosts: Post[];
+  totalCount: number;
+  totalPostViews: number;
+  totalPhoneViews: number;
+  totalLineViews: number;
 }
 
-const Stats = ({ myPosts }: StatsProps) => {
+const Stats = ({
+  totalCount,
+  totalPostViews,
+  totalPhoneViews,
+  totalLineViews,
+}: StatsProps) => {
   const stats: StatItem[] = [
     {
       id: 1,
       name: "ประกาศของฉันทั้งหมด",
-      stat: myPosts.length,
+      stat: totalCount,
       icon: DocumentDuplicateIcon,
       change: "122",
       changeType: "increase",
@@ -51,10 +46,7 @@ const Stats = ({ myPosts }: StatsProps) => {
     {
       id: 2,
       name: "เข้าชม (ครั้ง)",
-      stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.views?.post || 0),
-        0
-      ),
+      stat: totalPostViews,
       icon: EyeIcon,
       change: "5.4%",
       changeType: "increase",
@@ -62,10 +54,7 @@ const Stats = ({ myPosts }: StatsProps) => {
     {
       id: 3,
       name: "กดดูเบอร์ (ครั้ง)",
-      stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.views?.phone || 0),
-        0
-      ),
+      stat: totalPhoneViews,
       icon: PhoneIcon,
       change: "3.2%",
       changeType: "decrease",
@@ -74,10 +63,7 @@ const Stats = ({ myPosts }: StatsProps) => {
     {
       id: 4,
       name: "กดดูไลน์ (ครั้ง)",
-      stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.views?.line || 0),
-        0
-      ),
+      stat: totalLineViews,
       icon: ChatIcon,
       change: "3.2%",
       changeType: "decrease",
