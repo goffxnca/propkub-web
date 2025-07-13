@@ -178,8 +178,13 @@ export const getAllPublicPosts = async (records = 0) => {
   return posts;
 };
 
-export const getMyPosts = async (page = 1, per_page = 10) => {
+export const getMyPosts = async (page = 1, per_page = 20) => {
   const response = await apiClient.posts.getMyPosts(page, per_page);
+  return response;
+};
+
+export const getMyPostsStats = async () => {
+  const response = await apiClient.posts.getMyPostsStats();
   return response;
 };
 
