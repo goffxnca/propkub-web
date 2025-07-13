@@ -36,7 +36,7 @@ const MyPropertyList = () => {
     goToPage,
     nextPage,
     prevPage,
-  } = usePagination(getMyPosts, 10);
+  } = usePagination(getMyPosts, 5);
 
   const [apiError, setApiError] = useState("");
 
@@ -50,7 +50,12 @@ const MyPropertyList = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
       <PageTitle label="แดชบอร์ด" />
 
-      <Stats myPosts={myPosts} />
+      <Stats 
+        totalCount={totalCount}
+        totalPostViews={1250}
+        totalPhoneViews={89}
+        totalLineViews={156}
+      />
 
       <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
         <div className="sm:flex sm:items-center">
