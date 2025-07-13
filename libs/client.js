@@ -128,8 +128,8 @@ export const apiClient = {
       return apiInstance.post("/posts", postData);
     },
 
-    async getMyPosts(limit = 20, offset = 0) {
-      return apiInstance.get(`/posts/me?limit=${limit}&offset=${offset}`);
+    async getMyPosts(page = 1, per_page = 20) {
+      return apiInstance.get(`/posts/me?page=${page}&per_page=${per_page}`);
     },
   },
 };

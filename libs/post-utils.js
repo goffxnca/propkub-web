@@ -178,9 +178,9 @@ export const getAllPublicPosts = async (records = 0) => {
   return posts;
 };
 
-export const getMyPosts = async (limit = 20, offset = 0) => {
-  const posts = await apiClient.posts.getMyPosts(limit, offset);
-  return posts;
+export const getMyPosts = async (page = 1, per_page = 10) => {
+  const response = await apiClient.posts.getMyPosts(page, per_page);
+  return response;
 };
 
 export const countAllPosts = async () => {
