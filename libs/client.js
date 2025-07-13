@@ -131,5 +131,9 @@ export const apiClient = {
     async getMyPosts(page = 1, per_page = 20) {
       return apiInstance.get(`/posts/me?page=${page}&per_page=${per_page}`);
     },
+
+    async getMyPostsStats() {
+      return apiInstance.get("/posts/me/stats");
+    },
   },
 };

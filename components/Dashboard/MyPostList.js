@@ -16,7 +16,7 @@ import {
 } from "@heroicons/react/outline";
 
 import { useState, useEffect } from "react";
-import { getMyPosts } from "../../libs/post-utils";
+import { getMyPosts, getMyPostsStats } from "../../libs/post-utils";
 import usePagination from "../../hooks/usePagination";
 import Pagination from "../UI/Public/Pagination";
 import Loader from "../UI/Common/modals/Loader";
@@ -39,7 +39,32 @@ const MyPropertyList = () => {
   } = usePagination(getMyPosts, 5);
 
   const [apiError, setApiError] = useState("");
+  const [stats, setStats] = useState({
+    totalPosts: 0,
+    totalPostViews: 0,
+    totalPhoneViews: 0,
+    totalLineViews: 0,
+  });
+  const [statsLoading, setStatsLoading] = useState(false);
 
+  useEffect(() => {
+    const fetchStats = async () => {
+      setStatsLoading(true);
+      try {
+        const statsData = await getMyPostsStats();
+        setStats(statsData);
+      } catch (error) {
+        console.error("Error fetching stats:", error);
+        setApiError("เกิดข้อผิดพลาดในการโหลดข้อมูลสถิติ");
+      } finally {
+        setStatsLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, []);
+
+  // Update apiError when pagination hook has an error
   useEffect(() => {
     if (error) {
       setApiError(error);
@@ -50,11 +75,11 @@ const MyPropertyList = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
       <PageTitle label="แดชบอร์ด" />
 
-      <Stats 
-        totalCount={totalCount}
-        totalPostViews={1250}
-        totalPhoneViews={89}
-        totalLineViews={156}
+      <Stats
+        totalCount={stats.totalPosts}
+        totalPostViews={stats.totalPostViews}
+        totalPhoneViews={stats.totalPhoneViews}
+        totalLineViews={stats.totalLineViews}
       />
 
       <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -196,7 +221,7 @@ const MyPropertyList = () => {
         />
       </div>
 
-      {loading && <Loader />}
+      {(loading || statsLoading) && <Loader />}
 
       <Modal
         visible={!!apiError}
