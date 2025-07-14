@@ -128,6 +128,10 @@ export const apiClient = {
       return apiInstance.post("/posts", postData);
     },
 
+    async getById(postId) {
+      return apiInstance.get(`/posts/${postId}`);
+    },
+
     async getMyPosts(page = 1, per_page = 20) {
       return apiInstance.get(`/posts/me?page=${page}&per_page=${per_page}`);
     },

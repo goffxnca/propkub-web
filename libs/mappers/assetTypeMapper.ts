@@ -1,4 +1,4 @@
-import { AssetType } from '../../src/types/misc/assetType';
+import { AssetType } from "../../src/types/misc/assetType";
 
 const assetTypes: AssetType[] = [
   { id: "condo", label: "คอนโด" },
@@ -9,7 +9,7 @@ const assetTypes: AssetType[] = [
 ];
 
 const getAssetType = (assetType: string): string => {
-  return assetTypes.find((a) => a.id === assetType)?.label ?? "N/A";
+  return assetTypes.find((a) => a.id === assetType).label;
 };
 
 export { assetTypes, getAssetType };
