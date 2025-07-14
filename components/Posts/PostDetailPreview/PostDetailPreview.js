@@ -24,11 +24,11 @@ const PostDetailPreview = ({ post, postActions }) => {
     () => sanitizeHtml(post.desc, SANITIZE_OPTIONS),
     [post.desc]
   );
-  const slug = post.slug;
   const assetType = getAssetType(post.assetType);
   const postType = getPostType(post.postType);
-  const price = post.price;
-  const byMember = post.byMember ? "ใช่" : "ไม่ใช่";
+  const priceWithUnit = post.priceUnit
+    ? `${post.price.toLocaleString()}/${getPriceUnit(post.priceUnit)}`
+    : post.price.toLocaleString();
   const thumbnail = post.thumbnail;
   const images = post.images;
   const facilities = orDefault(post.facilities.map((p) => p.label).join(", "));
@@ -43,19 +43,20 @@ const PostDetailPreview = ({ post, postActions }) => {
   );
 
   const address = formatAddressFull(post.address);
-  const views = post.views;
-  const cid = post.cid;
   const postNumber = post.postNumber;
 
   // Optional fields (schema order)
   const isStudio =
     post.isStudio !== undefined ? (post.isStudio ? "ใช่" : "ไม่ใช่") : "-";
   const video = orDefault(post.video);
-  const land = orDefault(post.land);
-  const landUnit = orDefault(post.landUnit && getAreaUnitById(post.landUnit));
-  const area = orDefault(post.area);
-  const areaUnit = orDefault(post.areaUnit && getAreaUnitById(post.areaUnit));
-  const priceUnit = post.priceUnit ? ` / ${getPriceUnit(post.priceUnit)}` : "";
+  const landWithUnit =
+    post.land && post.landUnit
+      ? `${post.land} ${getAreaUnitById(post.landUnit)}`
+      : orDefault(post.land);
+  const areaWithUnit =
+    post.area && post.areaUnit
+      ? `${post.area} ${getAreaUnitById(post.areaUnit)}`
+      : orDefault(post.area);
   const condition = orDefault(post.condition && getCondition(post.condition));
   const agentRefNumber = orDefault(post.refId);
   const createdAt = new Date(post.createdAt).toLocaleDateString("th-TH");
@@ -73,12 +74,19 @@ const PostDetailPreview = ({ post, postActions }) => {
         <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-2/3">
           <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
             <dl className="sm:divide-y sm:divide-gray-200">
-              {/* Schema order: All fields from posts.schema.ts */}
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  หมายเลขประกาศ
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {postNumber}
+                </dd>
+              </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ID</dt>
+                <dt className="text-sm font-medium text-gray-500">สถานะ</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {post._id}
+                  <PostStatusBadge status={post.status} />
                 </dd>
               </div>
 
@@ -88,13 +96,6 @@ const PostDetailPreview = ({ post, postActions }) => {
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {title}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">Slug</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {slug}
                 </dd>
               </div>
 
@@ -120,6 +121,15 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  ลักษณะทรัพย์
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {condition}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">สำหรับ</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {postType}
@@ -127,24 +137,34 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">ที่ตั้ง</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {address}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">ราคา</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {price}
-                  {priceUnit}
+                  {priceWithUnit}
                 </dd>
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">สถานะ</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  พื้นที่ใช้สอย
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  <PostStatusBadge status={post.status} />
+                  {areaWithUnit}
                 </dd>
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">โดยสมาชิก</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  ขนาดที่ดิน
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {byMember}
+                  {landWithUnit}
                 </dd>
               </div>
 
@@ -177,6 +197,13 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">วิดีโอ</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {video}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   สาธารณูปโภค
                 </dt>
@@ -195,38 +222,6 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ที่ตั้ง</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {address}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ยอดดู</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  ประกาศ: {views?.post || 0}, โทรศัพท์: {views?.phone || 0},
-                  Line: {views?.line || 0}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">CID</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {cid}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  หมายเลขประกาศ
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {postNumber}
-                </dd>
-              </div>
-
-              {/* Optional fields */}
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   ห้อง Studio
                 </dt>
@@ -235,57 +230,7 @@ const PostDetailPreview = ({ post, postActions }) => {
                 </dd>
               </div>
 
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">วิดีโอ</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {video}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  ขนาดที่ดิน
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {land}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  หน่วยที่ดิน
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {landUnit}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  พื้นที่ใช้สอย
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {area}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  หน่วยพื้นที่
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {areaUnit}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  ลักษณะทรัพย์
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {condition}
-                </dd>
-              </div>
+              {/* Optional fields */}
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
@@ -334,9 +279,9 @@ const PostDetailPreview = ({ post, postActions }) => {
         {/* Right Side Bar */}
         <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-1/3 p-4 space-y-2">
           <PostDetailStats
-            postViews={post.postViews}
-            phoneViews={post.phoneViews}
-            lineViews={post.lineViews}
+            postViews={post.views?.post || 0}
+            phoneViews={post.views?.phone || 0}
+            lineViews={post.views?.line || 0}
           />
           <PostActionList postActions={postActions} />
           <PostActionConsole

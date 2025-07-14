@@ -6,7 +6,7 @@ const postTypes: PostType[] = [
 ];
 
 const getPostType = (postTypeId: string): string => {
-  return postTypes.find((p) => p.id === postTypeId).label;
+  return postTypes.find((p) => p.id === postTypeId)?.label;
 };
 
 export { postTypes, getPostType };
