@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 
 import { getAssetType } from "../../libs/mappers/assetTypeMapper";
 import { getPostType } from "../../libs/mappers/postTypeMapper";
-import { getStatusLabelById } from "../../libs/mappers/statusMapper";
+import PostStatusBadge from "../Posts/PostStatusBadge/PostStatusBadge";
 
 import PageTitle from "../UI/Private/PageTitle";
 import Button from "../UI/Public/Button";
@@ -156,21 +156,7 @@ const MyPropertyList = () => {
               title: "สถานะ",
               field: "status",
               custom: (item) => (
-                <span
-                  className={`rounded-full ${
-                    item.status === "active"
-                      ? "bg-green-100 text-green-800"
-                      : item.status === "draft"
-                      ? "bg-yellow-100 text-yellow-800"
-                      : item.status === "hold"
-                      ? "bg-orange-100 text-orange-800"
-                      : item.status === "sold"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-red-100 text-red-800"
-                  } px-2 text-xs leading-5`}
-                >
-                  {getStatusLabelById(item.status)}
-                </span>
+                <PostStatusBadge status={item.status} showDot={false} />
               ),
             },
             { title: "หัวข้อประกาศ", field: "title" },

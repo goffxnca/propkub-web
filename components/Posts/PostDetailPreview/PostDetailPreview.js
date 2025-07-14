@@ -7,11 +7,12 @@ import { getCondition } from "../../../libs/mappers/conditionMapper";
 import { getAreaUnitById } from "../../../libs/mappers/areaUnitMapper";
 import { getPriceUnit } from "../../../libs/mappers/priceUnitMapper";
 import { formatAddressFull } from "../../../libs/formatters/addressFomatter";
-import { getStatusLabelById } from "../../../libs/mappers/statusMapper";
+import { getSpecLabel } from "../../../libs/mappers/specMapper";
 import { orDefault } from "../../../libs/string-utils";
 import PostActionList from "./PostActionList";
 import PostDetailStats from "./PostDetailStats";
 import PostActionConsole from "./PostActionConsole";
+import PostStatusBadge from "../PostStatusBadge/PostStatusBadge";
 import { SANITIZE_OPTIONS } from "../../../libs/constants";
 
 const PostDetailPreview = ({ post, postActions }) => {
@@ -26,13 +27,21 @@ const PostDetailPreview = ({ post, postActions }) => {
   const slug = post.slug;
   const assetType = getAssetType(post.assetType);
   const postType = getPostType(post.postType);
-  const price = post.price.toLocaleString();
-  const status = getStatusLabelById(post.status);
+  const price = post.price;
   const byMember = post.byMember ? "ใช่" : "ไม่ใช่";
   const thumbnail = post.thumbnail;
   const images = post.images;
   const facilities = orDefault(post.facilities.map((p) => p.label).join(", "));
-  // const specs = orDefault(post.specs.map((spec) => spec.label));
+
+  const specs = orDefault(
+    post.specs
+      .map((spec) => {
+        const thaiLabel = getSpecLabel(spec.id);
+        return `${thaiLabel}: ${spec.value}`;
+      })
+      .join(", ")
+  );
+
   const address = formatAddressFull(post.address);
   const views = post.views;
   const cid = post.cid;
@@ -55,21 +64,6 @@ const PostDetailPreview = ({ post, postActions }) => {
     post.updatedAt && new Date(post.updatedAt).toLocaleDateString("th-TH")
   );
   const updatedBy = orDefault(post.updatedBy);
-
-  // 📊 Specs - extracted from specs array
-  const bedRooms = orDefault(post.specs.find((x) => x.id === "beds")?.value, 0);
-  const bathRooms = orDefault(
-    post.specs.find((x) => x.id === "baths")?.value,
-    0
-  );
-  const kitchenRooms = orDefault(
-    post.specs.find((x) => x.id === "kitchens")?.value,
-    0
-  );
-  const parkings = orDefault(
-    post.specs.find((x) => x.id === "parkings")?.value,
-    0
-  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -143,7 +137,7 @@ const PostDetailPreview = ({ post, postActions }) => {
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">สถานะ</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {status}
+                  <PostStatusBadge status={post.status} />
                 </dd>
               </div>
 
@@ -196,8 +190,7 @@ const PostDetailPreview = ({ post, postActions }) => {
                   ข้อมูลห้อง
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  ห้องนอน: {bedRooms}, ห้องน้ำ: {bathRooms}, ห้องครัว:{" "}
-                  {kitchenRooms}, ที่จอดรถ: {parkings}
+                  {specs}
                 </dd>
               </div>
 
