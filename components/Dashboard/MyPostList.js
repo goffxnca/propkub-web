@@ -20,6 +20,7 @@ import { getMyPosts, getMyPostsStats } from "../../libs/post-utils";
 import usePagination from "../../hooks/usePagination";
 import Pagination from "../UI/Public/Pagination";
 import Loader from "../UI/Common/modals/Loader";
+import Link from "next/link";
 
 const MyPropertyList = () => {
   const router = useRouter();
@@ -123,14 +124,12 @@ const MyPropertyList = () => {
               title: "",
               field: "view",
               custom: (item) => (
-                <a
+                <Link
                   href={`/account/posts/${item._id}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="text-primary text-xs hover:text-primary-hover hover:underline"
                 >
                   <SearchIcon className="w-4 h-4" />
-                </a>
+                </Link>
               ),
             },
             { title: "เลขประกาศ", field: "postNumber" },

@@ -1,4 +1,4 @@
-import { PostType } from '../../src/types/misc/postType';
+import { PostType } from "../../src/types/misc/postType";
 
 const postTypes: PostType[] = [
   { id: "sale", label: "ขาย" },
@@ -6,7 +6,7 @@ const postTypes: PostType[] = [
 ];
 
 const getPostType = (postTypeId: string): string => {
-  return postTypes.find((p) => p.id === postTypeId)?.label ?? "";
+  return postTypes.find((p) => p.id === postTypeId).label;
 };
 
 export { postTypes, getPostType };

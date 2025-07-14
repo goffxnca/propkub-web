@@ -1,4 +1,4 @@
-import { Condition } from '../../src/types/misc/condition';
+import { Condition } from "../../src/types/misc/condition";
 
 const conditions: Condition[] = [
   { id: "used", label: "มือสอง" },
@@ -6,7 +6,7 @@ const conditions: Condition[] = [
 ];
 
 const getCondition = (condition: string): string => {
-  return conditions.find((c) => c.id === condition)?.label ?? "";
+  return conditions.find((c) => c.id === condition).label;
 };
 
 export { conditions, getCondition };

@@ -12,4 +12,9 @@ const randomLetter = () => {
 
 const zeroPad = (num, places) => String(num).padStart(places, "0");
 
-export { getYoutubeVideoId, randomLetter };
+const orDefault = (value, defaultValue = "-") =>
+  value == null || value === "" || (Array.isArray(value) && !value.length)
+    ? defaultValue
+    : value;
+
+export { getYoutubeVideoId, randomLetter, zeroPad, orDefault };
