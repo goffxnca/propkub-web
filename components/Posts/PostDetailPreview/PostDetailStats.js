@@ -32,12 +32,6 @@ const PostDetailStats = ({ postViews = 0, phoneViews = 0, lineViews = 0 }) => {
       stat: 0,
       icon: ShareIcon,
     },
-    {
-      id: 5,
-      name: "ถูกรายงาน",
-      stat: 0,
-      icon: ThumbDownIcon,
-    },
   ];
 
   return (
