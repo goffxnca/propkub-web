@@ -159,7 +159,6 @@ const MyPropertyList = () => {
                 <PostStatusBadge status={item.status} showDot={false} />
               ),
             },
-            { title: "หัวข้อประกาศ", field: "title" },
             {
               title: "ประเภท",
               field: "assetType",
@@ -176,6 +175,7 @@ const MyPropertyList = () => {
               field: "address.provinceId",
               resolver: (item) => item.address.provinceLabel,
             },
+            { title: "หัวข้อประกาศ", field: "title" },
             {
               title: "เข้าชม",
               field: "postViews",
