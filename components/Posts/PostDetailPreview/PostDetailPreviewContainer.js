@@ -22,14 +22,10 @@ const PostDetailPreviewContainer = ({ postId }) => {
       setError("");
 
       try {
-        const postData = await apiClient.posts.getById(postId);
+        const postData = await apiClient.posts.getByIdForOwner(postId);
         setPost(postData);
-
-        // Fetch post actions
-        // const actionsResponse = await getPostActions(postId);
-        // setPostActions(actionsResponse.data);
       } catch (err) {
-        console.error("Error fetching post data:", err);
+        console.error("Error fetching a post:", err);
         setError("เกิดข้อผิดพลาดในการโหลดข้อมูลประกาศ กรุณาลองใหม่อีกครั้ง");
         setPost(null);
       } finally {
@@ -49,7 +45,7 @@ const PostDetailPreviewContainer = ({ postId }) => {
       <Modal
         visible={true}
         title="เกิดข้อผิดพลาด"
-        type="error"
+        type="warning"
         desc={error}
         buttonCaption="กลับไปแดชบอร์ด"
         Icon={ExclamationCircleIcon}

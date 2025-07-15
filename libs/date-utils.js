@@ -17,7 +17,7 @@ const getLocalDateTimeByISODateString = (isoDateSting) => {
 const getThaiFullDateTimeString = (isoDateString) => {
   return new Date(isoDateString).toLocaleDateString("th-TH", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",

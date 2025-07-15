@@ -1,12 +1,17 @@
+import React from "react";
 import Badge from "../../UI/Badge/Badge";
 import { getStatusLabelById, getStatusVariantById } from "../../../libs/mappers/statusMapper";
 
-const PostStatusBadge = ({ status, showDot = true }) => {
+interface PostStatusBadgeProps {
+  status: string;
+}
+
+const PostStatusBadge: React.FC<PostStatusBadgeProps> = ({ status }) => {
   const variant = getStatusVariantById(status);
   const label = getStatusLabelById(status);
 
   return (
-    <Badge variant={variant} showDot={showDot}>
+    <Badge variant={variant}>
       {label}
     </Badge>
   );

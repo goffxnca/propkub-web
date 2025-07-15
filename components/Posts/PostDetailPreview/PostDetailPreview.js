@@ -9,10 +9,10 @@ import { getPriceUnit } from "../../../libs/mappers/priceUnitMapper";
 import { formatAddressFull } from "../../../libs/formatters/addressFomatter";
 import { getSpecLabel } from "../../../libs/mappers/specMapper";
 import { orDefault } from "../../../libs/string-utils";
-import PostActionList from "./PostActionList";
 import PostDetailStats from "./PostDetailStats";
 import PostActionConsole from "./PostActionConsole";
 import PostStatusBadge from "../PostStatusBadge/PostStatusBadge";
+import PostTimeline from "./PostTimeline";
 import { SANITIZE_OPTIONS } from "../../../libs/constants";
 
 const PostDetailPreview = ({ post, postActions }) => {
@@ -60,11 +60,9 @@ const PostDetailPreview = ({ post, postActions }) => {
   const condition = orDefault(post.condition && getCondition(post.condition));
   const agentRefNumber = orDefault(post.refId);
   const createdAt = new Date(post.createdAt).toLocaleDateString("th-TH");
-  const createdBy = orDefault(post.createdBy);
   const updatedAt = orDefault(
     post.updatedAt && new Date(post.updatedAt).toLocaleDateString("th-TH")
   );
-  const updatedBy = orDefault(post.updatedBy);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -251,25 +249,11 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ผู้สร้าง</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {createdBy}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   วันที่แก้ไข
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {updatedAt}
-                </dd>
-              </div>
-
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ผู้แก้ไข</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {updatedBy}
                 </dd>
               </div>
             </dl>
@@ -283,7 +267,7 @@ const PostDetailPreview = ({ post, postActions }) => {
             phoneViews={post.views?.phone || 0}
             lineViews={post.views?.line || 0}
           />
-          <PostActionList postActions={postActions} />
+          <PostTimeline postActions={post.postActions} />
           <PostActionConsole
             postId={post.id}
             postSlug={post.slug}

@@ -130,8 +130,6 @@ const PersonalInfoSection = ({ user }) => {
     return null;
   };
 
-
-
   const verification = getVerificationStatus();
   const VerificationIcon = verification.icon;
 
@@ -221,9 +219,12 @@ const PersonalInfoSection = ({ user }) => {
                 <>
                   <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
                     <img
-                      src={user.profileImg || "/user.png"}
+                      src={user.profileImg}
                       alt="Profile"
                       className="h-full w-full object-cover"
+                      onError={(e) => {
+                        e.target.src = "/user.png";
+                      }}
                     />
                   </div>
 
@@ -255,8 +256,6 @@ const PersonalInfoSection = ({ user }) => {
                   </div>
                 </div>
               </div>
-
-
             </div>
           </div>
         </div>

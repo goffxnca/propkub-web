@@ -1,4 +1,5 @@
 import { PostStatus } from "../../src/types/misc/postStatus";
+import { Variant } from "../utils/style-utils";
 
 const postStatuses: PostStatus[] = [
   { id: "draft", label: "ร่าง", variant: "gray" },
@@ -12,7 +13,7 @@ const getStatusLabelById = (statusId: string): string => {
   return postStatuses.find((status) => status.id === statusId).label;
 };
 
-const getStatusVariantById = (statusId: string): string => {
+const getStatusVariantById = (statusId: string): Variant => {
   return (
     postStatuses.find((status) => status.id === statusId)?.variant || "gray"
   );

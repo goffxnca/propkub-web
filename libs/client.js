@@ -132,6 +132,10 @@ export const apiClient = {
       return apiInstance.get(`/posts/${postId}`);
     },
 
+    async getByIdForOwner(postId) {
+      return apiInstance.get(`/posts/${postId}/me`);
+    },
+
     async getMyPosts(page = 1, per_page = 20) {
       return apiInstance.get(`/posts/me?page=${page}&per_page=${per_page}`);
     },
