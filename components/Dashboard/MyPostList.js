@@ -156,7 +156,7 @@ const MyPropertyList = () => {
               title: "สถานะ",
               field: "status",
               custom: (item) => (
-                <PostStatusBadge status={item.status} showDot={false} />
+                <PostStatusBadge status={item.status} />
               ),
             },
             {

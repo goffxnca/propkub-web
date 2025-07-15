@@ -1,6 +1,7 @@
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Resizer from "react-image-file-resizer";
 import { randomOneToN } from "../number-utils";
+import { db } from "../../libs/firebase";
 
 const resizeFile = async (file) => {
   return new Promise((resolve) => {
@@ -23,7 +24,7 @@ const uploadFileToStorage = async (type, postNumber, file) => {
   const storage = getStorage();
   const storageRef = ref(
     storage,
-    `${type}/${postNumber}/i/${randomOneToN(100000)}${getFileExtension(
+    `${type}/${postNumber}/i/${randomOneToN(99999)}${getFileExtension(
       file.name
     )}`
   );

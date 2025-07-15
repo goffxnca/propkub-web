@@ -109,6 +109,9 @@ const ProfileImageInput = ({
               src={fileUrl || "/user.png"}
               alt="Profile"
               className="h-full w-full object-cover"
+              onError={(e) => {
+                e.target.src = "/user.png";
+              }}
             />
           </div>
 
