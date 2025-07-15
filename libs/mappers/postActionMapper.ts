@@ -4,7 +4,7 @@ import {
   ExclamationIcon,
   CurrencyDollarIcon,
   XIcon,
-  GlobeAltIcon,
+  RefreshIcon,
 } from "@heroicons/react/solid";
 import { Variant } from "../utils/style-utils";
 
@@ -17,16 +17,10 @@ export interface PostAction {
 
 const postActions: PostAction[] = [
   {
-    id: "draft",
-    label: "ร่างประกาศ",
-    variant: "gray",
-    icon: DocumentAddIcon,
-  },
-  {
-    id: "publish",
-    label: "เผยแพร่ประกาศ",
+    id: "create",
+    label: "สร้างประกาศ",
     variant: "success",
-    icon: GlobeAltIcon,
+    icon: DocumentAddIcon,
   },
   {
     id: "update",
@@ -35,10 +29,16 @@ const postActions: PostAction[] = [
     icon: PencilIcon,
   },
   {
-    id: "report",
-    label: "ประกาศถูกรายงาน",
+    id: "suspense",
+    label: "พักการใช้งาน",
     variant: "warning",
     icon: ExclamationIcon,
+  },
+  {
+    id: "restore",
+    label: "เปิดประกาศใหม่",
+    variant: "success",
+    icon: RefreshIcon,
   },
   {
     id: "sell",
@@ -55,7 +55,7 @@ const postActions: PostAction[] = [
 ];
 
 const getPostActionById = (actionId: string): PostAction => {
-  return postActions.find((action) => action.id === actionId) || postActions[0]; // fallback to draft
+  return postActions.find((action) => action.id === actionId);
 };
 
 const getPostActionLabelById = (actionId: string): string => {

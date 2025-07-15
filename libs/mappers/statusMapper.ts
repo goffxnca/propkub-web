@@ -2,7 +2,6 @@ import { PostStatus } from "../../src/types/misc/postStatus";
 import { Variant } from "../utils/style-utils";
 
 const postStatuses: PostStatus[] = [
-  { id: "draft", label: "ร่าง", variant: "gray" },
   { id: "active", label: "เผยแพร่แล้ว", variant: "success" },
   { id: "hold", label: "พักการใช้งาน", variant: "warning" },
   { id: "sold", label: "ขายแล้ว", variant: "info" },
@@ -15,7 +14,7 @@ const getStatusLabelById = (statusId: string): string => {
 
 const getStatusVariantById = (statusId: string): Variant => {
   return (
-    postStatuses.find((status) => status.id === statusId)?.variant || "gray"
+    postStatuses.find((status) => status.id === statusId).variant || "gray"
   );
 };
 
