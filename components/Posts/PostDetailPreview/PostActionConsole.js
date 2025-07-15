@@ -1,33 +1,33 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Button from "../../UI/Public/Button";
-import { CheckIcon } from "@heroicons/react/outline";
+import { CheckIcon, ExclamationIcon } from "@heroicons/react/outline";
 import { useRouter } from "next/router";
 import Confirm from "../../UI/Public/Modals/Confirm";
-import { deactivatePost } from "../../../libs/post-utils";
-import { authContext } from "../../../contexts/authContext";
 import Modal from "../../UI/Public/Modal";
+import { apiClient } from "../../../libs/client";
 
 const PostActionConsole = ({ postId, postSlug, postStatus }) => {
   const router = useRouter();
-  const { user } = useContext(authContext);
 
-  const [saving, setSaving] = useState(false);
-  const [showDeactivePostConfirmModal, setShowDeactivePostConfirmModal] =
-    useState(false);
-  const [showDeactivateResultModal, setShowDeactivateResultModal] =
-    useState(false);
+  const [loading, setLoading] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const deactivePostHandler = () => {
-    setSaving(true);
-    deactivatePost(postId, user)
-      .then((result) => {
-        console.log(result);
-        setShowDeactivateResultModal(true);
-        setSaving(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const closePostHandler = async () => {
+    setShowConfirmModal(false);
+    setLoading(true);
+    try {
+      await apiClient.posts.closePost(postId);
+      setShowSuccessModal(true);
+      setLoading(false);
+    } catch (error) {
+      console.error("Failed to close post:", error);
+      setLoading(false);
+      setErrorMessage("เกิดข้อผิดพลาดในการปิดประกาศ กรุณาลองใหม่อีกครั้ง");
+      setShowErrorModal(true);
+    }
   };
 
   return (
@@ -58,9 +58,9 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
         {postStatus === "active" && (
           <Button
             variant="accent"
-            loading={saving}
+            loading={loading}
             onClick={() => {
-              setShowDeactivePostConfirmModal(true);
+              setShowConfirmModal(true);
             }}
           >
             ปิดประกาศ
@@ -69,7 +69,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
       </div>
 
       <Modal
-        visible={showDeactivateResultModal}
+        visible={showSuccessModal}
         title="ปิดประกาศสำเร็จ"
         desc="ประกาศของคุณถูกปิดใช้งานเรียบร้อยแล้ว และจะถูกนำออกจากหน้าแรกใน 30 นาที"
         buttonCaption="กลับหน้าแรก"
@@ -80,13 +80,25 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
       />
 
       <Confirm
-        visible={showDeactivePostConfirmModal}
+        visible={showConfirmModal}
         title="ปิดประกาศ"
         desc="คุณยืนยันว่าคุณต้องการปิดประกาศนี้ใช่หรือไม่?"
-        // Icon={LocationMarkerIcon}
-        onConfirm={deactivePostHandler}
+        onConfirm={closePostHandler}
         onClose={() => {
-          setShowDeactivePostConfirmModal(false);
+          setShowConfirmModal(false);
+        }}
+      />
+
+      <Modal
+        visible={showErrorModal}
+        Icon={ExclamationIcon}
+        type="warning"
+        title="เกิดข้อผิดพลาด"
+        desc={errorMessage}
+        buttonCaption="ตกลง"
+        onClose={() => {
+          setShowErrorModal(false);
+          setErrorMessage("");
         }}
       />
     </div>

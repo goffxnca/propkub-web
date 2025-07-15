@@ -143,5 +143,9 @@ export const apiClient = {
     async getMyPostsStats() {
       return apiInstance.get("/posts/me/stats");
     },
+
+    async closePost(postId) {
+      return apiInstance.post(`/posts/${postId}/close`);
+    },
   },
 };
