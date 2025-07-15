@@ -269,7 +269,7 @@ const PostDetailPreview = ({ post, postActions }) => {
           />
           <PostTimeline postActions={post.postActions} />
           <PostActionConsole
-            postId={post.id}
+            postId={post._id}
             postSlug={post.slug}
             postStatus={post.status}
           />
