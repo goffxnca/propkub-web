@@ -3,6 +3,8 @@ import {
   DocumentDuplicateIcon,
   PhoneIcon,
   ChatIcon,
+  ShareIcon,
+  BookmarkIcon,
 } from "@heroicons/react/outline";
 
 interface Link {
@@ -26,6 +28,8 @@ interface StatsProps {
   totalPostViews: number;
   totalPhoneViews: number;
   totalLineViews: number;
+  totalShares: number;
+  totalPins: number;
 }
 
 const Stats = ({
@@ -33,6 +37,8 @@ const Stats = ({
   totalPostViews,
   totalPhoneViews,
   totalLineViews,
+  totalShares,
+  totalPins,
 }: StatsProps) => {
   const stats: StatItem[] = [
     {
@@ -58,7 +64,7 @@ const Stats = ({
       icon: PhoneIcon,
       change: "3.2%",
       changeType: "decrease",
-      note: "**นี่คือจำนวนครั้งที่กดดูเบอร์ แต่ทางเราไม่ทราบว่าผู้เข้าชมประกาศโทรไปหาท่านหรือไม่",
+      note: "",
     },
     {
       id: 4,
@@ -67,7 +73,25 @@ const Stats = ({
       icon: ChatIcon,
       change: "3.2%",
       changeType: "decrease",
-      note: "**นี่คือจำนวนครั้งที่กดดูไลน์ แต่ทางเราไม่ทราบว่าผู้เช้าชมประกาศแอดไลน์ไปหาท่านหรือไม่",
+      note: "",
+    },
+    {
+      id: 5,
+      name: "แชร์",
+      stat: totalShares,
+      icon: ShareIcon,
+      change: "3.2%",
+      changeType: "decrease",
+      note: "",
+    },
+    {
+      id: 6,
+      name: "บันทึก",
+      stat: totalPins,
+      icon: BookmarkIcon,
+      change: "3.2%",
+      changeType: "decrease",
+      note: "",
     },
   ];
 
@@ -77,7 +101,7 @@ const Stats = ({
         ข้อมูลสถิติ
       </h3> */}
 
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {stats.map((item) => (
           <div
             key={item.id}
