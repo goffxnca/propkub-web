@@ -263,9 +263,11 @@ const PostDetailPreview = ({ post, postActions }) => {
         {/* Right Side Bar */}
         <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-1/3 p-4 space-y-2">
           <PostDetailStats
-            postViews={post.views?.post || 0}
-            phoneViews={post.views?.phone || 0}
-            lineViews={post.views?.line || 0}
+            postViews={post.stats.views.post || 0}
+            phoneViews={post.stats.views.phone || 0}
+            lineViews={post.stats.views.line || 0}
+            shares={post.stats.shares || 0}
+            pins={post.stats.pins || 0}
           />
           <PostTimeline postActions={post.postActions} />
           <PostActionConsole

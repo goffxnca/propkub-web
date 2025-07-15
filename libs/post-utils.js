@@ -325,7 +325,6 @@ export const addNewPost = async (postData) => {
     assetType: postData.assetType,
     postType: postData.postType,
     price: postData.price,
-    isDraft: false,
     thumbnail: downloadUrls[0],
     images: downloadUrls,
     facilities: getFacilityArray(postData.facilities),

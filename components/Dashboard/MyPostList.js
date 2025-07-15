@@ -45,6 +45,8 @@ const MyPropertyList = () => {
     totalPostViews: 0,
     totalPhoneViews: 0,
     totalLineViews: 0,
+    totalShares: 0,
+    totalPins: 0,
   });
   const [statsLoading, setStatsLoading] = useState(false);
 
@@ -81,6 +83,8 @@ const MyPropertyList = () => {
         totalPostViews={stats.totalPostViews}
         totalPhoneViews={stats.totalPhoneViews}
         totalLineViews={stats.totalLineViews}
+        totalShares={stats.totalShares}
+        totalPins={stats.totalPins}
       />
 
       <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -155,9 +159,7 @@ const MyPropertyList = () => {
             {
               title: "สถานะ",
               field: "status",
-              custom: (item) => (
-                <PostStatusBadge status={item.status} />
-              ),
+              custom: (item) => <PostStatusBadge status={item.status} />,
             },
             {
               title: "ประเภท",
@@ -179,17 +181,27 @@ const MyPropertyList = () => {
             {
               title: "เข้าชม",
               field: "postViews",
-              resolver: (item) => item.views?.post || 0,
+              resolver: (item) => item.stats.views.post || 0,
             },
             {
               title: "ดูเบอร์",
               field: "phoneViews",
-              resolver: (item) => item.views?.phone || 0,
+              resolver: (item) => item.stats.views.phone || 0,
             },
             {
               title: "ดูไลน์",
               field: "lineViews",
-              resolver: (item) => item.views?.line || 0,
+              resolver: (item) => item.stats.views.line || 0,
+            },
+            {
+              title: "แชร์",
+              field: "shares",
+              resolver: (item) => item.stats.shares || 0,
+            },
+            {
+              title: "บันทึก",
+              field: "pins",
+              resolver: (item) => item.stats.pins || 0,
             },
           ]}
         />
