@@ -133,49 +133,8 @@ export const getAllActivePostsByLocation = async (
   return posts;
 };
 
-export const getSixSimilarPosts = async ({ assetType, postType }) => {
-  const q = query(
-    postsCollectionRef,
-    where("assetType", "==", assetType),
-    where("postType", "==", postType),
-    where("status", "==", "active"),
-    orderBy("createdAt", "desc"),
-    limit(21) //we will exclude the origin post from here from js later so get 7 as query too complex
-  );
-
-  const postDocs = await getDocs(q);
-  const posts = [];
-  postDocs.forEach((doc) => {
-    posts.push({
-      ...doc.data(),
-      id: doc.id,
-      createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-      updatedAt: null,
-      legal: null,
-    });
-  });
-  return posts;
-};
-
 export const getAllPublicPosts = async (records = 0) => {
-  const q = query(
-    postsCollectionRef,
-    orderBy("createdAt", "desc"),
-    limit(records || 10000)
-  );
-
-  const postsDocs = await getDocs(q);
-  const posts = [];
-  postsDocs.forEach((doc) => {
-    posts.push({
-      ...doc.data(),
-      id: doc.id,
-      createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-      updatedAt: null,
-      legal: null,
-    });
-  });
-  return posts;
+  return [];
 };
 
 export const getMyPosts = async (page = 1, per_page = 20) => {
@@ -268,30 +227,18 @@ export const queryPostWithFilters = async ({
   return posts;
 };
 
-// export const getPostById = async (postId) => {
-//   const query = query(postsColRef, where("id", "==", postId));
-//   const docSnap = await getDoc(docRef);
-//   return docSnap.data();
-// };
+export const FetchPostByNumberServerSide = async (postNumber) => {
+  const response = await apiClient.posts.getByNumber(postNumber);
+  return response;
+};
 
-export const getPostById = async (postId) => {
-  const docRef = doc(postsCollectionRef, postId);
-  const docSnap = await getDoc(docRef);
-  const data = docSnap.data();
-
-  return data
-    ? {
-        id: docSnap.id,
-        ...data,
-        createdAt: new Date(data.createdAt.toMillis()).toLocaleDateString(
-          "th-TH"
-        ),
-        updatedAt: data.updatedAt
-          ? new Date(data.updatedAt.toMillis()).toLocaleDateString("th-TH")
-          : null,
-        legal: null,
-      }
-    : null;
+export const FetchSimilarPostsServerSide = async ({
+  assetType,
+  postType,
+  postId,
+}) => {
+  // Comment out similar posts for now - focus on main content
+  return [];
 };
 
 export const addNewPost = async (postData) => {

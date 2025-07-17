@@ -10,7 +10,6 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  console.log("MainLayout");
   const router = useRouter();
 
   const isHomePage = router.pathname === "/";

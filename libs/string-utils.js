@@ -17,4 +17,9 @@ const orDefault = (value, defaultValue = "-") =>
     ? defaultValue
     : value;
 
-export { getYoutubeVideoId, randomLetter, zeroPad, orDefault };
+const getLineUrl = (lineId) => {
+  if (!lineId) return null;
+  return `https://line.me/ti/p/~${lineId}`;
+};
+
+export { getYoutubeVideoId, randomLetter, zeroPad, orDefault, getLineUrl };

@@ -6,7 +6,7 @@ const conditions: Condition[] = [
 ];
 
 const getCondition = (condition: string): string => {
-  return conditions.find((c) => c.id === condition).label;
+  return conditions.find((c) => c.id === condition)?.label || "";
 };
 
 export { conditions, getCondition };

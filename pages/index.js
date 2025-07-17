@@ -9,8 +9,6 @@ import { getAllActivePosts } from "../libs/post-utils";
 import { genPageTitle } from "../libs/seo-utils";
 
 const HomePage = ({ posts, provinces }) => {
-  console.log("HomePage");
-
   return (
     <>
       <Head>
@@ -41,12 +39,12 @@ export async function getStaticProps() {
 
   /**
    * Next.js Incremental Static Regeneration (ISR) Configuration
-   * 
+   *
    * Development Mode:
    * - getStaticProps runs on EVERY request
    * - provinces will be fetched from API on every page load
    * - revalidation setting has no effect
-   * 
+   *
    * Production Mode:
    * - Initial: Runs at build time, creates static HTML/JSON
    * - Subsequent: Page revalidates based on HOMEPAGE_REVALIDATION seconds
@@ -55,7 +53,7 @@ export async function getStaticProps() {
    *   2. New visitors continue seeing old version until regeneration completes
    *   3. fetchProvincesServerSide() only runs during these regenerations
    *   4. Client-side still uses localStorage cache independent of this setting
-   * 
+   *
    * Note: This affects both posts and provinces data freshness.
    * Choose HOMEPAGE_REVALIDATION based on how often this data changes.
    */

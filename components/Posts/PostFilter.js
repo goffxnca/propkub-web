@@ -45,8 +45,6 @@ const initialFilters = {
 };
 
 const PostFilter = ({ onSearch, onReset }) => {
-  console.log("PostFilter");
-
   const router = useRouter();
   const [searchFilter, setSearchFilter] = useState({ ...initialFilters });
 
