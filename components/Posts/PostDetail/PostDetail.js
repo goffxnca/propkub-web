@@ -5,7 +5,7 @@ import PostDetailAgent from "./PostDetailAgent";
 import PostDetailBody from "./PostDetailBody";
 import SimilarPosts from "./SimilarPosts";
 
-const PostDetail = ({ post, similarPosts, postViews }) => {
+const PostDetail = ({ post, similarPosts }) => {
   const images = post.images.map((image) => ({
     original: image,
     thumbnail: image,
@@ -38,7 +38,7 @@ const PostDetail = ({ post, similarPosts, postViews }) => {
             <Card>
               <PostDetailBody
                 post={post}
-                postViews={postViews}
+                postViews={post.stats.views.post}
                 images={images}
               />
             </Card>

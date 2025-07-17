@@ -182,7 +182,9 @@ export const apiClient = {
     },
 
     async getSimilarPosts(postId) {
-      return serverApiInstance.get(`/posts/similar?postId=${postId}`);
+      return serverApiInstance.get('/posts/similar', {
+        params: { postId },
+      });
     },
   },
 };

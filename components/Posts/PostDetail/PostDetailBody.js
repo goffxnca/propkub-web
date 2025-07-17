@@ -241,18 +241,12 @@ const PostDetailBody = ({ post, postViews, images }) => {
       <div>
         {/* <Heading size="2" label="อื่นๆ" /> */}
         <div className="flex gap-y-2 flex-wrap justify-between">
-          <div className="flex items-center text-gray-500 hover:text-gray-900 cursor-pointer w-1/2">
+          <div className="flex items-center text-gray-500">
             <ChartBarIcon className="w-5 h-5" />
-            {postViews === -1 && (
-              <div className="animate-spin">
-                <SpinnerIcon className="w-4 h-4" />
-              </div>
-            )}
-            {postViews >= 0 && (
-              <p className="text-base font-medium ml-1">
-                เข้าชม ({postViews || 0})
-              </p>
-            )}
+
+            <p className="text-base font-medium ml-1">
+              เข้าชม ({postViews || 0})
+            </p>
           </div>
 
           <div className="flex items-center text-gray-500 hover:text-gray-900 cursor-pointer w-1/2">
