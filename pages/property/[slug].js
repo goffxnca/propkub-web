@@ -9,27 +9,8 @@ import {
   FetchSimilarPostsServerSide,
 } from "../../libs/post-utils";
 import { BASE_SITE_URL } from "../../libs/constants";
-import { useEffect, useState } from "react";
-import { getPostView, increasePostView } from "../../libs/managers/postManager";
-import { useRouter } from "next/router";
 
 const PropertyDetailPage = ({ post, similarPosts }) => {
-  const [postViews, setPostViews] = useState(-1);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (post.id) {
-      getPostView(post.id)
-        .then((result) => {
-          setPostViews(result.data);
-          increasePostView(post.id);
-        })
-        .catch((ex) => {
-          console.error(ex);
-        });
-    }
-  }, [router.asPath]);
-
   return (
     <>
       <Head>
@@ -52,11 +33,7 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
           content={BASE_SITE_URL + "/property/" + post.slug}
         />
       </Head>
-      <PostDetail
-        post={post}
-        postViews={postViews}
-        similarPosts={similarPosts}
-      />
+      <PostDetail post={post} similarPosts={similarPosts} />
     </>
   );
 };
@@ -68,8 +45,6 @@ export async function getServerSideProps({ params }) {
 
   const post = await FetchPostByNumberServerSide(postNumber);
   const similarPosts = post ? await FetchSimilarPostsServerSide(post._id) : [];
-
-  console.log("similarPosts", similarPosts);
 
   return {
     props: {
