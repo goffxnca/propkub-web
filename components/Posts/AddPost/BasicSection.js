@@ -28,7 +28,6 @@ const BasicSection = ({
   isEditMode = false,
   defaultValues,
 }) => {
-  console.log("BasicSection");
   const watchAssetType = watch("assetType");
   const watchPostType = watch("postType");
   const watchIsStudio = watch("isStudio");

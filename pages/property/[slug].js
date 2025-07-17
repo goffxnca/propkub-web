@@ -5,9 +5,8 @@ import {
   genPropertyTitleMeta,
 } from "../../libs/seo-utils";
 import {
-  getPostById,
-  getAllActivePosts,
-  getSixSimilarPosts,
+  FetchPostByNumberServerSide,
+  FetchSimilarPostsServerSide,
 } from "../../libs/post-utils";
 import { BASE_SITE_URL } from "../../libs/constants";
 import { useEffect, useState } from "react";
@@ -62,58 +61,28 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
   );
 };
 
-//change to SSR for now
+// Always fetch fresh post and similarPosts data from API (SSR)
 export async function getServerSideProps({ params }) {
   const slugSegments = params.slug.split("_");
-  const propertyId = slugSegments[slugSegments.length - 1];
+  const postNumber = slugSegments[slugSegments.length - 1];
 
-  const post = await getPostById(propertyId);
-  const similarPosts = await getSixSimilarPosts({
-    assetType: post?.assetType,
-    postType: post?.postType,
-  });
+  const post = await FetchPostByNumberServerSide(postNumber);
+  console.log("post SSR", post);
+  const similarPosts = post
+    ? await FetchSimilarPostsServerSide({
+        assetType: post.assetType,
+        postType: post.postType,
+        postId: post.id,
+      })
+    : [];
 
   return {
     props: {
-      post: post,
-      similarPosts: similarPosts.filter((p) => p.id !== post?.id),
+      post,
+      similarPosts,
     },
     notFound: !post,
   };
 }
-
-//Disable ISR for now
-// export async function getStaticPaths({}) {
-//   const posts = await getAllActivePosts();
-//   const paths = posts.map((post) => ({
-//     params: {
-//       slug: post.slug,
-//     },
-//   }));
-
-//   return {
-//     paths,
-//     fallback: "blocking",
-//   };
-// }
-
-// export async function getStaticProps({ params }) {
-//   const slugSegments = params.slug.split("_");
-//   const propertyId = slugSegments[slugSegments.length - 1];
-
-//   const post = await getPostById(propertyId);
-//   const similarPosts = await getSixSimilarPosts({
-//     assetType: post?.assetType,
-//     postType: post?.postType,
-//   });
-
-//   return {
-//     props: {
-//       post: post,
-//       similarPosts: similarPosts.filter((p) => p.id !== post?.id),
-//     },
-//     notFound: !post,
-//   };
-// }
 
 export default PropertyDetailPage;

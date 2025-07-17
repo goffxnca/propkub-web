@@ -6,8 +6,6 @@ import PostDetailBody from "./PostDetailBody";
 import SimilarPosts from "./SimilarPosts";
 
 const PostDetail = ({ post, similarPosts, postViews }) => {
-  // console.log(sortable);
-
   const images = post.images.map((image) => ({
     original: image,
     thumbnail: image,
@@ -19,11 +17,12 @@ const PostDetail = ({ post, similarPosts, postViews }) => {
       : `(สถานะ${getStatusLabelById(post.status)}) `;
 
   const isSold = post.status === "sold";
+
   return (
     <div className="max-w-7xl m-auto p-2 ">
       <h1 className="text-2xl font-bold text-gray-harder py-6 break-words">
         {titleStatusPrefix}
-        {post?.title}
+        {post.title}
       </h1>
 
       <div className="mb-2">
@@ -52,7 +51,7 @@ const PostDetail = ({ post, similarPosts, postViews }) => {
           <Card>
             <PostDetailAgent
               postId={post.id}
-              agentInfo={post.createdBy}
+              postOwner={post.createdBy}
               isSold={isSold}
             />
           </Card>

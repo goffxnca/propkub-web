@@ -26,18 +26,11 @@ import TownhomeIcon from "../Icons/HeroIconsV2/Townhome";
 import ShopIcon from "../Icons/HeroIconsV2/Shop";
 
 const Header = () => {
-  console.log("Header...");
   const [bannerActive, setBannerActive] = useState(false);
   const [mobileMenus, setMobileMenus] = useState([]);
 
-  const {
-    signout,
-    user,
-    isAgent,
-    isNormalUser,
-    isAuthenticated,
-    loading,
-  } = useContext(authContext);
+  const { signout, user, isAgent, isNormalUser, isAuthenticated, loading } =
+    useContext(authContext);
 
   const authenticatedMobileMenus = [
     {
@@ -296,11 +289,7 @@ const Header = () => {
             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
               <div className="pt-5 pb-6 px-5 ">
                 <div className="flex items-center justify-between">
-                  {!user && (
-                    <div>
-                      {/* <Logo onClick={close} /> */}
-                    </div>
-                  )}
+                  {!user && <div>{/* <Logo onClick={close} /> */}</div>}
 
                   {/* avatar */}
                   {user && (

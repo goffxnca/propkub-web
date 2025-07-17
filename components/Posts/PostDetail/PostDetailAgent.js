@@ -9,41 +9,27 @@ import {
   increasePhoneView,
   increaseLineView,
 } from "../../../libs/managers/postManager";
+import { getLineUrl } from "../../../libs/string-utils";
 
-const PostDetailAgent = ({ postId, agentInfo, isSold }) => {
+const PostDetailAgent = ({ postId, postOwner, isSold }) => {
   const [phoneVisible, setPhoneVisible] = useState(false);
 
   return (
     <>
       <div className="flex flex-col items-center justify-center">
         <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
-          {/* <Image
-            src={`${agentInfo.profileImg || "/user.png"}`}
-            alt=""
-            className="w-32 h-auto object-cover"
-            height={150}
-            width={150}
-          /> */}
           <img
-            src={`${agentInfo.profileImg || "/user.png"}`}
+            src={`${postOwner.profileImg || "/user.png"}`}
             alt=""
             className="w-full h-full object-cover"
           ></img>
         </div>
 
         <div className="pt-1">
-          <div className="text-lg text-primary font-bold">{agentInfo.name}</div>
-          {/* <div className="flex items-center">
-            <StarIcon className="text-yellow-400 w-6 h-6" />
-            <span className="text-gray-hard">5.0</span>
-            <span className="text-gray-hard text-sm">(16 reviews)</span>
-          </div> */}
-          {/* <div className="text-sm text-gray-hard">081-222-1111</div>
-          <div className="text-sm text-gray-hard">Line:</div> */}
+          <div className="text-lg text-primary font-bold">{postOwner.name}</div>
         </div>
       </div>
 
-      {/* <PostDetailAgentContactForm /> */}
       {/* <LineBreak /> */}
       {!isSold && (
         <>
@@ -60,8 +46,8 @@ const PostDetailAgent = ({ postId, agentInfo, isSold }) => {
               Icon={<PhoneIcon className="text-white w-6 h-6" />}
             >
               {phoneVisible ? (
-                <a href={`tel:${agentInfo.phone}`}>
-                  {agentInfo.phone} (คลิกเพื่อโทรออก)
+                <a href={`tel:${postOwner.phone}`}>
+                  {postOwner.phone} (คลิกเพื่อโทรออก)
                 </a>
               ) : (
                 "(คลิกเพื่อโชว์หมายเลข)"
@@ -70,7 +56,7 @@ const PostDetailAgent = ({ postId, agentInfo, isSold }) => {
 
             <LinkButton
               variant="secondary"
-              href={`https://line.me/ti/p/~${agentInfo.line}`}
+              href={getLineUrl(postOwner.line)}
               onClick={() => {
                 increaseLineView(postId);
               }}

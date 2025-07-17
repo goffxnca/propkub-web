@@ -34,6 +34,39 @@ apiInstance.interceptors.response.use(
   }
 );
 
+// Create a server-side API instance with API key
+const serverApiInstance = axios.create({
+  baseURL: envConfig.apiUrl(),
+  timeout: 10000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+serverApiInstance.interceptors.request.use(
+  (config) => {
+    const apiKey = envConfig.apiKey();
+    if (apiKey) {
+      config.headers["x-api-key"] = apiKey;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+serverApiInstance.interceptors.response.use(
+  (response) => {
+    return response.data;
+  },
+  (error) => {
+    const errorMessage =
+      error.response?.data?.message || error.message || "API request failed";
+    // throw new Error(errorMessage);
+  }
+);
+
 export const apiClient = {
   auth: {
     async signup(name, email, password, isAgent) {
@@ -128,8 +161,8 @@ export const apiClient = {
       return apiInstance.post("/posts", postData);
     },
 
-    async getById(postId) {
-      return apiInstance.get(`/posts/${postId}`);
+    async getByNumber(postNumber) {
+      return serverApiInstance.get(`/posts/${postNumber}`);
     },
 
     async getByIdForOwner(postId) {

@@ -7,7 +7,6 @@ import PostRow from "./PostRow";
 import PostsByRegion from "./PostsByRegion";
 
 const PostList = ({ posts, provinces }) => {
-  console.log("PostList");
   const [searchCount, setSearchCount] = useState(0);
   const [filteredPosts, setFilteredPosts] = useState([]);
 
