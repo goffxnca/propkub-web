@@ -67,19 +67,14 @@ export async function getServerSideProps({ params }) {
   const postNumber = slugSegments[slugSegments.length - 1];
 
   const post = await FetchPostByNumberServerSide(postNumber);
-  console.log("post SSR", post);
-  const similarPosts = post
-    ? await FetchSimilarPostsServerSide({
-        assetType: post.assetType,
-        postType: post.postType,
-        postId: post.id,
-      })
-    : [];
+  const similarPosts = post ? await FetchSimilarPostsServerSide(post._id) : [];
+
+  console.log("similarPosts", similarPosts);
 
   return {
     props: {
       post,
-      similarPosts,
+      similarPosts: similarPosts || [],
     },
     notFound: !post,
   };

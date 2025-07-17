@@ -180,5 +180,9 @@ export const apiClient = {
     async closePost(postId) {
       return apiInstance.post(`/posts/${postId}/close`);
     },
+
+    async getSimilarPosts(postId) {
+      return serverApiInstance.get(`/posts/similar?postId=${postId}`);
+    },
   },
 };

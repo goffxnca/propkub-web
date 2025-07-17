@@ -232,13 +232,9 @@ export const FetchPostByNumberServerSide = async (postNumber) => {
   return response;
 };
 
-export const FetchSimilarPostsServerSide = async ({
-  assetType,
-  postType,
-  postId,
-}) => {
-  // Comment out similar posts for now - focus on main content
-  return [];
+export const FetchSimilarPostsServerSide = async (postId) => {
+  const response = await apiClient.posts.getSimilarPosts(postId);
+  return response;
 };
 
 export const addNewPost = async (postData) => {
