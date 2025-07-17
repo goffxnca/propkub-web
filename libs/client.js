@@ -1,6 +1,7 @@
 import axios from "axios";
 import { tokenManager } from "./tokenManager";
 import { envConfig } from "./envConfig";
+import { sleep } from "./misc";
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
@@ -182,8 +183,15 @@ export const apiClient = {
     },
 
     async getSimilarPosts(postId) {
-      return serverApiInstance.get('/posts/similar', {
+      return serverApiInstance.get("/posts/similar", {
         params: { postId },
+      });
+    },
+
+    async increasePostStats(postId, statType) {
+      await sleep(1);
+      return apiInstance.post(`/posts/${postId}/stats`, {
+        statType,
       });
     },
   },

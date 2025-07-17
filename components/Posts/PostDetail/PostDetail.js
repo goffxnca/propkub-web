@@ -50,7 +50,7 @@ const PostDetail = ({ post, similarPosts }) => {
         <div className="md:w-1/3 border border-gray-50 h-full md:space-y-2">
           <Card>
             <PostDetailAgent
-              postId={post.id}
+              postId={post._id}
               postOwner={post.createdBy}
               isSold={isSold}
             />
