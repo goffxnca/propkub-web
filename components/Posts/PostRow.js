@@ -1,7 +1,5 @@
 import { ClockIcon } from "@heroicons/react/outline";
-import { LocationMarkerIcon, UserIcon } from "@heroicons/react/solid";
-
-import { useMemo } from "react";
+import { LocationMarkerIcon } from "@heroicons/react/solid";
 import Link from "next/link";
 import { getPostType } from "../../libs/mappers/postTypeMapper";
 import { getAssetType } from "../../libs/mappers/assetTypeMapper";
@@ -10,39 +8,28 @@ import { getPriceUnit } from "../../libs/mappers/priceUnitMapper";
 import TimeAgo from "timeago-react";
 
 const PostRow = ({
-  id,
   postType,
   assetType,
-  condition,
   title,
   slug,
-  thumbnail,
-  thumbnailAlt,
   price,
   priceUnit,
   address,
-  specs,
-  isStudio,
   createdAt,
-  createdBy,
 }) => {
-  const postLink = useMemo(() => `/property/${slug}`, [slug]);
-  const postTypeFormat = useMemo(() => getPostType(postType), [postType]);
-  const assetTypeFormat = useMemo(() => getAssetType(assetType), [assetType]);
-  const addressFormat = useMemo(() => formatAddress(address), [address]);
-  const priceUnitFormat = useMemo(
-    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ""),
-    [priceUnit]
-  );
-
-  const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
+  const postLink = `/property/${slug}`;
+  const postTypeFormat = getPostType(postType);
+  const assetTypeFormat = getAssetType(assetType);
+  const addressFormat = formatAddress(address);
+  const priceUnitFormat = priceUnit ? ` / ${getPriceUnit(priceUnit)}` : "";
+  const priceWithFormat = price?.toLocaleString();
 
   return (
     <li>
       <Link
         href={postLink}
-        target="_blank"
-        rel="noopener noreferrer"
+        // target="_blank"
+        // rel="noopener noreferrer"
         className="block hover:bg-gray-50"
       >
         <div className="px-4 py-4 sm:px-6">

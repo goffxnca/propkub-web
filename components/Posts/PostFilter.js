@@ -10,7 +10,6 @@ import { SearchIcon, ArrowRightIcon } from "@heroicons/react/solid";
 import regions from "../../data/regions.json";
 
 import { assetTypes } from "../../libs/mappers/assetTypeMapper";
-import { conditions } from "../../libs/mappers/conditionMapper";
 
 import TextInput from "../UI/Public/Inputs/TextInput";
 import SelectInput from "../UI/Public/Inputs/SelectInput";
@@ -37,10 +36,6 @@ const initialFilters = {
   provinceId: "",
   districtId: "",
   subDistrictId: "",
-  minPrice: 0,
-  maxPrice: 0,
-  condition: "",
-  keyword: "",
   loading: false,
 };
 
@@ -138,13 +133,6 @@ const PostFilter = ({ onSearch, onReset }) => {
     setSearchFilter((state) => ({
       ...state,
       subDistrictId: event.target.value,
-    }));
-  };
-
-  const conditionChangeHandler = (event) => {
-    setSearchFilter((state) => ({
-      ...state,
-      condition: event.target.value,
     }));
   };
 
@@ -313,68 +301,6 @@ const PostFilter = ({ onSearch, onReset }) => {
                               />
                             </div>
                           </div>
-
-                          {/* keywords & prices */}
-                          {/* <div className="lg:flex items-center gap-4">
-                            <div className="">
-                              <DollarIcon className="text-gray-medium w-6 h-6 mx-auto" />
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <TextInput
-                                id="minPrice"
-                                type="number"
-                                label="ราคาต่ำสุด"
-                                placeholder="0"
-                                leadingSlot="$"
-                                onChange={(event) => {
-                                  setSearchFilter((state) => ({
-                                    ...state,
-                                    minPrice: +event.target.value,
-                                  }));
-                                }}
-                              ></TextInput>
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <TextInput
-                                id="maxPrice"
-                                type="number"
-                                label="ราคาสูงสุด"
-                                placeholder="0"
-                                leadingSlot="$"
-                                onChange={(event) => {
-                                  setSearchFilter((state) => ({
-                                    ...state,
-                                    maxPrice: +event.target.value,
-                                  }));
-                                }}
-                              ></TextInput>
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <SelectInput
-                                id="condition"
-                                label="รูปแบบ"
-                                options={conditions}
-                                onChange={conditionChangeHandler}
-                              />
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <TextInput
-                                id="keyword"
-                                label="คำค้นหา"
-                                placeholder="ขายด่วน"
-                                onChange={(event) => {
-                                  setSearchFilter((state) => ({
-                                    ...state,
-                                    keyword: event.target.value,
-                                  }));
-                                }}
-                              ></TextInput>
-                            </div>
-                          </div> */}
                         </div>
 
                         <div className="w-full lg:w-1/6">

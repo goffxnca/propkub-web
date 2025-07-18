@@ -2,7 +2,6 @@ import {
   collection,
   doc,
   getDocs,
-  getDoc,
   query,
   where,
   updateDoc,
@@ -23,74 +22,58 @@ import { populateAddressLabels } from "./utils/address-utils";
 
 const postsCollectionRef = collection(db, "posts");
 
-export const getAllActivePosts = async (records = 0) => {
-  const q = query(
-    postsCollectionRef,
-    where("status", "==", "active"),
-    orderBy("createdAt", "desc"),
-    limit(records || 50)
-  );
-
-  const postsDocs = await getDocs(q);
-  const posts = [];
-  postsDocs.forEach((doc) => {
-    posts.push({
-      ...doc.data(),
-      id: doc.id,
-      createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-      updatedAt: null,
-      legal: null,
-    });
-  });
+export const fetchActivePostsServerSide = async () => {
+  const response = await apiClient.posts.getAllPosts(1, 50);
+  const posts = response?.items || [];
   return posts;
 };
 
 export const getAllActivePostsForSitemap = async () => {
-  const q = query(
-    postsCollectionRef,
-    where("status", "==", "active"),
-    orderBy("createdAt", "desc")
-  );
+  // const q = query(
+  //   postsCollectionRef,
+  //   where("status", "==", "active"),
+  //   orderBy("createdAt", "desc")
+  // );
 
-  const postsDocs = await getDocs(q);
-  const posts = [];
-  postsDocs.forEach((doc) => {
-    posts.push({
-      ...doc.data(),
-      id: doc.id,
-      createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-      updatedAt: null,
-      legal: null,
-    });
-  });
-  return posts;
+  // const postsDocs = await getDocs(q);
+  // const posts = [];
+  // postsDocs.forEach((doc) => {
+  //   posts.push({
+  //     ...doc.data(),
+  //     id: doc.id,
+  //     createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
+  //     updatedAt: null,
+  //     legal: null,
+  //   });
+  // });
+  return [];
 };
 
 export const getLatestActivePostForSitemap = async () => {
-  const q = query(
-    postsCollectionRef,
-    where("status", "==", "active"),
-    orderBy("createdAt", "desc"),
-    limit(1)
-  );
+  // const q = query(
+  //   postsCollectionRef,
+  //   where("status", "==", "active"),
+  //   orderBy("createdAt", "desc"),
+  //   limit(1)
+  // );
 
-  const querySnapshot = await getDocs(q);
+  // const querySnapshot = await getDocs(q);
 
-  if (querySnapshot.empty) {
-    return null;
-  }
+  // if (querySnapshot.empty) {
+  //   return null;
+  // }
 
-  const doc = querySnapshot.docs[0];
+  // const doc = querySnapshot.docs[0];
 
-  const latestActivePost = {
-    ...doc.data(),
-    id: doc.id,
-    createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-    updatedAt: null,
-    legal: null,
-  };
+  // const latestActivePost = {
+  //   ...doc.data(),
+  //   id: doc.id,
+  //   createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
+  //   updatedAt: null,
+  //   legal: null,
+  // };
 
-  return latestActivePost;
+  return [];
 };
 
 export const getAllActivePostsByLocation = async (
@@ -133,10 +116,6 @@ export const getAllActivePostsByLocation = async (
   return posts;
 };
 
-export const getAllPublicPosts = async (records = 0) => {
-  return [];
-};
-
 export const getMyPosts = async (page = 1, per_page = 20) => {
   const response = await apiClient.posts.getMyPosts(page, per_page);
   return response;
@@ -147,12 +126,6 @@ export const getMyPostsStats = async () => {
   return response;
 };
 
-export const countAllPosts = async () => {
-  const q = query(postsCollectionRef);
-  const postsDocs = await getDocs(q);
-  return postsDocs.size;
-};
-
 export const queryPostWithFilters = async ({
   postType,
   assetType,
@@ -160,70 +133,15 @@ export const queryPostWithFilters = async ({
   provinceId,
   districtId,
   subDistrictId,
-  minPrice,
-  maxPrice,
-  condition,
-  keyword,
 }) => {
-  const conditions = [];
-
-  console.log("regionId", regionId);
-  if (postType) {
-    conditions.push(where("postType", "==", postType.searchFor));
-  }
-
-  if (assetType) {
-    conditions.push(where("assetType", "==", assetType));
-  }
-
-  if (condition) {
-    conditions.push(where("condition", "==", condition));
-  }
-
-  if (subDistrictId) {
-    conditions.push(where("address.subDistrictId", "==", subDistrictId));
-  } else if (districtId) {
-    conditions.push(where("address.districtId", "==", districtId));
-  } else if (provinceId) {
-    conditions.push(where("address.provinceId", "==", provinceId));
-  } else if (regionId) {
-    conditions.push(where("address.regionId", "==", regionId));
-  }
-
-  if (minPrice) {
-    conditions.push(where("price", ">=", minPrice));
-  }
-
-  if (maxPrice) {
-    conditions.push(where("price", "<=", maxPrice));
-  }
-
-  //This logic is zuck i know, but firestore dont allow to order by createdAt field if we have minPrice or maxPrice
-  if (!minPrice && !maxPrice) {
-    conditions.push(orderBy("createdAt", "desc"));
-  }
-
-  conditions.push(limit(20)); //TODO: Change to something better when pagination implemented
-
-  const q = query(postsCollectionRef, ...conditions);
-
-  const posts = [];
-
-  if (keyword) {
-  } else {
-    const postsDocs = await getDocs(q);
-    postsDocs.forEach((doc) => {
-      posts.push({
-        ...doc.data(),
-        id: doc.id,
-        createdAt: new Date(
-          doc.data().createdAt.toMillis()
-        ).toLocaleDateString(),
-        legal: null,
-      });
-    });
-  }
-
+  const posts = await apiClient.posts.searchPosts({
+    postType,
+    assetType,
+    regionId,
+    provinceId,
+    districtId,
+    subDistrictId,
+  });
   return posts;
 };
 
@@ -318,6 +236,7 @@ export const updatePost = async (postId, postData) => {
   return updateDoc(docRef, toBeUpdatedPost);
 };
 
+//Once edit mode done, remove this (edit mode also have option to close the post)
 export const deactivatePost = async (postId, user) => {
   return adminMarkPostAsFulfilled(postId);
 };

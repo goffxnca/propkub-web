@@ -34,8 +34,8 @@ const SimilarPostItem = ({
     <li className="w-1/2 p-2 group">
       <Link
         href={postLink}
-        target="_blank"
-        rel="noopener noreferrer"
+        // target="_blank"
+        // rel="noopener noreferrer"
         className=" bg-white shadow-md cursor-pointer transition-all group-hover:shadow-xl group-hover:bg-gray-50"
       >
         <div className="relative w-full overflow-hidden rounded-md ">

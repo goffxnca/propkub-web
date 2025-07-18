@@ -64,7 +64,7 @@ serverApiInstance.interceptors.response.use(
   (error) => {
     const errorMessage =
       error.response?.data?.message || error.message || "API request failed";
-    // throw new Error(errorMessage);
+    throw new Error(errorMessage);
   }
 );
 
@@ -185,6 +185,30 @@ export const apiClient = {
     async getSimilarPosts(postId) {
       return serverApiInstance.get("/posts/similar", {
         params: { postId },
+      });
+    },
+
+    async getAllPosts(page, per_page) {
+      return serverApiInstance.get("/posts", {
+        params: { page, per_page },
+      });
+    },
+
+    async searchPosts({
+      postType,
+      assetType,
+      regionId,
+      provinceId,
+      districtId,
+      subDistrictId,
+    }) {
+      return apiInstance.post("/posts/search", {
+        postType,
+        assetType,
+        regionId,
+        provinceId,
+        districtId,
+        subDistrictId,
       });
     },
 
