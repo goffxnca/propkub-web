@@ -62,8 +62,8 @@ const LandPostsByLocation = ({
         <ul className="flex flex-wrap justify-between mb-10">
           {posts.slice(0, 30).map((post, index) => (
             <PostItem
-              key={post.id}
-              id={post.id}
+              key={post._id}
+              id={post._id}
               postType={post.postType}
               assetType={post.assetType}
               condition={post.condition}

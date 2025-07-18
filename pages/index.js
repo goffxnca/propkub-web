@@ -5,10 +5,10 @@ import Head from "next/head";
 import PostList from "../components/Posts/PostList";
 import { BASE_SITE_URL } from "../libs/constants";
 import { fetchProvincesServerSide } from "../libs/managers/addressManager";
-import { getAllActivePosts } from "../libs/post-utils";
+import { fetchActivePostsServerSide } from "../libs/post-utils";
 import { genPageTitle } from "../libs/seo-utils";
 
-const HomePage = ({ posts, provinces }) => {
+const HomePage = ({ posts, provinces, hasError }) => {
   return (
     <>
       <Head>
@@ -21,19 +21,37 @@ const HomePage = ({ posts, provinces }) => {
       </Head>
       {/* <HeroBanner /> */}
       {/* <StatsBanner /> */}
-      <PostList posts={posts} provinces={provinces} />
+      <PostList posts={posts} provinces={provinces} hasError={hasError} />
     </>
   );
 };
 
 export async function getStaticProps() {
-  const posts = await getAllActivePosts(process.env.HOMEPAGE_LIMIT);
-  const provinces = await fetchProvincesServerSide();
+  let posts = [];
+  let provinces = [];
+  let hasError = false;
+
+  try {
+    posts = await fetchActivePostsServerSide(process.env.HOMEPAGE_LIMIT);
+  } catch (error) {
+    console.error("Failed to fetch posts for homepage:", error);
+    hasError = true;
+    posts = [];
+  }
+
+  try {
+    provinces = await fetchProvincesServerSide();
+  } catch (error) {
+    console.error("Failed to fetch provinces for homepage:", error);
+    hasError = true;
+    provinces = [];
+  }
 
   const returnProps = {
     props: {
       posts: posts,
       provinces: provinces || [],
+      hasError: hasError,
     },
   };
 
@@ -63,7 +81,7 @@ export async function getStaticProps() {
     returnProps.revalidate = +revalidateInSecond;
   }
   console.log(
-    `HomePage.getStaticProps: posts.length=${posts.length}, revalidateInSecond=${revalidateInSecond}`
+    `HomePage.getStaticProps: posts.length=${posts.length}, provinces.length=${provinces.length}, revalidateInSecond=${revalidateInSecond}, hasError=${hasError}`
   );
 
   return returnProps;

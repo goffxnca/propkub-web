@@ -16,8 +16,8 @@ const SimilarPosts = ({ similarPosts }) => {
             {similarPosts.map((post) => (
               // <div className="bg-red-200 w-full">Hey</div>
               <SimilarPostItem
-                key={post.id}
-                id={post.id}
+                key={post._id}
+                id={post._id}
                 postType={post.postType}
                 assetType={post.assetType}
                 condition={post.condition}
