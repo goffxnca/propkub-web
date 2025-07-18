@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import PostFilter from "./PostFilter";
 import PostItem from "./PostItem";
 import { animateScroll, Element, scroller } from "react-scroll";
@@ -12,26 +12,40 @@ import { cleanObject } from "../../libs/object-utils";
 const PostList = ({ posts, provinces, hasError }) => {
   const [searchCount, setSearchCount] = useState(0);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [localError, setLocalError] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(hasError);
 
-  const searchHandler = async (filters, onDone) => {
-    const { postType } = filters;
-    const cleanFilters = cleanObject({
-      ...filters,
-      postType: postType.searchFor,
-    });
-    const results = await queryPostWithFilters(cleanFilters);
+  useEffect(() => {
+    if (hasError || localError) {
+      setShowErrorModal(true);
+    }
+  }, [hasError, localError]);
 
-    setFilteredPosts(results);
-    setSearchCount((prevSearchCount) => prevSearchCount + 1);
-    scroller.scrollTo("searchResult", {
-      smooth: true,
-    });
-    onDone();
+  const searchHandler = async (filters, onDone) => {
+    try {
+      const { postType } = filters;
+      const cleanFilters = cleanObject({
+        ...filters,
+        postType: postType.searchFor,
+      });
+      const results = await queryPostWithFilters(cleanFilters);
+      setFilteredPosts(results);
+      setSearchCount((prevSearchCount) => prevSearchCount + 1);
+      scroller.scrollTo("searchResult", {
+        smooth: true,
+      });
+      onDone();
+    } catch (error) {
+      console.error("Failed to search posts:", error);
+      setLocalError(true);
+      onDone();
+    }
   };
 
   const resetHandler = () => {
     setSearchCount(0);
+    setLocalError(false);
+    setShowErrorModal(false);
     animateScroll.scrollToTop({ duration: 500 });
   };
 
@@ -160,6 +174,7 @@ const PostList = ({ posts, provinces, hasError }) => {
         Icon={ExclamationIcon}
         onClose={() => {
           setShowErrorModal(false);
+          setLocalError(false);
         }}
       />
     </div>

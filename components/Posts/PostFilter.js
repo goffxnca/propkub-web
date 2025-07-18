@@ -1,22 +1,19 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import styles from "./PostFilter.module.css";
 
 import orderby from "lodash.orderby";
 
 import LocationIcon from "../Icons/LocationIcon";
-import DollarIcon from "../Icons/DollarIcon";
 import { SearchIcon, ArrowRightIcon } from "@heroicons/react/solid";
 
 import regions from "../../data/regions.json";
 
 import { assetTypes } from "../../libs/mappers/assetTypeMapper";
 
-import TextInput from "../UI/Public/Inputs/TextInput";
 import SelectInput from "../UI/Public/Inputs/SelectInput";
 
 import Loader from "../UI/Common/modals/Loader";
-import Image from "next/image";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import {
   fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
@@ -59,34 +56,6 @@ const PostFilter = ({ onSearch, onReset }) => {
   }));
 
   const regionList = useMemo(() => orderby(regions, "name", "asc"), []);
-
-  // const provinceList = useMemo(() => {
-  //   return orderby(
-  //     provinces.filter((p) => p.regionId === searchFilter.regionId),
-  //     "name",
-  //     "asc"
-  //   );
-  // }, [searchFilter.regionId]);
-
-  // const districtList = useMemo(
-  //   () =>
-  //     orderby(
-  //       districts.filter((d) => d.provinceId === searchFilter.provinceId),
-  //       "name",
-  //       "asc"
-  //     ),
-  //   [searchFilter.provinceId]
-  // );
-
-  // const subDistrictList = useMemo(
-  //   () =>
-  //     orderby(
-  //       subDistricts.filter((d) => d.districtId === searchFilter.districtId),
-  //       "name",
-  //       "asc"
-  //     ),
-  //   [searchFilter.districtId]
-  // );
 
   //handlers
   const selectPostTypeHandler = (postType) => {
