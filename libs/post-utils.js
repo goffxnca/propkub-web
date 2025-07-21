@@ -76,43 +76,27 @@ export const getLatestActivePostForSitemap = async () => {
   return [];
 };
 
-export const getAllActivePostsByLocation = async (
+export const getAllActivePostsByLocation = async ({
   assetType,
+  postType,
   locationType,
   locationId,
-  records = 0
-) => {
-  console.log("SSS", locationId);
-  const q = query(
-    postsCollectionRef,
-    where(
-      `address.${
-        locationType === "pv"
-          ? "provinceId"
-          : locationType === "dt"
-          ? "districtId"
-          : "subDistrictId"
-      }`,
-      "==",
-      locationId
-    ),
-    where("assetType", "==", assetType),
-    where("status", "==", "active"),
-    orderBy("createdAt", "desc"),
-    limit(records || 50)
-  );
+}) => {
+  console.log("getAllActivePostsByLocation");
+  const conditions = {
+    assetType: assetType,
+    postType: postType,
+  };
 
-  const postsDocs = await getDocs(q);
-  const posts = [];
-  postsDocs.forEach((doc) => {
-    posts.push({
-      ...doc.data(),
-      id: doc.id,
-      createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-      updatedAt: null,
-      legal: null,
-    });
-  });
+  if (locationType === "pv") {
+    conditions.provinceId = locationId;
+  } else if (locationType === "dt") {
+    conditions.districtId = locationId;
+  } else {
+    conditions.subDistrictId = locationId;
+  }
+
+  const posts = await apiClient.posts.searchPosts(conditions);
   return posts;
 };
 

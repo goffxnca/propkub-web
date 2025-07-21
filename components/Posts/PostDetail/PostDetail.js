@@ -12,11 +12,7 @@ const PostDetail = ({ post, similarPosts }) => {
   }));
 
   const titleStatusPrefix =
-    post.status === "active"
-      ? ""
-      : `(สถานะ${getStatusLabelById(post.status)}) `;
-
-  const isSold = post.status === "sold";
+    post.status === "active" ? "" : `(${getStatusLabelById(post.status)}) `;
 
   return (
     <div className="max-w-7xl m-auto p-2 ">
@@ -49,11 +45,7 @@ const PostDetail = ({ post, similarPosts }) => {
         {/* right sidebar */}
         <div className="md:w-1/3 border border-gray-50 h-full md:space-y-2">
           <Card>
-            <PostDetailAgent
-              postId={post._id}
-              postOwner={post.createdBy}
-              isSold={isSold}
-            />
+            <PostDetailAgent postId={post._id} postOwner={post.createdBy} />
           </Card>
 
           <Card>

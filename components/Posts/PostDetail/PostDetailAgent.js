@@ -11,7 +11,7 @@ import {
 } from "../../../libs/managers/postManager";
 import { getLineUrl } from "../../../libs/string-utils";
 
-const PostDetailAgent = ({ postId, postOwner, isSold }) => {
+const PostDetailAgent = ({ postId, postOwner }) => {
   const [phoneVisible, setPhoneVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -64,46 +64,44 @@ const PostDetailAgent = ({ postId, postOwner, isSold }) => {
       </div>
 
       {/* <LineBreak /> */}
-      {!isSold && (
-        <>
-          <LineBreak />
-          <div className="flex flex-col">
-            <Button
-              variant="primary"
-              onClick={handlePhoneClick}
-              disabled={isLoading}
-              loading={isLoading}
-              Icon={
-                phoneVisible ? (
-                  <PhoneIcon className="text-white w-6 h-6" />
-                ) : undefined
-              }
-            >
-              {phoneVisible ? (
-                <a href={`tel:${postOwner.phone}`}>
-                  {postOwner.phone} (คลิกเพื่อโทรออก)
-                </a>
-              ) : isLoading ? (
-                "กำลังดึงข้อมูล"
-              ) : (
-                "(คลิกเพื่อโชว์หมายเลข)"
-              )}
-            </Button>
+      <>
+        <LineBreak />
+        <div className="flex flex-col">
+          <Button
+            variant="primary"
+            onClick={handlePhoneClick}
+            disabled={isLoading}
+            loading={isLoading}
+            Icon={
+              phoneVisible ? (
+                <PhoneIcon className="text-white w-6 h-6" />
+              ) : undefined
+            }
+          >
+            {phoneVisible ? (
+              <a href={`tel:${postOwner.phone}`}>
+                {postOwner.phone} (คลิกเพื่อโทรออก)
+              </a>
+            ) : isLoading ? (
+              "กำลังดึงข้อมูล"
+            ) : (
+              "(คลิกเพื่อโชว์หมายเลข)"
+            )}
+          </Button>
 
-            <LinkButton
-              variant="secondary"
-              href={getLineUrl(postOwner.line)}
-              onClick={handleLineClick}
-              disabled={isLoading}
-            >
-              <LineIcon className="text-green-500 md:w-6 md:h-6 mr-1" />
-              {isLoading ? "กำลังดึงข้อมูล..." : "แอดไลน์"}
-            </LinkButton>
+          <LinkButton
+            variant="secondary"
+            href={getLineUrl(postOwner.line)}
+            onClick={handleLineClick}
+            disabled={isLoading}
+          >
+            <LineIcon className="text-green-500 md:w-6 md:h-6 mr-1" />
+            {isLoading ? "กำลังดึงข้อมูล..." : "แอดไลน์"}
+          </LinkButton>
 
-            {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
-          </div>
-        </>
-      )}
+          {error && <div className="mt-2 text-sm text-red-600">{error}</div>}
+        </div>
+      </>
     </>
   );
 };
