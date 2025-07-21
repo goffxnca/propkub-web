@@ -6,7 +6,7 @@ function generateSiteMap(lastModForPropertySitemap) {
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <sitemap>
           <loc>https://propkub.com/main-sitemap.xml</loc>
-          <lastmod>${lastModForPropertySitemap}</lastmod>
+           <lastmod>2025-08-01T00:00:00.00Z</lastmod>
       </sitemap>
       <sitemap>
           <loc>https://propkub.com/property-sitemap.xml</loc>
@@ -27,9 +27,7 @@ const IndexSitemap = () => {
 export async function getServerSideProps({ res }) {
   console.log("SITEMAP.XML.JS -> getServerSideProps EXECUTED");
   const latestActivePost = await getLatestActivePostForSitemap();
-  const sitemap = generateSiteMap(
-    latestActivePost ? latestActivePost.createdAt : defaultDateTime
-  );
+  const sitemap = generateSiteMap(latestActivePost.createdAt);
   res.setHeader("Content-Type", "text/xml");
   // we send the XML to the browser
   res.write(sitemap);
