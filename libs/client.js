@@ -222,5 +222,9 @@ export const apiClient = {
         statType,
       });
     },
+
+    async getLatestActiveForSitemap() {
+      return serverApiInstance.get("/posts/latest-active-sitemap");
+    },
   },
 };

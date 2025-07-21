@@ -51,11 +51,13 @@ export async function getServerSideProps({ res }) {
   console.log("MAIN-SITEMAP.XML.JS -> getServerSideProps EXECUTED");
   const defaultDateTime = "2023-01-01T00:00:00Z";
   const latestActivePost = await getLatestActivePostForSitemap();
+
   const sitemap = generateSiteMap(
-    latestActivePost ? latestActivePost.createdAt : defaultDateTime
+    latestActivePost ? latestActivePost?.createdAt : defaultDateTime
   );
+
+  // Send the XML to the browser
   res.setHeader("Content-Type", "text/xml");
-  // we send the XML to the browser
   res.write(sitemap);
   res.end();
 
