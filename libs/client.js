@@ -132,28 +132,32 @@ export const apiClient = {
       return apiInstance.get("/provinces");
     },
 
+    async getById(id) {
+      return apiInstance.get(`/provinces/${id}`);
+    },
+
     async getByRegionId(regionId) {
       return apiInstance.get(`/provinces?regionId=${regionId}`);
     },
   },
 
   districts: {
-    async getByProvinceId(provinceId) {
-      return apiInstance.get(`/districts/province/${provinceId}`);
-    },
-
     async getById(id) {
       return apiInstance.get(`/districts/${id}`);
+    },
+
+    async getByProvinceId(provinceId) {
+      return apiInstance.get(`/districts/province/${provinceId}`);
     },
   },
 
   subDistricts: {
-    async getByDistrictId(districtId) {
-      return apiInstance.get(`/subDistricts/district/${districtId}`);
-    },
-
     async getById(id) {
       return apiInstance.get(`/subDistricts/${id}`);
+    },
+
+    async getByDistrictId(districtId) {
+      return apiInstance.get(`/subDistricts/district/${districtId}`);
     },
   },
 
