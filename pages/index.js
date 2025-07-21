@@ -4,8 +4,8 @@ import Head from "next/head";
 // import StatsBanner from "../components/Banner/Stats";
 import PostList from "../components/Posts/PostList";
 import { BASE_SITE_URL } from "../libs/constants";
-import { fetchProvincesServerSide } from "../libs/managers/addressManager";
-import { fetchActivePostsServerSide } from "../libs/post-utils";
+import { fetchProvinces } from "../libs/managers/addressManager";
+import { fetchActivePosts } from "../libs/post-utils";
 import { genPageTitle } from "../libs/seo-utils";
 
 const HomePage = ({ posts, provinces, hasError }) => {
@@ -32,7 +32,7 @@ export async function getStaticProps() {
   let hasError = false;
 
   try {
-    posts = await fetchActivePostsServerSide(process.env.HOMEPAGE_LIMIT);
+    posts = await fetchActivePosts(process.env.HOMEPAGE_LIMIT);
   } catch (error) {
     console.error("Failed to fetch posts for homepage:", error);
     hasError = true;
@@ -40,7 +40,7 @@ export async function getStaticProps() {
   }
 
   try {
-    provinces = await fetchProvincesServerSide();
+    provinces = await fetchProvinces();
   } catch (error) {
     console.error("Failed to fetch provinces for homepage:", error);
     hasError = true;
@@ -69,7 +69,7 @@ export async function getStaticProps() {
    * - If HOMEPAGE_REVALIDATION=1800 (30 mins):
    *   1. First visit after 30 mins triggers background regeneration
    *   2. New visitors continue seeing old version until regeneration completes
-   *   3. fetchProvincesServerSide() only runs during these regenerations
+   *   3. fetchProvinces() only runs during these regenerations
    *   4. Client-side still uses localStorage cache independent of this setting
    *
    * Note: This affects both posts and provinces data freshness.

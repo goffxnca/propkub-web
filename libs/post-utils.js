@@ -1,14 +1,4 @@
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  where,
-  updateDoc,
-  orderBy,
-  limit,
-  serverTimestamp,
-} from "firebase/firestore";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../libs/firebase";
 import { getFacilityArray } from "./mappers/facilityMapper";
 import { convertSpecToDbFormat } from "./mappers/specMapper";
@@ -20,9 +10,7 @@ import { adminMarkPostAsFulfilled } from "./managers/postActionManager";
 import { apiClient } from "./client";
 import { populateAddressLabels } from "./utils/address-utils";
 
-const postsCollectionRef = collection(db, "posts");
-
-export const fetchActivePostsServerSide = async () => {
+export const fetchActivePosts = async () => {
   const response = await apiClient.posts.getAllPosts(1, 50);
   const posts = response?.items || [];
   return posts;
@@ -129,12 +117,12 @@ export const queryPostWithFilters = async ({
   return posts;
 };
 
-export const FetchPostByNumberServerSide = async (postNumber) => {
+export const FetchPostByNumber = async (postNumber) => {
   const response = await apiClient.posts.getByNumber(postNumber);
   return response;
 };
 
-export const FetchSimilarPostsServerSide = async (postId) => {
+export const FetchSimilarPosts = async (postId) => {
   const response = await apiClient.posts.getSimilarPosts(postId);
   return response;
 };

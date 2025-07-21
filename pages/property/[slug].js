@@ -4,10 +4,7 @@ import {
   genPropertyDescriptionMeta,
   genPropertyTitleMeta,
 } from "../../libs/seo-utils";
-import {
-  FetchPostByNumberServerSide,
-  FetchSimilarPostsServerSide,
-} from "../../libs/post-utils";
+import { FetchPostByNumber, FetchSimilarPosts } from "../../libs/post-utils";
 import { BASE_SITE_URL } from "../../libs/constants";
 
 const PropertyDetailPage = ({ post, similarPosts }) => {
@@ -43,8 +40,8 @@ export async function getServerSideProps({ params }) {
   const slugSegments = params.slug.split("_");
   const postNumber = slugSegments[slugSegments.length - 1];
 
-  const post = await FetchPostByNumberServerSide(postNumber);
-  const similarPosts = post ? await FetchSimilarPostsServerSide(post._id) : [];
+  const post = await FetchPostByNumber(postNumber);
+  const similarPosts = post ? await FetchSimilarPosts(post._id) : [];
 
   return {
     props: {

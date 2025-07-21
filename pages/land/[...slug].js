@@ -4,10 +4,9 @@ import PostItem from "../../components/Posts/PostItem";
 import Breadcrumbs from "../../components/UI/Public/Breadcrumbs";
 import { getLocationPrefix } from "../../libs/location-utils";
 import {
-  fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
-  getBreadcrumbs,
+  getLocationBreadcrumbs,
 } from "../../libs/managers/addressManager";
 import { getAllActivePostsByLocation } from "../../libs/post-utils";
 
@@ -17,20 +16,18 @@ import {
   getCanonicalUrl,
 } from "../../libs/seo-utils";
 
-const LandPostsByLocation = ({
+const LandPostsByLocationPage = ({
   posts,
-  locationCode,
   locationType,
-  locationTypeName,
-  locationName,
-  provinceName,
+  assetTypeAndPurpose,
+  locationName, // Ex. ภูเก็ต, คลองสามวา, บ่อวิน
   subLocations,
   isBangkok,
   breadcrumbs,
   currentUrl,
   title,
 }) => {
-  const relatedAreasTitle = `ประกาศ${locationTypeName}ในพื้นที่อื่นๆ ของ${getLocationPrefix(
+  const relatedAreasTitle = `ประกาศ${assetTypeAndPurpose}ในพื้นที่อื่นๆ ของ${getLocationPrefix(
     locationType,
     isBangkok
   )}${locationName}`;
@@ -56,7 +53,7 @@ const LandPostsByLocation = ({
         <h1 className="text-xl font-bold p-2">{title}</h1>
         {!posts.length && (
           <div className="text-xl mt-10 text-center">
-            <span>--ยังไม่มีประกาศ{locationTypeName}ในพื้นที่นี้--</span>
+            <span>--ยังไม่มีประกาศ{assetTypeAndPurpose}ในพื้นที่นี้--</span>
           </div>
         )}
         <ul className="flex flex-wrap justify-between mb-10">
@@ -91,8 +88,8 @@ const LandPostsByLocation = ({
               <li key={subLocation.id} className="mx-2">
                 <Link
                   href={subLocation.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  // target="_blank"
+                  // rel="noopener noreferrer"
                   className="text-gray-500"
                 >
                   {subLocation.name}
@@ -106,84 +103,105 @@ const LandPostsByLocation = ({
   );
 };
 
+// Traditional SSR, fetch fresh data on every request
 export async function getServerSideProps({ params, resolvedUrl }) {
-  const [locationTypeAndCode, locationSlug] = params.slug;
+  // Ex. full url -> /land/ssds104603/ขายที่ดิน-บางชัน-คลองสามวา-กรุงเทพมหานคร
+  const [locationTypeAndCode, locationTHSlug] = params.slug; // [ssds104603, ขายที่ดิน-บางชัน-คลองสามวา-กรุงเทพมหานคร]
 
-  if (!(params.slug.length === 2 && locationTypeAndCode && locationSlug)) {
+  if (!(params.slug.length === 2 && locationTypeAndCode && locationTHSlug)) {
+    // Expect 2 url segments
     return {
       notFound: true,
     };
   }
 
-  const postType = locationTypeAndCode.substr(0, 1);
-  console.log(postType);
-  const locationType = locationTypeAndCode.substr(1, 2);
-  const slugTexts = locationSlug.split("-");
-  const locationName = slugTexts[1];
-  const provinceName = slugTexts[slugTexts.length - 1];
-  const locationTypeName = slugTexts[0];
-  const locationCode = locationTypeAndCode.replace(
+  const landIdPrefix = locationTypeAndCode.substr(0, 1); // s
+  if (landIdPrefix !== "s") {
+    return {
+      notFound: true,
+    };
+  }
+
+  const locationType = locationTypeAndCode.substr(1, 2); // sd
+  if (locationType.length !== 2 || !["pv", "dt", "sd"].includes(locationType)) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const slugTexts = locationTHSlug.split("-"); // [ 'ขายที่ดิน', 'บางชัน', 'คลองสามวา', 'กรุงเทพมหานคร' ]
+  if (slugTexts.length < 2 || slugTexts.length > 4) {
+    return {
+      notFound: true,
+    };
+  }
+
+  const locationName = slugTexts[1]; // The most specific location name -> 'บางชัน'
+  const assetTypeAndPurpose = slugTexts[0]; // ขายที่ดิน
+  if (assetTypeAndPurpose !== "ขายที่ดิน") {
+    return {
+      notFound: true,
+    };
+  }
+
+  const locationId = locationTypeAndCode.replace(
     locationTypeAndCode.substr(0, 3),
     ""
-  );
+  ); // s104603
 
-  const isBangkok = provinceName === "กรุงเทพมหานคร";
-
-  //Get all posts by current location
-  const posts = await getAllActivePostsByLocation(
-    "land",
+  // Get all posts by current location
+  const posts = await getAllActivePostsByLocation({
+    assetType: "land",
+    postType: "sale",
     locationType,
-    locationCode
-  );
+    locationId,
+  });
 
-  //Get all other locations under some location
-  const subLocations = await (locationCode.startsWith("p")
-    ? fetchProvincesByRegionId(locationCode)
-    : locationCode.startsWith("d")
-    ? fetchDistrictsByProvinceId(locationCode)
-    : fetchSubDistrictsByDistrictId(locationCode));
+  // Get all other sub-locations
+  const subLocations = await (locationId.startsWith("p")
+    ? fetchDistrictsByProvinceId(locationId)
+    : locationId.startsWith("d")
+    ? fetchSubDistrictsByDistrictId(locationId)
+    : Promise.resolve([]));
 
-  //Get breadcrumbs
-  const breadcrumbList = await getBreadcrumbs(locationCode, locationType);
-
-  const breadcrumbs = breadcrumbList.map((b, i) => ({
-    ...b,
-    href: `/land/${postType}${b.type}${
-      b.id
-    }/${locationTypeName}-${breadcrumbList
-      .map((b) => b.name)
-      .slice(0, i + 1)
-      .reverse()
-      .join("-")}`,
-    current: b.type === locationType,
-  }));
+  // Get all location breadcrumbs
+  const breadcrumbs = await getLocationBreadcrumbs(locationId, locationType);
+  const isBangkok = breadcrumbs[0]?.name === "กรุงเทพมหานคร";
 
   return {
     props: {
       posts,
-      locationCode,
-      locationType,
-      locationName,
-      provinceName,
-      subLocations: (subLocations || []).map((sub) => ({
-        ...sub,
-        href: `/land/${postType}${
-          locationType === "pv" ? "dt" : locationType === "dt" ? "sd" : ""
-        }${sub.id}/${locationTypeName}-${sub.name}${locationSlug.replace(
-          locationTypeName,
-          ""
-        )}`,
-      })),
-      isBangkok,
-      locationTypeName: locationTypeName,
-      breadcrumbs,
-      currentUrl: resolvedUrl,
-      title: `${locationTypeName} ${breadcrumbList
+      title: `${assetTypeAndPurpose} ${breadcrumbs
         .map((b) => getLocationPrefix(b.type, isBangkok) + b.name)
         .reverse()
         .join(" ")}`,
+      locationType,
+      assetTypeAndPurpose,
+      locationName,
+      isBangkok,
+      currentUrl: resolvedUrl,
+      breadcrumbs: breadcrumbs.map((b, i) => ({
+        ...b,
+        href: `/land/${landIdPrefix}${b.type}${
+          b.id
+        }/${assetTypeAndPurpose}-${breadcrumbs
+          .map((b) => b.name)
+          .slice(0, i + 1)
+          .reverse()
+          .join("-")}`,
+        current: b.type === locationType,
+      })),
+      subLocations: (subLocations || []).map((sub) => ({
+        ...sub,
+        href: `/land/${landIdPrefix}${
+          locationType === "pv" ? "dt" : locationType === "dt" ? "sd" : ""
+        }${sub.id}/${assetTypeAndPurpose}-${sub.name}${locationTHSlug.replace(
+          assetTypeAndPurpose,
+          ""
+        )}`, // /land/sdtd1102/ขายที่ดิน-บางบ่อ-สมุทรปราการ
+      })),
     },
   };
 }
 
-export default LandPostsByLocation;
+export default LandPostsByLocationPage;

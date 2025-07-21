@@ -15,16 +15,12 @@ interface CachedProvinces {
   version: string;
 }
 
-const fetchProvincesFromAPI = async (): Promise<Province[]> => {
+const fetchProvinces = async (): Promise<Province[]> => {
   const response = await apiClient.provinces.getAll();
   return response as unknown as Province[];
 };
 
-export const fetchProvincesServerSide = async () => {
-  return fetchProvincesFromAPI();
-};
-
-export const fetchProvincesClientSide = async (): Promise<Province[]> => {
+const fetchProvincesCacheFirst = async (): Promise<Province[]> => {
   const cached = localStorage.getItem(PROVINCE_CACHE_KEY);
   if (cached) {
     try {
@@ -37,7 +33,7 @@ export const fetchProvincesClientSide = async (): Promise<Province[]> => {
     }
   }
 
-  const provinces = await fetchProvincesFromAPI();
+  const provinces = await fetchProvinces();
 
   const cacheData: CachedProvinces = {
     timestamp: Date.now(),
@@ -52,17 +48,13 @@ export const fetchProvincesClientSide = async (): Promise<Province[]> => {
 const fetchProvincesByRegionId = async (
   regionId: string
 ): Promise<Province[]> => {
-  const provinces = await fetchProvincesClientSide();
+  const provinces = await fetchProvincesCacheFirst();
   return provinces.filter((p) => p.regionId === regionId);
 };
 
-const getProvinceById = async (id: string): Promise<Province> => {
-  const provinces = await fetchProvincesClientSide();
-  const province = provinces.find((p) => p.id === id);
-  if (!province) {
-    throw new Error(`Province with ID ${id} not found`);
-  }
-  return province;
+const getProvinceById = async (provinceId: string): Promise<Province> => {
+  const response = await apiClient.provinces.getById(provinceId);
+  return response as unknown as Province;
 };
 
 const fetchDistrictsByProvinceId = async (
@@ -89,7 +81,7 @@ const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
   return response as unknown as SubDistrict;
 };
 
-const getBreadcrumbs = async (
+const getLocationBreadcrumbs = async (
   locationtId: string,
   locationType: "pv" | "dt" | "sd"
 ): Promise<LocationBreadcrumb[]> => {
@@ -126,5 +118,6 @@ export {
   fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
-  getBreadcrumbs,
+  getLocationBreadcrumbs,
+  fetchProvinces,
 };
