@@ -1,7 +1,7 @@
+import { initFirebase } from "../firebase";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Resizer from "react-image-file-resizer";
 import { randomOneToN } from "../number-utils";
-import { db } from "../../libs/firebase";
 
 const resizeFile = async (file) => {
   return new Promise((resolve) => {
@@ -21,6 +21,7 @@ const resizeFile = async (file) => {
 };
 
 const uploadFileToStorage = async (type, postNumber, file) => {
+  initFirebase();
   const storage = getStorage();
   const storageRef = ref(
     storage,

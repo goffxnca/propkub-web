@@ -1,5 +1,3 @@
-import { Timestamp } from "firebase/firestore";
-
 export interface Notification {
   id: string;
   userId: string;
@@ -7,7 +5,6 @@ export interface Notification {
   message: string;
   type: string;
   isRead: boolean;
-  createdAt: Timestamp;
   data?: any;
 }
 

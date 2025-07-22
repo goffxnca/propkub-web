@@ -1,5 +1,3 @@
-import { Timestamp } from "firebase/firestore";
-
 export interface User {
   id: string;
   name: string;
@@ -7,7 +5,6 @@ export interface User {
   line: string;
   profileImg: string;
   createdAt: string;
-  updatedAt?: Timestamp;
 }
 
 export interface UserProfile {
@@ -19,4 +16,4 @@ export interface UserProfile {
     isFileChanged: boolean;
     originFileUrl: string;
   };
-} 
+}

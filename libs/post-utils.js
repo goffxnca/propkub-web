@@ -1,5 +1,3 @@
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../libs/firebase";
 import { getFacilityArray } from "./mappers/facilityMapper";
 import { convertSpecToDbFormat } from "./mappers/specMapper";
 import sanitizeHtml from "sanitize-html";
@@ -158,14 +156,14 @@ export const updatePost = async (postId, postData) => {
     desc: sanitizeHtml(postData.desc_html) || "",
     facilities: getFacilityArray(postData.facilities) || [],
     refId: sanitizeHtml(postData.refId) || "",
-    updatedAt: serverTimestamp(),
+    // updatedAt: serverTimestamp(),
   };
 
   console.log(toBeUpdatedPost);
 
   //TODO: using firebase function for server validate data later
-  const docRef = doc(db, "posts", postId);
-  return updateDoc(docRef, toBeUpdatedPost);
+  // const docRef = doc(db, "posts", postId);
+  // return updateDoc(docRef, toBeUpdatedPost);
 };
 
 //Once edit mode done, remove this (edit mode also have option to close the post)
