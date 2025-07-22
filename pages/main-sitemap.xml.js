@@ -54,7 +54,9 @@ export async function getServerSideProps({ res }) {
   const latestActivePost = await getLatestActivePostForSitemap();
 
   const sitemap = generateSiteMap(
-    latestActivePost ? latestActivePost?.createdAt : defaultDateTime
+    latestActivePost
+      ? latestActivePost?.updatedAt || latestActivePost?.createdAt
+      : defaultDateTime
   );
 
   // Send the XML to the browser

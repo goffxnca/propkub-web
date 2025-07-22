@@ -6,7 +6,7 @@ function generateSiteMap(lastModForPropertySitemap) {
       xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <sitemap>
           <loc>https://propkub.com/main-sitemap.xml</loc>
-           <lastmod>2025-08-01T00:00:00.00Z</lastmod>
+           <lastmod>${lastModForPropertySitemap}</lastmod>
       </sitemap>
       <sitemap>
           <loc>https://propkub.com/property-sitemap.xml</loc>
@@ -14,7 +14,6 @@ function generateSiteMap(lastModForPropertySitemap) {
       </sitemap>
       <sitemap>
           <loc>https://propkub.com/land-province-sitemap.xml</loc>
-          <lastmod>2023-07-08T00:00:00.00Z</lastmod>
       </sitemap>
   </sitemapindex>
  `;
@@ -31,7 +30,9 @@ export async function getServerSideProps({ res }) {
   const latestActivePost = await getLatestActivePostForSitemap();
 
   const sitemap = generateSiteMap(
-    latestActivePost ? latestActivePost?.createdAt : defaultDateTime
+    latestActivePost
+      ? latestActivePost?.updatedAt || latestActivePost?.createdAt
+      : defaultDateTime
   );
 
   // Send the XML to the browser

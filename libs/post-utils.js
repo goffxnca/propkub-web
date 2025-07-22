@@ -17,24 +17,8 @@ export const fetchActivePosts = async () => {
 };
 
 export const getAllActivePostsForSitemap = async () => {
-  // const q = query(
-  //   postsCollectionRef,
-  //   where("status", "==", "active"),
-  //   orderBy("createdAt", "desc")
-  // );
-
-  // const postsDocs = await getDocs(q);
-  // const posts = [];
-  // postsDocs.forEach((doc) => {
-  //   posts.push({
-  //     ...doc.data(),
-  //     id: doc.id,
-  //     createdAt: new Date(doc.data().createdAt.toMillis()).toISOString(),
-  //     updatedAt: null,
-  //     legal: null,
-  //   });
-  // });
-  return [];
+  const response = await apiClient.posts.getAllActiveForSitemap();
+  return response;
 };
 
 export const getLatestActivePostForSitemap = async () => {
@@ -48,7 +32,6 @@ export const getAllActivePostsByLocation = async ({
   locationType,
   locationId,
 }) => {
-  console.log("getAllActivePostsByLocation");
   const conditions = {
     assetType: assetType,
     postType: postType,
