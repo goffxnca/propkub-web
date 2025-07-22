@@ -135,16 +135,16 @@ const AddPostForm = ({ postData }) => {
   };
 
   const deactivePostHandler = () => {
-    setSaving(true);
-    deactivatePost(postData.id, user)
-      .then((result) => {
-        console.log(result);
-        setShowDeactivateResultModal(true);
-        setSaving(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // setSaving(true);
+    // deactivatePost(postData.id, user)
+    //   .then((result) => {
+    //     console.log(result);
+    //     setShowDeactivateResultModal(true);
+    //     setSaving(false);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
 
   useEffect(() => {

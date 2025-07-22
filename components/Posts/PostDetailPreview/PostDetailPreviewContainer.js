@@ -4,7 +4,6 @@ import Head from "next/head";
 import Loader from "../../UI/Common/modals/Loader";
 import Modal from "../../UI/Public/Modal";
 import { apiClient } from "../../../libs/client";
-import { getPostActions } from "../../../libs/managers/postActionManager";
 import { genPageTitle } from "../../../libs/seo-utils";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 import PostDetailPreview from "./PostDetailPreview";
