@@ -204,6 +204,9 @@ const MyPropertyList = () => {
               resolver: (item) => item.stats.pins || 0,
             },
           ]}
+          onRowClick={(rowId) => {
+            router.push(`/account/posts/${rowId}`);
+          }}
         />
         <Pagination
           page={page}

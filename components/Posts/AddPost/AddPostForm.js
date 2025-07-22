@@ -255,7 +255,7 @@ const AddPostForm = ({ postData }) => {
           Icon={CheckIcon}
           onClose={() => {
             setShowSuccessModal(false);
-            router.push(postSlug ? `/property/${postSlug}` : "/");
+            router.push(`/dashboard`);
           }}
         />
 
