@@ -1,3 +1,10 @@
+// NOTE: This implementation generates the property sitemap fresh on every request.
+// For 5k+ posts, this can be inefficient and put heavy load on the API/DB,
+// especially since multiple search engine bots (Google, Bing, etc.) may request the sitemap at unpredictable times.
+// In the future, this should be improved with caching or Incremental Static Regeneration (ISR)
+// to reduce backend load and serve a stale-but-recent sitemap (e.g., cache for 24h).
+// For now, be aware that every request triggers a full fetch of all active posts.
+
 import { getAllActivePostsForSitemap } from "../libs/post-utils";
 
 function generateSiteMap(posts) {
