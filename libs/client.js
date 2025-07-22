@@ -226,5 +226,9 @@ export const apiClient = {
     async getLatestActiveForSitemap() {
       return serverApiInstance.get("/posts/latest-active-sitemap");
     },
+
+    async getAllActiveForSitemap() {
+      return serverApiInstance.get("/posts/all-active-sitemap");
+    },
   },
 };

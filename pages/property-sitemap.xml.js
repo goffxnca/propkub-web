@@ -1,16 +1,14 @@
 import { getAllActivePostsForSitemap } from "../libs/post-utils";
 
-const EXTERNAL_DATA_URL = "https://propkub.com/property";
-
 function generateSiteMap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      ${posts
-       .map(({ slug, createdAt }) => {
+       .map(({ slug, createdAt, updatedAt }) => {
          return `
        <url>
-           <loc>${`${EXTERNAL_DATA_URL}/${slug}`}</loc>
-           <lastmod>${createdAt}</lastmod>
+           <loc>${`https://propkub.com/property/${slug}`}</loc>
+           <lastmod>${updatedAt || createdAt}</lastmod>
        </url>
      `;
        })
@@ -19,9 +17,7 @@ function generateSiteMap(posts) {
  `;
 }
 
-const PropertySitemap = () => {
-  // getServerSideProps will do the heavy lifting
-};
+const PropertySitemap = () => {};
 
 export async function getServerSideProps({ res }) {
   console.log("PROPERTY-SITEMAP.XML.JS -> getServerSideProps EXECUTED");
