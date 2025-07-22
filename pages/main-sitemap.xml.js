@@ -12,13 +12,13 @@ function generateSiteMap(lastModForPropertySitemap) {
       <url>
           <loc>https://propkub.com/login</loc>
           <changefreq>monthly</changefreq>
-          <priority>0.5</priority>
+          <priority>0.3</priority>
           <lastmod>2023-01-01T00:00:00Z</lastmod>
       </url>
       <url>
           <loc>https://propkub.com/signup</loc>
           <changefreq>monthly</changefreq>
-          <priority>0.5</priority>
+          <priority>0.3</priority>
           <lastmod>2023-01-01T00:00:00Z</lastmod>
       </url>
       <url>
