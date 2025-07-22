@@ -28,8 +28,8 @@ export async function getServerSideProps({ res }) {
   const posts = await getAllActivePostsForSitemap();
   const sitemap = generateSiteMap(posts);
 
+  // Send the XML to the browser
   res.setHeader("Content-Type", "text/xml");
-  // we send the XML to the browser
   res.write(sitemap);
   res.end();
 
