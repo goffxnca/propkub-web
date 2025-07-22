@@ -219,8 +219,7 @@ const PersonalInfoSection = ({ user }) => {
                 <>
                   <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
                     <img
-                      src={user.profileImg}
-                      alt="Profile"
+                      src={user.profileImg || "/user.png"}
                       className="h-full w-full object-cover"
                       onError={(e) => {
                         e.target.src = "/user.png";

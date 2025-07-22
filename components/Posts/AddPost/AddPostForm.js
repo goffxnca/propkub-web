@@ -157,7 +157,7 @@ const AddPostForm = ({ postData }) => {
       }
       if (!isProfileComplete) {
         messages.push(
-          "กรุณาอัพเดทโปรไฟล์ของคุณให้เรียบร้อย เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้"
+          "กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้"
         );
       }
       setWarningMessages(messages);
@@ -177,14 +177,14 @@ const AddPostForm = ({ postData }) => {
       >
         {/* Profile warning messages */}
         {warningMessages.length > 0 && (
-          <>
+          <div className="animate-pulse">
             <Alert
               alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
               messages={warningMessages}
               showButton={true}
-              buttonLabel={"ตรวจสอบอีกครั้ง"}
+              buttonLabel={"ไปที่โปรไฟล์"}
               onClick={() => {
-                router.reload();
+                router.push("/profile");
               }}
             />
 
@@ -194,7 +194,7 @@ const AddPostForm = ({ postData }) => {
                 aria-hidden="true"
               />
             </div>
-          </>
+          </div>
         )}
 
         {/* Main basic section */}
