@@ -8,6 +8,7 @@ import ContactInfoSection from "./ContactInfoSection";
 import AccountDetailsSection from "./AccountDetailsSection";
 import AccountSecuritySection from "./AccountSecuritySection";
 import SocialConnectionsSection from "./SocialConnectionsSection";
+import Button from "../UI/Public/Button";
 
 const ProfileScreen = ({ user }) => {
   const { isProfileComplete } = useContext(authContext);
@@ -23,7 +24,7 @@ const ProfileScreen = ({ user }) => {
     }
     if (!isProfileComplete) {
       messages.push(
-        "กรุณากำหนดชื่อ หมายเลขโทรศัพท์ ไลน์ไอดีและรูปภาพโปรไฟล์ เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้"
+        "กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้"
       );
     }
     setWarningMessages(messages);
@@ -41,10 +42,25 @@ const ProfileScreen = ({ user }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <PageTitle label="โปรไฟล์ของฉัน" />
+      <div className="flex items-center justify-between">
+        <PageTitle label="โปรไฟล์ของฉัน" />
+        {isProfileComplete && (
+          <div className="animate-bounce">
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={() => {
+                router.push("/agent/addpost");
+              }}
+            >
+              ลงประกาศ
+            </Button>
+          </div>
+        )}
+      </div>
 
       {warningMessages.length > 0 && (
-        <div className="mb-6">
+        <div className="animate-pulse mt-6">
           <Alert
             alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
             messages={warningMessages}
@@ -68,4 +84,4 @@ const ProfileScreen = ({ user }) => {
   );
 };
 
-export default ProfileScreen; 
+export default ProfileScreen;
