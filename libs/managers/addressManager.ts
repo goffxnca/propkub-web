@@ -7,7 +7,7 @@ import {
 } from "../../src/types/models/address";
 
 const PROVINCE_CACHE_KEY = "provinces";
-const CACHE_VERSION = "1.0";
+const CACHE_VERSION = "1.0"; //Bump this version if provinces DB changes, ex. new province introduced in thailand
 
 interface CachedProvinces {
   timestamp: number;

@@ -6,7 +6,6 @@ import sanitizeHtml from "sanitize-html";
 import { getUnixEpochTime } from "./date-utils";
 import { uploadFileToStorage } from "./utils/file-utils";
 import { SANITIZE_OPTIONS } from "./constants";
-import { adminMarkPostAsFulfilled } from "./managers/postActionManager";
 import { apiClient } from "./client";
 import { populateAddressLabels } from "./utils/address-utils";
 
@@ -170,6 +169,4 @@ export const updatePost = async (postId, postData) => {
 };
 
 //Once edit mode done, remove this (edit mode also have option to close the post)
-export const deactivatePost = async (postId, user) => {
-  return adminMarkPostAsFulfilled(postId);
-};
+export const deactivatePost = async (postId, user) => {};
