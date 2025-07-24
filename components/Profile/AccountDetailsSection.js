@@ -6,94 +6,103 @@ import FacebookIcon from "../Icons/FacebookIcon";
 const AccountDetailsSection = ({ user }) => {
   const getProviderDisplay = (provider) => {
     const providerMap = {
-      'email': { 
-        name: 'อีเมล', 
-        icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
-        color: 'text-gray-600' 
+      email: {
+        name: "อีเมล",
+        icon: <MailIcon className="w-4 h-4 text-gray-600" />,
+        color: "text-gray-600",
       },
-      'google': { 
-        name: 'Google', 
-        icon: <GoogleIcon />, 
-        color: 'text-blue-600' 
+      google: {
+        name: "Google",
+        icon: <GoogleIcon />,
+        color: "text-blue-600",
       },
-      'facebook': { 
-        name: 'Facebook', 
-        icon: <FacebookIcon className="text-blue-600" />, 
-        color: 'text-blue-800' 
-      }
+      facebook: {
+        name: "Facebook",
+        icon: <FacebookIcon className="text-blue-600" />,
+        color: "text-blue-800",
+      },
     };
-    return providerMap[provider] || { name: provider, icon: '🔗', color: 'text-gray-600' };
+    return (
+      providerMap[provider] || {
+        name: provider,
+        icon: "🔗",
+        color: "text-gray-600",
+      }
+    );
   };
 
   const getLoginProviderInfo = (provider) => {
-    if (!provider) return { 
-      icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
-      name: "อีเมล" 
-    };
-    
+    if (!provider)
+      return {
+        icon: <MailIcon className="w-4 h-4 text-gray-600" />,
+        name: "อีเมล",
+      };
+
     const normalizedProvider = provider.toLowerCase();
     switch (normalizedProvider) {
       case "email":
-        return { 
-          icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
-          name: "อีเมล" 
+        return {
+          icon: <MailIcon className="w-4 h-4 text-gray-600" />,
+          name: "อีเมล",
         };
       case "google":
-        return { 
-          icon: <GoogleIcon />, 
-          name: "Google" 
+        return {
+          icon: <GoogleIcon />,
+          name: "Google",
         };
       case "facebook":
-        return { 
-          icon: <FacebookIcon className="text-blue-600" />, 
-          name: "Facebook" 
+        return {
+          icon: <FacebookIcon className="text-blue-600" />,
+          name: "Facebook",
         };
       default:
-        return { 
-          icon: <MailIcon className="w-4 h-4 text-gray-600" />, 
-          name: "อีเมล" 
+        return {
+          icon: <MailIcon className="w-4 h-4 text-gray-600" />,
+          name: "อีเมล",
         };
     }
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return 'ไม่ระบุ';
+    if (!dateString) return "ไม่ระบุ";
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString('th-TH', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+      return date.toLocaleDateString("th-TH", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       });
     } catch (error) {
-      return 'ไม่ระบุ';
+      return "ไม่ระบุ";
     }
   };
 
   const formatLastLogin = (dateString) => {
-    if (!dateString) return 'ไม่ระบุ';
+    if (!dateString) return "ไม่ระบุ";
     try {
       const date = new Date(dateString);
       const now = new Date();
       const diffInMs = now - date;
       const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-      
+
       if (diffInDays === 0) {
-        return 'วันนี้';
+        return "วันนี้";
       } else if (diffInDays === 1) {
-        return 'เมื่อวาน';
+        return "เมื่อวาน";
       } else if (diffInDays < 7) {
         return `${diffInDays} วันที่แล้ว`;
       } else {
-        return date.toLocaleDateString('th-TH');
+        return date.toLocaleDateString("th-TH");
       }
     } catch (error) {
-      return 'ไม่ระบุ';
+      return "ไม่ระบุ";
     }
   };
 
   const providerInfo = getProviderDisplay(user.provider);
-  const lastLoginProviderInfo = user.lastLoginProvider ? getProviderDisplay(user.lastLoginProvider) : null;
+  const lastLoginProviderInfo = user.lastLoginProvider
+    ? getProviderDisplay(user.lastLoginProvider)
+    : null;
 
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -186,7 +195,7 @@ const AccountDetailsSection = ({ user }) => {
             )}
 
             {/* Terms of Service */}
-            {user.tosAccepted && (
+            {user.tos && (
               <div>
                 <label className="block text-sm font-medium text-gray-700">
                   ข้อกำหนดการใช้งาน
@@ -203,4 +212,4 @@ const AccountDetailsSection = ({ user }) => {
   );
 };
 
-export default AccountDetailsSection; 
+export default AccountDetailsSection;
