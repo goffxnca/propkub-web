@@ -1,4 +1,4 @@
-import { Facility, FacilitiesObject } from '../../src/types/misc/facility';
+import { Facility, FacilitiesObject } from "../../src/types/misc/facility";
 
 const facilities: Facility[] = [
   { id: "ac", label: "แอร์" },
@@ -54,8 +54,11 @@ const getFacilityArray = (facilitiesObject: FacilitiesObject): Facility[] => {
     }
   }
   return facilityArray
-    .map((facilityArrayItem) => facilities.find((facility) => facility.id === facilityArrayItem))
-    .filter((facility): facility is Facility => facility !== undefined);
+    .map((facilityArrayItem) =>
+      facilities.find((facility) => facility.id === facilityArrayItem)
+    )
+    .filter((facility): facility is Facility => facility !== undefined)
+    .map((facility) => ({ id: facility.id, label: facility.label }));
 };
 
 const getLandFacilities = (): Facility[] => {
