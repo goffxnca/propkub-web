@@ -1,4 +1,4 @@
-import AddPostForm from "../../../components/Posts/AddPost/AddPostForm";
+import PostForm from "../../../components/Posts/AddPost/PostForm";
 import { genPageTitle } from "../../../libs/seo-utils";
 import Head from "next/head";
 import ProtectedRoute from "../../../components/Auth/ProtectedRoute";
@@ -9,7 +9,7 @@ const AddPostPage = () => {
       <Head>
         <title>{genPageTitle("ลงประกาศ (เอเจันท์)")}</title>
       </Head>
-      <AddPostForm postData={null} />
+      <PostForm postData={null} />
     </ProtectedRoute>
   );
 };
