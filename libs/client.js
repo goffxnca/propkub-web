@@ -166,6 +166,10 @@ export const apiClient = {
       return apiInstance.post("/posts", postData);
     },
 
+    async update(postId, postData) {
+      return apiInstance.patch(`/posts/${postId}`, postData);
+    },
+
     async getByNumber(postNumber) {
       return serverApiInstance.get(`/posts/${postNumber}`);
     },

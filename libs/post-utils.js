@@ -1,9 +1,7 @@
 import { getFacilityArray } from "./mappers/facilityMapper";
 import { getSpecsArray } from "./mappers/specMapper";
-import sanitizeHtml from "sanitize-html";
 import { getUnixEpochTime } from "./date-utils";
 import { uploadFileToStorage } from "./utils/file-utils";
-import { SANITIZE_OPTIONS } from "./constants";
 import { apiClient } from "./client";
 import { populateAddressLabels } from "./utils/address-utils";
 
@@ -140,31 +138,16 @@ export const addNewPost = async (postData) => {
 };
 
 export const updatePost = async (postId, postData) => {
-  const toBeUpdatedPost = {
-    title: sanitizeHtml(postData.title, SANITIZE_OPTIONS) || "",
-    assetType: postData.assetType || "",
-    postType: postData.postType || "",
-    condition: postData.condition || "",
-    price: postData.price || 0,
-    priceUnit: postData.priceUnit || "",
-    area: postData.area || 0,
-    areaUnit: postData.areaUnit || "",
-    land: postData.land || 0,
-    landUnit: postData.landUnit || "",
-    isStudio: postData.isStudio || false,
-    specs: getSpecsArray(postData.specs) || [],
-    desc: sanitizeHtml(postData.desc_html) || "",
-    facilities: getFacilityArray(postData.facilities) || [],
-    refId: sanitizeHtml(postData.refId) || "",
-    // updatedAt: serverTimestamp(),
-  };
+  // During edit mode, only visible&dirtied&edited fields will be passed as postData
 
-  console.log(toBeUpdatedPost);
+  // Only facilities&specs need re-formatting if they are edited
+  if (postData.facilities) {
+    postData.facilities = getFacilityArray(postData.facilities);
+  }
+  if (postData.specs) {
+    postData.specs = getSpecsArray(postData.specs);
+  }
 
-  //TODO: using firebase function for server validate data later
-  // const docRef = doc(db, "posts", postId);
-  // return updateDoc(docRef, toBeUpdatedPost);
+  const result = await apiClient.posts.update(postId, postData);
+  return result;
 };
-
-//Once edit mode done, remove this (edit mode also have option to close the post)
-export const deactivatePost = async (postId, user) => {};

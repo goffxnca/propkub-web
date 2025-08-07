@@ -1,11 +1,7 @@
 import LocationSection from "./LocationSection";
 import BasicSection from "./BasicSection";
 import { useForm } from "react-hook-form";
-import {
-  addNewPost,
-  updatePost,
-  deactivatePost,
-} from "../../../libs/post-utils";
+import { addNewPost, updatePost } from "../../../libs/post-utils";
 import MediaSection from "./MediaSection";
 import Modal from "../../UI/Public/Modal";
 import {
@@ -21,10 +17,10 @@ import AddDoc from "../../Icons/AddDoc";
 import PageTitle from "../../UI/Private/PageTitle";
 // import Banner from "../../Banner/Banner";
 import ConfirmSection from "./ConfirmSection";
-import Confirm from "../../UI/Public/Modals/Confirm";
 import Alert from "../../UI/Public/Alert";
 import { getFacilityObject } from "../../../libs/mappers/facilityMapper";
 import { getSpecsObject } from "../../../libs/mappers/specMapper";
+import { getEditedFields } from "../../../libs/form-utils";
 
 const PostForm = ({ postData }) => {
   // console.log("PostForm", postData);
@@ -64,20 +60,14 @@ const PostForm = ({ postData }) => {
     watch,
     setValue,
     setFocus,
-    formState: { errors, submitCount },
+    formState: { errors, submitCount, dirtyFields, isDirty },
   } = useForm({ defaultValues: defaultValues });
-
-  console.log("defaultValues", defaultValues);
 
   const router = useRouter();
   const { user, isAgent, isProfileComplete } = useContext(authContext);
 
   const [saving, setSaving] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showDeactivePostConfirmModal, setShowDeactivePostConfirmModal] =
-    useState(false);
-  const [showDeactivateResultModal, setShowDeactivateResultModal] =
-    useState(false);
   const [warningMessages, setWarningMessages] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -97,46 +87,33 @@ const PostForm = ({ postData }) => {
 
   const allowCreatePost = isAgent ? isProfileComplete : true;
 
+  const formDataChanged = isDirty && Object.entries(dirtyFields).length > 0;
+
   const submitHandler = async (formData) => {
-    console.log("Raw FormData", formData);
     setSaving(true);
 
     try {
       if (isEditMode) {
         //UPDATE MODE
-        const result = await updatePost(postData.id, formData);
-        console.log(result);
-        setShowSuccessModal(true);
-        setSaving(false);
+        const editedData = getEditedFields(dirtyFields, formData);
+        const result = await updatePost(postData._id, editedData);
+        console.log("Post updated successfully", result);
       } else {
         // CREATE MODE
         const result = await addNewPost(formData);
-        console.log("post success", result);
-        setShowSuccessModal(true);
-        setSaving(false);
+        console.log("Post created successfully", result);
       }
+      setShowSuccessModal(true);
     } catch (error) {
-      console.error("Post creation/update error:", error);
+      console.error(`${isEditMode ? "Edit" : "Create"} post failed:`, error);
       setErrorMessage(
-        "เกิดข้อผิดพลาดในการสร้างประกาศ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง"
+        "เกิดข้อผิดพลาดในการบันทึกประกาศ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง"
       );
 
-      setSaving(false);
       setShowErrorModal(true);
+    } finally {
+      setSaving(false);
     }
-  };
-
-  const deactivePostHandler = () => {
-    // setSaving(true);
-    // deactivatePost(postData.id, user)
-    //   .then((result) => {
-    //     console.log(result);
-    //     setShowDeactivateResultModal(true);
-    //     setSaving(false);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
   };
 
   useEffect(() => {
@@ -200,7 +177,6 @@ const PostForm = ({ postData }) => {
           defaultValues={defaultValues}
         />
 
-        {/* Allow setting images/medias only in Create Mode */}
         {!isEditMode && (
           <MediaSection
             register={register}
@@ -212,7 +188,6 @@ const PostForm = ({ postData }) => {
           />
         )}
 
-        {/* Allow setting locations only in Create Mode */}
         {!isEditMode && (
           <LocationSection
             register={register}
@@ -228,15 +203,17 @@ const PostForm = ({ postData }) => {
         )}
 
         {/* Confirm Post Creation Section*/}
-        <ConfirmSection
-          register={register}
-          unregister={unregister}
-          watch={watch}
-          setValue={setValue}
-          setFocus={setFocus}
-          errors={errors}
-          submitCount={submitCount}
-        />
+        {!isEditMode && (
+          <ConfirmSection
+            register={register}
+            unregister={unregister}
+            watch={watch}
+            setValue={setValue}
+            setFocus={setFocus}
+            errors={errors}
+            submitCount={submitCount}
+          />
+        )}
 
         {/* Post Success Modal */}
         <Modal
@@ -247,7 +224,7 @@ const PostForm = ({ postData }) => {
           Icon={CheckIcon}
           onClose={() => {
             setShowSuccessModal(false);
-            router.push(`/dashboard`);
+            router.push(`/account/posts/${postData._id}`);
           }}
         />
 
@@ -265,52 +242,22 @@ const PostForm = ({ postData }) => {
           }}
         />
 
-        {/* Deactive Success Modal */}
-        <Modal
-          visible={showDeactivateResultModal}
-          title="ปิดประกาศสำเร็จ"
-          desc="ประกาศของคุณถูกปิดใช้งานเรียบร้อยแล้ว และจะถูกนำออกจากหน้าแรกใน 30 นาที"
-          buttonCaption="กลับหน้าแรก"
-          Icon={CheckIcon}
-          onClose={() => {
-            router.push("/");
-          }}
-        />
-
-        {/* Confirm Post Deactivation */}
-        <Confirm
-          visible={showDeactivePostConfirmModal}
-          title="ปิดประกาศ"
-          desc="คุณยืนยันว่าคุณต้องการปิดประกาศนี้ใช่หรือไม่?"
-          // Icon={LocationMarkerIcon}
-          onConfirm={deactivePostHandler}
-          onClose={() => {
-            setShowDeactivePostConfirmModal(false);
-          }}
-        />
-
         {/* Footer Buttons */}
         {allowCreatePost && (
           <div className="flex-row md:flex md:justify-between md:flex-row-reverse md:gap-4 md:w-60 md:ml-auto">
-            <Button type="submit" variant="primary" loading={saving}>
+            <Button
+              type="submit"
+              variant="primary"
+              loading={saving}
+              disabled={isEditMode && !formDataChanged}
+            >
               บันทึก
             </Button>
-            {isEditMode && (
-              <Button
-                type="button"
-                variant="accent"
-                onClick={() => {
-                  setShowDeactivePostConfirmModal(true);
-                }}
-              >
-                ปิดประกาศ
-              </Button>
-            )}
 
             <Button
               variant="secondary"
               onClick={() => {
-                router.push("/");
+                router.push("/dashboard");
               }}
             >
               ยกเลิก
