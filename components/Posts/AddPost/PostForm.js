@@ -24,7 +24,7 @@ import ConfirmSection from "./ConfirmSection";
 import Confirm from "../../UI/Public/Modals/Confirm";
 import Alert from "../../UI/Public/Alert";
 
-const AddPostForm = ({ postData }) => {
+const PostForm = ({ postData }) => {
   console.log("PostForm");
   // console.log("postData", postData);
 
@@ -75,6 +75,8 @@ const AddPostForm = ({ postData }) => {
     setFocus,
     formState: { errors, submitCount },
   } = useForm({ defaultValues: defaultValues });
+
+  console.log("defaultValues", defaultValues);
 
   const router = useRouter();
   const { user, isAgent, isProfileComplete } = useContext(authContext);
@@ -330,4 +332,4 @@ const AddPostForm = ({ postData }) => {
   );
 };
 
-export default AddPostForm;
+export default PostForm;

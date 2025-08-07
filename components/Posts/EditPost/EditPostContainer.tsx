@@ -6,7 +6,7 @@ import Modal from "../../UI/Public/Modal";
 import { apiClient } from "../../../libs/client";
 import { genPageTitle } from "../../../libs/seo-utils";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
-import AddPostForm from "../../../components/Posts/AddPost/AddPostForm";
+import PostForm from "../AddPost/PostForm";
 
 const EditPostContainer = ({ postId }) => {
   const router = useRouter();
@@ -59,7 +59,7 @@ const EditPostContainer = ({ postId }) => {
       <Head>
         <title>{genPageTitle(`แก้ไขประกาศหมายเลข ${post.postNumber}`)}</title>
       </Head>
-      <AddPostForm postData={post} />
+      <PostForm postData={post} />
     </>
   );
 };
