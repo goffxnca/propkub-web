@@ -99,7 +99,7 @@ const MyPropertyList = () => {
               type="submit"
               variant="primary"
               onClick={() => {
-                router.push("/agent/addpost");
+                router.push("/account/posts/create");
               }}
             >
               ลงประกาศ

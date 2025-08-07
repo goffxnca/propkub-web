@@ -1,7 +1,7 @@
-import AddPostForm from "../../components/Posts/AddPost/AddPostForm";
-import { genPageTitle } from "../../libs/seo-utils";
+import AddPostForm from "../../../components/Posts/AddPost/AddPostForm";
+import { genPageTitle } from "../../../libs/seo-utils";
 import Head from "next/head";
-import ProtectedRoute from "../../components/Auth/ProtectedRoute";
+import ProtectedRoute from "../../../components/Auth/ProtectedRoute";
 
 const AddPostPage = () => {
   return (
@@ -9,7 +9,7 @@ const AddPostPage = () => {
       <Head>
         <title>{genPageTitle("ลงประกาศ (เอเจันท์)")}</title>
       </Head>
-      <AddPostForm />
+      <AddPostForm postData={null} />
     </ProtectedRoute>
   );
 };

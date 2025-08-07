@@ -39,7 +39,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
             variant="primary"
             loading={false}
             onClick={() => {
-              window.open(`/agent/post/edit/${postId}`);
+              router.push(`/account/posts/edit/${postId}`);
             }}
           >
             แก้ไขประกาศ

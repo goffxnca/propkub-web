@@ -72,7 +72,7 @@ const Header = () => {
     {
       name: "ลงประกาศ",
       description: "Your customers' data will be safe and secure.",
-      href: "/agent/addpost",
+      href: "/account/posts/create",
       icon: PencilAltIcon,
     },
     {
@@ -110,7 +110,7 @@ const Header = () => {
   const userNavigation = [
     { name: "โปรไฟล์", href: "/profile" },
     { name: "แดชบอร์ด", href: "/dashboard" },
-    { name: "ลงประกาศ", href: "/agent/addpost" },
+    { name: "ลงประกาศ", href: "/account/posts/create" },
     {
       name: "ออกจากระบบ",
       href: "",
