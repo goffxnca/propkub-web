@@ -1,5 +1,5 @@
 import { getFacilityArray } from "./mappers/facilityMapper";
-import { convertSpecToDbFormat } from "./mappers/specMapper";
+import { getSpecsArray } from "./mappers/specMapper";
 import sanitizeHtml from "sanitize-html";
 import { getUnixEpochTime } from "./date-utils";
 import { uploadFileToStorage } from "./utils/file-utils";
@@ -107,9 +107,9 @@ export const addNewPost = async (postData) => {
     throw error;
   }
 
-  // Prepare data for new API
+  // Prepare data for new API 19 fields
   const newPost = {
-    // Required fields
+    // Required 11 fields
     postNumber: postNumber,
     title: postData.title,
     desc: postData.desc_html, // ReactQuill automatically escapes HTML input for "desc", backend will sanitize as additional security layer
@@ -119,10 +119,10 @@ export const addNewPost = async (postData) => {
     thumbnail: downloadUrls[0],
     images: downloadUrls,
     facilities: getFacilityArray(postData.facilities),
-    specs: convertSpecToDbFormat(postData.specs),
+    specs: getSpecsArray(postData.specs),
     address: populateAddressLabels(postData.address),
 
-    // Optional fields
+    // Optional 8 fields
     isStudio: postData.isStudio,
     // video: postData.video || undefined,
     land: postData.land,
@@ -152,7 +152,7 @@ export const updatePost = async (postId, postData) => {
     land: postData.land || 0,
     landUnit: postData.landUnit || "",
     isStudio: postData.isStudio || false,
-    specs: convertSpecToDbFormat(postData.specs) || [],
+    specs: getSpecsArray(postData.specs) || [],
     desc: sanitizeHtml(postData.desc_html) || "",
     facilities: getFacilityArray(postData.facilities) || [],
     refId: sanitizeHtml(postData.refId) || "",

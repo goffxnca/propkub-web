@@ -1,4 +1,4 @@
-import { Spec, SpecDbFormat, SpecsObject } from '../../src/types/misc/spec';
+import { Spec, SpecDbFormat, SpecsObject } from "../../src/types/misc/spec";
 
 const specs: Spec[] = [
   { id: "beds", label: "ห้องนอน" },
@@ -13,8 +13,8 @@ const getSpecLabel = (specId: string): string => {
   return specs.find((a) => a.id === specId)?.label ?? "N/A";
 };
 
-const convertSpecToDbFormat = (specsObject: SpecsObject): SpecDbFormat[] => {
-  if (!specsObject) return [];
+// Convert from {beds: 2} -> [{id: "ิbeds", label: "ห้องนอน", value: 2}]
+const getSpecsArray = (specsObject: SpecsObject): SpecDbFormat[] => {
   const specArray: SpecDbFormat[] = [];
   for (const [key, value] of Object.entries(specsObject)) {
     if (value) {
@@ -25,4 +25,9 @@ const convertSpecToDbFormat = (specsObject: SpecsObject): SpecDbFormat[] => {
   return specArray;
 };
 
-export { specs, getSpecLabel, convertSpecToDbFormat };
+// Convert from [{id: "ิbeds", label: "ห้องนอน", value: 2}] -> {beds: 2}
+const getSpecsObject = (specsArray: SpecDbFormat[]): SpecsObject => {
+  return specsArray.reduce((a, v) => ({ ...a, [v.id]: v.value }), {});
+};
+
+export { specs, getSpecLabel, getSpecsArray, getSpecsObject };

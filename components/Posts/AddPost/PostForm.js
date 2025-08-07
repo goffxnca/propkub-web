@@ -23,38 +23,29 @@ import PageTitle from "../../UI/Private/PageTitle";
 import ConfirmSection from "./ConfirmSection";
 import Confirm from "../../UI/Public/Modals/Confirm";
 import Alert from "../../UI/Public/Alert";
+import { getFacilityObject } from "../../../libs/mappers/facilityMapper";
+import { getSpecsObject } from "../../../libs/mappers/specMapper";
 
 const PostForm = ({ postData }) => {
-  console.log("PostForm");
-  // console.log("postData", postData);
+  // console.log("PostForm", postData);
 
   const isEditMode = !!postData;
 
   const defaultValues = isEditMode
     ? {
+        // Required 10 fields excluded postNumber (Originally it's 11 required fields)
         title: postData.title,
         desc: postData.desc,
         assetType: postData.assetType,
         postType: postData.postType,
         price: postData.price,
-        facilities: postData.facilities.reduce(
-          (a, v) => ({ ...a, [v.id]: true }),
-          {}
-        ),
-        specs: {
-          beds: postData.specs.find((s) => s.id === "beds")?.value || 0,
-          baths: postData.specs.find((s) => s.id === "baths")?.value || 0,
-          kitchens: postData.specs.find((s) => s.id === "kitchens")?.value || 0,
-          parkings: postData.specs.find((s) => s.id === "parkings")?.value || 0,
-        },
-        address: {
-          //atm, edit mode we dont allow to edit location stuff, too much too handle!
-          regionId: "r2",
-          provinceId: "p2",
-          districtId: "d1106",
-          subDistrictId: "s110602",
-          location: { lat: 13.8110162, lng: 100.5709232 },
-        },
+        thumbnail: postData.thumbnail,
+        images: postData.images,
+        facilities: getFacilityObject(postData.facilities),
+        specs: getSpecsObject(postData.specs),
+        address: postData.address,
+
+        // Optional 8 fields
         isStudio: postData.isStudio,
         land: postData.land,
         landUnit: postData.landUnit,
@@ -82,7 +73,6 @@ const PostForm = ({ postData }) => {
   const { user, isAgent, isProfileComplete } = useContext(authContext);
 
   const [saving, setSaving] = useState(false);
-  const [postSlug, setPostSlug] = useState("");
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showDeactivePostConfirmModal, setShowDeactivePostConfirmModal] =
     useState(false);
@@ -99,7 +89,9 @@ const PostForm = ({ postData }) => {
     ? "ประกาศของคุณได้รับการอัพเดทเรียบร้อยแล้ว"
     : "ประกาศของคุณได้รับการเผยแพร่เป็นสาธารณะแล้ว และจะปรากฏบนหน้าแรกใน 30 นาที";
 
-  const modeLabel = isEditMode ? "แก้ไขประกาศ" : "ลงประกาศ";
+  const modeLabel = isEditMode
+    ? `แก้ไขประกาศ #${postData.postNumber}`
+    : "ลงประกาศ";
   const pageTitle =
     modeLabel + (isAgent ? ` (เอเจ้นท์)` : " (ผู้ใช้งานทั่วไป)");
 
@@ -114,14 +106,12 @@ const PostForm = ({ postData }) => {
         //UPDATE MODE
         const result = await updatePost(postData.id, formData);
         console.log(result);
-        setPostSlug(postData.slug);
         setShowSuccessModal(true);
         setSaving(false);
       } else {
         // CREATE MODE
         const result = await addNewPost(formData);
         console.log("post success", result);
-        setPostSlug(result.slug);
         setShowSuccessModal(true);
         setSaving(false);
       }
@@ -169,7 +159,7 @@ const PostForm = ({ postData }) => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <PageTitle
-        label={pageTitle}
+        label={modeLabel}
         leadingSlot={<AddDoc className="text-gray-500 w-8 h-8" />}
       />
 
