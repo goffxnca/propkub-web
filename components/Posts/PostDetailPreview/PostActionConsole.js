@@ -72,7 +72,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
         visible={showSuccessModal}
         title="ปิดประกาศสำเร็จ"
         desc="ประกาศของคุณถูกปิดใช้งานเรียบร้อยแล้ว และจะถูกนำออกจากหน้าแรกใน 30 นาที"
-        buttonCaption="กลับหน้าแรก"
+        buttonCaption="ตกลง"
         Icon={CheckIcon}
         onClose={() => {
           router.reload();

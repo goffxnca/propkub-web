@@ -17,7 +17,6 @@ const TextEditorInput = ({
   const [editorHtmlValue, setEditorHtmlValue] = useState("");
   const [editorRawLength, setEditorRawLength] = useState(0);
 
-  const idForHtmlContent = id + "_html";
   const idForRawContent = id + "_raw";
 
   const modules = {
@@ -33,24 +32,29 @@ const TextEditorInput = ({
 
   const editorValueChangeHandler = (value, predicate, source, editor) => {
     setEditorHtmlValue(value);
-    setValue(idForHtmlContent, value);
 
     const rawEditorValue = editor.getText().trim();
-    setValue(idForRawContent, rawEditorValue, { shouldValidate: true });
+    setValue(idForRawContent, rawEditorValue, {
+      shouldValidate: true,
+    });
     setEditorRawLength(rawEditorValue.length);
   };
 
   useEffect(() => {
     if (defaultValue) {
       setEditorHtmlValue(defaultValue);
-      setValue(idForHtmlContent, defaultValue);
+      setValue(id, defaultValue);
       setValue(idForRawContent, defaultValue);
     }
     return () => {
-      unregister(idForHtmlContent);
+      unregister(id);
       unregister(idForRawContent);
     };
   }, []);
+
+  useEffect(() => {
+    setValue(id, editorHtmlValue, { shouldDirty: true });
+  }, [editorHtmlValue]);
 
   return (
     <BaseInput
@@ -60,7 +64,7 @@ const TextEditorInput = ({
       info="อธิบายรายละเอียดของทรัพย์ให้ครบถ้วนสมบูรณ์ ประกาศที่มีคุณภาพจะต้องมีความยาวของรายละเอียดระหว่าง 200-4000 ตัวอักษร โปรดทราบว่าการแปะลิ้งค์ที่ไม่เหมาะหรือลิ้งค์สแปมลงในประกาศเป็นการผิดกฎการใช้งาน เมื่อถูกตรวจพบบัญชีของคุณจะถูกแบนถาวรโดยไม่แจ้งให้ทราบล่วงหน้า ลิงค์ที่ไม่ผิดกฎได้แก่ ลิงค์ไปยังเว็บไซต์ของคุณหรือบริษัทที่คุณสังกัด ลิงค์เฟจบุ๊คแฟนเพจ ลิ้งค์บัญชีไลน์ หรือโซเซียลมีเดียต่างๆของคุณ เป็นต้น โดยคุณสามารถเพิ่มลิงค์ได้โดยไฮไลต์ข้อความที่ต้องการและคลิกที่ไอคอนห่วงโซ่ด้านบนเพื่อเพิ่มลิงค์"
       counter={remainingLengthRequired}
     >
-      <input className="hidden" type="text" {...register(idForHtmlContent)} />
+      <input className="hidden" type="text" {...register(id)} />
       <input
         className="hidden"
         type="text"
