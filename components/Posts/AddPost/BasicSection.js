@@ -79,6 +79,7 @@ const BasicSection = ({
                 id="postType"
                 label="ต้องการ"
                 options={postTypes}
+                disabled={isEditMode}
                 register={() =>
                   register("postType", {
                     required: "กรุณาระบุประเภทประกาศ",
