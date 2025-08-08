@@ -110,7 +110,7 @@ export const addNewPost = async (postData) => {
     // Required 11 fields
     postNumber: postNumber,
     title: postData.title,
-    desc: postData.desc_html, // ReactQuill automatically escapes HTML input for "desc", backend will sanitize as additional security layer
+    desc: postData.desc,
     assetType: postData.assetType,
     postType: postData.postType,
     price: postData.price,
