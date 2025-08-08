@@ -43,7 +43,7 @@ const facilities: Facility[] = [
 ];
 
 const getFacility = (facilityId: string): string => {
-  return facilities.find((f) => f.id === facilityId)?.label ?? "N/A";
+  return facilities.find((f) => f.id === facilityId)?.label || "";
 };
 
 // Convert from {ac: true, sofa: false, ...} -> [{id: "tv", label: "ทีวี"}]

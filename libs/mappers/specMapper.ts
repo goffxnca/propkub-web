@@ -10,7 +10,7 @@ const specs: Spec[] = [
 ];
 
 const getSpecLabel = (specId: string): string => {
-  return specs.find((a) => a.id === specId)?.label ?? "N/A";
+  return specs.find((a) => a.id === specId)?.label || "";
 };
 
 // Convert from {beds: 2} -> [{id: "ิbeds", label: "ห้องนอน", value: 2}]

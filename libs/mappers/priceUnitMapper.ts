@@ -24,8 +24,10 @@ const pricePerUnitMapping: PricePerUnitMapping[] = [
 ];
 
 const getPriceUnit = (priceUnit: string): string => {
-  return timeMatricUnits.concat(areaMatricUnits).find((p) => p.id === priceUnit)
-    .label;
+  return (
+    timeMatricUnits.concat(areaMatricUnits).find((p) => p.id === priceUnit)
+      ?.label || ""
+  );
 };
 
 const getPriceUnitList = (assetType: string, postType: string): PriceUnit[] => {

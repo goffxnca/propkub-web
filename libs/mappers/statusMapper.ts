@@ -9,7 +9,7 @@ const postStatuses: PostStatus[] = [
 ];
 
 const getStatusLabelById = (statusId: string): string => {
-  return postStatuses.find((status) => status.id === statusId).label;
+  return postStatuses.find((status) => status.id === statusId)?.label || "";
 };
 
 const getStatusVariantById = (statusId: string): Variant => {
