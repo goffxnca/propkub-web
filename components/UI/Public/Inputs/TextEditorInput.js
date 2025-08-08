@@ -16,6 +16,7 @@ const TextEditorInput = ({
 }) => {
   const [editorHtmlValue, setEditorHtmlValue] = useState("");
   const [editorRawLength, setEditorRawLength] = useState(0);
+  const [initialized, setInitialized] = useState(false);
 
   const idForRawContent = id + "_raw";
 
@@ -32,12 +33,16 @@ const TextEditorInput = ({
 
   const editorValueChangeHandler = (value, predicate, source, editor) => {
     setEditorHtmlValue(value);
-
+    setValue(id, value, { shouldDirty: initialized });
     const rawEditorValue = editor.getText().trim();
     setValue(idForRawContent, rawEditorValue, {
       shouldValidate: true,
     });
     setEditorRawLength(rawEditorValue.length);
+
+    if (!initialized) {
+      setInitialized(true);
+    }
   };
 
   useEffect(() => {
@@ -51,10 +56,6 @@ const TextEditorInput = ({
       unregister(idForRawContent);
     };
   }, []);
-
-  useEffect(() => {
-    setValue(id, editorHtmlValue, { shouldDirty: true });
-  }, [editorHtmlValue]);
 
   return (
     <BaseInput

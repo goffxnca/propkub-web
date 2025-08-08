@@ -71,6 +71,7 @@ const PostForm = ({ postData }) => {
   const [warningMessages, setWarningMessages] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [createdPostId, setCreatedPostId] = useState("");
 
   const modalSuccessTitle = isEditMode
     ? "อัพเดทประกาศสำเร็จ"
@@ -101,6 +102,7 @@ const PostForm = ({ postData }) => {
       } else {
         // CREATE MODE
         const result = await addNewPost(formData);
+        setCreatedPostId(result._id);
         console.log("Post created successfully", result);
       }
       setShowSuccessModal(true);
@@ -224,7 +226,7 @@ const PostForm = ({ postData }) => {
           Icon={CheckIcon}
           onClose={() => {
             setShowSuccessModal(false);
-            router.push(`/account/posts/${postData._id}`);
+            router.push(`/account/posts/${createdPostId || postData._id}`);
           }}
         />
 
