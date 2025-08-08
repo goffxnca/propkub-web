@@ -32,7 +32,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
   const priceWithUnit = post.priceUnit
     ? `${post.price.toLocaleString()} ${
-        forRent || isLand ? "/" + getPriceUnit(post.priceUnit) : ""
+        forRent || isLand ? "/ " + getPriceUnit(post.priceUnit) : ""
       }`
     : post.price.toLocaleString();
   const thumbnail = post.thumbnail;
