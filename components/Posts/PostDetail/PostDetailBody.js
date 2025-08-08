@@ -112,9 +112,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
               ประเภท: {postType}
               {assetType}
             </div>
-            {condition && (
-              <div className="md:w-1/2">ลักษณะทรัพย์: {condition}</div>
-            )}
+            {condition && <div className="md:w-1/2">สภาพ: {condition}</div>}
             <div className="md:w-1/2">เลขประกาศ: {post.postNumber}</div>
             {post.refId && (
               <div className="md:w-1/2">เลขอ้างอิง: {post.refId}</div>
