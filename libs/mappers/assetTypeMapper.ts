@@ -9,7 +9,7 @@ const assetTypes: AssetType[] = [
 ];
 
 const getAssetType = (assetType: string): string => {
-  return assetTypes.find((a) => a.id === assetType).label;
+  return assetTypes.find((a) => a.id === assetType)?.label || "";
 };
 
 export { assetTypes, getAssetType };

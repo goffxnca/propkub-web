@@ -9,7 +9,7 @@ const areaUnits: AreaUnit[] = [
 ];
 
 const getAreaUnitById = (areaUnit: string): string => {
-  return areaUnits.find((a) => a.id === areaUnit).label;
+  return areaUnits.find((a) => a.id === areaUnit)?.label || "";
 };
 
 const getStandardAreaUnits = (): AreaUnit[] => {
