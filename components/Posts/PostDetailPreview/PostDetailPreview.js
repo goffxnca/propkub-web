@@ -26,8 +26,14 @@ const PostDetailPreview = ({ post, postActions }) => {
   );
   const assetType = getAssetType(post.assetType);
   const postType = getPostType(post.postType);
+
+  const forRent = post.postType === "rent";
+  const isLand = post.assetType === "land";
+
   const priceWithUnit = post.priceUnit
-    ? `${post.price.toLocaleString()}/${getPriceUnit(post.priceUnit)}`
+    ? `${post.price.toLocaleString()} ${
+        forRent || isLand ? "/" + getPriceUnit(post.priceUnit) : ""
+      }`
     : post.price.toLocaleString();
   const thumbnail = post.thumbnail;
   const images = post.images;

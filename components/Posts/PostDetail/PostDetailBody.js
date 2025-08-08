@@ -46,9 +46,11 @@ const PostDetailBody = ({ post, postViews, images }) => {
 
   const priceWithFormat = post?.price?.toLocaleString();
 
-  const priceUnitFormat = post?.priceUnit
-    ? ` / ${getPriceUnit(post?.priceUnit)}`
-    : "";
+  const forRent = post.postType === "rent";
+  const isLand = post.assetType === "land";
+
+  const priceUnitFormat =
+    forRent || isLand ? "/" + getPriceUnit(post.priceUnit) : "";
 
   const addressFormat = formatAddressFull(post.address);
 
