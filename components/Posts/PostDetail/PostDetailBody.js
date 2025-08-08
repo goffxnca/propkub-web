@@ -50,7 +50,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
   const isLand = post.assetType === "land";
 
   const priceUnitFormat =
-    forRent || isLand ? "/" + getPriceUnit(post.priceUnit) : "";
+    forRent || isLand ? " / " + getPriceUnit(post.priceUnit) : "";
 
   const addressFormat = formatAddressFull(post.address);
 
