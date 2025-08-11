@@ -122,7 +122,8 @@ const PostDetailBody = ({ post, postViews, images }) => {
             </div>
             {post.updatedAt && (
               <div className="md:w-1/2">
-                วันที่อัพเดทล่าสุด: {post.updatedAt}
+                วันที่อัพเดทล่าสุด:{" "}
+                {getLocalDateByISODateString(post.updatedAt)}
               </div>
             )}
           </div>

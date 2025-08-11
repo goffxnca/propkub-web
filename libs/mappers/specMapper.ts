@@ -15,6 +15,8 @@ const getSpecLabel = (specId: string): string => {
 
 // Convert from {beds: 2} -> [{id: "ิbeds", label: "ห้องนอน", value: 2}]
 const getSpecsArray = (specsObject: SpecsObject): SpecDbFormat[] => {
+  if (!specsObject) return [];
+
   const specArray: SpecDbFormat[] = [];
   for (const [key, value] of Object.entries(specsObject)) {
     if (value) {
@@ -22,6 +24,7 @@ const getSpecsArray = (specsObject: SpecsObject): SpecDbFormat[] => {
       specArray.push({ id: key, value: value, label: spec });
     }
   }
+
   return specArray;
 };
 
