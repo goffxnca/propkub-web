@@ -6,4 +6,13 @@ const ACCEPT_POST_FBSHARE =
 
 const BASE_SITE_URL = "https://propkub.com";
 
-export { ACCEPT_POST_MSG, BASE_SITE_URL, ACCEPT_POST_FBSHARE };
+const SANITIZE_OPTIONS = {
+  allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br", "a"],
+};
+
+export {
+  ACCEPT_POST_MSG,
+  BASE_SITE_URL,
+  ACCEPT_POST_FBSHARE,
+  SANITIZE_OPTIONS,
+};
