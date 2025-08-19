@@ -79,7 +79,7 @@ const PostFilter = ({ onSearch, onReset }) => {
 
   const searchHandler = (event) => {
     event.preventDefault();
-    //TODO: Replace with actual async calls
+
     setSearchFilter((state) => ({ ...state, loading: true }));
     onSearch(searchFilter, () => {
       setSearchFilter((state) => ({ ...state, loading: false }));
