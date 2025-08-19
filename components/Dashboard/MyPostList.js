@@ -112,20 +112,6 @@ const MyPropertyList = () => {
           columns={[
             {
               title: "",
-              field: "viewPublic",
-              custom: (item) => (
-                <a
-                  href={`property/${item.slug}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary text-xs hover:text-primary-hover hover:underline"
-                >
-                  <GlobeAltIcon className="w-4 h-4" />
-                </a>
-              ),
-            },
-            {
-              title: "",
               field: "view",
               custom: (item) => (
                 <Link
