@@ -19,7 +19,7 @@ import ForgotPasswordModal from "../ForgotPasswordModal";
 
 const SiginInForm = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
-  
+
   const {
     register,
     unregister,
@@ -59,17 +59,13 @@ const SiginInForm = () => {
               ล็อกอินเข้าสู่ระบบ
             </h1>
             <div className="flex justify-center">
-              {/* <Logo /> */}
+              <Logo />
             </div>
             <br />
-            
+
             <div className="mb-6 space-y-3">
-              <GoogleLoginButton 
-                text="ล็อกอินด้วย Google"
-              />
-              <FacebookLoginButton 
-                text="ล็อกอินด้วย Facebook"
-              />
+              <GoogleLoginButton text="ล็อกอินด้วย Google" />
+              <FacebookLoginButton text="ล็อกอินด้วย Facebook" />
             </div>
 
             <div className="relative mb-6">
@@ -77,12 +73,10 @@ const SiginInForm = () => {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  หรือ
-                </span>
+                <span className="px-2 bg-white text-gray-500">หรือ</span>
               </div>
             </div>
-            
+
             <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
               <TextInput
                 id="email"
@@ -236,7 +230,7 @@ const SiginInForm = () => {
           </div>
         </div>
       </div>
-      
+
       <Modal
         visible={!!error}
         Icon={ExclamationIcon}
@@ -246,7 +240,7 @@ const SiginInForm = () => {
         buttonCaption="ตกลง"
         onClose={handleCloseErrorModal}
       />
-      
+
       <ForgotPasswordModal
         visible={showForgotPasswordModal}
         onClose={handleCloseForgotPasswordModal}

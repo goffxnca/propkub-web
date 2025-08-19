@@ -62,7 +62,7 @@ const PostList = ({ posts, provinces, hasError }) => {
   return (
     <div className="lg:max-w-7xl mx-auto">
       <h1 className="text-2xl font-extrabold tracking-tight text-gray-500 p-2 text-center">
-        {/* ลงประกาศอสังหาฟรี Propkub.com */}
+        ลงประกาศอสังหาฟรี Propkub.com
       </h1>
 
       <PostFilter onSearch={searchHandler} onReset={resetHandler} />
