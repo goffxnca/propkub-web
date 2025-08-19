@@ -141,7 +141,7 @@ const Header = () => {
         <div className="flex justify-between items-center border-b-2 border-gray-100 py-4 md:justify-start md:space-x-10 px-4 sm:px-6">
           {/* Logo */}
           <div className="flex justify-start lg:w-0 lg:flex-1">
-            {/* <Logo /> */}
+            <Logo />
           </div>
 
           {/* Hamburgur */}
@@ -289,7 +289,11 @@ const Header = () => {
             <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
               <div className="pt-5 pb-6 px-5 ">
                 <div className="flex items-center justify-between">
-                  {!user && <div>{/* <Logo onClick={close} /> */}</div>}
+                  {!user && (
+                    <div>
+                      <Logo onClick={close} />
+                    </div>
+                  )}
 
                   {/* avatar */}
                   {user && (

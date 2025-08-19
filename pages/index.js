@@ -12,7 +12,7 @@ const HomePage = ({ posts, provinces, hasError }) => {
   return (
     <>
       <Head>
-        {/* <title>ลงประกาศอสังหาฟรี Propkub.com</title> */}
+        <title>ลงประกาศอสังหาฟรี Propkub.com</title>
         <meta
           name="description"
           content="PropKub.com ตัวช่วยค้นหา/ลงประกาศ อสังหาริมทรัพย์ทุกประเทศ ไม่ว่าจะเป็นการซื้อ-ขาย-เช่า บ้าน ที่ดิน ทาวน์โฮม คอนโด อาคารพาณิชย์ ใช้งานฟรีไม่มีค่าใช้จ่าย"
