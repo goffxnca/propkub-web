@@ -25,15 +25,19 @@ const PostItem = ({
 }) => {
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
 
-  const studioSpec = isStudio
-    ? [
-        {
-          id: "studio",
-          label: "ห้องสตูดิโอ",
-          icon: getIcon("studio"),
-        },
-      ]
-    : [];
+  const studioSpec = useMemo(
+    () =>
+      isStudio
+        ? [
+            {
+              id: "studio",
+              label: "ห้องสตูดิโอ",
+              icon: getIcon("studio"),
+            },
+          ]
+        : [],
+    [isStudio]
+  );
 
   const specsFormat = useMemo(
     () =>
@@ -46,7 +50,7 @@ const PostItem = ({
           }))
         )
         .slice(0, 3),
-    [specs]
+    [specs, studioSpec]
   );
 
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
@@ -79,6 +83,7 @@ const PostItem = ({
               layout="responsive"
             /> */}
 
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={thumbnail}
             alt={thumbnailAlt}

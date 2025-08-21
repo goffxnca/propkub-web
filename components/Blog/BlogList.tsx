@@ -78,6 +78,7 @@ const BlogList = () => {
               className="flex flex-col rounded-lg shadow-lg overflow-hidden"
             >
               <div className="flex-shrink-0">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="h-48 w-full object-cover"
                   src={post.imageUrl}
@@ -104,6 +105,7 @@ const BlogList = () => {
                   <div className="flex-shrink-0">
                     <a href={post.author.href}>
                       <span className="sr-only">{post.author.name}</span>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         className="h-10 w-10 rounded-full"
                         src={post.author.imageUrl}
