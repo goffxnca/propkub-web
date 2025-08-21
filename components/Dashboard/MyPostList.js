@@ -9,11 +9,7 @@ import Button from '../UI/Public/Button';
 import DataTable from '../UI/Public/DataTable/DataTable';
 import Stats from './Stats';
 import Modal from '../UI/Public/Modal';
-import {
-  SearchIcon,
-  GlobeAltIcon,
-  ExclamationIcon
-} from '@heroicons/react/outline';
+import { SearchIcon, ExclamationIcon } from '@heroicons/react/outline';
 
 import { useState, useEffect } from 'react';
 import { getMyPosts, getMyPostsStats } from '../../libs/post-utils';

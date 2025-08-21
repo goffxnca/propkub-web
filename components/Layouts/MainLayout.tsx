@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import Banner from '../Banner/Banner';
 import Footer from './Footer';
 import Header from './Header';
 import { ReactNode } from 'react';

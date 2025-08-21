@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { getAssetType } from '../../../libs/mappers/assetTypeMapper';

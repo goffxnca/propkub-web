@@ -1,13 +1,5 @@
 import Link from 'next/link';
 
-const nums = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-  23, 24, 25, 26, 27, 28, 29, 30
-];
-
-const message =
-  'This is a very very very very very very long string that will break earlier at 80 chars.';
-
 const PageNotFound = () => {
   return (
     <>

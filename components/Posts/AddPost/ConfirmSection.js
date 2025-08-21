@@ -1,4 +1,4 @@
-import { ACCEPT_POST_FBSHARE, ACCEPT_POST_MSG } from '../../../libs/constants';
+import { ACCEPT_POST_MSG } from '../../../libs/constants';
 import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 
 const ConfirmSection = ({ register, unregister, errors }) => {

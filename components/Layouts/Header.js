@@ -7,23 +7,16 @@ import {
   ChartPieIcon,
   LogoutIcon,
   HomeIcon,
-  OfficeBuildingIcon,
-  FlagIcon,
-  QuestionMarkCircleIcon,
   MailIcon,
   PencilAltIcon
 } from '@heroicons/react/outline';
 import Link from 'next/link';
 import Logo from './Logo';
-import Banner from '../Banner/Banner';
 import { authContext } from '../../contexts/authContext';
 import { joinClasses } from '../../libs/utils/style-utils';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { ChatIcon } from '@heroicons/react/solid';
 import MenuLinkItem from '../UI/Public/MenuLinkItem';
-import Image from 'next/image';
-import TownhomeIcon from '../Icons/HeroIconsV2/Townhome';
-import ShopIcon from '../Icons/HeroIconsV2/Shop';
 
 const authenticatedMobileMenus = [
   {
