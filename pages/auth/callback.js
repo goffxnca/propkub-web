@@ -18,36 +18,22 @@ const AuthCallback = () => {
   const [linkProvider, setLinkProvider] = useState("");
 
   const formatProviderName = (provider) => {
-    if (!provider) return 'provider';
+    if (!provider) return "provider";
     const providerMap = {
-      'google': 'Google',
-      'facebook': 'Facebook'
+      google: "Google",
+      facebook: "Facebook",
     };
     return providerMap[provider?.toLowerCase()] || provider;
   };
 
   const formatProviderIcon = (provider) => {
-    switch ((provider || '').toLowerCase()) {
-      case 'google':
+    switch ((provider || "").toLowerCase()) {
+      case "google":
         return <GoogleIcon className="h-6 w-6" />;
-      case 'facebook':
+      case "facebook":
         return <FacebookIcon className="h-6 w-6 text-blue-800" />;
       default:
         return <CheckIcon className="h-6 w-6 text-green-600" />;
-    }
-  };
-
-  const handleAuthSuccess = async ({ token, provider, isLinking }) => {
-    tokenManager.setToken(token);
-    const userProfile = await apiClient.auth.getProfile();
-    setUser(userProfile);
-    setIsProcessing(false);
-
-    if (isLinking) {
-      setLinkProvider(provider);
-      setShowLinkSuccess(true);
-    } else {
-      router.push("/profile");
     }
   };
 
@@ -60,15 +46,25 @@ const AuthCallback = () => {
         if (error) {
           console.error("[AuthCallback] OAuth error:", error);
           setIsProcessing(false);
-          
-          if (error === 'email_mismatch') {
-            setError(`เชื่อมต่อไม่ได้ กรุณาใช้บัญชี ${formatProviderName(provider)} ที่ผูกกับอีเมล: ${expectedEmail || 'email'}`);
-          } else if (error === 'linking_failed') {
+
+          if (error === "email_mismatch") {
+            setError(
+              `เชื่อมต่อไม่ได้ กรุณาใช้บัญชี ${formatProviderName(
+                provider
+              )} ที่ผูกกับอีเมล: ${expectedEmail || "email"}`
+            );
+          } else if (error === "linking_failed") {
             setError("เกิดข้อผิดพลาดในการเชื่อมต่อบัญชี กรุณาลองใหม่อีกครั้ง");
-          } else if (error === 'already_linked') {
-            setError(`บัญชี ${formatProviderName(provider)} นี้เชื่อมต่ออยู่แล้ว กรุณารีเฟรชหน้าเว็บ`);
-          } else if (error === 'oauth_cancelled') {
-            setError(`การเชื่อมต่อบัญชี ${formatProviderName(provider)} ถูกยกเลิก`);
+          } else if (error === "already_linked") {
+            setError(
+              `บัญชี ${formatProviderName(
+                provider
+              )} นี้เชื่อมต่ออยู่แล้ว กรุณารีเฟรชหน้าเว็บ`
+            );
+          } else if (error === "oauth_cancelled") {
+            setError(
+              `การเชื่อมต่อบัญชี ${formatProviderName(provider)} ถูกยกเลิก`
+            );
           } else {
             setError("เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง");
           }
@@ -83,8 +79,10 @@ const AuthCallback = () => {
         }
 
         // Handle linking success
-        if (success === 'linking') {
-          console.log("[AuthCallback] Account linking successful:", { provider });
+        if (success === "linking") {
+          console.log("[AuthCallback] Account linking successful:", {
+            provider,
+          });
           await handleAuthSuccess({ token, provider, isLinking: true });
           return;
         }
@@ -101,6 +99,20 @@ const AuthCallback = () => {
       }
     };
 
+    const handleAuthSuccess = async ({ token, provider, isLinking }) => {
+      tokenManager.setToken(token);
+      const userProfile = await apiClient.auth.getProfile();
+      setUser(userProfile);
+      setIsProcessing(false);
+
+      if (isLinking) {
+        setLinkProvider(provider);
+        setShowLinkSuccess(true);
+      } else {
+        router.push("/profile");
+      }
+    };
+
     if (router.isReady) {
       handleCallback();
     }
@@ -108,7 +120,7 @@ const AuthCallback = () => {
 
   const handleCloseErrorModal = () => {
     const { error } = router.query;
-      router.push("/profile");
+    router.push("/profile");
   };
 
   return (
@@ -137,9 +149,14 @@ const AuthCallback = () => {
         Icon={() => formatProviderIcon(linkProvider)}
         type="success"
         title={`เชื่อมต่อบัญชี ${formatProviderName(linkProvider)} สำเร็จ!`}
-        desc={<>
-          <p className="mt-2 text-gray-500">ครั้งถัดไปคุณสามารถเข้าสู่ระบบด้วยบัญชี {formatProviderName(linkProvider)} นี้ได้เช่นกัน</p>
-        </>}
+        desc={
+          <>
+            <p className="mt-2 text-gray-500">
+              ครั้งถัดไปคุณสามารถเข้าสู่ระบบด้วยบัญชี{" "}
+              {formatProviderName(linkProvider)} นี้ได้เช่นกัน
+            </p>
+          </>
+        }
         buttonCaption="ตกลง"
         onClose={() => router.push("/profile")}
       />

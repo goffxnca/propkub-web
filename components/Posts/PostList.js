@@ -51,7 +51,7 @@ const PostList = ({ posts, provinces, hasError }) => {
 
   const filteredPostList = useMemo(() => {
     return searchCount === 0 ? posts : filteredPosts;
-  }, [searchCount, filteredPosts]);
+  }, [searchCount, filteredPosts, posts]);
 
   const listHeadingLabel = useMemo(() => {
     return searchCount > 0

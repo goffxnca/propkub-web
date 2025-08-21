@@ -3,8 +3,10 @@ import { XCircleIcon } from "@heroicons/react/outline";
 const ImagePreviewItem = ({ src, fileName, imageIndex, onClose }) => {
   return (
     <div className="relative transition-all md:hover:scale-105 my-2 md:m-2 flex">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
+        alt=""
         className="bg-gray-50 h-full w-full md:h-40 md:w-52 rounded-lg shadow-md object-cover"
       />
       <div className="h-full w-full flex justify-center items-center absolute  bottom-0 right-0 ">

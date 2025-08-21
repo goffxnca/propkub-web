@@ -105,6 +105,7 @@ const ProfileImageInput = ({
           <div
             className={`w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200 ${errorStyle}`}
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={fileUrl || "/user.png"}
               alt="Profile"

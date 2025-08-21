@@ -229,10 +229,12 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <Heading size="2" label="รูปภาพ" />
         <div className="">
           {images.map((image, index) => (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               key={index}
               src={image.original}
               className="mx-auto mt-2"
+              alt=""
             ></img>
           ))}
         </div>

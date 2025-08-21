@@ -51,6 +51,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
     <>
       <div className="flex flex-col items-center justify-center">
         <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={`${postOwner.profileImg || "/user.png"}`}
             alt=""

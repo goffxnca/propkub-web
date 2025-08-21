@@ -173,6 +173,7 @@ const PostDetailPreview = ({ post, postActions }) => {
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">รูปหลัก</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={thumbnail}
                     className="h-20 w-20 object-cover rounded-sm"
@@ -187,6 +188,7 @@ const PostDetailPreview = ({ post, postActions }) => {
                   <ul className="flex flex-wrap">
                     {images.map((image, index) => (
                       <li key={index} className="m-1">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={image}
                           className="h-20 w-20 object-cover rounded-sm"

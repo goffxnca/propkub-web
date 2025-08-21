@@ -50,6 +50,7 @@ const SimilarPostItem = ({
               height={192}
               layout="responsive"
             /> */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={thumbnail}
             alt={thumbnailAlt}

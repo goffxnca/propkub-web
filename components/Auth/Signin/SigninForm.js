@@ -31,7 +31,7 @@ const SiginInForm = () => {
 
   useEffect(() => {
     clearError();
-  }, []);
+  }, [clearError]);
 
   const handleCloseErrorModal = () => {
     clearError();

@@ -106,6 +106,7 @@ const ProfileImageInput = ({
               height={120}
               width={120}
             /> */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={`${fileUrl || "/user.png"}`}
               alt=""

@@ -25,87 +25,87 @@ import Image from "next/image";
 import TownhomeIcon from "../Icons/HeroIconsV2/Townhome";
 import ShopIcon from "../Icons/HeroIconsV2/Shop";
 
+const authenticatedMobileMenus = [
+  {
+    name: "โปรไฟล์",
+    description: "Your customers' data will be safe and secure.",
+    href: "/profile",
+    icon: UserIcon,
+  },
+  {
+    name: "ออกจากระบบ",
+    description: "Your customers' data will be safe and secure.",
+    href: "",
+    onClick: () => {
+      signout("/");
+    },
+    icon: LogoutIcon,
+  },
+];
+
+const agentUserMobileMenus = [
+  {
+    name: "หน้าแรก",
+    description: "Your customers' data will be safe and secure.",
+    href: "/",
+    icon: HomeIcon,
+  },
+  {
+    name: "โปรไฟล์",
+    description: "Your customers' data will be safe and secure.",
+    href: "/profile",
+    icon: UserIcon,
+  },
+  {
+    name: "แดชบอร์ด",
+    description: "Your customers' data will be safe and secure.",
+    href: "/dashboard",
+    icon: ChartPieIcon,
+  },
+  {
+    name: "ลงประกาศ",
+    description: "Your customers' data will be safe and secure.",
+    href: "/account/posts/create",
+    icon: PencilAltIcon,
+  },
+  {
+    name: "ออกจากระบบ",
+    description: "Your customers' data will be safe and secure.",
+    href: "",
+    onClick: () => {
+      signout("/");
+    },
+    icon: LogoutIcon,
+  },
+];
+
+const normalUserMobileMenus = [
+  {
+    name: "หน้าแรก",
+    description: "Speak directly to your customers in a more meaningful way.",
+    href: "/",
+    icon: HomeIcon,
+  },
+  {
+    name: "ลงประกาศฟรี",
+    description: "Speak directly to your customers in a more meaningful way.",
+    href: "/login",
+    icon: PencilAltIcon,
+  },
+  {
+    name: "ติดต่อเรา",
+    description: "Speak directly to your customers in a more meaningful way.",
+    href: "/contact",
+    icon: MailIcon,
+  },
+];
+
 const Header = () => {
   const [bannerActive, setBannerActive] = useState(false);
   const [mobileMenus, setMobileMenus] = useState([]);
 
   const { signout, user, isAgent, isNormalUser, isAuthenticated, loading } =
     useContext(authContext);
-
-  const authenticatedMobileMenus = [
-    {
-      name: "โปรไฟล์",
-      description: "Your customers' data will be safe and secure.",
-      href: "/profile",
-      icon: UserIcon,
-    },
-    {
-      name: "ออกจากระบบ",
-      description: "Your customers' data will be safe and secure.",
-      href: "",
-      onClick: () => {
-        signout("/");
-      },
-      icon: LogoutIcon,
-    },
-  ];
-
-  const agentUserMobileMenus = [
-    {
-      name: "หน้าแรก",
-      description: "Your customers' data will be safe and secure.",
-      href: "/",
-      icon: HomeIcon,
-    },
-    {
-      name: "โปรไฟล์",
-      description: "Your customers' data will be safe and secure.",
-      href: "/profile",
-      icon: UserIcon,
-    },
-    {
-      name: "แดชบอร์ด",
-      description: "Your customers' data will be safe and secure.",
-      href: "/dashboard",
-      icon: ChartPieIcon,
-    },
-    {
-      name: "ลงประกาศ",
-      description: "Your customers' data will be safe and secure.",
-      href: "/account/posts/create",
-      icon: PencilAltIcon,
-    },
-    {
-      name: "ออกจากระบบ",
-      description: "Your customers' data will be safe and secure.",
-      href: "",
-      onClick: () => {
-        signout("/");
-      },
-      icon: LogoutIcon,
-    },
-  ];
-
-  const normalUserMobileMenus = [
-    {
-      name: "หน้าแรก",
-      description: "Speak directly to your customers in a more meaningful way.",
-      href: "/",
-      icon: HomeIcon,
-    },
-    {
-      name: "ลงประกาศฟรี",
-      description: "Speak directly to your customers in a more meaningful way.",
-      href: "/login",
-      icon: PencilAltIcon,
-    },
-    {
-      name: "ติดต่อเรา",
-      description: "Speak directly to your customers in a more meaningful way.",
-      href: "/contact",
-      icon: MailIcon,
-    },
-  ];
 
   const userNavigation = [
     { name: "โปรไฟล์", href: "/profile" },
@@ -214,6 +214,7 @@ const Header = () => {
                     <div
                       className={`w-8 h-8 rounded-full border border-gray-200 `}
                     >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={`${user.photoURL || "/user.png"}`}
                         alt=""
@@ -301,6 +302,7 @@ const Header = () => {
                       <div
                         className={`w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200 `}
                       >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={`${user.photoURL || "/user.png"}`}
                           alt=""

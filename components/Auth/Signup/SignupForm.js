@@ -36,7 +36,7 @@ const SignupForm = () => {
 
   useEffect(() => {
     clearError();
-  }, []);
+  }, [clearError]);
 
   const handleCloseErrorModal = () => {
     clearError();

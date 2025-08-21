@@ -135,8 +135,10 @@ const MyPropertyList = () => {
               field: "image",
               custom: (item) => (
                 <div className="h-12 w-12 ">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.thumbnail}
+                    alt=""
                     className="h-12 w-12 object-cover rounded-sm"
                   />
                 </div>
