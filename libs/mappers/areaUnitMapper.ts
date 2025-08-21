@@ -1,19 +1,19 @@
-import { AreaUnit } from "../../src/types/misc/areaUnit";
+import { AreaUnit } from '../../src/types/misc/areaUnit';
 
 const areaUnits: AreaUnit[] = [
-  { id: "whole", label: "ยกแปลง", ignorePrefix: true },
-  { id: "sqm", label: "ตรม." },
-  { id: "sqw", label: "ตรว." },
-  { id: "ngan", label: "งาน" },
-  { id: "rai", label: "ไร่" },
+  { id: 'whole', label: 'ยกแปลง', ignorePrefix: true },
+  { id: 'sqm', label: 'ตรม.' },
+  { id: 'sqw', label: 'ตรว.' },
+  { id: 'ngan', label: 'งาน' },
+  { id: 'rai', label: 'ไร่' }
 ];
 
 const getAreaUnitById = (areaUnit: string): string => {
-  return areaUnits.find((a) => a.id === areaUnit)?.label || "";
+  return areaUnits.find((a) => a.id === areaUnit)?.label || '';
 };
 
 const getStandardAreaUnits = (): AreaUnit[] => {
-  return areaUnits.filter((a) => a.id !== "whole");
+  return areaUnits.filter((a) => a.id !== 'whole');
 };
 
 const getAllAreaUnits = (): AreaUnit[] => {

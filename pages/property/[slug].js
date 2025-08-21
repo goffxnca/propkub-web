@@ -1,11 +1,11 @@
-import Head from "next/head";
-import PostDetail from "../../components/Posts/PostDetail/PostDetail";
+import Head from 'next/head';
+import PostDetail from '../../components/Posts/PostDetail/PostDetail';
 import {
   genPropertyDescriptionMeta,
-  genPropertyTitleMeta,
-} from "../../libs/seo-utils";
-import { FetchPostByNumber, FetchSimilarPosts } from "../../libs/post-utils";
-import { BASE_SITE_URL } from "../../libs/constants";
+  genPropertyTitleMeta
+} from '../../libs/seo-utils';
+import { FetchPostByNumber, FetchSimilarPosts } from '../../libs/post-utils';
+import { BASE_SITE_URL } from '../../libs/constants';
 
 const PropertyDetailPage = ({ post, similarPosts }) => {
   return (
@@ -17,7 +17,7 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
           content={genPropertyDescriptionMeta(post.desc)}
           key="desc"
         />
-        <link rel="canonical" href={BASE_SITE_URL + "/property/" + post.slug} />
+        <link rel="canonical" href={BASE_SITE_URL + '/property/' + post.slug} />
 
         <meta property="og:title" content={post.title} />
         <meta
@@ -27,7 +27,7 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
         <meta property="og:image" content={post.thumbnail} />
         <meta
           property="og:url"
-          content={BASE_SITE_URL + "/property/" + post.slug}
+          content={BASE_SITE_URL + '/property/' + post.slug}
         />
       </Head>
       <PostDetail post={post} similarPosts={similarPosts} />
@@ -37,7 +37,7 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
 
 // Always fetch fresh post and similarPosts data from API (SSR)
 export async function getServerSideProps({ params }) {
-  const slugSegments = params.slug.split("_");
+  const slugSegments = params.slug.split('_');
   const postNumber = slugSegments[slugSegments.length - 1];
 
   const post = await FetchPostByNumber(postNumber);
@@ -46,9 +46,9 @@ export async function getServerSideProps({ params }) {
   return {
     props: {
       post,
-      similarPosts: similarPosts || [],
+      similarPosts: similarPosts || []
     },
-    notFound: !post,
+    notFound: !post
   };
 }
 

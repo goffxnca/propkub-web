@@ -1,4 +1,4 @@
-import { SpeakerphoneIcon, XIcon } from "@heroicons/react/outline";
+import { SpeakerphoneIcon, XIcon } from '@heroicons/react/outline';
 
 interface BannerProps {
   onAction?: () => void;

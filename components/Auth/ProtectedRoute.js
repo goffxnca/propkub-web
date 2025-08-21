@@ -1,16 +1,16 @@
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-import { authContext } from "../../contexts/authContext";
-import Loader from "../UI/Common/modals/Loader";
+import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { authContext } from '../../contexts/authContext';
+import Loader from '../UI/Common/modals/Loader';
 
-const ProtectedRoute = ({ children, redirectTo = "/" }) => {
+const ProtectedRoute = ({ children, redirectTo = '/' }) => {
   const { initializing, isAuthenticated } = useContext(authContext);
   const router = useRouter();
 
   useEffect(() => {
     if (!initializing && !isAuthenticated) {
       console.log(
-        "[Auth-Protected] User not authenticated, redirecting to:",
+        '[Auth-Protected] User not authenticated, redirecting to:',
         redirectTo
       );
       router.push(redirectTo);

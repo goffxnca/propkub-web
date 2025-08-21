@@ -1,23 +1,23 @@
-import { useRouter } from "next/router";
-import { useState } from "react";
-import Button from "../../UI/Public/Button";
-import TextInput from "../../UI/Public/Inputs/TextInput";
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import Button from '../../UI/Public/Button';
+import TextInput from '../../UI/Public/Inputs/TextInput';
 
 //TODO: comback and change this, not secure, passcode should be checked behind API
 const PasscodeVallidator = ({ passcode, onSuccess }) => {
   const router = useRouter();
   const [validating, setValidating] = useState(false);
-  const [inputPasscode, setInputPasscode] = useState("");
+  const [inputPasscode, setInputPasscode] = useState('');
   const [error, setError] = useState(null);
 
   const onClickButtonValidate = () => {
     if (!inputPasscode) {
-      return setError({ message: "กรอกรหัสแก้ไขประกาศ" });
+      return setError({ message: 'กรอกรหัสแก้ไขประกาศ' });
     }
     if (passcode === inputPasscode) {
       onSuccess();
     } else {
-      setError({ message: "รหัสแก้ไขประกาศไม่ถูกต้อง" });
+      setError({ message: 'รหัสแก้ไขประกาศไม่ถูกต้อง' });
     }
   };
 

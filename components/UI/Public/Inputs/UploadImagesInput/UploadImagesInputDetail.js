@@ -1,14 +1,14 @@
-import { useEffect, useRef, useState } from "react";
-import CirclePlus from "../../../../Icons/CirclePlus";
-import ImagePreviewItem from "./UploadImagePreviewItem";
-import InlineError from "../../InlineError";
-import { resizeFile } from "../../../../../libs/utils/file-utils";
+import { useEffect, useRef, useState } from 'react';
+import CirclePlus from '../../../../Icons/CirclePlus';
+import ImagePreviewItem from './UploadImagePreviewItem';
+import InlineError from '../../InlineError';
+import { resizeFile } from '../../../../../libs/utils/file-utils';
 
 const UploadImagesInputDetail = ({
   maxFile = 1,
   maxfileSizeMB = 10,
   onImageChange,
-  error,
+  error
 }) => {
   const fileRef = useRef();
 
@@ -40,8 +40,8 @@ const UploadImagesInputDetail = ({
 
     if (totalBrowsedFile + totalBrowsingFile > maxFile) {
       return setInlineError({
-        title: "แจ้งเตือน",
-        messages: [`อนุญาตให้อัพโหลดได้สูงสุดจำนวน ${maxFile} ไฟล์เท่านั้น`],
+        title: 'แจ้งเตือน',
+        messages: [`อนุญาตให้อัพโหลดได้สูงสุดจำนวน ${maxFile} ไฟล์เท่านั้น`]
       });
     }
 
@@ -49,7 +49,7 @@ const UploadImagesInputDetail = ({
     const tempOriginalFiles = [];
     const tempFileUrls = [];
 
-    const allowedFileTypes = ["image/jpg", "image/jpeg", "image/png"];
+    const allowedFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
     const errorMessages = [];
 
@@ -95,9 +95,9 @@ const UploadImagesInputDetail = ({
       console.log(
         `resize! from ${(file.size / 1024).toFixed(2)}kb to ${(
           resizedFile.size / 1024
-        ).toFixed(2)}kb = new file is now ${(
-          file.size / resizedFile.size
-        ).toFixed(2)}X smaller than old file`
+        ).toFixed(
+          2
+        )}kb = new file is now ${(file.size / resizedFile.size).toFixed(2)}X smaller than old file`
       );
     }
 
@@ -145,8 +145,8 @@ const UploadImagesInputDetail = ({
 
     if (errorMessages.length > 0) {
       setInlineError({
-        title: "ไม่สามารถอัพโหลดและพรีวิวไฟล์เหล่านี้ได้",
-        messages: errorMessages,
+        title: 'ไม่สามารถอัพโหลดและพรีวิวไฟล์เหล่านี้ได้',
+        messages: errorMessages
       });
     }
 
@@ -154,7 +154,7 @@ const UploadImagesInputDetail = ({
       setFiles((prevFiles) => [...prevFiles, ...tempFiles]);
       setOriginalFiles((prevOriginalFiles) => [
         ...prevOriginalFiles,
-        ...tempOriginalFiles,
+        ...tempOriginalFiles
       ]);
       setFileUrls((prevUrls) => [...prevUrls, ...tempFileUrls]);
     }
@@ -190,7 +190,7 @@ const UploadImagesInputDetail = ({
         {files.length < maxFile && (
           <div
             className={`border-2 border-dashed h-40 w-52 rounded-lg m-2 flex items-center justify-center ${
-              error && "border-red-300"
+              error && 'border-red-300'
             }`}
             onClick={addPlusClickHandler}
           >

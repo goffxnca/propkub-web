@@ -1,14 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import PageTitle from "../UI/Private/PageTitle";
-import { authContext } from "../../contexts/authContext";
-import Alert from "../UI/Public/Alert";
-import PersonalInfoSection from "./PersonalInfoSection";
-import ContactInfoSection from "./ContactInfoSection";
-import AccountDetailsSection from "./AccountDetailsSection";
-import AccountSecuritySection from "./AccountSecuritySection";
-import SocialConnectionsSection from "./SocialConnectionsSection";
-import Button from "../UI/Public/Button";
+import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import PageTitle from '../UI/Private/PageTitle';
+import { authContext } from '../../contexts/authContext';
+import Alert from '../UI/Public/Alert';
+import PersonalInfoSection from './PersonalInfoSection';
+import ContactInfoSection from './ContactInfoSection';
+import AccountDetailsSection from './AccountDetailsSection';
+import AccountSecuritySection from './AccountSecuritySection';
+import SocialConnectionsSection from './SocialConnectionsSection';
+import Button from '../UI/Public/Button';
 
 const ProfileScreen = ({ user }) => {
   const { isProfileComplete } = useContext(authContext);
@@ -24,7 +24,7 @@ const ProfileScreen = ({ user }) => {
     }
     if (!isProfileComplete) {
       messages.push(
-        "กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้"
+        'กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
       );
     }
     setWarningMessages(messages);
@@ -50,7 +50,7 @@ const ProfileScreen = ({ user }) => {
               type="submit"
               variant="primary"
               onClick={() => {
-                router.push("/account/posts/create");
+                router.push('/account/posts/create');
               }}
             >
               ลงประกาศ
@@ -65,7 +65,7 @@ const ProfileScreen = ({ user }) => {
             alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
             messages={warningMessages}
             showButton={true}
-            buttonLabel={"ตรวจสอบอีกครั้ง"}
+            buttonLabel={'ตรวจสอบอีกครั้ง'}
             onClick={() => {
               router.reload();
             }}

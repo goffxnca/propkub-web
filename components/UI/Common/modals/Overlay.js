@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const Overlay = ({ onClick, children }) => {
   const [isMounted, setMounted] = useState(false);
@@ -24,7 +24,7 @@ const Overlay = ({ onClick, children }) => {
         {children}
       </div>
     </>,
-    document.getElementById("overlay")
+    document.getElementById('overlay')
   );
 };
 

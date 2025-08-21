@@ -1,8 +1,8 @@
-import { ACCEPT_POST_FBSHARE, ACCEPT_POST_MSG } from "../../../libs/constants";
-import CheckboxInput from "../../UI/Public/Inputs/CheckboxInput";
+import { ACCEPT_POST_FBSHARE, ACCEPT_POST_MSG } from '../../../libs/constants';
+import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 
 const ConfirmSection = ({ register, unregister, errors }) => {
-  console.log("ConfirmSection");
+  console.log('ConfirmSection');
 
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -20,8 +20,8 @@ const ConfirmSection = ({ register, unregister, errors }) => {
                 id="accept"
                 label={ACCEPT_POST_MSG}
                 register={() =>
-                  register("accept", {
-                    required: "กรุณายืนยัน",
+                  register('accept', {
+                    required: 'กรุณายืนยัน'
                   })
                 }
                 unregister={unregister}

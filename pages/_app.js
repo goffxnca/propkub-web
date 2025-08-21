@@ -1,7 +1,7 @@
-import Head from "next/head";
-import MainLayout from "../components/Layouts/MainLayout";
-import { AuthContextProvider } from "../contexts/authContext";
-import "../styles/globals.css";
+import Head from 'next/head';
+import MainLayout from '../components/Layouts/MainLayout';
+import { AuthContextProvider } from '../contexts/authContext';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
   const getDefaultLayout = (page) => <MainLayout>{page}</MainLayout>;

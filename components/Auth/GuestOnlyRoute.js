@@ -10,7 +10,10 @@ const GuestOnlyRoute = ({ children, redirectTo = null }) => {
   useEffect(() => {
     if (isAuthenticated) {
       const destination = '/profile';
-      console.log('[Auth-GuestOnly] User authenticated, redirecting to:', destination);
+      console.log(
+        '[Auth-GuestOnly] User authenticated, redirecting to:',
+        destination
+      );
       router.push(destination);
     }
   }, [isAuthenticated, isAgent, router, redirectTo]);
@@ -22,4 +25,4 @@ const GuestOnlyRoute = ({ children, redirectTo = null }) => {
   return children;
 };
 
-export default GuestOnlyRoute; 
+export default GuestOnlyRoute;

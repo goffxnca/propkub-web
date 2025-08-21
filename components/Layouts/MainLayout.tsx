@@ -1,8 +1,8 @@
-import { useRouter } from "next/router";
-import Banner from "../Banner/Banner";
-import Footer from "./Footer";
-import Header from "./Header";
-import { ReactNode } from "react";
+import { useRouter } from 'next/router';
+import Banner from '../Banner/Banner';
+import Footer from './Footer';
+import Header from './Header';
+import { ReactNode } from 'react';
 // import UserSidebar from "./Sidebar";
 
 interface MainLayoutProps {
@@ -12,7 +12,7 @@ interface MainLayoutProps {
 const MainLayout = ({ children }: MainLayoutProps) => {
   const router = useRouter();
 
-  const isHomePage = router.pathname === "/";
+  const isHomePage = router.pathname === '/';
 
   // if (!isAuthenticated) {
   //   return;

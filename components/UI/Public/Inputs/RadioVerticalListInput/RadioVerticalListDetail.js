@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { RadioGroup } from "@headlessui/react";
-import { joinClasses } from "../../../../../libs/utils/style-utils";
+import { useState } from 'react';
+import { RadioGroup } from '@headlessui/react';
+import { joinClasses } from '../../../../../libs/utils/style-utils';
 
 const RadioVerticalListDetail = ({
   items = [],
   error,
-  onChange = () => {},
+  onChange = () => {}
 }) => {
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState('');
 
   const onChangeHandler = (value) => {
     setSelected(value);
@@ -18,9 +18,7 @@ const RadioVerticalListDetail = ({
     <RadioGroup value={selected} onChange={onChangeHandler}>
       <RadioGroup.Label className="sr-only">Privacy setting</RadioGroup.Label>
       <div
-        className={`bg-white rounded-md -space-y-px ${
-          error && "border border-red-300"
-        }`}
+        className={`bg-white rounded-md -space-y-px ${error && 'border border-red-300'}`}
       >
         {items.map((setting, settingIdx) => (
           <RadioGroup.Option
@@ -28,14 +26,14 @@ const RadioVerticalListDetail = ({
             value={setting.id}
             className={({ checked }) =>
               joinClasses(
-                settingIdx === 0 ? "rounded-tl-md rounded-tr-md" : "",
+                settingIdx === 0 ? 'rounded-tl-md rounded-tr-md' : '',
                 settingIdx === items.length - 1
-                  ? "rounded-bl-md rounded-br-md"
-                  : "",
+                  ? 'rounded-bl-md rounded-br-md'
+                  : '',
                 checked
-                  ? "bg-indigo-50 border-indigo-200 z-10"
-                  : "border-gray-200",
-                "relative border p-4 flex cursor-pointer focus:outline-none"
+                  ? 'bg-indigo-50 border-indigo-200 z-10'
+                  : 'border-gray-200',
+                'relative border p-4 flex cursor-pointer focus:outline-none'
               )
             }
           >
@@ -44,10 +42,10 @@ const RadioVerticalListDetail = ({
                 <span
                   className={joinClasses(
                     checked
-                      ? "bg-indigo-600 border-transparent"
-                      : "bg-white border-gray-300",
-                    active ? "ring-2 ring-offset-2 ring-indigo-500" : "",
-                    "h-4 w-4 mt-0.5 cursor-pointer shrink-0 rounded-full border flex items-center justify-center"
+                      ? 'bg-indigo-600 border-transparent'
+                      : 'bg-white border-gray-300',
+                    active ? 'ring-2 ring-offset-2 ring-indigo-500' : '',
+                    'h-4 w-4 mt-0.5 cursor-pointer shrink-0 rounded-full border flex items-center justify-center'
                   )}
                   aria-hidden="true"
                 >
@@ -57,8 +55,8 @@ const RadioVerticalListDetail = ({
                   <RadioGroup.Label
                     as="span"
                     className={joinClasses(
-                      checked ? "text-indigo-900" : "text-gray-900",
-                      "block text-sm font-medium"
+                      checked ? 'text-indigo-900' : 'text-gray-900',
+                      'block text-sm font-medium'
                     )}
                   >
                     {setting.name}
@@ -66,8 +64,8 @@ const RadioVerticalListDetail = ({
                   <RadioGroup.Description
                     as="span"
                     className={joinClasses(
-                      checked ? "text-indigo-700" : "text-gray-500",
-                      "block text-xs"
+                      checked ? 'text-indigo-700' : 'text-gray-500',
+                      'block text-xs'
                     )}
                   >
                     {setting.description}

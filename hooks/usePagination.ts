@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 interface PaginationResponse {
   items: any[];
@@ -31,7 +31,7 @@ const usePagination = (
 ): UsePaginationReturn => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(initialPerPage);
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -41,15 +41,15 @@ const usePagination = (
     pageSize: number = perPage
   ) => {
     setLoading(true);
-    setError("");
+    setError('');
 
     try {
       const response = await fetchFunction(pageNumber, pageSize);
       setData(response.items || []);
       setTotalCount(response.total_count || 0);
     } catch (err) {
-      console.error("Error fetching data:", err);
-      setError("เกิดข้อผิดพลาดในการโหลดข้อมูล");
+      console.error('Error fetching data:', err);
+      setError('เกิดข้อผิดพลาดในการโหลดข้อมูล');
       setData([]);
       setTotalCount(0);
     } finally {
@@ -102,7 +102,7 @@ const usePagination = (
     nextPage,
     prevPage,
     changePerPage,
-    refresh,
+    refresh
   };
 };
 

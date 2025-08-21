@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import BaseInput from "./BaseInput";
+import { useEffect } from 'react';
+import BaseInput from './BaseInput';
 
 const TextAreaInput = ({
   id,
@@ -11,11 +11,11 @@ const TextAreaInput = ({
   onChange,
   error,
   register = () => ({}),
-  unregister = () => ({}),
+  unregister = () => ({})
 }) => {
   const inputRingAndBorderStyle = error
-    ? "focus:ring-red-300  border-red-200 focus:border-red-300"
-    : "focus:ring-indigo-500 focus:border-indigo-500";
+    ? 'focus:ring-red-300  border-red-200 focus:border-red-300'
+    : 'focus:ring-indigo-500 focus:border-indigo-500';
 
   useEffect(() => {
     return () => {

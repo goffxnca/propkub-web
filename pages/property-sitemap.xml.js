@@ -5,7 +5,7 @@
 // to reduce backend load and serve a stale-but-recent sitemap (e.g., cache for 24h).
 // For now, be aware that every request triggers a full fetch of all active posts.
 
-import { getAllActivePostsForSitemap } from "../libs/post-utils";
+import { getAllActivePostsForSitemap } from '../libs/post-utils';
 
 function generateSiteMap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -19,7 +19,7 @@ function generateSiteMap(posts) {
        </url>
      `;
        })
-       .join("")}
+       .join('')}
    </urlset>
  `;
 }
@@ -27,18 +27,18 @@ function generateSiteMap(posts) {
 const PropertySitemap = () => {};
 
 export async function getServerSideProps({ res }) {
-  console.log("PROPERTY-SITEMAP.XML.JS -> getServerSideProps EXECUTED");
+  console.log('PROPERTY-SITEMAP.XML.JS -> getServerSideProps EXECUTED');
 
   const posts = await getAllActivePostsForSitemap();
   const sitemap = generateSiteMap(posts);
 
   // Send the XML to the browser
-  res.setHeader("Content-Type", "text/xml");
+  res.setHeader('Content-Type', 'text/xml');
   res.write(sitemap);
   res.end();
 
   return {
-    props: {},
+    props: {}
   };
 }
 

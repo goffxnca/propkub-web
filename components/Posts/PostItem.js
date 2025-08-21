@@ -1,13 +1,13 @@
-import { getIcon } from "../../libs/mappers/iconMapper";
-import { getPriceUnit } from "../../libs/mappers/priceUnitMapper";
-import { getPostType } from "../../libs/mappers/postTypeMapper";
-import { getAssetType } from "../../libs/mappers/assetTypeMapper";
-import { formatAddress } from "../../libs/formatters/addressFomatter";
-import LocationIcon from "../Icons/LocationIcon";
-import { useMemo } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import SpecItemWithCircle from "./Specs/SpecItemWithCircle";
+import { getIcon } from '../../libs/mappers/iconMapper';
+import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
+import { getPostType } from '../../libs/mappers/postTypeMapper';
+import { getAssetType } from '../../libs/mappers/assetTypeMapper';
+import { formatAddress } from '../../libs/formatters/addressFomatter';
+import LocationIcon from '../Icons/LocationIcon';
+import { useMemo } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import SpecItemWithCircle from './Specs/SpecItemWithCircle';
 
 const PostItem = ({
   id,
@@ -21,7 +21,7 @@ const PostItem = ({
   priceUnit,
   address,
   specs,
-  isStudio,
+  isStudio
 }) => {
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
 
@@ -30,10 +30,10 @@ const PostItem = ({
       isStudio
         ? [
             {
-              id: "studio",
-              label: "ห้องสตูดิโอ",
-              icon: getIcon("studio"),
-            },
+              id: 'studio',
+              label: 'ห้องสตูดิโอ',
+              icon: getIcon('studio')
+            }
           ]
         : [],
     [isStudio]
@@ -46,7 +46,7 @@ const PostItem = ({
           specs.map((spec) => ({
             ...spec,
             label: `${spec.value} ${spec.label}`,
-            icon: getIcon(spec.id),
+            icon: getIcon(spec.id)
           }))
         )
         .slice(0, 3),
@@ -57,7 +57,7 @@ const PostItem = ({
   const postTypeFormat = useMemo(() => getPostType(postType), [postType]);
   const assetTypeFormat = useMemo(() => getAssetType(assetType), [assetType]);
   const priceUnitFormat = useMemo(
-    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ""),
+    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ''),
     [priceUnit]
   );
   const addressFormat = useMemo(() => formatAddress(address), [address]);

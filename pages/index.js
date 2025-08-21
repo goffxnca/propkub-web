@@ -1,12 +1,12 @@
-import Head from "next/head";
+import Head from 'next/head';
 // import Link from "next/link";
 // import HeroBanner from "../components/Banner/HeroBanner";
 // import StatsBanner from "../components/Banner/Stats";
-import PostList from "../components/Posts/PostList";
-import { BASE_SITE_URL } from "../libs/constants";
-import { fetchProvinces } from "../libs/managers/addressManager";
-import { fetchActivePosts } from "../libs/post-utils";
-import { genPageTitle } from "../libs/seo-utils";
+import PostList from '../components/Posts/PostList';
+import { BASE_SITE_URL } from '../libs/constants';
+import { fetchProvinces } from '../libs/managers/addressManager';
+import { fetchActivePosts } from '../libs/post-utils';
+import { genPageTitle } from '../libs/seo-utils';
 
 const HomePage = ({ posts, provinces, hasError }) => {
   return (
@@ -34,7 +34,7 @@ export async function getStaticProps() {
   try {
     posts = await fetchActivePosts(process.env.HOMEPAGE_LIMIT);
   } catch (error) {
-    console.error("Failed to fetch posts for homepage:", error);
+    console.error('Failed to fetch posts for homepage:', error);
     hasError = true;
     posts = [];
   }
@@ -42,7 +42,7 @@ export async function getStaticProps() {
   try {
     provinces = await fetchProvinces();
   } catch (error) {
-    console.error("Failed to fetch provinces for homepage:", error);
+    console.error('Failed to fetch provinces for homepage:', error);
     hasError = true;
     provinces = [];
   }
@@ -51,8 +51,8 @@ export async function getStaticProps() {
     props: {
       posts: posts,
       provinces: provinces || [],
-      hasError: hasError,
-    },
+      hasError: hasError
+    }
   };
 
   /**

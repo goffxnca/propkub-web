@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import BaseInput from "./BaseInput";
+import { useEffect } from 'react';
+import BaseInput from './BaseInput';
 
 const TextWithUnitInput = ({
   id,
   unitId,
   unitDefaultValues = [],
-  unitDefaultValue = "",
+  unitDefaultValue = '',
   unitItems = [],
-  unitPrefix = "",
-  type = "number",
+  unitPrefix = '',
+  type = 'number',
   decimalPlaces = 0,
   label,
   placeholder,
@@ -17,7 +17,7 @@ const TextWithUnitInput = ({
   register = () => ({}),
   registerUnit = () => ({}),
   unregister = () => ({}),
-  setValue,
+  setValue
 }) => {
   useEffect(() => {
     if (unitItems.length === 0) {
@@ -26,7 +26,7 @@ const TextWithUnitInput = ({
       const defaultUnit =
         unitDefaultValue ||
         unitItems.find((u) => unitDefaultValues.includes(u.id))?.id ||
-        "";
+        '';
       if (defaultUnit) {
         if (setValue) {
           setTimeout(() => {
@@ -45,12 +45,12 @@ const TextWithUnitInput = ({
   }, []);
 
   const inputAttributes = {
-    step: decimalPlaces === 1 ? 0.1 : decimalPlaces === 2 ? 0.01 : 1,
+    step: decimalPlaces === 1 ? 0.1 : decimalPlaces === 2 ? 0.01 : 1
   };
 
   const inputRingAndBorderStyle = error
-    ? "focus:ring-red-300  border-red-200 focus:border-red-300"
-    : "focus:ring-indigo-500 focus:border-indigo-500";
+    ? 'focus:ring-red-300  border-red-200 focus:border-red-300'
+    : 'focus:ring-indigo-500 focus:border-indigo-500';
 
   return (
     <BaseInput id={id} label={label} error={error?.message}>
@@ -66,7 +66,7 @@ const TextWithUnitInput = ({
             type={type}
             name={id}
             className={`${inputRingAndBorderStyle} block w-full pr-12 sm:text-sm border-gray-300 rounded-md ${
-              leadingSlot && "pl-7"
+              leadingSlot && 'pl-7'
             }`}
             placeholder={placeholder}
             {...inputAttributes}
@@ -78,7 +78,7 @@ const TextWithUnitInput = ({
                 id={unitId}
                 name={unitId}
                 className={`${inputRingAndBorderStyle} h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md ${
-                  error && "rounded-l-none"
+                  error && 'rounded-l-none'
                 } text-right`}
                 {...registerUnit()}
               >

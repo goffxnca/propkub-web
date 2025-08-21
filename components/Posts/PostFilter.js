@@ -1,39 +1,39 @@
-import { Fragment, useEffect, useMemo, useState } from "react";
-import styles from "./PostFilter.module.css";
+import { Fragment, useEffect, useMemo, useState } from 'react';
+import styles from './PostFilter.module.css';
 
-import orderby from "lodash.orderby";
+import orderby from 'lodash.orderby';
 
-import LocationIcon from "../Icons/LocationIcon";
-import { SearchIcon, ArrowRightIcon } from "@heroicons/react/solid";
+import LocationIcon from '../Icons/LocationIcon';
+import { SearchIcon, ArrowRightIcon } from '@heroicons/react/solid';
 
-import regions from "../../data/regions.json";
+import regions from '../../data/regions.json';
 
-import { assetTypes } from "../../libs/mappers/assetTypeMapper";
+import { assetTypes } from '../../libs/mappers/assetTypeMapper';
 
-import SelectInput from "../UI/Public/Inputs/SelectInput";
+import SelectInput from '../UI/Public/Inputs/SelectInput';
 
-import Loader from "../UI/Common/modals/Loader";
-import { useRouter } from "next/router";
+import Loader from '../UI/Common/modals/Loader';
+import { useRouter } from 'next/router';
 import {
   fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
-  fetchSubDistrictsByDistrictId,
-} from "../../libs/managers/addressManager";
+  fetchSubDistrictsByDistrictId
+} from '../../libs/managers/addressManager';
 
 const postTypes = [
-  { id: "rent", label: "เช่า", searchFor: "rent" },
-  { id: "buy", label: "ซื้อ", searchFor: "sale" },
-  { id: "sale", label: "ลงประกาศ" },
+  { id: 'rent', label: 'เช่า', searchFor: 'rent' },
+  { id: 'buy', label: 'ซื้อ', searchFor: 'sale' },
+  { id: 'sale', label: 'ลงประกาศ' }
 ];
 
 const initialFilters = {
-  postType: "",
-  assetType: "",
-  regionId: "",
-  provinceId: "",
-  districtId: "",
-  subDistrictId: "",
-  loading: false,
+  postType: '',
+  assetType: '',
+  regionId: '',
+  provinceId: '',
+  districtId: '',
+  subDistrictId: '',
+  loading: false
 };
 
 const PostFilter = ({ onSearch, onReset }) => {
@@ -47,33 +47,33 @@ const PostFilter = ({ onSearch, onReset }) => {
   //computed
   const postTypeList = postTypes.map((postType) => ({
     ...postType,
-    isActive: searchFilter.postType.id === postType.id,
+    isActive: searchFilter.postType.id === postType.id
   }));
 
   const assetTypeList = assetTypes.map((assetType) => ({
     ...assetType,
-    isActive: searchFilter.assetType === assetType.id,
+    isActive: searchFilter.assetType === assetType.id
   }));
 
-  const regionList = useMemo(() => orderby(regions, "name", "asc"), []);
+  const regionList = useMemo(() => orderby(regions, 'name', 'asc'), []);
 
   //handlers
   const selectPostTypeHandler = (postType) => {
     if (postType.id !== searchFilter.postType.id) {
-      if (postType.id === "sale") {
-        router.push("/login");
+      if (postType.id === 'sale') {
+        router.push('/login');
       } else {
         setSearchFilter((state) => ({
           ...state,
           postType: { id: postType.id, searchFor: postType.searchFor },
-          assetType: "",
+          assetType: ''
         }));
       }
     }
   };
 
   const selectAssetTypeHandler = (assetType) => {
-    console.log("selectAssetTypeHandler");
+    console.log('selectAssetTypeHandler');
     setSearchFilter((state) => ({ ...state, assetType: assetType }));
   };
 
@@ -101,7 +101,7 @@ const PostFilter = ({ onSearch, onReset }) => {
   const subDistrictChangeHandler = (event) => {
     setSearchFilter((state) => ({
       ...state,
-      subDistrictId: event.target.value,
+      subDistrictId: event.target.value
     }));
   };
 
@@ -112,8 +112,8 @@ const PostFilter = ({ onSearch, onReset }) => {
 
   //useEffect
   useEffect(() => {
-    console.log("regionid changed!!");
-    setSearchFilter((state) => ({ ...state, provinceId: "" }));
+    console.log('regionid changed!!');
+    setSearchFilter((state) => ({ ...state, provinceId: '' }));
 
     if (searchFilter.regionId) {
       fetchProvincesByRegionId(searchFilter.regionId).then((result) => {
@@ -130,8 +130,8 @@ const PostFilter = ({ onSearch, onReset }) => {
   }, [searchFilter.regionId]);
 
   useEffect(() => {
-    console.log("provinceId changed!!");
-    setSearchFilter((state) => ({ ...state, districtId: "" }));
+    console.log('provinceId changed!!');
+    setSearchFilter((state) => ({ ...state, districtId: '' }));
 
     if (searchFilter.provinceId) {
       fetchDistrictsByProvinceId(searchFilter.provinceId).then((result) => {
@@ -143,8 +143,8 @@ const PostFilter = ({ onSearch, onReset }) => {
   }, [searchFilter.provinceId]);
 
   useEffect(() => {
-    console.log("districtId changed!!");
-    setSearchFilter((state) => ({ ...state, subDistrictId: "" }));
+    console.log('districtId changed!!');
+    setSearchFilter((state) => ({ ...state, subDistrictId: '' }));
 
     if (searchFilter.districtId) {
       fetchSubDistrictsByDistrictId(searchFilter.districtId).then((result) => {

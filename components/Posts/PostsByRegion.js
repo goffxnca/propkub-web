@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const PostByRegion = ({
   regionId,
   regionName,
   assetId,
   assetName,
-  provinces,
+  provinces
 }) => {
   return (
     <section className="mb-4">

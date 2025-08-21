@@ -1,31 +1,31 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import Modal from "../../components/UI/Public/Modal";
-import { apiClient } from "../../libs/client";
-import { CheckIcon, ExclamationCircleIcon } from "@heroicons/react/outline";
-import { genPageTitle } from "../../libs/seo-utils";
-import Head from "next/head";
-import Loader from "../../components/UI/Common/modals/Loader";
-import TextInput from "../../components/UI/Public/Inputs/TextInput";
-import Button from "../../components/UI/Public/Button";
-import { minLength, maxLength } from "../../libs/form-validator";
-import { t } from "../../libs/translator";
-import GuestOnlyRoute from "../../components/Auth/GuestOnlyRoute";
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import Modal from '../../components/UI/Public/Modal';
+import { apiClient } from '../../libs/client';
+import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/outline';
+import { genPageTitle } from '../../libs/seo-utils';
+import Head from 'next/head';
+import Loader from '../../components/UI/Common/modals/Loader';
+import TextInput from '../../components/UI/Public/Inputs/TextInput';
+import Button from '../../components/UI/Public/Button';
+import { minLength, maxLength } from '../../libs/form-validator';
+import { t } from '../../libs/translator';
+import GuestOnlyRoute from '../../components/Auth/GuestOnlyRoute';
 
 const ResetPasswordPage = () => {
   const router = useRouter();
   const { token } = router.query;
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [tokenValid, setTokenValid] = useState(null);
 
   const {
     register,
     unregister,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const ResetPasswordPage = () => {
         }
       } else if (router.isReady && !token) {
         setTokenValid(false);
-        setError("ลิ้งค์รีเซ็ตรหัสผ่านไม่ถูกต้องหรือหมดอายุ");
+        setError('ลิ้งค์รีเซ็ตรหัสผ่านไม่ถูกต้องหรือหมดอายุ');
       }
     };
 
@@ -50,13 +50,14 @@ const ResetPasswordPage = () => {
 
   const submitHandler = async (data) => {
     setLoading(true);
-    setError("");
-    
+    setError('');
+
     try {
       await apiClient.auth.resetPassword(token, data.newPassword);
       setSuccess(true);
     } catch (err) {
-      const errorMessage = t(err.message) || "เกิดข้อผิดพลาดในการรีเซ็ตรหัสผ่าน";
+      const errorMessage =
+        t(err.message) || 'เกิดข้อผิดพลาดในการรีเซ็ตรหัสผ่าน';
       setError(errorMessage);
     } finally {
       setLoading(false);
@@ -65,9 +66,9 @@ const ResetPasswordPage = () => {
 
   const handleClose = () => {
     if (success) {
-      router.push("/login");
+      router.push('/login');
     } else {
-      router.push("/");
+      router.push('/');
     }
   };
 
@@ -77,7 +78,7 @@ const ResetPasswordPage = () => {
       {tokenValid === null && (
         <>
           <Head>
-            <title>{genPageTitle("รีเซ็ตรหัสผ่าน")}</title>
+            <title>{genPageTitle('รีเซ็ตรหัสผ่าน')}</title>
           </Head>
           <Loader />
         </>
@@ -87,7 +88,7 @@ const ResetPasswordPage = () => {
       {success && (
         <>
           <Head>
-            <title>{genPageTitle("รีเซ็ตรหัสผ่าน")}</title>
+            <title>{genPageTitle('รีเซ็ตรหัสผ่าน')}</title>
           </Head>
           <Modal
             visible={true}
@@ -105,7 +106,7 @@ const ResetPasswordPage = () => {
       {(!tokenValid || error) && !success && tokenValid !== null && (
         <>
           <Head>
-            <title>{genPageTitle("รีเซ็ตรหัสผ่าน")}</title>
+            <title>{genPageTitle('รีเซ็ตรหัสผ่าน')}</title>
           </Head>
           <Modal
             visible={true}
@@ -123,9 +124,9 @@ const ResetPasswordPage = () => {
       {tokenValid && !success && (
         <>
           <Head>
-            <title>{genPageTitle("รีเซ็ตรหัสผ่าน")}</title>
+            <title>{genPageTitle('รีเซ็ตรหัสผ่าน')}</title>
           </Head>
-          
+
           <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
               <h2 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
@@ -138,17 +139,19 @@ const ResetPasswordPage = () => {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
               <div className="bg-white py-8 px-4 shadow rounded-lg sm:px-10 mx-2">
-                
-                <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
+                <form
+                  className="space-y-6"
+                  onSubmit={handleSubmit(submitHandler)}
+                >
                   <TextInput
                     id="newPassword"
                     label="รหัสผ่านใหม่"
                     type="password"
                     register={() =>
-                      register("newPassword", {
-                        required: "กรุณาระบุรหัสผ่านใหม่",
-                        minLength: { ...minLength(6, "รหัสผ่าน") },
-                        maxLength: { ...maxLength(64, "รหัสผ่าน") },
+                      register('newPassword', {
+                        required: 'กรุณาระบุรหัสผ่านใหม่',
+                        minLength: { ...minLength(6, 'รหัสผ่าน') },
+                        maxLength: { ...maxLength(64, 'รหัสผ่าน') }
                       })
                     }
                     unregister={unregister}
@@ -160,10 +163,10 @@ const ResetPasswordPage = () => {
                     label="ยืนยันรหัสผ่านใหม่"
                     type="password"
                     register={() =>
-                      register("confirmPassword", {
-                        required: "กรุณายืนยันรหัสผ่านใหม่",
+                      register('confirmPassword', {
+                        required: 'กรุณายืนยันรหัสผ่านใหม่',
                         validate: (value, { newPassword }) =>
-                          value === newPassword || "รหัสผ่านไม่ตรงกัน",
+                          value === newPassword || 'รหัสผ่านไม่ตรงกัน'
                       })
                     }
                     unregister={unregister}
@@ -174,7 +177,10 @@ const ResetPasswordPage = () => {
                     <div className="rounded-md bg-red-50 p-4">
                       <div className="flex">
                         <div className="flex-shrink-0">
-                          <ExclamationCircleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+                          <ExclamationCircleIcon
+                            className="h-5 w-5 text-red-400"
+                            aria-hidden="true"
+                          />
                         </div>
                         <div className="ml-3">
                           <div className="text-sm text-red-800">{error}</div>
@@ -189,7 +195,6 @@ const ResetPasswordPage = () => {
                     </Button>
                   </div>
                 </form>
-
               </div>
             </div>
           </div>
@@ -199,4 +204,4 @@ const ResetPasswordPage = () => {
   );
 };
 
-export default ResetPasswordPage; 
+export default ResetPasswordPage;

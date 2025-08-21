@@ -1,30 +1,35 @@
-import { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { useForm } from "react-hook-form";
-import { MailIcon, CheckIcon, ExclamationCircleIcon, XIcon } from "@heroicons/react/outline";
-import TextInput from "../UI/Public/Inputs/TextInput";
-import Button from "../UI/Public/Button";
-import { EmailPattern } from "../../libs/form-validator";
-import { apiClient } from "../../libs/client";
-import { t } from "../../libs/translator";
+import { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { useForm } from 'react-hook-form';
+import {
+  MailIcon,
+  CheckIcon,
+  ExclamationCircleIcon,
+  XIcon
+} from '@heroicons/react/outline';
+import TextInput from '../UI/Public/Inputs/TextInput';
+import Button from '../UI/Public/Button';
+import { EmailPattern } from '../../libs/form-validator';
+import { apiClient } from '../../libs/client';
+import { t } from '../../libs/translator';
 
 const ForgotPasswordModal = ({ visible, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
   const [isProviderError, setIsProviderError] = useState(false);
-  
+
   const {
     register,
     unregister,
     handleSubmit,
     formState: { errors },
-    reset,
+    reset
   } = useForm();
 
   const handleClose = () => {
     reset();
-    setError("");
+    setError('');
     setSuccess(false);
     setLoading(false);
     setIsProviderError(false);
@@ -33,21 +38,26 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
 
   const submitHandler = async (data) => {
     setLoading(true);
-    setError("");
-    
+    setError('');
+
     try {
       const response = await apiClient.auth.forgotPassword(data.email);
-      
+
       // Check if response contains provider-specific messages (should be treated as errors)
-      if (response.message && response.message.includes("This account was registered with")) {
-        const errorMessage = t(response.message) || "เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน";
+      if (
+        response.message &&
+        response.message.includes('This account was registered with')
+      ) {
+        const errorMessage =
+          t(response.message) || 'เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน';
         setError(errorMessage);
         setIsProviderError(true);
       } else {
         setSuccess(true);
       }
     } catch (err) {
-      const errorMessage = t(err.message) || "เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน";
+      const errorMessage =
+        t(err.message) || 'เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน';
       setError(errorMessage);
     } finally {
       setLoading(false);
@@ -83,17 +93,23 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
               >
                 <Dialog.Panel className="relative bg-white rounded-lg px-6 py-8 text-center overflow-hidden shadow-xl transform transition-all w-full max-w-sm">
                   <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
-                    <CheckIcon className="h-8 w-8 text-green-600" aria-hidden="true" />
+                    <CheckIcon
+                      className="h-8 w-8 text-green-600"
+                      aria-hidden="true"
+                    />
                   </div>
-                  
-                  <Dialog.Title as="h3" className="text-xl font-semibold text-gray-900 mb-2">
+
+                  <Dialog.Title
+                    as="h3"
+                    className="text-xl font-semibold text-gray-900 mb-2"
+                  >
                     ส่งอีเมลสำเร็จ
                   </Dialog.Title>
-                  
+
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     เราได้ส่งลิ้งค์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว
                   </p>
-                  
+
                   <button
                     type="button"
                     className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
@@ -139,17 +155,21 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
               >
                 <Dialog.Panel className="relative bg-white rounded-lg px-6 py-8 text-center overflow-hidden shadow-xl transform transition-all w-full max-w-sm">
                   <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
-                    <ExclamationCircleIcon className="h-8 w-8 text-blue-600" aria-hidden="true" />
+                    <ExclamationCircleIcon
+                      className="h-8 w-8 text-blue-600"
+                      aria-hidden="true"
+                    />
                   </div>
-                  
-                  <Dialog.Title as="h3" className="text-xl font-semibold text-gray-900 mb-2">
+
+                  <Dialog.Title
+                    as="h3"
+                    className="text-xl font-semibold text-gray-900 mb-2"
+                  >
                     โปรดเข้าสู่ระบบด้วยวิธีอื่น
                   </Dialog.Title>
-                  
-                  <p className="text-gray-600 mb-6 leading-relaxed">
-                    {error}
-                  </p>
-                  
+
+                  <p className="text-gray-600 mb-6 leading-relaxed">{error}</p>
+
                   <button
                     type="button"
                     className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
@@ -202,28 +222,37 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                     <XIcon className="h-5 w-5" aria-hidden="true" />
                   </button>
                 </div>
-                
+
                 <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 mb-4">
-                  <MailIcon className="h-8 w-8 text-blue-600" aria-hidden="true" />
+                  <MailIcon
+                    className="h-8 w-8 text-blue-600"
+                    aria-hidden="true"
+                  />
                 </div>
-                
-                <Dialog.Title as="h3" className="text-xl font-semibold text-gray-900 mb-2">
+
+                <Dialog.Title
+                  as="h3"
+                  className="text-xl font-semibold text-gray-900 mb-2"
+                >
                   ลืมรหัสผ่าน?
                 </Dialog.Title>
-                
+
                 <p className="text-gray-600 mb-6">
                   กรอกอีเมลของคุณ เราจะส่งลิ้งค์รีเซ็ตให้คุณ
                 </p>
 
-                <form className="space-y-4" onSubmit={handleSubmit(submitHandler)}>
+                <form
+                  className="space-y-4"
+                  onSubmit={handleSubmit(submitHandler)}
+                >
                   <div className="text-left">
                     <TextInput
                       id="email"
                       label="อีเมล"
                       register={() =>
-                        register("email", {
-                          required: "กรุณาระบุอีเมล",
-                          pattern: EmailPattern(),
+                        register('email', {
+                          required: 'กรุณาระบุอีเมล',
+                          pattern: EmailPattern()
                         })
                       }
                       unregister={unregister}
@@ -235,7 +264,10 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                   {error && (
                     <div className="text-left rounded-md bg-red-50 p-3">
                       <div className="flex">
-                        <ExclamationCircleIcon className="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                        <ExclamationCircleIcon
+                          className="h-5 w-5 text-red-400 mt-0.5 flex-shrink-0"
+                          aria-hidden="true"
+                        />
                         <div className="ml-2 text-sm text-red-800">{error}</div>
                       </div>
                     </div>
@@ -268,4 +300,4 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
   );
 };
 
-export default ForgotPasswordModal; 
+export default ForgotPasswordModal;
