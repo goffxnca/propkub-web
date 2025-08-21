@@ -64,6 +64,7 @@ const LocationSection = ({
     } else {
       setProvinceList([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchRegionId]);
 
   useEffect(() => {
@@ -77,6 +78,7 @@ const LocationSection = ({
     } else {
       setDistrictList([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchProvinceId]);
 
   useEffect(() => {
@@ -90,6 +92,7 @@ const LocationSection = ({
     } else {
       setSubDistrictList([]);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchDistrictId]);
 
   const renderMap = () => {
@@ -139,12 +142,14 @@ const LocationSection = ({
         setValue('address.location', null);
       }, 1000);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchSubDistrictId]);
 
   useEffect(() => {
     if (!mapSearchQuotaRemaining) {
       setValue('searchAddress', '');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapSearchQuotaRemaining]);
 
   // useEffect(() => {

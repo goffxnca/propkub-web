@@ -20,6 +20,7 @@ const ProfileImageInput = ({
     return () => {
       unregister(id);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fileRef = useRef();
@@ -39,6 +40,7 @@ const ProfileImageInput = ({
         { shouldValidate: true, shouldDirty: true }
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileUrl, file]);
 
   const filesSelectedHandler = (event) => {

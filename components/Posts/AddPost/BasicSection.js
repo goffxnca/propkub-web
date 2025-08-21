@@ -45,6 +45,8 @@ const BasicSection = ({
     if (isLand && !isEditMode) {
       setValue('landUnit', 'rai');
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLand]);
 
   return (

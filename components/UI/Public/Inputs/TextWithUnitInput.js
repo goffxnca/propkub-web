@@ -35,6 +35,7 @@ const TextWithUnitInput = ({
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unitItems.length]);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const TextWithUnitInput = ({
       unregister(id);
       unregister(unitId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const inputAttributes = {
