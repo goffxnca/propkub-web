@@ -28,6 +28,7 @@ const UploadImagesInputDetail = ({
     } else {
       setIsMounted(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [files.length]);
 
   //multiple support

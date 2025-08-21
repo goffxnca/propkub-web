@@ -13,6 +13,7 @@ const CheckboxGroupInput = ({
     return () => {
       unregister(id);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   return (

@@ -55,6 +55,7 @@ const TextEditorInput = ({
       unregister(id);
       unregister(idForRawContent);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
