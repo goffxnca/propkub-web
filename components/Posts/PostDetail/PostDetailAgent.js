@@ -1,33 +1,33 @@
-import { PhoneIcon } from "@heroicons/react/solid";
-import LineBreak from "../../UI/Public/LineBreak";
-import Button from "../../UI/Public/Button";
-import Image from "next/image";
-import { useState } from "react";
-import LinkButton from "../../UI/Public/LinkButton";
-import LineIcon from "../../Icons/LineIcon";
+import { PhoneIcon } from '@heroicons/react/solid';
+import LineBreak from '../../UI/Public/LineBreak';
+import Button from '../../UI/Public/Button';
+import Image from 'next/image';
+import { useState } from 'react';
+import LinkButton from '../../UI/Public/LinkButton';
+import LineIcon from '../../Icons/LineIcon';
 import {
   increasePhoneView,
-  increaseLineView,
-} from "../../../libs/managers/postManager";
-import { getLineUrl } from "../../../libs/string-utils";
+  increaseLineView
+} from '../../../libs/managers/postManager';
+import { getLineUrl } from '../../../libs/string-utils';
 
 const PostDetailAgent = ({ postId, postOwner }) => {
   const [phoneVisible, setPhoneVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const handlePhoneClick = async () => {
     if (phoneVisible) return;
 
     setIsLoading(true);
-    setError("");
+    setError('');
 
     try {
       await increasePhoneView(postId);
       setPhoneVisible(true);
     } catch (error) {
-      console.error("Failed to increase phone view:", error);
-      setError("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      console.error('Failed to increase phone view:', error);
+      setError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
     } finally {
       setIsLoading(false);
     }
@@ -35,13 +35,13 @@ const PostDetailAgent = ({ postId, postOwner }) => {
 
   const handleLineClick = async () => {
     setIsLoading(true);
-    setError("");
+    setError('');
 
     try {
       await increaseLineView(postId);
     } catch (error) {
-      console.error("Failed to increase line view:", error);
-      setError("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      console.error('Failed to increase line view:', error);
+      setError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
     } finally {
       setIsLoading(false);
     }
@@ -53,7 +53,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
         <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={`${postOwner.profileImg || "/user.png"}`}
+            src={`${postOwner.profileImg || '/user.png'}`}
             alt=""
             className="w-full h-full object-cover"
           ></img>
@@ -84,9 +84,9 @@ const PostDetailAgent = ({ postId, postOwner }) => {
                 {postOwner.phone} (คลิกเพื่อโทรออก)
               </a>
             ) : isLoading ? (
-              "กำลังดึงข้อมูล"
+              'กำลังดึงข้อมูล'
             ) : (
-              "(คลิกเพื่อโชว์หมายเลข)"
+              '(คลิกเพื่อโชว์หมายเลข)'
             )}
           </Button>
 
@@ -97,7 +97,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
             disabled={isLoading}
           >
             <LineIcon className="text-green-500 md:w-6 md:h-6 mr-1" />
-            {isLoading ? "กำลังดึงข้อมูล..." : "แอดไลน์"}
+            {isLoading ? 'กำลังดึงข้อมูล...' : 'แอดไลน์'}
           </LinkButton>
 
           {error && <div className="mt-2 text-sm text-red-600">{error}</div>}

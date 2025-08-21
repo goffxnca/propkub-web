@@ -1,13 +1,13 @@
-import { useEffect } from "react";
-import BaseInput from "./BaseInput";
-import CheckboxInput from "./CheckboxInput";
+import { useEffect } from 'react';
+import BaseInput from './BaseInput';
+import CheckboxInput from './CheckboxInput';
 
 const CheckboxGroupInput = ({
   id,
   groupLabel,
   items,
   register = () => ({}),
-  unregister = () => ({}),
+  unregister = () => ({})
 }) => {
   useEffect(() => {
     return () => {

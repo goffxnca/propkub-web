@@ -1,10 +1,10 @@
-import { PhoneIcon } from "@heroicons/react/solid";
-import LineBreak from "../../UI/Public/LineBreak";
-import Button from "../../UI/Public/Button";
-import Image from "next/image";
-import { useState } from "react";
-import LinkButton from "../../UI/Public/LinkButton";
-import LineIcon from "../../Icons/LineIcon";
+import { PhoneIcon } from '@heroicons/react/solid';
+import LineBreak from '../../UI/Public/LineBreak';
+import Button from '../../UI/Public/Button';
+import Image from 'next/image';
+import { useState } from 'react';
+import LinkButton from '../../UI/Public/LinkButton';
+import LineIcon from '../../Icons/LineIcon';
 
 const PostDetailControlArea = ({ agentInfo, isSold }) => {
   const [phoneVisible, setPhoneVisible] = useState(false);

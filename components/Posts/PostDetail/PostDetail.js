@@ -1,18 +1,18 @@
-import { getStatusLabelById } from "../../../libs/mappers/statusMapper";
-import Card from "../../UI/Public/Card";
-import PostImageGallery from "../PostImageGallery";
-import PostDetailAgent from "./PostDetailAgent";
-import PostDetailBody from "./PostDetailBody";
-import SimilarPosts from "./SimilarPosts";
+import { getStatusLabelById } from '../../../libs/mappers/statusMapper';
+import Card from '../../UI/Public/Card';
+import PostImageGallery from '../PostImageGallery';
+import PostDetailAgent from './PostDetailAgent';
+import PostDetailBody from './PostDetailBody';
+import SimilarPosts from './SimilarPosts';
 
 const PostDetail = ({ post, similarPosts }) => {
   const images = post.images.map((image) => ({
     original: image,
-    thumbnail: image,
+    thumbnail: image
   }));
 
   const titleStatusPrefix =
-    post.status === "active" ? "" : `(${getStatusLabelById(post.status)}) `;
+    post.status === 'active' ? '' : `(${getStatusLabelById(post.status)}) `;
 
   return (
     <div className="max-w-7xl m-auto p-2 ">

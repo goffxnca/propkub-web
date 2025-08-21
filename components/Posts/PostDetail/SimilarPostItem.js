@@ -1,9 +1,9 @@
-import Image from "next/image";
-import Link from "next/link";
-import { useMemo } from "react";
-import { getAssetType } from "../../../libs/mappers/assetTypeMapper";
-import { getPostType } from "../../../libs/mappers/postTypeMapper";
-import { getPriceUnit } from "../../../libs/mappers/priceUnitMapper";
+import Image from 'next/image';
+import Link from 'next/link';
+import { useMemo } from 'react';
+import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
+import { getPostType } from '../../../libs/mappers/postTypeMapper';
+import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 
 const SimilarPostItem = ({
   id,
@@ -18,7 +18,7 @@ const SimilarPostItem = ({
   priceUnit,
   address,
   specs,
-  isStudio,
+  isStudio
 }) => {
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
 
@@ -26,7 +26,7 @@ const SimilarPostItem = ({
   const postTypeFormat = useMemo(() => getPostType(postType), [postType]);
   const assetTypeFormat = useMemo(() => getAssetType(assetType), [assetType]);
   const priceUnitFormat = useMemo(
-    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ""),
+    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ''),
     [priceUnit]
   );
 

@@ -1,4 +1,4 @@
-import { resolveColumnValue } from "../../../../libs/utils/datatable-utils";
+import { resolveColumnValue } from '../../../../libs/utils/datatable-utils';
 
 const DataTable = ({ items = [], columns = [], onRowClick = () => {} }) => {
   return (

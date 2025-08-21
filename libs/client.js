@@ -1,14 +1,14 @@
-import axios from "axios";
-import { tokenManager } from "./tokenManager";
-import { envConfig } from "./envConfig";
-import { sleep } from "./misc";
+import axios from 'axios';
+import { tokenManager } from './tokenManager';
+import { envConfig } from './envConfig';
+import { sleep } from './misc';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 apiInstance.interceptors.request.use(
@@ -30,7 +30,7 @@ apiInstance.interceptors.response.use(
   },
   (error) => {
     const errorMessage =
-      error.response?.data?.message || error.message || "API request failed";
+      error.response?.data?.message || error.message || 'API request failed';
     throw new Error(errorMessage);
   }
 );
@@ -40,15 +40,15 @@ const serverApiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
   timeout: 10000,
   headers: {
-    "Content-Type": "application/json",
-  },
+    'Content-Type': 'application/json'
+  }
 });
 
 serverApiInstance.interceptors.request.use(
   (config) => {
     const apiKey = envConfig.apiKey();
     if (apiKey) {
-      config.headers["x-api-key"] = apiKey;
+      config.headers['x-api-key'] = apiKey;
     }
     return config;
   },
@@ -63,7 +63,7 @@ serverApiInstance.interceptors.response.use(
   },
   (error) => {
     const errorMessage =
-      error.response?.data?.message || error.message || "API request failed";
+      error.response?.data?.message || error.message || 'API request failed';
     throw new Error(errorMessage);
   }
 );
@@ -71,65 +71,65 @@ serverApiInstance.interceptors.response.use(
 export const apiClient = {
   auth: {
     async signup(name, email, password, isAgent) {
-      return apiInstance.post("/auth/register", {
+      return apiInstance.post('/auth/register', {
         name,
         email,
         password,
-        isAgent,
+        isAgent
       });
     },
 
     async login(email, password) {
-      return apiInstance.post("/auth/login", {
+      return apiInstance.post('/auth/login', {
         email,
-        password,
+        password
       });
     },
 
     async getProfile() {
-      return apiInstance.get("/auth/profile");
+      return apiInstance.get('/auth/profile');
     },
 
     async verifyEmail(vtoken) {
-      return apiInstance.get("/auth/verify-email", {
-        params: { vtoken },
+      return apiInstance.get('/auth/verify-email', {
+        params: { vtoken }
       });
     },
 
     async forgotPassword(email) {
-      return apiInstance.post("/auth/forgot-password", {
-        email,
+      return apiInstance.post('/auth/forgot-password', {
+        email
       });
     },
 
     async validateResetToken(token) {
-      return apiInstance.get("/auth/validate-reset-token", {
-        params: { token },
+      return apiInstance.get('/auth/validate-reset-token', {
+        params: { token }
       });
     },
 
     async resetPassword(token, newPassword) {
-      return apiInstance.post("/auth/reset-password", {
+      return apiInstance.post('/auth/reset-password', {
         token,
-        newPassword,
+        newPassword
       });
     },
 
     async updatePassword(currentPassword, newPassword) {
-      return apiInstance.post("/auth/update-password", {
+      return apiInstance.post('/auth/update-password', {
         currentPassword,
-        newPassword,
+        newPassword
       });
     },
 
     async updateProfile(profileData) {
-      return apiInstance.patch("/auth/profile", profileData);
-    },
+      return apiInstance.patch('/auth/profile', profileData);
+    }
   },
 
   provinces: {
     async getAll() {
-      return apiInstance.get("/provinces");
+      return apiInstance.get('/provinces');
     },
 
     async getById(id) {
@@ -138,7 +138,7 @@ export const apiClient = {
 
     async getByRegionId(regionId) {
       return apiInstance.get(`/provinces?regionId=${regionId}`);
-    },
+    }
   },
 
   districts: {
@@ -148,7 +148,7 @@ export const apiClient = {
 
     async getByProvinceId(provinceId) {
       return apiInstance.get(`/districts/province/${provinceId}`);
-    },
+    }
   },
 
   subDistricts: {
@@ -158,12 +158,12 @@ export const apiClient = {
 
     async getByDistrictId(districtId) {
       return apiInstance.get(`/subDistricts/district/${districtId}`);
-    },
+    }
   },
 
   posts: {
     async create(postData) {
-      return apiInstance.post("/posts", postData);
+      return apiInstance.post('/posts', postData);
     },
 
     async update(postId, postData) {
@@ -183,7 +183,7 @@ export const apiClient = {
     },
 
     async getMyPostsStats() {
-      return apiInstance.get("/posts/me/stats");
+      return apiInstance.get('/posts/me/stats');
     },
 
     async closePost(postId) {
@@ -191,14 +191,14 @@ export const apiClient = {
     },
 
     async getSimilarPosts(postId) {
-      return serverApiInstance.get("/posts/similar", {
-        params: { postId },
+      return serverApiInstance.get('/posts/similar', {
+        params: { postId }
       });
     },
 
     async getAllPosts(page, per_page) {
-      return serverApiInstance.get("/posts", {
-        params: { page, per_page },
+      return serverApiInstance.get('/posts', {
+        params: { page, per_page }
       });
     },
 
@@ -208,31 +208,31 @@ export const apiClient = {
       regionId,
       provinceId,
       districtId,
-      subDistrictId,
+      subDistrictId
     }) {
-      return apiInstance.post("/posts/search", {
+      return apiInstance.post('/posts/search', {
         postType,
         assetType,
         regionId,
         provinceId,
         districtId,
-        subDistrictId,
+        subDistrictId
       });
     },
 
     async increasePostStats(postId, statType) {
       await sleep(1);
       return apiInstance.post(`/posts/${postId}/stats`, {
-        statType,
+        statType
       });
     },
 
     async getLatestActiveForSitemap() {
-      return serverApiInstance.get("/posts/latest-active-sitemap");
+      return serverApiInstance.get('/posts/latest-active-sitemap');
     },
 
     async getAllActiveForSitemap() {
-      return serverApiInstance.get("/posts/all-active-sitemap");
-    },
-  },
+      return serverApiInstance.get('/posts/all-active-sitemap');
+    }
+  }
 };

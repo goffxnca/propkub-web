@@ -1,5 +1,5 @@
-import { Fragment, useContext, useEffect, useState } from "react";
-import { Popover, Transition, Menu } from "@headlessui/react";
+import { Fragment, useContext, useEffect, useState } from 'react';
+import { Popover, Transition, Menu } from '@headlessui/react';
 import {
   MenuIcon,
   XIcon,
@@ -11,93 +11,93 @@ import {
   FlagIcon,
   QuestionMarkCircleIcon,
   MailIcon,
-  PencilAltIcon,
-} from "@heroicons/react/outline";
-import Link from "next/link";
-import Logo from "./Logo";
-import Banner from "../Banner/Banner";
-import { authContext } from "../../contexts/authContext";
-import { joinClasses } from "../../libs/utils/style-utils";
-import { ChevronDownIcon } from "@heroicons/react/solid";
-import { ChatIcon } from "@heroicons/react/solid";
-import MenuLinkItem from "../UI/Public/MenuLinkItem";
-import Image from "next/image";
-import TownhomeIcon from "../Icons/HeroIconsV2/Townhome";
-import ShopIcon from "../Icons/HeroIconsV2/Shop";
+  PencilAltIcon
+} from '@heroicons/react/outline';
+import Link from 'next/link';
+import Logo from './Logo';
+import Banner from '../Banner/Banner';
+import { authContext } from '../../contexts/authContext';
+import { joinClasses } from '../../libs/utils/style-utils';
+import { ChevronDownIcon } from '@heroicons/react/solid';
+import { ChatIcon } from '@heroicons/react/solid';
+import MenuLinkItem from '../UI/Public/MenuLinkItem';
+import Image from 'next/image';
+import TownhomeIcon from '../Icons/HeroIconsV2/Townhome';
+import ShopIcon from '../Icons/HeroIconsV2/Shop';
 
 const authenticatedMobileMenus = [
   {
-    name: "โปรไฟล์",
+    name: 'โปรไฟล์',
     description: "Your customers' data will be safe and secure.",
-    href: "/profile",
-    icon: UserIcon,
+    href: '/profile',
+    icon: UserIcon
   },
   {
-    name: "ออกจากระบบ",
+    name: 'ออกจากระบบ',
     description: "Your customers' data will be safe and secure.",
-    href: "",
+    href: '',
     onClick: () => {
-      signout("/");
+      signout('/');
     },
-    icon: LogoutIcon,
-  },
+    icon: LogoutIcon
+  }
 ];
 
 const agentUserMobileMenus = [
   {
-    name: "หน้าแรก",
+    name: 'หน้าแรก',
     description: "Your customers' data will be safe and secure.",
-    href: "/",
-    icon: HomeIcon,
+    href: '/',
+    icon: HomeIcon
   },
   {
-    name: "โปรไฟล์",
+    name: 'โปรไฟล์',
     description: "Your customers' data will be safe and secure.",
-    href: "/profile",
-    icon: UserIcon,
+    href: '/profile',
+    icon: UserIcon
   },
   {
-    name: "แดชบอร์ด",
+    name: 'แดชบอร์ด',
     description: "Your customers' data will be safe and secure.",
-    href: "/dashboard",
-    icon: ChartPieIcon,
+    href: '/dashboard',
+    icon: ChartPieIcon
   },
   {
-    name: "ลงประกาศ",
+    name: 'ลงประกาศ',
     description: "Your customers' data will be safe and secure.",
-    href: "/account/posts/create",
-    icon: PencilAltIcon,
+    href: '/account/posts/create',
+    icon: PencilAltIcon
   },
   {
-    name: "ออกจากระบบ",
+    name: 'ออกจากระบบ',
     description: "Your customers' data will be safe and secure.",
-    href: "",
+    href: '',
     onClick: () => {
-      signout("/");
+      signout('/');
     },
-    icon: LogoutIcon,
-  },
+    icon: LogoutIcon
+  }
 ];
 
 const normalUserMobileMenus = [
   {
-    name: "หน้าแรก",
-    description: "Speak directly to your customers in a more meaningful way.",
-    href: "/",
-    icon: HomeIcon,
+    name: 'หน้าแรก',
+    description: 'Speak directly to your customers in a more meaningful way.',
+    href: '/',
+    icon: HomeIcon
   },
   {
-    name: "ลงประกาศฟรี",
-    description: "Speak directly to your customers in a more meaningful way.",
-    href: "/login",
-    icon: PencilAltIcon,
+    name: 'ลงประกาศฟรี',
+    description: 'Speak directly to your customers in a more meaningful way.',
+    href: '/login',
+    icon: PencilAltIcon
   },
   {
-    name: "ติดต่อเรา",
-    description: "Speak directly to your customers in a more meaningful way.",
-    href: "/contact",
-    icon: MailIcon,
-  },
+    name: 'ติดต่อเรา',
+    description: 'Speak directly to your customers in a more meaningful way.',
+    href: '/contact',
+    icon: MailIcon
+  }
 ];
 
 const Header = () => {
@@ -108,16 +108,16 @@ const Header = () => {
     useContext(authContext);
 
   const userNavigation = [
-    { name: "โปรไฟล์", href: "/profile" },
-    { name: "แดชบอร์ด", href: "/dashboard" },
-    { name: "ลงประกาศ", href: "/account/posts/create" },
+    { name: 'โปรไฟล์', href: '/profile' },
+    { name: 'แดชบอร์ด', href: '/dashboard' },
+    { name: 'ลงประกาศ', href: '/account/posts/create' },
     {
-      name: "ออกจากระบบ",
-      href: "",
+      name: 'ออกจากระบบ',
+      href: '',
       onClick: () => {
-        signout("/");
-      },
-    },
+        signout('/');
+      }
+    }
   ];
 
   useEffect(() => {
@@ -216,7 +216,7 @@ const Header = () => {
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={`${user.photoURL || "/user.png"}`}
+                        src={`${user.photoURL || '/user.png'}`}
                         alt=""
                         className="rounded-full w-full h-full object-cover"
                       ></img>
@@ -225,8 +225,8 @@ const Header = () => {
                     <span className="hidden ml-2 text-gray-700 text-sm font-medium lg:block">
                       <span className="sr-only">Open user menu for </span>
                       <span>
-                        {user?.displayName || ""}
-                        {isAgent && " (เอเจ้นท์)"}
+                        {user?.displayName || ''}
+                        {isAgent && ' (เอเจ้นท์)'}
                       </span>
                     </span>
 
@@ -258,8 +258,8 @@ const Header = () => {
                               }
                             }}
                             className={joinClasses(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
+                              active ? 'bg-gray-100' : '',
+                              'block px-4 py-2 text-sm text-gray-700'
                             )}
                           >
                             {item.name}
@@ -304,7 +304,7 @@ const Header = () => {
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={`${user.photoURL || "/user.png"}`}
+                          src={`${user.photoURL || '/user.png'}`}
                           alt=""
                           className="h-full w-full object-cover"
                         ></img>

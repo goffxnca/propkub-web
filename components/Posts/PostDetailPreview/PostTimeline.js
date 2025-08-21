@@ -1,11 +1,11 @@
-import React from "react";
-import Badge from "../../UI/Badge/Badge";
-import { getThaiFullDateTimeString } from "../../../libs/date-utils";
+import React from 'react';
+import Badge from '../../UI/Badge/Badge';
+import { getThaiFullDateTimeString } from '../../../libs/date-utils';
 import {
   getPostActionVariantById,
   getPostActionIconById,
-  getPostActionLabelById,
-} from "../../../libs/mappers/postActionMapper";
+  getPostActionLabelById
+} from '../../../libs/mappers/postActionMapper';
 
 const PostTimeline = ({ postActions = [] }) => {
   if (!postActions || postActions.length === 0) {
@@ -54,7 +54,7 @@ const PostTimeline = ({ postActions = [] }) => {
                               โดย {action.createdBy.name}
                             </span>
                           )}
-                          {action.createdBy?.name && " • "}
+                          {action.createdBy?.name && ' • '}
                           {getThaiFullDateTimeString(action.createdAt)}
                         </p>
                         {action.note && (

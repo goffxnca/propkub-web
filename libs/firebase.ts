@@ -1,4 +1,4 @@
-import { initializeApp, FirebaseApp } from "firebase/app";
+import { initializeApp, FirebaseApp } from 'firebase/app';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_apiKey as string,
@@ -7,7 +7,7 @@ const firebaseConfig = {
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_storageBucket as string,
   messagingSenderId: process.env
     .NEXT_PUBLIC_FIREBASE_messagingSenderId as string,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_appId as string,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_appId as string
 };
 
 export const initFirebase = (): FirebaseApp => initializeApp(firebaseConfig);

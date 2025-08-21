@@ -6,4 +6,4 @@ export interface Facility {
 
 export interface FacilitiesObject {
   [key: string]: boolean;
-} 
+}

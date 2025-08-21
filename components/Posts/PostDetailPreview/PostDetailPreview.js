@@ -1,19 +1,19 @@
-import { useMemo } from "react";
-import PageTitle from "../../UI/Private/PageTitle";
-import sanitizeHtml from "sanitize-html";
-import { getPostType } from "../../../libs/mappers/postTypeMapper";
-import { getAssetType } from "../../../libs/mappers/assetTypeMapper";
-import { getCondition } from "../../../libs/mappers/conditionMapper";
-import { getAreaUnitById } from "../../../libs/mappers/areaUnitMapper";
-import { getPriceUnit } from "../../../libs/mappers/priceUnitMapper";
-import { formatAddressFull } from "../../../libs/formatters/addressFomatter";
-import { getSpecLabel } from "../../../libs/mappers/specMapper";
-import { orDefault } from "../../../libs/string-utils";
-import PostDetailStats from "./PostDetailStats";
-import PostActionConsole from "./PostActionConsole";
-import PostStatusBadge from "../PostStatusBadge/PostStatusBadge";
-import PostTimeline from "./PostTimeline";
-import { SANITIZE_OPTIONS } from "../../../libs/constants";
+import { useMemo } from 'react';
+import PageTitle from '../../UI/Private/PageTitle';
+import sanitizeHtml from 'sanitize-html';
+import { getPostType } from '../../../libs/mappers/postTypeMapper';
+import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
+import { getCondition } from '../../../libs/mappers/conditionMapper';
+import { getAreaUnitById } from '../../../libs/mappers/areaUnitMapper';
+import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
+import { formatAddressFull } from '../../../libs/formatters/addressFomatter';
+import { getSpecLabel } from '../../../libs/mappers/specMapper';
+import { orDefault } from '../../../libs/string-utils';
+import PostDetailStats from './PostDetailStats';
+import PostActionConsole from './PostActionConsole';
+import PostStatusBadge from '../PostStatusBadge/PostStatusBadge';
+import PostTimeline from './PostTimeline';
+import { SANITIZE_OPTIONS } from '../../../libs/constants';
 
 const PostDetailPreview = ({ post, postActions }) => {
   // Calculated fields - exact order from posts.schema.ts
@@ -27,17 +27,17 @@ const PostDetailPreview = ({ post, postActions }) => {
   const assetType = getAssetType(post.assetType);
   const postType = getPostType(post.postType);
 
-  const forRent = post.postType === "rent";
-  const isLand = post.assetType === "land";
+  const forRent = post.postType === 'rent';
+  const isLand = post.assetType === 'land';
 
   const priceWithUnit = post.priceUnit
     ? `${post.price.toLocaleString()} ${
-        forRent || isLand ? "/ " + getPriceUnit(post.priceUnit) : ""
+        forRent || isLand ? '/ ' + getPriceUnit(post.priceUnit) : ''
       }`
     : post.price.toLocaleString();
   const thumbnail = post.thumbnail;
   const images = post.images;
-  const facilities = orDefault(post.facilities.map((p) => p.label).join(", "));
+  const facilities = orDefault(post.facilities.map((p) => p.label).join(', '));
 
   const specs = orDefault(
     post.specs
@@ -45,7 +45,7 @@ const PostDetailPreview = ({ post, postActions }) => {
         const thaiLabel = getSpecLabel(spec.id);
         return `${thaiLabel}: ${spec.value}`;
       })
-      .join(", ")
+      .join(', ')
   );
 
   const address = formatAddressFull(post.address);
@@ -53,7 +53,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
   // Optional fields (schema order)
   const isStudio =
-    post.isStudio !== undefined ? (post.isStudio ? "ใช่" : "ไม่ใช่") : "-";
+    post.isStudio !== undefined ? (post.isStudio ? 'ใช่' : 'ไม่ใช่') : '-';
   const video = orDefault(post.video);
   const landWithUnit =
     post.land && post.landUnit
@@ -65,9 +65,9 @@ const PostDetailPreview = ({ post, postActions }) => {
       : orDefault(post.area);
   const condition = orDefault(post.condition && getCondition(post.condition));
   const agentRefNumber = orDefault(post.refId);
-  const createdAt = new Date(post.createdAt).toLocaleDateString("th-TH");
+  const createdAt = new Date(post.createdAt).toLocaleDateString('th-TH');
   const updatedAt = orDefault(
-    post.updatedAt && new Date(post.updatedAt).toLocaleDateString("th-TH")
+    post.updatedAt && new Date(post.updatedAt).toLocaleDateString('th-TH')
   );
 
   return (

@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { resizeFile } from "../../libs/utils/file-utils";
-import Modal from "../UI/Public/Modal";
-import { ExclamationIcon } from "@heroicons/react/outline";
+import { useEffect, useRef, useState } from 'react';
+import { resizeFile } from '../../libs/utils/file-utils';
+import Modal from '../UI/Public/Modal';
+import { ExclamationIcon } from '@heroicons/react/outline';
 
 const maxfileSizeMB = 10;
 
@@ -9,13 +9,13 @@ const ProfileImageInput = ({
   id,
   label,
   formError,
-  originFileUrl = "",
+  originFileUrl = '',
   register = () => ({}),
   unregister = () => ({}),
   setValue = () => ({}),
-  disabled = false,
+  disabled = false
 }) => {
-  const errorStyle = formError ? "border border-red-300" : "";
+  const errorStyle = formError ? 'border border-red-300' : '';
 
   useEffect(() => {
     return () => {
@@ -35,7 +35,7 @@ const ProfileImageInput = ({
         {
           file,
           changed: fileUrl !== originFileUrl,
-          origin: originFileUrl,
+          origin: originFileUrl
         },
         { shouldValidate: true, shouldDirty: true }
       );
@@ -49,7 +49,7 @@ const ProfileImageInput = ({
       return;
     }
 
-    const allowedFileTypes = ["image/jpg", "image/jpeg", "image/png"];
+    const allowedFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
     const errorMessages = [];
 
     // Validate file type
@@ -67,8 +67,8 @@ const ProfileImageInput = ({
 
     if (errorMessages.length > 0) {
       setError({
-        title: "ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้",
-        messages: errorMessages,
+        title: 'ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้',
+        messages: errorMessages
       });
       return;
     }
@@ -83,9 +83,9 @@ const ProfileImageInput = ({
       console.log(
         `Image resized from ${(selectedFile.size / 1024).toFixed(2)}kb to ${(
           resizedFile.size / 1024
-        ).toFixed(2)}kb = ${(selectedFile.size / resizedFile.size).toFixed(
+        ).toFixed(
           2
-        )}X smaller`
+        )}kb = ${(selectedFile.size / resizedFile.size).toFixed(2)}X smaller`
       );
     }
   };
@@ -107,11 +107,11 @@ const ProfileImageInput = ({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={fileUrl || "/user.png"}
+              src={fileUrl || '/user.png'}
               alt="Profile"
               className="h-full w-full object-cover"
               onError={(e) => {
-                e.target.src = "/user.png";
+                e.target.src = '/user.png';
               }}
             />
           </div>
@@ -150,7 +150,7 @@ const ProfileImageInput = ({
         Icon={ExclamationIcon}
         type="warning"
         title={error?.title}
-        desc={error?.messages?.join(", ")}
+        desc={error?.messages?.join(', ')}
         buttonCaption="ตกลง"
         onClose={() => {
           setError(null);

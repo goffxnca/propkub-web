@@ -1,11 +1,11 @@
-import { getYoutubeVideoId } from "../../../libs/string-utils";
-import styles from "./YoutubeIframe.module.css";
+import { getYoutubeVideoId } from '../../../libs/string-utils';
+import styles from './YoutubeIframe.module.css';
 
 interface YoutubeIframeProps {
   youtubeUrl?: string;
 }
 
-const YoutubeIframe = ({ youtubeUrl = "" }: YoutubeIframeProps) => {
+const YoutubeIframe = ({ youtubeUrl = '' }: YoutubeIframeProps) => {
   const youtubeVideoId = getYoutubeVideoId(youtubeUrl);
 
   if (!youtubeVideoId) return null;
@@ -26,4 +26,4 @@ const YoutubeIframe = ({ youtubeUrl = "" }: YoutubeIframeProps) => {
   );
 };
 
-export default YoutubeIframe; 
+export default YoutubeIframe;

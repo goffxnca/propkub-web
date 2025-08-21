@@ -1,21 +1,21 @@
-import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { authContext } from "../../../contexts/authContext";
-import { ExclamationIcon } from "@heroicons/react/outline";
+import Link from 'next/link';
+import { useContext, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { authContext } from '../../../contexts/authContext';
+import { ExclamationIcon } from '@heroicons/react/outline';
 
 import {
   EmailPattern,
   maxLength,
-  minLength,
-} from "../../../libs/form-validator";
-import Logo from "../../Layouts/Logo";
-import Button from "../../UI/Public/Button";
-import TextInput from "../../UI/Public/Inputs/TextInput";
-import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
-import FacebookLoginButton from "../../UI/Public/SocialLogin/FacebookLoginButton";
-import Modal from "../../UI/Public/Modal";
-import ForgotPasswordModal from "../ForgotPasswordModal";
+  minLength
+} from '../../../libs/form-validator';
+import Logo from '../../Layouts/Logo';
+import Button from '../../UI/Public/Button';
+import TextInput from '../../UI/Public/Inputs/TextInput';
+import GoogleLoginButton from '../../UI/Public/SocialLogin/GoogleLoginButton';
+import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton';
+import Modal from '../../UI/Public/Modal';
+import ForgotPasswordModal from '../ForgotPasswordModal';
 
 const SiginInForm = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
@@ -24,7 +24,7 @@ const SiginInForm = () => {
     register,
     unregister,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const { signin, loading, error, clearError } = useContext(authContext);
@@ -82,9 +82,9 @@ const SiginInForm = () => {
                 id="email"
                 label="อีเมล"
                 register={() =>
-                  register("email", {
-                    required: "กรุณาระบุอีเมล",
-                    pattern: EmailPattern(),
+                  register('email', {
+                    required: 'กรุณาระบุอีเมล',
+                    pattern: EmailPattern()
                   })
                 }
                 unregister={unregister}
@@ -95,10 +95,10 @@ const SiginInForm = () => {
                 label="รหัสผ่าน"
                 type="password"
                 register={() =>
-                  register("password", {
-                    required: "กรุณาระบุรหัสผ่าน",
-                    minLength: { ...minLength(6, "รหัสผ่าน") },
-                    maxLength: { ...maxLength(64, "รหัสผ่าน") },
+                  register('password', {
+                    required: 'กรุณาระบุรหัสผ่าน',
+                    minLength: { ...minLength(6, 'รหัสผ่าน') },
+                    maxLength: { ...maxLength(64, 'รหัสผ่าน') }
                   })
                 }
                 unregister={unregister}

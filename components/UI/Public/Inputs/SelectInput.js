@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import BaseInput from "./BaseInput";
+import { useEffect } from 'react';
+import BaseInput from './BaseInput';
 
 const SelectInput = ({
   id,
@@ -11,11 +11,11 @@ const SelectInput = ({
   disabled = false,
   error,
   register = () => ({}),
-  unregister = () => ({}),
+  unregister = () => ({})
 }) => {
   const inputRingAndBorderStyle = error
-    ? "focus:ring-red-300 border-red-200 focus:border-red-300 "
-    : "focus:ring-indigo-500 focus:border-indigo-500";
+    ? 'focus:ring-red-300 border-red-200 focus:border-red-300 '
+    : 'focus:ring-indigo-500 focus:border-indigo-500';
 
   let applyInputAttributes = {};
   if (disabled) {

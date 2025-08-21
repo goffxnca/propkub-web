@@ -3,22 +3,22 @@ import {
   PencilIcon,
   CheckIcon,
   XIcon,
-  ExclamationIcon,
-} from "@heroicons/react/outline";
-import { useState, useContext } from "react";
-import { useForm } from "react-hook-form";
-import { apiClient } from "../../libs/client";
-import { authContext } from "../../contexts/authContext";
-import { MobilePhonePattern, LineIdPattern } from "../../libs/form-validator";
-import TextInput from "../UI/Public/Inputs/TextInput";
-import Modal from "../UI/Public/Modal";
-import { getLineUrl } from "../../libs/string-utils";
+  ExclamationIcon
+} from '@heroicons/react/outline';
+import { useState, useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { apiClient } from '../../libs/client';
+import { authContext } from '../../contexts/authContext';
+import { MobilePhonePattern, LineIdPattern } from '../../libs/form-validator';
+import TextInput from '../UI/Public/Inputs/TextInput';
+import Modal from '../UI/Public/Modal';
+import { getLineUrl } from '../../libs/string-utils';
 
 const ContactInfoSection = ({ user }) => {
   const { setUser } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [apiError, setApiError] = useState("");
+  const [apiError, setApiError] = useState('');
 
   const {
     register,
@@ -26,57 +26,57 @@ const ContactInfoSection = ({ user }) => {
     handleSubmit,
     setValue,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
     defaultValues: {
-      phone: user.phone || "",
-      line: user.line || "",
-    },
+      phone: user.phone || '',
+      line: user.line || ''
+    }
   });
 
   const handleEdit = () => {
     setIsEditing(true);
-    setApiError("");
+    setApiError('');
     reset({
-      phone: user.phone || "",
-      line: user.line || "",
+      phone: user.phone || '',
+      line: user.line || ''
     });
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    setApiError("");
+    setApiError('');
     reset({
-      phone: user.phone || "",
-      line: user.line || "",
+      phone: user.phone || '',
+      line: user.line || ''
     });
   };
 
   const handleSave = async (formData) => {
     setIsSaving(true);
-    setApiError("");
+    setApiError('');
 
     try {
-      console.log("Saving contact info:", formData);
+      console.log('Saving contact info:', formData);
 
       const updatedUser = await apiClient.auth.updateProfile(formData);
       setUser(updatedUser);
       setIsEditing(false);
-      console.log("Contact info saved successfully!");
+      console.log('Contact info saved successfully!');
     } catch (error) {
-      console.error("Failed to save contact info:", error);
-      setApiError(error.message || "เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      console.error('Failed to save contact info:', error);
+      setApiError(error.message || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleCloseApiErrorModal = () => {
-    setApiError("");
+    setApiError('');
   };
   const formatPhoneNumber = (phone) => {
     if (!phone) return null;
-    if (phone.length === 10 && phone.startsWith("0")) {
+    if (phone.length === 10 && phone.startsWith('0')) {
       return `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`;
     }
     return phone;
@@ -118,9 +118,9 @@ const ContactInfoSection = ({ user }) => {
                 type="tel"
                 disabled={isSaving}
                 register={() =>
-                  register("phone", {
-                    required: "กรุณาระบุหมายเลขโทรศัพท์มือถือ",
-                    pattern: MobilePhonePattern("หมายเลขโทรศัพท์มือถือ"),
+                  register('phone', {
+                    required: 'กรุณาระบุหมายเลขโทรศัพท์มือถือ',
+                    pattern: MobilePhonePattern('หมายเลขโทรศัพท์มือถือ')
                   })
                 }
                 unregister={unregister}
@@ -133,9 +133,9 @@ const ContactInfoSection = ({ user }) => {
                 label="ไลน์ไอดี"
                 disabled={isSaving}
                 register={() =>
-                  register("line", {
-                    required: "กรุณาระบุไลน์ไอดี",
-                    pattern: LineIdPattern("ไลน์ไอดี"),
+                  register('line', {
+                    required: 'กรุณาระบุไลน์ไอดี',
+                    pattern: LineIdPattern('ไลน์ไอดี')
                   })
                 }
                 unregister={unregister}
@@ -151,7 +151,7 @@ const ContactInfoSection = ({ user }) => {
                   className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
                   <CheckIcon className="w-4 h-4 mr-1" />
-                  {isSaving ? "กำลังบันทึก..." : "บันทึก"}
+                  {isSaving ? 'กำลังบันทึก...' : 'บันทึก'}
                 </button>
                 <button
                   type="button"

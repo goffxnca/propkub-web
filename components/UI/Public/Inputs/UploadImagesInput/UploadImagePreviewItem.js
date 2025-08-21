@@ -1,4 +1,4 @@
-import { XCircleIcon } from "@heroicons/react/outline";
+import { XCircleIcon } from '@heroicons/react/outline';
 
 const ImagePreviewItem = ({ src, fileName, imageIndex, onClose }) => {
   return (

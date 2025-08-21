@@ -1,11 +1,11 @@
-import { ExclamationCircleIcon } from "@heroicons/react/solid";
+import { ExclamationCircleIcon } from '@heroicons/react/solid';
 
 const Alert = ({
-  alertTitle = "",
+  alertTitle = '',
   messages = [],
   showButton = false,
   buttonLabel,
-  onClick,
+  onClick
 }) => {
   return (
     <div className="rounded-md bg-yellow-50 p-4">

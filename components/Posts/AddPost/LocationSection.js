@@ -1,20 +1,20 @@
-import regions from "../../../data/regions.json";
-import SelectInput from "../../UI/Public/Inputs/SelectInput";
-import { useEffect, useMemo, useState } from "react";
-import GoogleMap from "../../UI/Public/GoogleMap";
-import TextInput from "../../UI/Public/Inputs/TextInput";
-import Modal from "../../UI/Public/Modal";
-import { LocationMarkerIcon } from "@heroicons/react/outline";
+import regions from '../../../data/regions.json';
+import SelectInput from '../../UI/Public/Inputs/SelectInput';
+import { useEffect, useMemo, useState } from 'react';
+import GoogleMap from '../../UI/Public/GoogleMap';
+import TextInput from '../../UI/Public/Inputs/TextInput';
+import Modal from '../../UI/Public/Modal';
+import { LocationMarkerIcon } from '@heroicons/react/outline';
 import {
   fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
-  fetchSubDistrictsByDistrictId,
-} from "../../../libs/managers/addressManager";
+  fetchSubDistrictsByDistrictId
+} from '../../../libs/managers/addressManager';
 import {
   getDistrictPrefix,
-  getSubDistrictPrefix,
-} from "../../../libs/formatters/addressFomatter";
-import PostMap from "../../../components/Posts/PostMap";
+  getSubDistrictPrefix
+} from '../../../libs/formatters/addressFomatter';
+import PostMap from '../../../components/Posts/PostMap';
 
 const MAP_SEARCH_QUOTA = 5; //TODO: CHANGE TO 3 LATER
 
@@ -24,22 +24,22 @@ const LocationSection = ({
   watch,
   setValue,
   submitCount,
-  errors,
+  errors
 }) => {
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
   const [subDistrictList, setSubDistrictList] = useState([]);
 
-  console.log("LocationSection");
-  const watchRegionId = watch("address.regionId");
-  const watchProvinceId = watch("address.provinceId");
-  const watchDistrictId = watch("address.districtId");
-  const watchSubDistrictId = watch("address.subDistrictId");
-  const watchAddressLocation = watch("address.location");
-  const watchAddressSearch = watch("searchAddress");
+  console.log('LocationSection');
+  const watchRegionId = watch('address.regionId');
+  const watchProvinceId = watch('address.provinceId');
+  const watchDistrictId = watch('address.districtId');
+  const watchSubDistrictId = watch('address.subDistrictId');
+  const watchAddressLocation = watch('address.location');
+  const watchAddressSearch = watch('searchAddress');
 
-  const [mapAddress, setAddress] = useState("");
-  const [subDistrictLabel, setSubDistrictLabel] = useState("");
+  const [mapAddress, setAddress] = useState('');
+  const [subDistrictLabel, setSubDistrictLabel] = useState('');
   const [showMapGuideModal, setShowMapGuideModal] = useState(false);
 
   const [showMapGuideModal2, setShowMapGuideModal2] = useState(false);
@@ -50,16 +50,15 @@ const LocationSection = ({
     useState(MAP_SEARCH_QUOTA);
 
   // computed;
-  const isBangkok = useMemo(() => watchProvinceId === "p1", [watchProvinceId]);
+  const isBangkok = useMemo(() => watchProvinceId === 'p1', [watchProvinceId]);
 
   // useEffects
   useEffect(() => {
-    console.log("regionid changed!!");
-    setValue("address.provinceId", "", { shouldValidate: submitCount > 0 });
+    console.log('regionid changed!!');
+    setValue('address.provinceId', '', { shouldValidate: submitCount > 0 });
 
     if (watchRegionId) {
       fetchProvincesByRegionId(watchRegionId).then((result) => {
-        
         setProvinceList(result);
       });
     } else {
@@ -68,8 +67,8 @@ const LocationSection = ({
   }, [watchRegionId]);
 
   useEffect(() => {
-    console.log("provinceId changed!!");
-    setValue("address.districtId", "", { shouldValidate: submitCount > 0 });
+    console.log('provinceId changed!!');
+    setValue('address.districtId', '', { shouldValidate: submitCount > 0 });
 
     if (watchProvinceId) {
       fetchDistrictsByProvinceId(watchProvinceId).then((result) => {
@@ -81,8 +80,8 @@ const LocationSection = ({
   }, [watchProvinceId]);
 
   useEffect(() => {
-    console.log("watchDistrictId changed!!");
-    setValue("address.subDistrictId", "", { shouldValidate: submitCount > 0 });
+    console.log('watchDistrictId changed!!');
+    setValue('address.subDistrictId', '', { shouldValidate: submitCount > 0 });
 
     if (watchDistrictId) {
       fetchSubDistrictsByDistrictId(watchDistrictId).then((result) => {
@@ -94,18 +93,17 @@ const LocationSection = ({
   }, [watchDistrictId]);
 
   const renderMap = () => {
-    
     if (watchSubDistrictId && mapSearchQuotaRemaining) {
-      console.log("watchSubDistrictId changed!!");
-      const districtElem = document.getElementById("address.districtId");
+      console.log('watchSubDistrictId changed!!');
+      const districtElem = document.getElementById('address.districtId');
       const distictLabel = districtElem.item(districtElem.selectedIndex).label;
-      const subDistrictElem = document.getElementById("address.subDistrictId");
+      const subDistrictElem = document.getElementById('address.subDistrictId');
       const subDistrictLabel = subDistrictElem.item(
         subDistrictElem.selectedIndex
       ).label;
 
       setSubDistrictLabel(subDistrictLabel);
-      if (distictLabel !== "-" && subDistrictLabel !== "-") {
+      if (distictLabel !== '-' && subDistrictLabel !== '-') {
         if (watchAddressSearch) {
           //Render map with typed address ex.คอนโด Ideo O2 (User can pinned the map at place which is not belong to district or subdistrict, it's okay we are accept this to happen)
           setAddress(`${watchAddressSearch}__search`); //with __search, means render map for the searched place and auto pin the map,
@@ -122,9 +120,7 @@ const LocationSection = ({
         } else {
           //Render map at an area of specific subdistrict ex.แขวงจุมพล เขตจตุจักร
           setAddress(
-            `${getSubDistrictPrefix(
-              isBangkok
-            )}${subDistrictLabel} ${getDistrictPrefix(
+            `${getSubDistrictPrefix(isBangkok)}${subDistrictLabel} ${getDistrictPrefix(
               isBangkok
             )}${distictLabel}`
           );
@@ -139,15 +135,15 @@ const LocationSection = ({
       const timer = setTimeout(() => {
         clearTimeout(timer);
         setShowMapGuideModal(true);
-        setValue("searchAddress", "");
-        setValue("address.location", null);
+        setValue('searchAddress', '');
+        setValue('address.location', null);
       }, 1000);
     }
   }, [watchSubDistrictId]);
 
   useEffect(() => {
     if (!mapSearchQuotaRemaining) {
-      setValue("searchAddress", "");
+      setValue('searchAddress', '');
     }
   }, [mapSearchQuotaRemaining]);
 
@@ -177,8 +173,8 @@ const LocationSection = ({
                 options={regions}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
-                  register("address.regionId", {
-                    required: "กรุณาระบุภูมิภาค",
+                  register('address.regionId', {
+                    required: 'กรุณาระบุภูมิภาค'
                   })
                 }
                 unregister={unregister}
@@ -192,8 +188,8 @@ const LocationSection = ({
                 options={provinceList}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
-                  register("address.provinceId", {
-                    required: "กรุณาระบุจังหวัด",
+                  register('address.provinceId', {
+                    required: 'กรุณาระบุจังหวัด'
                   })
                 }
                 unregister={unregister}
@@ -207,8 +203,8 @@ const LocationSection = ({
                 options={districtList}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
-                  register("address.districtId", {
-                    required: "กรุณาระบุเขต/อำเภอ",
+                  register('address.districtId', {
+                    required: 'กรุณาระบุเขต/อำเภอ'
                   })
                 }
                 unregister={unregister}
@@ -222,8 +218,8 @@ const LocationSection = ({
                 options={subDistrictList}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
-                  register("address.subDistrictId", {
-                    required: "กรุณาระบุแขวง/ตำบล",
+                  register('address.subDistrictId', {
+                    required: 'กรุณาระบุแขวง/ตำบล'
                   })
                 }
                 unregister={unregister}
@@ -242,7 +238,7 @@ const LocationSection = ({
                 setShowMapGuideModal(false);
                 const timer = setTimeout(() => {
                   clearTimeout(timer);
-                  document.getElementById("searchAddress").focus();
+                  document.getElementById('searchAddress').focus();
                 }, 1000);
               }}
             />
@@ -271,14 +267,14 @@ const LocationSection = ({
                       }
                       disabled={!mapSearchQuotaRemaining}
                       onKeyPress={(e) => {
-                        if (e.key === "Enter") {
+                        if (e.key === 'Enter') {
                           e.preventDefault();
                           if (mapSearchQuotaRemaining) {
                             renderMap();
                           }
                         }
                       }}
-                      register={() => register("searchAddress", {})}
+                      register={() => register('searchAddress', {})}
                       unregister={unregister}
                       error={errors?.address?.search}
                     />
@@ -347,20 +343,17 @@ const LocationSection = ({
                   )}
 
                   <div
-                    className={`${
-                      errors?.address?.location && "border border-red-400"
-                    }`}
+                    className={`${errors?.address?.location && 'border border-red-400'}`}
                   >
                     <GoogleMap
                       address={mapAddress}
                       onLocationSelected={(location) => {
-                        
                         setValue(
-                          "address.location",
+                          'address.location',
                           location
                             ? {
                                 lat: location.lat,
-                                lng: location.lng,
+                                lng: location.lng
                                 // h: 0,
                               }
                             : null,
@@ -423,8 +416,8 @@ const LocationSection = ({
                       id="address.location"
                       disabled
                       hidden
-                      {...register("address.location", {
-                        required: true,
+                      {...register('address.location', {
+                        required: true
                       })}
                     />
                     {errors?.address?.location && (

@@ -1,11 +1,11 @@
-import { ClockIcon } from "@heroicons/react/outline";
-import { LocationMarkerIcon } from "@heroicons/react/solid";
-import Link from "next/link";
-import { getPostType } from "../../libs/mappers/postTypeMapper";
-import { getAssetType } from "../../libs/mappers/assetTypeMapper";
-import { formatAddress } from "../../libs/formatters/addressFomatter";
-import { getPriceUnit } from "../../libs/mappers/priceUnitMapper";
-import TimeAgo from "timeago-react";
+import { ClockIcon } from '@heroicons/react/outline';
+import { LocationMarkerIcon } from '@heroicons/react/solid';
+import Link from 'next/link';
+import { getPostType } from '../../libs/mappers/postTypeMapper';
+import { getAssetType } from '../../libs/mappers/assetTypeMapper';
+import { formatAddress } from '../../libs/formatters/addressFomatter';
+import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
+import TimeAgo from 'timeago-react';
 
 const PostRow = ({
   postType,
@@ -15,13 +15,13 @@ const PostRow = ({
   price,
   priceUnit,
   address,
-  createdAt,
+  createdAt
 }) => {
   const postLink = `/property/${slug}`;
   const postTypeFormat = getPostType(postType);
   const assetTypeFormat = getAssetType(assetType);
   const addressFormat = formatAddress(address);
-  const priceUnitFormat = priceUnit ? ` / ${getPriceUnit(priceUnit)}` : "";
+  const priceUnitFormat = priceUnit ? ` / ${getPriceUnit(priceUnit)}` : '';
   const priceWithFormat = price?.toLocaleString();
 
   return (

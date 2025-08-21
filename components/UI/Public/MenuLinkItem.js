@@ -1,5 +1,5 @@
-import Link from "next/link";
-import { forwardRef } from "react";
+import Link from 'next/link';
+import { forwardRef } from 'react';
 
 const MenuLinkItem = forwardRef((props, ref) => {
   let { href, children, onClick, ...rest } = props;
@@ -10,5 +10,5 @@ const MenuLinkItem = forwardRef((props, ref) => {
   );
 });
 
-MenuLinkItem.displayName = "MenuLinkItem";
+MenuLinkItem.displayName = 'MenuLinkItem';
 export default MenuLinkItem;

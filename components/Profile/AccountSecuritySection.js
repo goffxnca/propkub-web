@@ -1,23 +1,23 @@
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import {
   ShieldCheckIcon,
   KeyIcon,
   ExclamationIcon,
   CheckIcon,
-  XIcon,
-} from "@heroicons/react/outline";
-import TextInput from "../UI/Public/Inputs/TextInput";
-import Modal from "../UI/Public/Modal";
-import { minLength, maxLength } from "../../libs/form-validator";
-import { apiClient } from "../../libs/client";
-import { t } from "../../libs/translator";
+  XIcon
+} from '@heroicons/react/outline';
+import TextInput from '../UI/Public/Inputs/TextInput';
+import Modal from '../UI/Public/Modal';
+import { minLength, maxLength } from '../../libs/form-validator';
+import { apiClient } from '../../libs/client';
+import { t } from '../../libs/translator';
 
 const AccountSecuritySection = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [apiError, setApiError] = useState("");
+  const [apiError, setApiError] = useState('');
 
   const {
     register,
@@ -25,16 +25,16 @@ const AccountSecuritySection = ({ user }) => {
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
+    watch
   } = useForm();
 
   const getPasswordStatus = () => {
     // Users who signed up with email have passwords
-    if (user.provider === "email") {
+    if (user.provider === 'email') {
       return {
         hasPassword: true,
         canChangePassword: true,
-        message: "คุณสามารถเปลี่ยนรหัสผ่านได้",
+        message: 'คุณสามารถเปลี่ยนรหัสผ่านได้'
       };
     } else {
       // Users who signed up with Google/Facebook don't have passwords
@@ -42,27 +42,27 @@ const AccountSecuritySection = ({ user }) => {
         hasPassword: false,
         canChangePassword: false,
         message: `คุณลงทะเบียนด้วย ${
-          user.provider === "google" ? "Google" : "Facebook"
-        } Acccount ไม่จำเป็นต้องมีรหัสผ่าน`,
+          user.provider === 'google' ? 'Google' : 'Facebook'
+        } Acccount ไม่จำเป็นต้องมีรหัสผ่าน`
       };
     }
   };
 
   const handleEdit = () => {
     setIsEditing(true);
-    setApiError("");
+    setApiError('');
     reset();
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    setApiError("");
+    setApiError('');
     reset();
   };
 
   const handleSave = async (formData) => {
     setIsSaving(true);
-    setApiError("");
+    setApiError('');
 
     try {
       await apiClient.auth.updatePassword(
@@ -74,7 +74,7 @@ const AccountSecuritySection = ({ user }) => {
       reset();
     } catch (error) {
       const errorMessage =
-        t(error.message) || "เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน";
+        t(error.message) || 'เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน';
       setApiError(errorMessage);
     } finally {
       setIsSaving(false);
@@ -86,17 +86,17 @@ const AccountSecuritySection = ({ user }) => {
   };
 
   const handleCloseApiErrorModal = () => {
-    setApiError("");
+    setApiError('');
   };
 
   // Watch newPassword for confirm validation
-  const newPassword = watch("newPassword");
+  const newPassword = watch('newPassword');
 
   // Auto-focus current password when editing starts
   useEffect(() => {
     if (isEditing) {
       setTimeout(() => {
-        const currentPasswordInput = document.getElementById("currentPassword");
+        const currentPasswordInput = document.getElementById('currentPassword');
         if (currentPasswordInput) {
           currentPasswordInput.focus();
         }
@@ -164,14 +164,14 @@ const AccountSecuritySection = ({ user }) => {
                                 type="password"
                                 disabled={isSaving}
                                 register={() =>
-                                  register("currentPassword", {
-                                    required: "กรุณาระบุรหัสผ่านปัจจุบัน",
+                                  register('currentPassword', {
+                                    required: 'กรุณาระบุรหัสผ่านปัจจุบัน',
                                     minLength: {
-                                      ...minLength(6, "รหัสผ่านปัจจุบัน"),
+                                      ...minLength(6, 'รหัสผ่านปัจจุบัน')
                                     },
                                     maxLength: {
-                                      ...maxLength(64, "รหัสผ่านปัจจุบัน"),
-                                    },
+                                      ...maxLength(64, 'รหัสผ่านปัจจุบัน')
+                                    }
                                   })
                                 }
                                 unregister={unregister}
@@ -186,14 +186,14 @@ const AccountSecuritySection = ({ user }) => {
                                 type="password"
                                 disabled={isSaving}
                                 register={() =>
-                                  register("newPassword", {
-                                    required: "กรุณาระบุรหัสผ่านใหม่",
+                                  register('newPassword', {
+                                    required: 'กรุณาระบุรหัสผ่านใหม่',
                                     minLength: {
-                                      ...minLength(6, "รหัสผ่านใหม่"),
+                                      ...minLength(6, 'รหัสผ่านใหม่')
                                     },
                                     maxLength: {
-                                      ...maxLength(64, "รหัสผ่านใหม่"),
-                                    },
+                                      ...maxLength(64, 'รหัสผ่านใหม่')
+                                    }
                                   })
                                 }
                                 unregister={unregister}
@@ -208,11 +208,11 @@ const AccountSecuritySection = ({ user }) => {
                                 type="password"
                                 disabled={isSaving}
                                 register={() =>
-                                  register("confirmPassword", {
-                                    required: "กรุณายืนยันรหัสผ่านใหม่",
+                                  register('confirmPassword', {
+                                    required: 'กรุณายืนยันรหัสผ่านใหม่',
                                     validate: (value) =>
                                       value === newPassword ||
-                                      "รหัสผ่านไม่ตรงกัน",
+                                      'รหัสผ่านไม่ตรงกัน'
                                   })
                                 }
                                 unregister={unregister}
@@ -228,7 +228,7 @@ const AccountSecuritySection = ({ user }) => {
                               className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                             >
                               <CheckIcon className="w-4 h-4 mr-1" />
-                              {isSaving ? "กำลังบันทึก..." : "เปลี่ยนรหัสผ่าน"}
+                              {isSaving ? 'กำลังบันทึก...' : 'เปลี่ยนรหัสผ่าน'}
                             </button>
                             <button
                               type="button"
@@ -263,7 +263,7 @@ const AccountSecuritySection = ({ user }) => {
             </div>
 
             {/* Security Tips */}
-            {user.provider === "email" && (
+            {user.provider === 'email' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
                   เคล็ดลับความปลอดภัย

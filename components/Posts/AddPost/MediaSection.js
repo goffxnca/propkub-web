@@ -1,7 +1,7 @@
-import { getYoutubeVideoId } from "../../../libs/string-utils";
-import TextInput from "../../UI/Public/Inputs/TextInput";
-import UploadImagesInput from "../../UI/Public/Inputs/UploadImagesInput/UploadImagesInput";
-import YoutubeIframe from "../../UI/Public/YoutubeIframe";
+import { getYoutubeVideoId } from '../../../libs/string-utils';
+import TextInput from '../../UI/Public/Inputs/TextInput';
+import UploadImagesInput from '../../UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
+import YoutubeIframe from '../../UI/Public/YoutubeIframe';
 
 const MediaSection = ({
   register,
@@ -9,11 +9,11 @@ const MediaSection = ({
   watch,
   setValue,
   errors,
-  submitCount,
+  submitCount
 }) => {
-  console.log("MediaSection");
+  console.log('MediaSection');
 
-  const watchVideo = watch("video");
+  const watchVideo = watch('video');
 
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -38,13 +38,13 @@ const MediaSection = ({
                 label="รูปภาพ"
                 maxFile={8}
                 register={() =>
-                  register("images", {
-                    required: "กรุณาอัพโหลดภาพของประกาศจำนวน 3-8 ภาพ",
+                  register('images', {
+                    required: 'กรุณาอัพโหลดภาพของประกาศจำนวน 3-8 ภาพ',
                     validate: (value) => {
                       if (value?.length < 3 || value?.length > 8) {
-                        return "กรุณาอัพโหลดภาพของประกาศจำนวน 3-8 ภาพ";
+                        return 'กรุณาอัพโหลดภาพของประกาศจำนวน 3-8 ภาพ';
                       }
-                    },
+                    }
                   })
                 }
                 unregister={unregister}

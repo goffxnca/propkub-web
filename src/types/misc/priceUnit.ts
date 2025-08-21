@@ -9,4 +9,4 @@ export interface PricePerUnitMapping {
   assetType: string;
   postType: PostType['id'];
   units: PriceUnit[];
-} 
+}

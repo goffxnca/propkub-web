@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import BaseInput from "../BaseInput";
-import RadioVerticalListDetail from "./RadioVerticalListDetail";
+import { useEffect } from 'react';
+import BaseInput from '../BaseInput';
+import RadioVerticalListDetail from './RadioVerticalListDetail';
 
 const RadioVerticalListInput = ({
   id,
@@ -9,7 +9,7 @@ const RadioVerticalListInput = ({
   error,
   register = () => ({}),
   unregister = () => ({}),
-  setValue,
+  setValue
 }) => {
   useEffect(() => {
     return () => {

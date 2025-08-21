@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import UploadImagesInputDetail from "./UploadImagesInputDetail";
-import BaseInput from "../BaseInput";
+import { useEffect, useState } from 'react';
+import UploadImagesInputDetail from './UploadImagesInputDetail';
+import BaseInput from '../BaseInput';
 
 const UploadImagesInput = ({
   id,
@@ -10,7 +10,7 @@ const UploadImagesInput = ({
   setValue,
   register = () => ({}),
   unregister = () => ({}),
-  submitCount = 0,
+  submitCount = 0
 }) => {
   const [reachMaxImageCount, setReachMaxImageCount] = useState(false);
 
