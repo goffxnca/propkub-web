@@ -11,7 +11,6 @@ import {
 } from '../../../libs/form-validator';
 import Logo from '../../Layouts/Logo';
 import Button from '../../UI/Public/Button';
-import RadioVerticalListInput from '../../UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
 import TextInput from '../../UI/Public/Inputs/TextInput';
 import GoogleLoginButton from '../../UI/Public/SocialLogin/GoogleLoginButton';
 import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton';

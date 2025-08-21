@@ -6,7 +6,6 @@ import { formatAddress } from '../../libs/formatters/addressFomatter';
 import LocationIcon from '../Icons/LocationIcon';
 import { useMemo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import SpecItemWithCircle from './Specs/SpecItemWithCircle';
 
 const PostItem = ({

@@ -1,9 +1,4 @@
-import {
-  PhoneIcon,
-  MailIcon,
-  ChatIcon,
-  CheckIcon
-} from '@heroicons/react/solid';
+import { PhoneIcon, MailIcon, CheckIcon } from '@heroicons/react/solid';
 import { useForm } from 'react-hook-form';
 import {
   EmailPattern,

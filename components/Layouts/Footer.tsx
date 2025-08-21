@@ -1,5 +1,4 @@
 import getConfig from 'next/config';
-import Link from 'next/link';
 const { publicRuntimeConfig } = getConfig();
 
 const navigation = {

@@ -14,8 +14,7 @@ import sanitizeHtml from 'sanitize-html';
 import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
 import { getPostType } from '../../../libs/mappers/postTypeMapper';
 import { getCondition } from '../../../libs/mappers/conditionMapper';
-import { InformationCircleIcon, ChartBarIcon } from '@heroicons/react/outline';
-import SpinnerIcon from '../../Icons/SpinnerIcon';
+import { ChartBarIcon } from '@heroicons/react/outline';
 import { SANITIZE_OPTIONS } from '../../../libs/constants';
 import { getLocalDateByISODateString } from '../../../libs/date-utils';
 

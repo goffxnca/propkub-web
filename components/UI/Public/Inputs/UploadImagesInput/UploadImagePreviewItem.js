@@ -1,5 +1,3 @@
-import { XCircleIcon } from '@heroicons/react/outline';
-
 const ImagePreviewItem = ({ src, fileName, imageIndex, onClose }) => {
   return (
     <div className="relative transition-all md:hover:scale-105 my-2 md:m-2 flex">
