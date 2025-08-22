@@ -1,20 +1,11 @@
-import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/solid";
 import {
   EyeIcon,
   DocumentDuplicateIcon,
-  ShareIcon,
   PhoneIcon,
   ChatIcon,
-  SearchIcon,
+  ShareIcon,
+  BookmarkIcon,
 } from "@heroicons/react/outline";
-import { joinClasses } from "../../libs/utils/style-utils";
-import React, { SVGProps } from "react";
-
-interface Post {
-  postViews?: number;
-  phoneViews?: number;
-  lineViews?: number;
-}
 
 interface Link {
   href: string;
@@ -33,15 +24,27 @@ interface StatItem {
 }
 
 interface StatsProps {
-  myPosts: Post[];
+  totalCount: number;
+  totalPostViews: number;
+  totalPhoneViews: number;
+  totalLineViews: number;
+  totalShares: number;
+  totalPins: number;
 }
 
-const Stats = ({ myPosts }: StatsProps) => {
+const Stats = ({
+  totalCount,
+  totalPostViews,
+  totalPhoneViews,
+  totalLineViews,
+  totalShares,
+  totalPins,
+}: StatsProps) => {
   const stats: StatItem[] = [
     {
       id: 1,
       name: "ประกาศของฉันทั้งหมด",
-      stat: myPosts.length,
+      stat: totalCount,
       icon: DocumentDuplicateIcon,
       change: "122",
       changeType: "increase",
@@ -49,10 +52,7 @@ const Stats = ({ myPosts }: StatsProps) => {
     {
       id: 2,
       name: "เข้าชม (ครั้ง)",
-      stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.postViews || 0),
-        0
-      ),
+      stat: totalPostViews,
       icon: EyeIcon,
       change: "5.4%",
       changeType: "increase",
@@ -60,26 +60,38 @@ const Stats = ({ myPosts }: StatsProps) => {
     {
       id: 3,
       name: "กดดูเบอร์ (ครั้ง)",
-      stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.phoneViews || 0),
-        0
-      ),
+      stat: totalPhoneViews,
       icon: PhoneIcon,
       change: "3.2%",
       changeType: "decrease",
-      note: "**นี่คือจำนวนครั้งที่กดดูเบอร์ แต่ทางเราไม่ทราบว่าผู้เข้าชมประกาศโทรไปหาท่านหรือไม่",
+      note: "",
     },
     {
       id: 4,
       name: "กดดูไลน์ (ครั้ง)",
-      stat: myPosts.reduce(
-        (partialSum, p) => partialSum + (p.lineViews || 0),
-        0
-      ),
+      stat: totalLineViews,
       icon: ChatIcon,
       change: "3.2%",
       changeType: "decrease",
-      note: "**นี่คือจำนวนครั้งที่กดดูไลน์ แต่ทางเราไม่ทราบว่าผู้เช้าชมประกาศแอดไลน์ไปหาท่านหรือไม่",
+      note: "",
+    },
+    {
+      id: 5,
+      name: "แชร์",
+      stat: totalShares,
+      icon: ShareIcon,
+      change: "3.2%",
+      changeType: "decrease",
+      note: "",
+    },
+    {
+      id: 6,
+      name: "บันทึก",
+      stat: totalPins,
+      icon: BookmarkIcon,
+      change: "3.2%",
+      changeType: "decrease",
+      note: "",
     },
   ];
 
@@ -89,7 +101,7 @@ const Stats = ({ myPosts }: StatsProps) => {
         ข้อมูลสถิติ
       </h3> */}
 
-      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-3 lg:grid-cols-4">
         {stats.map((item) => (
           <div
             key={item.id}

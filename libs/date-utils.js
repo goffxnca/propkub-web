@@ -1,5 +1,5 @@
 const getUnixEpochTime = () => {
-  return Date.now();
+  return Date.now().toString();
 };
 
 const getLocalDateByISODateString = (isoDateSting) => {
@@ -14,8 +14,19 @@ const getLocalDateTimeByISODateString = (isoDateSting) => {
   return `${date.toLocaleDateString("th")} ${time}`;
 };
 
+const getThaiFullDateTimeString = (isoDateString) => {
+  return new Date(isoDateString).toLocaleDateString("th-TH", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
 export {
   getUnixEpochTime,
   getLocalDateByISODateString,
   getLocalDateTimeByISODateString,
+  getThaiFullDateTimeString,
 };

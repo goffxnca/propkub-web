@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { authContext } from "../../../contexts/authContext";
+import { ExclamationIcon } from "@heroicons/react/outline";
 
 import {
   EmailPattern,
@@ -12,6 +13,9 @@ import Logo from "../../Layouts/Logo";
 import Button from "../../UI/Public/Button";
 import RadioVerticalListInput from "../../UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput";
 import TextInput from "../../UI/Public/Inputs/TextInput";
+import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
+import FacebookLoginButton from "../../UI/Public/SocialLogin/FacebookLoginButton";
+import Modal from "../../UI/Public/Modal";
 
 const SignupForm = () => {
   const {
@@ -27,15 +31,16 @@ const SignupForm = () => {
 
   const submitHandler = (data) => {
     console.log(data);
-    signup(data.email, data.password, data.name, data.role);
+    signup(data.email, data.password, data.name, data.isAgent || false);
   };
 
   useEffect(() => {
     clearError();
   }, []);
 
-  // if (loading) return <div>Auth Loading...</div>;
-  // if (error) return <div>Error: {error}</div>;
+  const handleCloseErrorModal = () => {
+    clearError();
+  };
 
   const roleItems = [
     // {
@@ -64,21 +69,37 @@ const SignupForm = () => {
               <Logo />
             </div>
             <br />
+
+            <div className="mb-6 space-y-3">
+              <GoogleLoginButton text="ลงทะเบียนด้วย Google" />
+              <FacebookLoginButton text="ลงทะเบียนด้วย Facebook" />
+            </div>
+
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">หรือ</span>
+              </div>
+            </div>
+
             <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
-              {/* <TextInput
+              <TextInput
                 id="name"
-                label="ชื่อ"
+                label="ชื่อผู้ใช้งาน"
                 register={() =>
                   register("name", {
                     required: "กรุณาระบุชื่อ",
-                    minLength: { ...minLength(6, "ชื่อ") },
+                    minLength: { ...minLength(5, "ชื่อ") },
                     maxLength: { ...maxLength(30, "ชื่อ") },
                   })
                 }
-                placeholder="สมชาย ABC Property"
+                placeholder="สมชาย รักดี"
                 unregister={unregister}
                 error={errors.name}
-              /> */}
+                info="สามารถเปลี่ยนได้ภายหลัง"
+              />
 
               <TextInput
                 id="email"
@@ -108,19 +129,24 @@ const SignupForm = () => {
                 error={errors.password}
               />
 
-              <RadioVerticalListInput
-                id="role"
-                label="ประเภทบัญชี"
-                items={roleItems}
-                register={() =>
-                  register("role", {
-                    required: "กรุณาประเภทบัญชี",
-                  })
-                }
-                unregister={unregister}
-                setValue={setValue}
-                error={errors.role}
-              />
+              <div className="flex items-center">
+                <input
+                  id="isAgent"
+                  type="checkbox"
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  {...register("isAgent")}
+                />
+                <label htmlFor="isAgent" className="ml-3 text-sm text-gray-700">
+                  <span className="font-medium">
+                    ฉันเป็นนายหน้าอสังหาริมทรัพย์ (Agent)
+                  </span>
+                  <div className="text-gray-500 text-xs mt-1">
+                    ฉันต้องการลงประกาศจำนวนมาก
+                    และใช้งานระบบสนับสนุนการทำงานต่างๆ ของ Agent
+                    (ไม่มีค่าใช้จ่าย)
+                  </div>
+                </label>
+              </div>
 
               {/* <div>
                 <label
@@ -167,16 +193,7 @@ const SignupForm = () => {
                 </div>
               </div> */}
 
-              <div className="text-red-400 text-xs text-center">{error}</div>
-
               <div>
-                {/* <button
-                  type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  เข้าสู่ระบบ
-                </button> */}
-
                 <Button type="submit" variant="primary" loading={loading}>
                   ลงทะเบียน
                 </Button>
@@ -269,6 +286,16 @@ const SignupForm = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        visible={!!error}
+        Icon={ExclamationIcon}
+        type="warning"
+        title="เกิดข้อผิดพลาด"
+        desc={error}
+        buttonCaption="ตกลง"
+        onClose={handleCloseErrorModal}
+      />
     </>
   );
 };

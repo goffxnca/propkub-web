@@ -7,56 +7,68 @@ import { getCondition } from "../../../libs/mappers/conditionMapper";
 import { getAreaUnitById } from "../../../libs/mappers/areaUnitMapper";
 import { getPriceUnit } from "../../../libs/mappers/priceUnitMapper";
 import { formatAddressFull } from "../../../libs/formatters/addressFomatter";
-import { getStatusLabelById } from "../../../libs/mappers/statusMapper";
-import PostActionList from "./PostActionList";
+import { getSpecLabel } from "../../../libs/mappers/specMapper";
+import { orDefault } from "../../../libs/string-utils";
 import PostDetailStats from "./PostDetailStats";
-import { getSubStatusLabelById } from "../../../libs/mappers/subStatusMapper";
 import PostActionConsole from "./PostActionConsole";
+import PostStatusBadge from "../PostStatusBadge/PostStatusBadge";
+import PostTimeline from "./PostTimeline";
+import { SANITIZE_OPTIONS } from "../../../libs/constants";
 
 const PostDetailPreview = ({ post, postActions }) => {
-  const sanitizerOptions = {
-    allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br"],
-  };
+  // Calculated fields - exact order from posts.schema.ts
 
-  const postType = useMemo(() => getPostType(post.postType), [post.postType]);
-
-  const assetType = useMemo(
-    () => getAssetType(post.assetType),
-    [post.assetType]
-  );
-
-  const condition = useMemo(
-    () => getCondition(post.condition),
-    [post.condition]
-  );
-
+  // Required fields (schema order)
+  const title = post.title;
   const purifiedDescInfo = useMemo(
-    () => sanitizeHtml(post.desc, sanitizerOptions),
+    () => sanitizeHtml(post.desc, SANITIZE_OPTIONS),
     [post.desc]
   );
+  const assetType = getAssetType(post.assetType);
+  const postType = getPostType(post.postType);
 
-  const isStudio = useMemo(
-    () => (post.isStudio ? "ใช่" : "ไม่ใช่"),
-    [post.isStudio]
+  const forRent = post.postType === "rent";
+  const isLand = post.assetType === "land";
+
+  const priceWithUnit = post.priceUnit
+    ? `${post.price.toLocaleString()} ${
+        forRent || isLand ? "/ " + getPriceUnit(post.priceUnit) : ""
+      }`
+    : post.price.toLocaleString();
+  const thumbnail = post.thumbnail;
+  const images = post.images;
+  const facilities = orDefault(post.facilities.map((p) => p.label).join(", "));
+
+  const specs = orDefault(
+    post.specs
+      .map((spec) => {
+        const thaiLabel = getSpecLabel(spec.id);
+        return `${thaiLabel}: ${spec.value}`;
+      })
+      .join(", ")
   );
 
-  const bedRooms = post.specs.find((x) => x.id === "beds")?.value || 0;
-  const bathRooms = post.specs.find((x) => x.id === "baths")?.value || 0;
-  const kitchenRooms = post.specs.find((x) => x.id === "kitchens")?.value || 0;
-  const parkings = post.specs.find((x) => x.id === "parkings")?.value || 0;
-
-  const price = post.price.toLocaleString();
-  const priceUnit = post?.priceUnit
-    ? ` / ${getPriceUnit(post?.priceUnit)}`
-    : "";
-
-  const area = `${post.area} ${getAreaUnitById(post.areaUnit)}`;
-  const facilities = post.facilities.map((p) => p.label).join(", ");
-  const agentRefNumber = post.refNumber || "-";
   const address = formatAddressFull(post.address);
+  const postNumber = post.postNumber;
 
-  // const status = getStatusLabelById(post.status);
-  const subStatus = getSubStatusLabelById(post.subStatus);
+  // Optional fields (schema order)
+  const isStudio =
+    post.isStudio !== undefined ? (post.isStudio ? "ใช่" : "ไม่ใช่") : "-";
+  const video = orDefault(post.video);
+  const landWithUnit =
+    post.land && post.landUnit
+      ? `${post.land} ${getAreaUnitById(post.landUnit)}`
+      : orDefault(post.land);
+  const areaWithUnit =
+    post.area && post.areaUnit
+      ? `${post.area} ${getAreaUnitById(post.areaUnit)}`
+      : orDefault(post.area);
+  const condition = orDefault(post.condition && getCondition(post.condition));
+  const agentRefNumber = orDefault(post.refId);
+  const createdAt = new Date(post.createdAt).toLocaleDateString("th-TH");
+  const updatedAt = orDefault(
+    post.updatedAt && new Date(post.updatedAt).toLocaleDateString("th-TH")
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,112 +76,33 @@ const PostDetailPreview = ({ post, postActions }) => {
       <div className="lg:flex space-y-2 lg:space-x-2 lg:space-y-0">
         {/* Left Main Content */}
         <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-2/3">
-          {/* <div className="px-4 py-5 sm:px-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
-              ประกาศหมายเลข {post.postNumber}
-            </h3>
-            <p className="mt-1 max-w-2xl text-sm text-gray-500">{post.title}</p>
-          </div> */}
           <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
             <dl className="sm:divide-y sm:divide-gray-200">
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6 ">
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   หมายเลขประกาศ
                 </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0 font-semibold">
-                  {post.postNumber}
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {postNumber}
                 </dd>
               </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">สถานะ</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  <PostStatusBadge status={post.status} />
+                </dd>
+              </div>
+
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   หัวข้อประกาศ
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {post.title}
+                  {title}
                 </dd>
               </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">สถานะ</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  <span
-                    className={`rounded-full ${
-                      post.status === "active"
-                        ? "bg-green-100  text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }  px-2 text-xs leading-5`}
-                  >
-                    {subStatus}
-                  </span>
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  ประเภททรัพย์
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {assetType}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">สำหรับ</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {postType}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  ลักษณะทรัพย์
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {condition}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  พื้นที่ใช้สอย
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {area}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  ห้องประเภท Studio
-                </dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {isStudio}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ห้องนอน</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {bedRooms}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ห้องน้ำ</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {bathRooms}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ห้องครัว</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {kitchenRooms}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ที่จอดรถ</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {parkings}
-                </dd>
-              </div>
-              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ราคา</dt>
-                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {price} {priceUnit}
-                </dd>
-              </div>
+
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
                   รายละเอียด
@@ -181,35 +114,27 @@ const PostDetailPreview = ({ post, postActions }) => {
                   />
                 </dd>
               </div>
+
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">
-                  สาธารณูปโภคอื่นๆ
-                </dt>
+                <dt className="text-sm font-medium text-gray-500">ต้องการ</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {facilities}
+                  {postType}
                 </dd>
               </div>
+
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  หมายเลขอ้างอิง
+                  ประเภททรัพย์
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {agentRefNumber}
+                  {assetType}
                 </dd>
               </div>
+
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">รูปภาพ</dt>
+                <dt className="text-sm font-medium text-gray-500">สภาพ</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  <ul className="flex flex-wrap">
-                    {post.images.map((image) => (
-                      <li key={image} className="m-1">
-                        <img
-                          src={image}
-                          className="h-20 w-20 object-cover rounded-sm"
-                        />
-                      </li>
-                    ))}
-                  </ul>
+                  {condition}
                 </dd>
               </div>
 
@@ -220,12 +145,121 @@ const PostDetailPreview = ({ post, postActions }) => {
                 </dd>
               </div>
 
-              {/* <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">About</dt>
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">ราคา</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  <pre>{JSON.stringify(post, null, 2)}</pre>
+                  {priceWithUnit}
                 </dd>
-              </div> */}
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  พื้นที่ใช้สอย
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {areaWithUnit}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  ขนาดที่ดิน
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {landWithUnit}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">รูปหลัก</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  <img
+                    src={thumbnail}
+                    className="h-20 w-20 object-cover rounded-sm"
+                    alt="thumbnail"
+                  />
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">รูปภาพ</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  <ul className="flex flex-wrap">
+                    {images.map((image, index) => (
+                      <li key={index} className="m-1">
+                        <img
+                          src={image}
+                          className="h-20 w-20 object-cover rounded-sm"
+                          alt={`image-${index}`}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">วิดีโอ</dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {video}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  สาธารณูปโภค
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {facilities}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  ข้อมูลห้อง
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {specs}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  ห้อง Studio
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {isStudio}
+                </dd>
+              </div>
+
+              {/* Optional fields */}
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  หมายเลขอ้างอิง
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {agentRefNumber}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  วันที่สร้าง
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {createdAt}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  วันที่แก้ไข
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {updatedAt}
+                </dd>
+              </div>
             </dl>
           </div>
         </div>
@@ -233,14 +267,16 @@ const PostDetailPreview = ({ post, postActions }) => {
         {/* Right Side Bar */}
         <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-1/3 p-4 space-y-2">
           <PostDetailStats
-            postViews={post.postViews}
-            phoneViews={post.phoneViews}
-            lineViews={post.lineViews}
+            postViews={post.stats.views.post || 0}
+            phoneViews={post.stats.views.phone || 0}
+            lineViews={post.stats.views.line || 0}
+            shares={post.stats.shares || 0}
+            pins={post.stats.pins || 0}
           />
-          <PostActionList postActions={postActions} />
+          <PostTimeline postActions={post.postActions} />
           <PostActionConsole
-            postId={post.id}
-            postSlug={post?.slug}
+            postId={post._id}
+            postSlug={post.slug}
             postStatus={post.status}
           />
         </div>

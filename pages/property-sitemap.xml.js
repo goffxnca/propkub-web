@@ -1,16 +1,21 @@
-import { getAllActivePostsForSitemap } from "../libs/post-utils";
+// NOTE: This implementation generates the property sitemap fresh on every request.
+// For 5k+ posts, this can be inefficient and put heavy load on the API/DB,
+// especially since multiple search engine bots (Google, Bing, etc.) may request the sitemap at unpredictable times.
+// In the future, this should be improved with caching or Incremental Static Regeneration (ISR)
+// to reduce backend load and serve a stale-but-recent sitemap (e.g., cache for 24h).
+// For now, be aware that every request triggers a full fetch of all active posts.
 
-const EXTERNAL_DATA_URL = "https://propkub.com/property";
+import { getAllActivePostsForSitemap } from "../libs/post-utils";
 
 function generateSiteMap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      ${posts
-       .map(({ slug, createdAt }) => {
+       .map(({ slug, createdAt, updatedAt }) => {
          return `
        <url>
-           <loc>${`${EXTERNAL_DATA_URL}/${slug}`}</loc>
-           <lastmod>${createdAt}</lastmod>
+           <loc>${`https://propkub.com/property/${slug}`}</loc>
+           <lastmod>${updatedAt || createdAt}</lastmod>
        </url>
      `;
        })
@@ -19,17 +24,16 @@ function generateSiteMap(posts) {
  `;
 }
 
-const PropertySitemap = () => {
-  // getServerSideProps will do the heavy lifting
-};
+const PropertySitemap = () => {};
 
 export async function getServerSideProps({ res }) {
   console.log("PROPERTY-SITEMAP.XML.JS -> getServerSideProps EXECUTED");
+
   const posts = await getAllActivePostsForSitemap();
   const sitemap = generateSiteMap(posts);
 
+  // Send the XML to the browser
   res.setHeader("Content-Type", "text/xml");
-  // we send the XML to the browser
   res.write(sitemap);
   res.end();
 

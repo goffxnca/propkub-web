@@ -6,9 +6,9 @@ import TextInput from "../../UI/Public/Inputs/TextInput";
 import Modal from "../../UI/Public/Modal";
 import { LocationMarkerIcon } from "@heroicons/react/outline";
 import {
-  getAllDistrictsByProvinceId,
-  getAllProvincesByRegionId,
-  getAllSubDistrictsByDistrictId,
+  fetchProvincesByRegionId,
+  fetchDistrictsByProvinceId,
+  fetchSubDistrictsByDistrictId,
 } from "../../../libs/managers/addressManager";
 import {
   getDistrictPrefix,
@@ -58,8 +58,8 @@ const LocationSection = ({
     setValue("address.provinceId", "", { shouldValidate: submitCount > 0 });
 
     if (watchRegionId) {
-      getAllProvincesByRegionId(watchRegionId).then((result) => {
-        debugger;
+      fetchProvincesByRegionId(watchRegionId).then((result) => {
+        
         setProvinceList(result);
       });
     } else {
@@ -72,8 +72,7 @@ const LocationSection = ({
     setValue("address.districtId", "", { shouldValidate: submitCount > 0 });
 
     if (watchProvinceId) {
-      getAllDistrictsByProvinceId(watchProvinceId).then((result) => {
-        debugger;
+      fetchDistrictsByProvinceId(watchProvinceId).then((result) => {
         setDistrictList(result);
       });
     } else {
@@ -86,8 +85,7 @@ const LocationSection = ({
     setValue("address.subDistrictId", "", { shouldValidate: submitCount > 0 });
 
     if (watchDistrictId) {
-      getAllSubDistrictsByDistrictId(watchDistrictId).then((result) => {
-        debugger;
+      fetchSubDistrictsByDistrictId(watchDistrictId).then((result) => {
         setSubDistrictList(result);
       });
     } else {
@@ -96,7 +94,7 @@ const LocationSection = ({
   }, [watchDistrictId]);
 
   const renderMap = () => {
-    debugger;
+    
     if (watchSubDistrictId && mapSearchQuotaRemaining) {
       console.log("watchSubDistrictId changed!!");
       const districtElem = document.getElementById("address.districtId");
@@ -356,7 +354,7 @@ const LocationSection = ({
                     <GoogleMap
                       address={mapAddress}
                       onLocationSelected={(location) => {
-                        debugger;
+                        
                         setValue(
                           "address.location",
                           location

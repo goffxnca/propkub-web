@@ -1,6 +1,6 @@
+import { initFirebase } from "../firebase";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Resizer from "react-image-file-resizer";
-import { getUnixEpochTime } from "../date-utils";
 import { randomOneToN } from "../number-utils";
 
 const resizeFile = async (file) => {
@@ -20,13 +20,14 @@ const resizeFile = async (file) => {
   });
 };
 
-const uploadFileToStorage = async (type, id, file) => {
+const uploadFileToStorage = async (type, postNumber, file) => {
+  initFirebase();
   const storage = getStorage();
   const storageRef = ref(
     storage,
-    `${type}/${id}/i/${randomOneToN(
-      100000
-    )}_${getUnixEpochTime()}${getFileExtension(file.name)}`
+    `${type}/${postNumber}/i/${randomOneToN(99999)}${getFileExtension(
+      file.name
+    )}`
   );
 
   return uploadBytes(storageRef, file).then((snapshot) =>

@@ -1,49 +1,79 @@
 import {
-  CheckIcon,
   DocumentAddIcon,
-  SearchIcon,
   PencilIcon,
   ExclamationIcon,
-  LockClosedIcon,
-  GlobeAltIcon,
+  CurrencyDollarIcon,
+  XIcon,
+  RefreshIcon,
 } from "@heroicons/react/solid";
-import { PostAction } from "../../src/types/misc/postAction";
+import { Variant } from "../utils/style-utils";
+
+export interface PostAction {
+  id: string;
+  label: string;
+  variant: Variant;
+  icon: React.ComponentType<any>;
+}
 
 const postActions: PostAction[] = [
   {
-    id: "CreatePost",
+    id: "create",
     label: "สร้างประกาศ",
+    variant: "success",
     icon: DocumentAddIcon,
-    iconBackground: "green",
   },
   {
-    id: "UpdatePost",
-    label: "อัพเดทรายละเอียดประกาศ",
+    id: "update",
+    label: "อัพเดทประกาศ",
+    variant: "info",
     icon: PencilIcon,
-    iconBackground: "green",
   },
   {
-    id: "ReportPost",
-    label: "ประกาศถูกรายงานผิดกฏ",
+    id: "suspense",
+    label: "พักการใช้งาน",
+    variant: "warning",
     icon: ExclamationIcon,
-    iconBackground: "yellow",
   },
   {
-    id: "FulfillPost",
-    label: "ประกาศปิดการขาย",
-    icon: CheckIcon,
-    iconBackground: "gray",
+    id: "restore",
+    label: "เปิดประกาศใหม่",
+    variant: "success",
+    icon: RefreshIcon,
   },
   {
-    id: "ClosePost",
+    id: "sell",
+    label: "ปิดการขาย",
+    variant: "info",
+    icon: CurrencyDollarIcon,
+  },
+  {
+    id: "close",
     label: "ปิดประกาศ",
-    icon: LockClosedIcon,
-    iconBackground: "gray",
+    variant: "error",
+    icon: XIcon,
   },
 ];
 
-const getPostActionById = (postActionId: string): PostAction => {
-  return postActions.find((p) => p.id === postActionId);
+const getPostActionById = (actionId: string): PostAction => {
+  return postActions.find((action) => action.id === actionId);
 };
 
-export { getPostActionById };
+const getPostActionLabelById = (actionId: string): string => {
+  return getPostActionById(actionId).label;
+};
+
+const getPostActionVariantById = (actionId: string): Variant => {
+  return getPostActionById(actionId).variant;
+};
+
+const getPostActionIconById = (actionId: string): React.ComponentType<any> => {
+  return getPostActionById(actionId).icon;
+};
+
+export {
+  postActions,
+  getPostActionById,
+  getPostActionLabelById,
+  getPostActionVariantById,
+  getPostActionIconById,
+};

@@ -10,7 +10,6 @@ interface MainLayoutProps {
 }
 
 const MainLayout = ({ children }: MainLayoutProps) => {
-  console.log("MainLayout");
   const router = useRouter();
 
   const isHomePage = router.pathname === "/";
@@ -40,8 +39,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <Footer />
       {/* <AddLine /> */}
       {/* <UserSidebar /> */}
-      {/* Leave gap for google ads  */}
-      <div className="md:h-40"></div>
     </div>
   );
 };

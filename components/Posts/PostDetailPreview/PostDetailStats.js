@@ -3,10 +3,16 @@ import {
   PhoneIcon,
   ChatIcon,
   ShareIcon,
-  ThumbDownIcon,
+  BookmarkIcon,
 } from "@heroicons/react/outline";
 
-const PostDetailStats = ({ postViews = 0, phoneViews = 0, lineViews = 0 }) => {
+const PostDetailStats = ({
+  postViews = 0,
+  phoneViews = 0,
+  lineViews = 0,
+  shares,
+  pins,
+}) => {
   const stats = [
     {
       id: 1,
@@ -29,14 +35,14 @@ const PostDetailStats = ({ postViews = 0, phoneViews = 0, lineViews = 0 }) => {
     {
       id: 4,
       name: "แชร์",
-      stat: 0,
+      stat: shares,
       icon: ShareIcon,
     },
     {
       id: 5,
-      name: "ถูกรายงาน",
-      stat: 0,
-      icon: ThumbDownIcon,
+      name: "บันทึก",
+      stat: pins,
+      icon: BookmarkIcon,
     },
   ];
 

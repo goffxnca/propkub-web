@@ -14,21 +14,12 @@ import sanitizeHtml from "sanitize-html";
 import { getAssetType } from "../../../libs/mappers/assetTypeMapper";
 import { getPostType } from "../../../libs/mappers/postTypeMapper";
 import { getCondition } from "../../../libs/mappers/conditionMapper";
-import {
-  PencilAltIcon,
-  InformationCircleIcon,
-  ChartBarIcon,
-} from "@heroicons/react/outline";
-import { useRouter } from "next/router";
+import { InformationCircleIcon, ChartBarIcon } from "@heroicons/react/outline";
 import SpinnerIcon from "../../Icons/SpinnerIcon";
-
-const sanitizerOptions = {
-  allowedTags: ["p", "strong", "em", "u", "ol", "ul", "li", "br", "a"],
-};
+import { SANITIZE_OPTIONS } from "../../../libs/constants";
+import { getLocalDateByISODateString } from "../../../libs/date-utils";
 
 const PostDetailBody = ({ post, postViews, images }) => {
-  const router = useRouter();
-
   const studioSpec = post?.isStudio
     ? [
         {
@@ -39,63 +30,40 @@ const PostDetailBody = ({ post, postViews, images }) => {
       ]
     : [];
 
-  const specsFormat = useMemo(
-    () =>
-      studioSpec.concat(
-        post?.specs.map((spec) => ({
-          ...spec,
-          label: `${spec.value} ${spec.label}`,
-          icon: getIcon(spec.id),
-        }))
-      ),
-    [post]
+  const specsFormat = studioSpec.concat(
+    post?.specs.map((spec) => ({
+      ...spec,
+      label: `${spec.value} ${spec.label}`,
+      icon: getIcon(spec.id),
+    }))
   );
 
-  const facilitiesFormat = useMemo(
-    () =>
-      post?.facilities.map((facility) => ({
-        ...facility,
-        label: facility.label,
-        icon: getIcon(facility.id),
-      })),
-    [post]
-  );
+  const facilitiesFormat = post?.facilities.map((facility) => ({
+    ...facility,
+    label: facility.label,
+    icon: getIcon(facility.id),
+  }));
 
-  const priceWithFormat = useMemo(
-    () => post?.price?.toLocaleString(),
-    [post.price]
-  );
+  const priceWithFormat = post?.price?.toLocaleString();
 
-  const priceUnitFormat = useMemo(
-    () => (post?.priceUnit ? ` / ${getPriceUnit(post?.priceUnit)}` : ""),
-    [post.priceUnit]
-  );
+  const forRent = post.postType === "rent";
+  const isLand = post.assetType === "land";
 
-  const addressFormat = useMemo(
-    () => formatAddressFull(post.address),
-    [post.address]
-  );
+  const priceUnitFormat =
+    forRent || isLand ? " / " + getPriceUnit(post.priceUnit) : "";
+
+  const addressFormat = formatAddressFull(post.address);
 
   const purifiedDescInfo = useMemo(
-    () => sanitizeHtml(post.desc, sanitizerOptions),
+    () => sanitizeHtml(post.desc, SANITIZE_OPTIONS),
     [post.desc]
   );
 
-  const postType = useMemo(() => getPostType(post.postType), [post.postType]);
+  const postType = getPostType(post.postType);
 
-  const assetType = useMemo(
-    () => getAssetType(post.assetType),
-    [post.assetType]
-  );
+  const assetType = getAssetType(post.assetType);
 
-  const condition = useMemo(
-    () => getCondition(post.condition),
-    [post.condition]
-  );
-
-  const onClickEditPost = () => {
-    router.push(`/property/edit/${post.id}`);
-  };
+  const condition = getCondition(post.condition);
 
   return (
     <div className="">
@@ -144,17 +112,18 @@ const PostDetailBody = ({ post, postViews, images }) => {
               ประเภท: {postType}
               {assetType}
             </div>
-            {condition && (
-              <div className="md:w-1/2">ลักษณะทรัพย์: {condition}</div>
-            )}
+            {condition && <div className="md:w-1/2">สภาพ: {condition}</div>}
             <div className="md:w-1/2">เลขประกาศ: {post.postNumber}</div>
             {post.refId && (
               <div className="md:w-1/2">เลขอ้างอิง: {post.refId}</div>
             )}
-            <div className="md:w-1/2">วันที่ลงประกาศ: {post.createdAt}</div>
+            <div className="md:w-1/2">
+              วันที่ลงประกาศ: {getLocalDateByISODateString(post.createdAt)}
+            </div>
             {post.updatedAt && (
               <div className="md:w-1/2">
-                วันที่อัพเดทล่าสุด: {post.updatedAt}
+                วันที่อัพเดทล่าสุด:{" "}
+                {getLocalDateByISODateString(post.updatedAt)}
               </div>
             )}
           </div>
@@ -273,34 +242,18 @@ const PostDetailBody = ({ post, postViews, images }) => {
       <div>
         {/* <Heading size="2" label="อื่นๆ" /> */}
         <div className="flex gap-y-2 flex-wrap justify-between">
-          <div className="flex items-center text-gray-500 hover:text-gray-900 cursor-pointer w-1/2">
+          <div className="flex items-center text-gray-500">
             <ChartBarIcon className="w-5 h-5" />
-            {postViews === -1 && (
-              <div className="animate-spin">
-                <SpinnerIcon className="w-4 h-4" />
-              </div>
-            )}
-            {postViews >= 0 && (
-              <p className="text-base font-medium ml-1">
-                เข้าชม ({postViews || 0})
-              </p>
-            )}
+
+            <p className="text-base font-medium ml-1">
+              เข้าชม ({postViews || 0})
+            </p>
           </div>
 
-          {post?.contact?.passcode && (
-            <div
-              className="flex items-center text-gray-500 hover:text-gray-900 cursor-pointer w-1/2"
-              onClick={onClickEditPost}
-            >
-              <PencilAltIcon className="w-5 h-5" />
-              <p className="text-base font-medium ml-1">แก้ไขประกาศ</p>
-            </div>
-          )}
-
-          <div className="flex items-center text-gray-500 hover:text-gray-900 cursor-pointer w-1/2">
+          {/* <div className="flex items-center text-gray-500 hover:text-gray-900 cursor-pointer w-1/2">
             <InformationCircleIcon className="w-5 h-5" />
             <p className="text-base font-medium ml-1">รายงานประกาศ</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

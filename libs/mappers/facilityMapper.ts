@@ -1,4 +1,4 @@
-import { Facility, FacilitiesObject } from '../../src/types/misc/facility';
+import { Facility, FacilitiesObject } from "../../src/types/misc/facility";
 
 const facilities: Facility[] = [
   { id: "ac", label: "แอร์" },
@@ -43,19 +43,28 @@ const facilities: Facility[] = [
 ];
 
 const getFacility = (facilityId: string): string => {
-  return facilities.find((f) => f.id === facilityId)?.label ?? "N/A";
+  return facilities.find((f) => f.id === facilityId)?.label || "";
 };
 
+// Convert from {ac: true, sofa: false, ...} -> [{id: "tv", label: "ทีวี"}]
 const getFacilityArray = (facilitiesObject: FacilitiesObject): Facility[] => {
   const facilityArray: string[] = [];
   for (const [key, value] of Object.entries(facilitiesObject)) {
     if (value) {
-      facilityArray.push(key);
+      facilityArray.push(key); //Take all facilities key which value is 'true'
     }
   }
   return facilityArray
-    .map((facilityArrayItem) => facilities.find((facility) => facility.id === facilityArrayItem))
-    .filter((facility): facility is Facility => facility !== undefined);
+    .map((facilityArrayItem) =>
+      facilities.find((facility) => facility.id === facilityArrayItem)
+    )
+    .filter((facility) => facility !== undefined) //If matching not found in master facilities list, drop it
+    .map((facility) => ({ id: facility.id, label: facility.label })); //Final shape for API call
+};
+
+// Convert from [{id: "tv", label: "ทีวี"}, {id: "sofa", label: "โซฟา"}] -> {tv: true, sofa: true}
+const getFacilityObject = (facilityArray: Facility[]): FacilitiesObject => {
+  return facilityArray.reduce((a, v) => ({ ...a, [v.id]: true }), {});
 };
 
 const getLandFacilities = (): Facility[] => {
@@ -69,6 +78,7 @@ const getNonLandFacilities = (): Facility[] => {
 export {
   getFacility,
   getFacilityArray,
+  getFacilityObject,
   getLandFacilities,
   getNonLandFacilities,
 };

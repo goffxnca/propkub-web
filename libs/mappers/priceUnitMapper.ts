@@ -1,5 +1,5 @@
 import { getAllAreaUnits } from "./areaUnitMapper";
-import { PriceUnit, PricePerUnitMapping } from '../../src/types/misc/priceUnit';
+import { PriceUnit, PricePerUnitMapping } from "../../src/types/misc/priceUnit";
 
 const timeMatricUnits: PriceUnit[] = [
   { id: "year", label: "ปี" },
@@ -26,7 +26,7 @@ const pricePerUnitMapping: PricePerUnitMapping[] = [
 const getPriceUnit = (priceUnit: string): string => {
   return (
     timeMatricUnits.concat(areaMatricUnits).find((p) => p.id === priceUnit)
-      ?.label ?? "N/A"
+      ?.label || ""
   );
 };
 

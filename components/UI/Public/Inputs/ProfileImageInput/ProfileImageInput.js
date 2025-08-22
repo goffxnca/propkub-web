@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { resizeFile } from "../../../../../libs/utils/file-utils";
-import Alert from "../../Alert";
+import InlineError from "../../InlineError";
 import BaseInput from "../BaseInput";
 
 const maxfileSizeMB = 10;
@@ -26,7 +26,7 @@ const ProfileImageInput = ({
   const fileRef = useRef();
   const [file, setFile] = useState(null);
   const [fileUrl, setFileUrl] = useState(originFileUrl);
-  const [alert, setAlert] = useState(null);
+  const [inlineError, setInlineError] = useState(null);
 
   useEffect(() => {
     if (fileUrl) {
@@ -43,7 +43,7 @@ const ProfileImageInput = ({
   }, [fileUrl, file]);
 
   const filesSelectedHandler = (event) => {
-    setAlert(null);
+    setInlineError(null);
     const file = event.target.files[0];
     if (!file) {
       return;
@@ -67,7 +67,7 @@ const ProfileImageInput = ({
     }
 
     if (errorMessages.length > 0) {
-      return setAlert({
+      return setInlineError({
         title: "ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้",
         messages: errorMessages,
       });
@@ -89,10 +89,6 @@ const ProfileImageInput = ({
         );
       }
     });
-  };
-
-  const closeAlertHandler = () => {
-    setAlert(null);
   };
 
   return (
@@ -137,12 +133,12 @@ const ProfileImageInput = ({
           />
         </div>
         <div className="">
-          {alert && (
-            <Alert
-              title={alert.title}
-              messages={alert.messages}
+          {inlineError && (
+            <InlineError
+              title={inlineError.title}
+              messages={inlineError.messages}
               closeAfterMS={5000}
-              onClose={closeAlertHandler}
+              onClose={() => setInlineError(null)}
             />
           )}
         </div>

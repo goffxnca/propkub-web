@@ -1,3 +1,23 @@
-# Allow all crawlers
+# Allow all crawlers to index main public content
 User-agent: *
+
+# Disallow authenticated/user-only pages
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /account/
+Disallow: /agent/
+
+# Disallow utility/debug/api/auth pages
+Disallow: /debug/
+Disallow: /api/
+Disallow: /auth/
+
+# Disallow error pages
+Disallow: /404
+Disallow: /500
+
+# Allow everything else
 Allow: /
+
+# Point to your sitemap
+Sitemap: https://propkub.com/sitemap.xml

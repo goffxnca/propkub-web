@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const Overlay = ({ onClick, children }) => {
-  console.log("Overlay");
   const [isMounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -17,7 +16,7 @@ const Overlay = ({ onClick, children }) => {
     <>
       {/* overlay */}
       <div
-        className="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-40 z-30"
+        className="fixed top-0 left-0 right-0 bottom-0 bg-black opacity-10 z-30"
         onClick={onClick}
       ></div>
       {/* object  */}

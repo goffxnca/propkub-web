@@ -1,11 +1,12 @@
 import Head from "next/head";
 import SigninForm from "../components/Auth/Signin/SigninForm";
 import AuthLayout from "../components/Layouts/AuthLayout";
+import GuestOnlyRoute from "../components/Auth/GuestOnlyRoute";
 import { BASE_SITE_URL } from "../libs/constants";
 import { genPageTitle } from "../libs/seo-utils";
 
 const LoginPage = () => (
-  <>
+  <GuestOnlyRoute>
     <Head>
       <title>{genPageTitle("ล็อกอินเข้าสู่ระบบ")}</title>
       <meta
@@ -15,7 +16,7 @@ const LoginPage = () => (
       <link rel="canonical" href={BASE_SITE_URL + "/login"} />
     </Head>
     <SigninForm />
-  </>
+  </GuestOnlyRoute>
 );
 
 export default LoginPage;
