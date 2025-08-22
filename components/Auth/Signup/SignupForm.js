@@ -65,7 +65,7 @@ const SignupForm = () => {
             <h1 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
               ลงทะเบียนใช้งาน
             </h1>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-2">
               <Logo />
             </div>
             <br />

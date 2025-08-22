@@ -1,10 +1,10 @@
 import Logo from "./Logo";
 
-interface AuthLayoutProps {
-  children: React.ReactNode;
-}
+// interface AuthLayoutProps {
+//   children: React.ReactNode;
+// }
 
-const AuthLayout = ({ children }: AuthLayoutProps) => {
+const AuthLayout = ({ children }) => {
   return (
     <div className="relative  w-screen h-screen">
       <div className="absolute top-0 left-0 w-screen h-screen  bg-white opacity-10 -z-10"></div>
