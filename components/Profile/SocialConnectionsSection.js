@@ -33,7 +33,8 @@ const SocialConnectionsSection = ({ user }) => {
         icon: <GoogleIcon className="w-5 h-5" />, 
         color: 'text-blue-600',
         description: 'เข้าสู่ระบบด้วยบัญชี Google'
-      },
+      }
+      ,
       'facebook': { 
         name: 'Facebook', 
         icon: <FacebookIcon className="w-5 h-5 text-blue-600" />, 
@@ -93,13 +94,15 @@ const SocialConnectionsSection = ({ user }) => {
               size="sm"
               buttonText="เชื่อมต่อ"
             />
-          ) : provider === 'facebook' ? (
-            <LinkFacebookAccountButton
-              currentUserEmail={user.email}
-              size="sm"
-              buttonText="เชื่อมต่อ"
-            />
-          ) : (
+          ) 
+          // : provider === 'facebook' ? (
+          //   <LinkFacebookAccountButton
+          //     currentUserEmail={user.email}
+          //     size="sm"
+          //     buttonText="เชื่อมต่อ"
+          //   />
+          // ) 
+          : (
             <>
               <XCircleIcon className="w-5 h-5 text-gray-400" />
               <span className="text-sm font-medium text-gray-600">ยังไม่เชื่อมต่อ</span>

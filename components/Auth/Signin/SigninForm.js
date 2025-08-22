@@ -65,7 +65,7 @@ const SiginInForm = () => {
 
             <div className="mb-6 space-y-3">
               <GoogleLoginButton text="ล็อกอินด้วย Google" />
-              <FacebookLoginButton text="ล็อกอินด้วย Facebook" />
+              {/* <FacebookLoginButton text="ล็อกอินด้วย Facebook" /> */}
             </div>
 
             <div className="relative mb-6">
