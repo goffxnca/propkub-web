@@ -72,7 +72,7 @@ const SignupForm = () => {
 
             <div className="mb-6 space-y-3">
               <GoogleLoginButton text="ลงทะเบียนด้วย Google" />
-              <FacebookLoginButton text="ลงทะเบียนด้วย Facebook" />
+              {/* <FacebookLoginButton text="ลงทะเบียนด้วย Facebook" /> */}
             </div>
 
             <div className="relative mb-6">
