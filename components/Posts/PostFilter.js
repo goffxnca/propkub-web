@@ -1,30 +1,23 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import styles from "./PostFilter.module.css";
 
 import orderby from "lodash.orderby";
 
 import LocationIcon from "../Icons/LocationIcon";
-import DollarIcon from "../Icons/DollarIcon";
 import { SearchIcon, ArrowRightIcon } from "@heroicons/react/solid";
 
 import regions from "../../data/regions.json";
-// import provinces from "../../data/provinces.json";
-// import districts from "../../data/districts.json";
-// import subDistricts from "../../data/subDistricts.json";
 
 import { assetTypes } from "../../libs/mappers/assetTypeMapper";
-import { conditions } from "../../libs/mappers/conditionMapper";
 
-import TextInput from "../UI/Public/Inputs/TextInput";
 import SelectInput from "../UI/Public/Inputs/SelectInput";
 
 import Loader from "../UI/Common/modals/Loader";
-import Image from "next/image";
-import { Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import {
-  getAllDistrictsByProvinceId,
-  getAllProvincesByRegionId,
-  getAllSubDistrictsByDistrictId,
+  fetchProvincesByRegionId,
+  fetchDistrictsByProvinceId,
+  fetchSubDistrictsByDistrictId,
 } from "../../libs/managers/addressManager";
 
 const postTypes = [
@@ -40,16 +33,10 @@ const initialFilters = {
   provinceId: "",
   districtId: "",
   subDistrictId: "",
-  minPrice: 0,
-  maxPrice: 0,
-  condition: "",
-  keyword: "",
   loading: false,
 };
 
 const PostFilter = ({ onSearch, onReset }) => {
-  console.log("PostFilter");
-
   const router = useRouter();
   const [searchFilter, setSearchFilter] = useState({ ...initialFilters });
 
@@ -69,34 +56,6 @@ const PostFilter = ({ onSearch, onReset }) => {
   }));
 
   const regionList = useMemo(() => orderby(regions, "name", "asc"), []);
-
-  // const provinceList = useMemo(() => {
-  //   return orderby(
-  //     provinces.filter((p) => p.regionId === searchFilter.regionId),
-  //     "name",
-  //     "asc"
-  //   );
-  // }, [searchFilter.regionId]);
-
-  // const districtList = useMemo(
-  //   () =>
-  //     orderby(
-  //       districts.filter((d) => d.provinceId === searchFilter.provinceId),
-  //       "name",
-  //       "asc"
-  //     ),
-  //   [searchFilter.provinceId]
-  // );
-
-  // const subDistrictList = useMemo(
-  //   () =>
-  //     orderby(
-  //       subDistricts.filter((d) => d.districtId === searchFilter.districtId),
-  //       "name",
-  //       "asc"
-  //     ),
-  //   [searchFilter.districtId]
-  // );
 
   //handlers
   const selectPostTypeHandler = (postType) => {
@@ -120,7 +79,7 @@ const PostFilter = ({ onSearch, onReset }) => {
 
   const searchHandler = (event) => {
     event.preventDefault();
-    //TODO: Replace with actual async calls
+
     setSearchFilter((state) => ({ ...state, loading: true }));
     onSearch(searchFilter, () => {
       setSearchFilter((state) => ({ ...state, loading: false }));
@@ -146,13 +105,6 @@ const PostFilter = ({ onSearch, onReset }) => {
     }));
   };
 
-  const conditionChangeHandler = (event) => {
-    setSearchFilter((state) => ({
-      ...state,
-      condition: event.target.value,
-    }));
-  };
-
   const resetFilterHandler = () => {
     setSearchFilter(initialFilters);
     onReset();
@@ -164,7 +116,7 @@ const PostFilter = ({ onSearch, onReset }) => {
     setSearchFilter((state) => ({ ...state, provinceId: "" }));
 
     if (searchFilter.regionId) {
-      getAllProvincesByRegionId(searchFilter.regionId).then((result) => {
+      fetchProvincesByRegionId(searchFilter.regionId).then((result) => {
         setProvinceList(result);
         // if (searchFilter.regionId === "r2") {
         //   setSearchFilter((state) => ({ ...state, provinceId: "p1" }));
@@ -182,7 +134,7 @@ const PostFilter = ({ onSearch, onReset }) => {
     setSearchFilter((state) => ({ ...state, districtId: "" }));
 
     if (searchFilter.provinceId) {
-      getAllDistrictsByProvinceId(searchFilter.provinceId).then((result) => {
+      fetchDistrictsByProvinceId(searchFilter.provinceId).then((result) => {
         setDistrictList(result);
       });
     } else {
@@ -195,7 +147,7 @@ const PostFilter = ({ onSearch, onReset }) => {
     setSearchFilter((state) => ({ ...state, subDistrictId: "" }));
 
     if (searchFilter.districtId) {
-      getAllSubDistrictsByDistrictId(searchFilter.districtId).then((result) => {
+      fetchSubDistrictsByDistrictId(searchFilter.districtId).then((result) => {
         setSubDistrictList(result);
       });
     } else {
@@ -318,68 +270,6 @@ const PostFilter = ({ onSearch, onReset }) => {
                               />
                             </div>
                           </div>
-
-                          {/* keywords & prices */}
-                          {/* <div className="lg:flex items-center gap-4">
-                            <div className="">
-                              <DollarIcon className="text-gray-medium w-6 h-6 mx-auto" />
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <TextInput
-                                id="minPrice"
-                                type="number"
-                                label="ราคาต่ำสุด"
-                                placeholder="0"
-                                leadingSlot="$"
-                                onChange={(event) => {
-                                  setSearchFilter((state) => ({
-                                    ...state,
-                                    minPrice: +event.target.value,
-                                  }));
-                                }}
-                              ></TextInput>
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <TextInput
-                                id="maxPrice"
-                                type="number"
-                                label="ราคาสูงสุด"
-                                placeholder="0"
-                                leadingSlot="$"
-                                onChange={(event) => {
-                                  setSearchFilter((state) => ({
-                                    ...state,
-                                    maxPrice: +event.target.value,
-                                  }));
-                                }}
-                              ></TextInput>
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <SelectInput
-                                id="condition"
-                                label="รูปแบบ"
-                                options={conditions}
-                                onChange={conditionChangeHandler}
-                              />
-                            </div>
-
-                            <div className="lg:w-1/4">
-                              <TextInput
-                                id="keyword"
-                                label="คำค้นหา"
-                                placeholder="ขายด่วน"
-                                onChange={(event) => {
-                                  setSearchFilter((state) => ({
-                                    ...state,
-                                    keyword: event.target.value,
-                                  }));
-                                }}
-                              ></TextInput>
-                            </div>
-                          </div> */}
                         </div>
 
                         <div className="w-full lg:w-1/6">

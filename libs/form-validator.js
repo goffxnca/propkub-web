@@ -30,7 +30,12 @@ const GenericPhonePattern = (title) => ({
 
 const MobilePhonePattern = (title) => ({
   value: /^[0-9]{10}$/g,
-  message: `หมายเลขโทรศัพท์มือถือต้องเป็นตัวเลขเท่านั้น ความยาว 10 ตัวอักษร`,
+  message: `หมายเลขโทรศัพท์มือถือต้องเป็นตัวเลขเท่านั้น ความยาว 10 ตัวอักษร ไม่มีเครื่องหมาย "-"`,
+});
+
+const LineIdPattern = (title) => ({
+  value: /^@?[a-z0-9._-]{3,18}$/,
+  message: `ไลน์ไอดีต้องมีความยาว 3-18 ตัวอักษร และใช้ตัวอักษรภาษาอังกฤษพิมพ์เล็ก ตัวเลข จุด (.) ขีดกลาง (-) และขีดล่าง (_) เท่านั้น และโปรดระบุเครื่องหมาย @ ถ้ามี`,
 });
 
 export {
@@ -41,4 +46,5 @@ export {
   EmailPattern,
   MobilePhonePattern,
   GenericPhonePattern,
+  LineIdPattern,
 };

@@ -28,7 +28,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
       { address: actualAddress, region: "TH" },
       (results, status) => {
         console.log("geocoding....");
-        debugger;
         if (status == "OK") {
           const { lat, lng } = results[0].geometry.location;
           if (lat && lng) {
@@ -87,7 +86,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
       ...options,
     };
 
-    debugger;
     if (map) {
       map.setCenter(mapOptions.center);
       map.setZoom(mapOptions.zoom);
@@ -110,7 +108,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
   const createMarker = (map, position, pin = false) => {
     console.log("createMarker");
 
-    debugger;
     markers.forEach((mk) => mk.setMap(null));
     infoWindows.forEach((iw) => iw.setMap(null));
 
@@ -143,7 +140,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
     markers.push(marker);
 
     if (pin) {
-      debugger;
       createInfoWindow(map, position, false);
       onLocationSelected(position);
     } else {

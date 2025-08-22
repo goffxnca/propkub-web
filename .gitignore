@@ -25,14 +25,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 firebase-debug.log*
+
 # local env files
-.env*
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
 
 sm/
-
-# web master
-# hh-sitemap*
-

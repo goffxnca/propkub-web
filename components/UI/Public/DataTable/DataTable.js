@@ -1,6 +1,6 @@
 import { resolveColumnValue } from "../../../../libs/utils/datatable-utils";
 
-const DataTable = ({ items = [], columns = [] }) => {
+const DataTable = ({ items = [], columns = [], onRowClick = () => {} }) => {
   return (
     <div className="mt-8 flex flex-col overflow-x-scroll overflow-y-hidden">
       <div className="-my-2  lg:-mx-8">
@@ -49,7 +49,13 @@ const DataTable = ({ items = [], columns = [] }) => {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {items.map((item) => (
-                  <tr key={item.id}>
+                  <tr
+                    key={item._id}
+                    onClick={() => {
+                      onRowClick(item._id);
+                    }}
+                    className=" cursor-pointer hover:bg-gray-100"
+                  >
                     {columns.map((col) => (
                       <td
                         key={col.field}

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Modal from "../../components/UI/Public/Modal";
-import { verifyEmail } from "../../libs/managers/authManager";
+import { apiClient } from "../../libs/client";
 import { CheckIcon, ExclamationCircleIcon } from "@heroicons/react/outline";
 import { genPageTitle } from "../../libs/seo-utils";
 import Head from "next/head";
@@ -9,29 +9,29 @@ import Loader from "../../components/UI/Common/modals/Loader";
 
 const VerifyEmailPage = () => {
   const router = useRouter();
-  const { email, vtoken } = router.query;
-  const [verificationMessage, setVerificationMessage] = useState("");
+  const { vtoken } = router.query;
+  const [message, setMessage] = useState("");
 
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (email && vtoken) {
-      verifyEmail({ email, vToken: vtoken })
-        .then((result) => {
-          console.log(result);
-          setVerificationMessage("อีเมลของคุณได้รับการยืนยันเรียบร้อย");
-        })
-        .catch((ex) => {
-          console.error(ex);
-          setVerificationMessage("ลิ้งค์ยืนยันอีเมลไม่ถูกต้องหรือหมดอายุ");
+    const verifyEmail = async () => {
+      if (vtoken) {
+        try {
+          await apiClient.auth.verifyEmail(vtoken);
+          setMessage("อีเมลของคุณได้รับการยืนยันเรียบร้อย");
+        } catch (error) {
+          setMessage("ลิ้งค์ยืนยันอีเมลไม่ถูกต้องหรือหมดอายุ");
           setIsError(true);
-        })
-        .finally(() => {
+        } finally {
           setLoading(false);
-        });
-    }
-  }, [email, vtoken]);
+        }
+      }
+    };
+
+    verifyEmail();
+  }, [vtoken]);
 
   const modalTitle = isError ? "เกิดข้อผิดพลาด" : "ยืนยันอีเมลสำเร็จ";
   const modalType = isError ? "warning" : "success";
@@ -55,7 +55,7 @@ const VerifyEmailPage = () => {
           visible={true}
           type={modalType}
           title={modalTitle}
-          desc={verificationMessage}
+          desc={message}
           buttonCaption={modalButtonLabel}
           Icon={modalIcon}
           onClose={onPressModalButton}

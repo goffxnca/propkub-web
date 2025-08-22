@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { authContext } from "../../../contexts/authContext";
+import { ExclamationIcon } from "@heroicons/react/outline";
 
 import {
   EmailPattern,
@@ -11,8 +12,14 @@ import {
 import Logo from "../../Layouts/Logo";
 import Button from "../../UI/Public/Button";
 import TextInput from "../../UI/Public/Inputs/TextInput";
+import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
+import FacebookLoginButton from "../../UI/Public/SocialLogin/FacebookLoginButton";
+import Modal from "../../UI/Public/Modal";
+import ForgotPasswordModal from "../ForgotPasswordModal";
 
 const SiginInForm = () => {
+  const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+
   const {
     register,
     unregister,
@@ -20,18 +27,28 @@ const SiginInForm = () => {
     formState: { errors },
   } = useForm();
 
-  const { signin, user, loading, error, clearError } = useContext(authContext);
-
-  const submitHandler = (data) => {
-    signin(data.email, data.password);
-  };
+  const { signin, loading, error, clearError } = useContext(authContext);
 
   useEffect(() => {
     clearError();
   }, []);
 
-  // if (loading) return <div>Auth Loading...</div>;
-  // if (error) return <div>Error: {error}</div>;
+  const handleCloseErrorModal = () => {
+    clearError();
+  };
+
+  const handleForgotPasswordClick = (e) => {
+    e.preventDefault();
+    setShowForgotPasswordModal(true);
+  };
+
+  const handleCloseForgotPasswordModal = () => {
+    setShowForgotPasswordModal(false);
+  };
+
+  const submitHandler = (data) => {
+    signin(data.email, data.password);
+  };
 
   return (
     <>
@@ -45,6 +62,21 @@ const SiginInForm = () => {
               <Logo />
             </div>
             <br />
+
+            <div className="mb-6 space-y-3">
+              <GoogleLoginButton text="ล็อกอินด้วย Google" />
+              <FacebookLoginButton text="ล็อกอินด้วย Facebook" />
+            </div>
+
+            <div className="relative mb-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">หรือ</span>
+              </div>
+            </div>
+
             <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
               <TextInput
                 id="email"
@@ -73,8 +105,8 @@ const SiginInForm = () => {
                 error={errors.password}
               />
               {/* TODO: implement later after v1.0 */}
-              {/* <div className="flex items-center justify-between">
-                <div className="flex items-center">
+              <div className="flex items-center justify-between">
+                {/* <div className="flex items-center">
                   <input
                     id="remember-me"
                     name="remember-me"
@@ -87,18 +119,18 @@ const SiginInForm = () => {
                   >
                     Remember me
                   </label>
-                </div>
+                </div> */}
 
                 <div className="text-sm">
                   <a
                     href="#"
+                    onClick={handleForgotPasswordClick}
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    จำรหัสผ่านไม่ได้?
+                    ลืมรหัสผ่าน?
                   </a>
                 </div>
-              </div> */}
-              <div className="text-red-400 text-xs text-center">{error}</div>
+              </div>
               <div>
                 {/* <button
                   type="submit"
@@ -198,6 +230,21 @@ const SiginInForm = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        visible={!!error}
+        Icon={ExclamationIcon}
+        type="warning"
+        title="เกิดข้อผิดพลาด"
+        desc={error}
+        buttonCaption="ตกลง"
+        onClose={handleCloseErrorModal}
+      />
+
+      <ForgotPasswordModal
+        visible={showForgotPasswordModal}
+        onClose={handleCloseForgotPasswordModal}
+      />
     </>
   );
 };

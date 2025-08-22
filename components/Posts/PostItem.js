@@ -13,7 +13,6 @@ const PostItem = ({
   id,
   postType,
   assetType,
-  condition,
   title,
   slug,
   thumbnail,
@@ -63,8 +62,8 @@ const PostItem = ({
     <li className="w-full lg:w-1/2 p-2 group">
       <Link
         href={postLink}
-        target="_blank"
-        rel="noopener noreferrer"
+        // target="_blank"
+        // rel="noopener noreferrer"
         className="md:flex rounded-md bg-white shadow-md cursor-pointer transition-all group-hover:shadow-xl group-hover:bg-gray-50"
       >
         <div className="md:w-2/5 h-64 md:h-48 overflow-hidden rounded-md rounded-t-md md:rounded-none md:rounded-l-md relative">

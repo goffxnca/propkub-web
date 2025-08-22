@@ -28,7 +28,6 @@ const BasicSection = ({
   isEditMode = false,
   defaultValues,
 }) => {
-  console.log("BasicSection");
   const watchAssetType = watch("assetType");
   const watchPostType = watch("postType");
   const watchIsStudio = watch("isStudio");
@@ -77,6 +76,22 @@ const BasicSection = ({
           <div className="grid grid-cols-6 gap-6">
             <div className="col-span-6 sm:col-span-3">
               <SelectInput
+                id="postType"
+                label="ต้องการ"
+                options={postTypes}
+                disabled={isEditMode}
+                register={() =>
+                  register("postType", {
+                    required: "กรุณาระบุประเภทประกาศ",
+                  })
+                }
+                unregister={unregister}
+                error={errors?.postType}
+              />
+            </div>
+
+            <div className="col-span-6 sm:col-span-3">
+              <SelectInput
                 id="assetType"
                 label="ประเภททรัพย์"
                 options={assetTypes}
@@ -91,30 +106,15 @@ const BasicSection = ({
               />
             </div>
 
-            <div className="col-span-6 sm:col-span-3">
-              <SelectInput
-                id="postType"
-                label="ต้องการ"
-                options={postTypes}
-                register={() =>
-                  register("postType", {
-                    required: "กรุณาระบุประเภทประกาศ",
-                  })
-                }
-                unregister={unregister}
-                error={errors?.postType}
-              />
-            </div>
-
             {!isLand && (
               <div className="col-span-6 sm:col-span-3">
                 <SelectInput
                   id="condition"
-                  label="ลักษณะทรัพย์"
+                  label="สภาพ"
                   options={conditions}
                   register={() =>
                     register("condition", {
-                      required: "กรุณาระบุลักษณะทรัพย์",
+                      required: "กรุณาระบุสภาพ",
                     })
                   }
                   unregister={unregister}

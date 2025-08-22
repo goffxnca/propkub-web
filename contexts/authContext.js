@@ -1,156 +1,129 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { httpsCallable } from "firebase/functions";
 import { useRouter } from "next/router";
 import { createContext, useEffect, useState } from "react";
-import { firebaseAuth, firebaseFunctions } from "../libs/firebase";
-import { getNotifications } from "../libs/managers/notificationManager";
-import { getFirebaseErrorLabel } from "../libs/mappers/firebaseErrorCodeMapper";
+import { apiClient } from "../libs/client";
+import { tokenManager } from "../libs/tokenManager";
+import { t } from "../libs/translator";
 
 const initialContext = {
   user: null,
   isAuthenticated: false,
   isNormalUser: false,
   isAgent: false,
-  isAdmin: false,
   isProfileComplete: false,
   signin: (email, password) => {},
   signup: (email, password, role) => {},
   signout: (redirectTo) => {},
+  initializing: false,
   loading: false,
-  notifications: [],
-  markNotificationAsRead: (notificationId) => {},
   error: "",
   clearError: () => {},
+  setUser: () => {},
 };
 
 const authContext = createContext(initialContext);
 
 const AuthContextProvider = ({ children }) => {
-  // console.log("AuthContextProvider ran...");
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [initializing, setInitializing] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    console.log("ONLY ONE TIME!!");
+    console.log("[Auth] Initialization...");
 
-    const unsubscriber = firebaseAuth.onAuthStateChanged((user) => {
-      if (user) {
-        const userData = {
-          userId: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-          photoURL: user.photoURL,
-          // emailVerified: user.emailVerified,
-          emailVerified: user.emailVerified, //TODO: Change to true for testing, change back later
-          phone: user.phoneNumber,
-        };
+    const initializeAuth = async () => {
+      try {
+        if (tokenManager.hasToken()) {
+          console.log("[Auth] JWT token found, fetching user profile...");
 
-        user.getIdTokenResult().then((result) => {
-          userData.role = result.claims.role;
-          userData.line = result.claims.line;
-          console.log("onAuthStateChanged", userData);
-          if (userData.role) {
-            setUser(userData);
-            setLoading(false);
+          const userProfile = await apiClient.auth.getProfile();
+          console.log("[Auth] User profile restored:", userProfile);
 
-            if (userData.role === "agent") {
-              //TODO: Get Notification By User Id
-              getNotifications(user.uid).then((response) => {
-                setNotifications(response.data);
-              });
-            }
+          if (userProfile) {
+            setUser(userProfile);
+          } else {
+            tokenManager.removeToken();
           }
-        });
-      } else {
-        console.log("onAuthStateChanged", "none");
+          setInitializing(false);
+        } else {
+          console.log("[Auth] No JWT token found");
+          setUser(null);
+          setInitializing(false);
+        }
+      } catch (error) {
+        console.error("[Auth] Initialization failed:", error);
+        tokenManager.removeToken();
         setUser(null);
-        setLoading(false);
+        setInitializing(false);
       }
-    });
-
-    return () => {
-      unsubscriber();
-      // console.log("UNMOUNTED AuthContextProvider");
     };
+
+    initializeAuth();
   }, []);
 
-  const signin = (email, password) => {
+  const signin = async (email, password) => {
     setLoading(true);
-    signInWithEmailAndPassword(firebaseAuth, email, password)
-      .then((result) => {
-        setLoading(false);
-        console.log("signin success");
-      })
-      .catch((error) => {
-        setError("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
-        setLoading(false);
-        console.error(`signin failed: ${error.message}`);
-      });
-  };
+    try {
+      console.log("[Auth] Login attempt for:", email);
 
-  const signup = (email, password, name, role) => {
-    setLoading(true);
-    createUserWithEmailAndPassword(firebaseAuth, email, password)
-      .then((cred) => {
-        const postUserSignup = httpsCallable(
-          firebaseFunctions,
-          "postUserSignup"
-        );
-        postUserSignup({
-          uid: cred.user.uid,
-          email: cred.user.email,
-          role: role,
-          name: name,
-        })
-          .then((result) => {
-            console.log("signup success");
-            firebaseAuth.currentUser.getIdTokenResult(true).then(() => {
-              window.document.location.replace("/profile");
-            });
-          })
-          .catch((error) => {
-            throw error;
-          });
-      })
-      .catch((error) => {
-        if (error.code) {
-          const errorMessage =
-            getFirebaseErrorLabel(error.code) || "ข้อมูลการลงทะเบียนไม่ถูกต้อง";
-          setError(errorMessage);
-        }
-        setLoading(false);
-        console.error(`signup failed: ${error.message}`);
-      });
-  };
+      const result = await apiClient.auth.login(email, password);
+      console.log("[Auth] Login successful:", result);
 
-  const signout = (redirectTo) => {
-    if (!redirectTo) {
-      signOut(firebaseAuth);
-    } else {
-      router.push(redirectTo).then(() => {
-        signOut(firebaseAuth)
-          .then((result) => {
-            console.log("signout success");
-          })
-          .catch((err) => {
-            console.error("signout failed", err);
-          });
-      });
+      tokenManager.setToken(result.accessToken);
+      const userProfile = await apiClient.auth.getProfile();
+      console.log("[Auth] User profile fetched after login:", userProfile);
+      setUser(userProfile);
+      setLoading(false);
+    } catch (error) {
+      const errorMessage = t(error.message);
+      setError(errorMessage);
+      setLoading(false);
+      console.error("[Auth] Login failed:", error.message);
     }
   };
 
-  const markNotificationAsRead = (notificationId) => {
-    const updatedNotifictions = notifications.map((noti) =>
-      noti.id === notificationId ? { ...noti, read: true } : noti
-    );
-    setNotifications(updatedNotifictions);
+  const signup = async (email, password, name, isAgent) => {
+    setLoading(true);
+    try {
+      console.log("[Auth] Signup attempt for:", email);
+
+      const result = await apiClient.auth.signup(
+        name,
+        email,
+        password,
+        isAgent
+      );
+      console.log("[Auth] Signup successful:", result);
+
+      tokenManager.setToken(result.accessToken);
+
+      const userProfile = await apiClient.auth.getProfile();
+      console.log("[Auth] User profile fetched after signup:", userProfile);
+      setUser(userProfile);
+      setLoading(false);
+    } catch (error) {
+      const errorMessage = t(error.message);
+      setError(errorMessage);
+      setLoading(false);
+      console.error("[Auth] Signup failed:", error.message);
+    }
+  };
+
+  const signout = async (redirectTo = "/") => {
+    setLoading(true);
+    try {
+      console.log("[Auth] Logout initiated...");
+
+      tokenManager.removeToken();
+      setUser(null);
+      setLoading(false);
+      console.log("[Auth] Logout successful");
+      router.push(redirectTo);
+    } catch (error) {
+      console.error("[Auth] Logout failed:", error.message);
+      setLoading(false);
+    }
   };
 
   const clearError = () => {
@@ -160,42 +133,32 @@ const AuthContextProvider = ({ children }) => {
   const isAuthenticated = !!user;
   const isNormalUser = user && user.role === "normal";
   const isAgent = user && user.role === "agent";
-  const isAdmin = user && user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
   const isProfileComplete =
     user &&
     user.email &&
-    user.displayName &&
+    user.name &&
     user.phone &&
     user.line &&
-    user.photoURL &&
-    ["agent", "admin"].includes(user.role);
+    user.profileImg;
 
   const authValue = {
     user,
     isAuthenticated,
     isNormalUser,
     isAgent,
-    isAdmin,
     isProfileComplete,
     signin,
     signup,
     signout,
+    initializing,
     loading,
     error,
     clearError,
-    notifications,
-    markNotificationAsRead,
+    setUser,
   };
 
-  // if (loading) {
-  //   return <div>LOADING!!!.....</div>;
-  // }
-
   return (
-    <authContext.Provider value={authValue}>
-      {/* isAuthenticated:{isAuthenticated.toString()} */}
-      {children}
-    </authContext.Provider>
+    <authContext.Provider value={authValue}>{children}</authContext.Provider>
   );
 };
 

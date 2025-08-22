@@ -1,79 +1,51 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import PostFilter from "./PostFilter";
 import PostItem from "./PostItem";
 import { animateScroll, Element, scroller } from "react-scroll";
 import { queryPostWithFilters } from "../../libs/post-utils";
 import PostRow from "./PostRow";
 import PostsByRegion from "./PostsByRegion";
+import Modal from "../UI/Public/Modal";
+import { ExclamationIcon } from "@heroicons/react/outline";
+import { cleanObject } from "../../libs/object-utils";
 
-const PostList = ({ posts, provinces }) => {
-  console.log("PostList");
+const PostList = ({ posts, provinces, hasError }) => {
   const [searchCount, setSearchCount] = useState(0);
   const [filteredPosts, setFilteredPosts] = useState([]);
+  const [localError, setLocalError] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(hasError);
+
+  useEffect(() => {
+    if (hasError || localError) {
+      setShowErrorModal(true);
+    }
+  }, [hasError, localError]);
 
   const searchHandler = async (filters, onDone) => {
-    const {
-      regionId,
-      provinceId,
-      districtId,
-      subDistrictId,
-      minPrice,
-      maxPrice,
-      keyword,
-      postType,
-      assetType,
-      condition,
-    } = filters;
-
-    const results = await queryPostWithFilters(filters);
-    debugger;
-    console.log(results);
-
-    // let results = posts;
-
-    // results = results.filter((p) =>
-    //   keyword ? JSON.stringify(p).indexOf(keyword) !== -1 : true
-    // );
-
-    // results = results.filter((p) =>
-    //   postType.searchFor ? p.postType === postType.searchFor : true
-    // );
-
-    // results = results.filter((p) =>
-    //   assetType ? p.assetType === assetType : true
-    // );
-
-    // results = results.filter((p) =>
-    //   condition ? p.condition === condition : true
-    // );
-
-    // results = results.filter((p) =>
-    //   subDistrictId
-    //     ? p.address.subDistrictId === subDistrictId
-    //     : districtId
-    //     ? p.address.districtId === districtId
-    //     : provinceId
-    //     ? p.address.provinceId === provinceId
-    //     : false
-    // );
-
-    // results = results.filter(
-    //   (p) =>
-    //     (minPrice > 0 ? p.price >= minPrice : true) &&
-    //     (maxPrice > 0 ? p.price <= maxPrice : true)
-    // );
-
-    setFilteredPosts(results);
-    setSearchCount((prevSearchCount) => prevSearchCount + 1);
-    // animateScroll.scrollToBottom();
-    scroller.scrollTo("searchResult", {
-      smooth: true,
-    });
-    onDone();
+    try {
+      const { postType } = filters;
+      const cleanFilters = cleanObject({
+        ...filters,
+        postType: postType.searchFor,
+      });
+      const results = await queryPostWithFilters(cleanFilters);
+      setFilteredPosts(results);
+      setSearchCount((prevSearchCount) => prevSearchCount + 1);
+      scroller.scrollTo("searchResult", {
+        smooth: true,
+      });
+      onDone();
+    } catch (error) {
+      console.error("Failed to search posts:", error);
+      setLocalError(true);
+      onDone();
+    }
   };
 
   const resetHandler = () => {
     setSearchCount(0);
+    setLocalError(false);
+    setShowErrorModal(false);
     animateScroll.scrollToTop({ duration: 500 });
   };
 
@@ -107,11 +79,10 @@ const PostList = ({ posts, provinces }) => {
         <ul className="flex flex-wrap justify-between mb-10">
           {filteredPostList.slice(0, 30).map((post, index) => (
             <PostItem
-              key={post.id}
-              id={post.id}
+              key={post._id}
+              id={post._id}
               postType={post.postType}
               assetType={post.assetType}
-              condition={post.condition}
               title={post.title}
               slug={post.slug}
               thumbnail={post.thumbnail}
@@ -125,27 +96,20 @@ const PostList = ({ posts, provinces }) => {
           ))}
         </ul>
 
-        {/* Recent 31-100 posts without thumbnai */}
+        {/* Recent 31-50 posts without thumbnail */}
         <div className="overflow-hidden bg-white shadow sm:rounded-m">
           <ul role="list" className="divide-y divide-gray-200">
-            {filteredPostList.slice(30, 100).map((post, index) => (
+            {filteredPostList.slice(30, 50).map((post, index) => (
               <PostRow
-                key={post.id}
-                id={post.id}
+                key={post._id}
                 postType={post.postType}
                 assetType={post.assetType}
-                condition={post.condition}
                 title={post.title}
                 slug={post.slug}
-                thumbnail={post.thumbnail}
-                thumbnailAlt={post.thumbnailAlt}
                 price={post.price}
                 priceUnit={post.priceUnit}
                 address={post.address}
-                specs={post.specs}
-                isStudio={post.isStudio}
                 createdAt={post.createdAt}
-                createdBy={post.contact || post.createdBy}
               />
             ))}
           </ul>
@@ -199,6 +163,20 @@ const PostList = ({ posts, provinces }) => {
           provinces={provinces.filter((p) => p.regionId === "r6")}
         />
       </div>
+
+      {/* Error Modal */}
+      <Modal
+        visible={showErrorModal}
+        type="warning"
+        title="เกิดข้อผิดพลาด"
+        desc="ไม่สามารถโหลดข้อมูลประกาศได้ กรุณาลองใหม่อีกครั้ง"
+        buttonCaption="ตกลง"
+        Icon={ExclamationIcon}
+        onClose={() => {
+          setShowErrorModal(false);
+          setLocalError(false);
+        }}
+      />
     </div>
   );
 };
