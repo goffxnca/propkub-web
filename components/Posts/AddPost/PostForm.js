@@ -123,7 +123,7 @@ const PostForm = ({ postData }) => {
       const messages = [];
       if (!user.emailVerified) {
         messages.push(
-          `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล`
+          `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล ลองตรวจสอบในโฟลเดอร์อื่น เช่น "Promotions" หรือ "Spam")`
         );
       }
       if (!isProfileComplete) {
