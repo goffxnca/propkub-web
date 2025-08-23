@@ -1,4 +1,4 @@
-import {  CheckCircleIcon, XCircleIcon } from "@heroicons/react/outline";
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/outline";
 import GoogleIcon from "../Icons/GoogleIcon";
 import FacebookIcon from "../Icons/FacebookIcon";
 import { MailIcon } from "@heroicons/react/outline";
@@ -6,14 +6,13 @@ import LinkGoogleAccountButton from "../UI/LinkGoogleAccountButton";
 import LinkFacebookAccountButton from "../UI/LinkFacebookAccountButton";
 
 const SocialConnectionsSection = ({ user }) => {
-
   const getConnectionStatus = (provider) => {
     switch (provider) {
-      case 'google':
-        return user.provider === 'google' || !!user.googleId;
-      case 'facebook':
-        return user.provider === 'facebook' || !!user.facebookId;
-      case 'email':
+      case "google":
+        return user.provider === "google" || !!user.googleId;
+      case "facebook":
+        return user.provider === "facebook" || !!user.facebookId;
+      case "email":
         return true;
       default:
         return false;
@@ -22,25 +21,24 @@ const SocialConnectionsSection = ({ user }) => {
 
   const getProviderInfo = (provider) => {
     const providerMap = {
-      'email': { 
-        name: 'อีเมล', 
-        icon: <MailIcon className="w-5 h-5 text-gray-600" />, 
-        color: 'text-gray-600',
-        description: 'เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน'
+      email: {
+        name: "อีเมล",
+        icon: <MailIcon className="w-5 h-5 text-gray-600" />,
+        color: "text-gray-600",
+        description: "เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน",
       },
-      'google': { 
-        name: 'Google', 
-        icon: <GoogleIcon className="w-5 h-5" />, 
-        color: 'text-blue-600',
-        description: 'เข้าสู่ระบบด้วยบัญชี Google'
-      }
-      ,
-      'facebook': { 
-        name: 'Facebook', 
-        icon: <FacebookIcon className="w-5 h-5 text-blue-600" />, 
-        color: 'text-blue-800',
-        description: 'เข้าสู่ระบบด้วยบัญชี Facebook'
-      }
+      google: {
+        name: "Google",
+        icon: <GoogleIcon className="w-5 h-5" />,
+        color: "text-blue-600",
+        description: "เข้าสู่ระบบด้วยบัญชี Google",
+      },
+      facebook: {
+        name: "Facebook",
+        icon: <FacebookIcon className="w-5 h-5 text-blue-600" />,
+        color: "text-blue-800",
+        description: "เข้าสู่ระบบด้วยบัญชี Facebook",
+      },
     };
     return providerMap[provider];
   };
@@ -48,12 +46,13 @@ const SocialConnectionsSection = ({ user }) => {
   const getAllProviders = () => {
     // If user signed up with Google or Facebook, don't show email option
     // (since we don't allow linking back to email accounts)
-    if (user.provider === 'google' || user.provider === 'facebook') {
-      return ['google', 'facebook'];
+    if (user.provider === "google" || user.provider === "facebook") {
+      return ["google", "facebook"];
     }
-    
+
     // If user signed up with email, show all options
-    return ['email', 'google', 'facebook'];
+    // return ['email', 'google', 'facebook'];
+    return ["email", "google"];
   };
 
   const renderConnectionStatus = (provider) => {
@@ -72,7 +71,9 @@ const SocialConnectionsSection = ({ user }) => {
           </div>
           <div className="flex items-center space-x-2">
             <CheckCircleIcon className="w-5 h-5 text-green-600" />
-            <span className="text-sm font-medium text-green-900">เชื่อมต่อแล้ว</span>
+            <span className="text-sm font-medium text-green-900">
+              เชื่อมต่อแล้ว
+            </span>
           </div>
         </div>
       );
@@ -88,24 +89,25 @@ const SocialConnectionsSection = ({ user }) => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          {provider === 'google' ? (
+          {provider === "google" ? (
             <LinkGoogleAccountButton
               currentUserEmail={user.email}
               size="sm"
               buttonText="เชื่อมต่อ"
             />
-          ) 
-          // : provider === 'facebook' ? (
-          //   <LinkFacebookAccountButton
-          //     currentUserEmail={user.email}
-          //     size="sm"
-          //     buttonText="เชื่อมต่อ"
-          //   />
-          // ) 
-          : (
+          ) : (
+            // : provider === 'facebook' ? (
+            //   <LinkFacebookAccountButton
+            //     currentUserEmail={user.email}
+            //     size="sm"
+            //     buttonText="เชื่อมต่อ"
+            //   />
+            // )
             <>
               <XCircleIcon className="w-5 h-5 text-gray-400" />
-              <span className="text-sm font-medium text-gray-600">ยังไม่เชื่อมต่อ</span>
+              <span className="text-sm font-medium text-gray-600">
+                ยังไม่เชื่อมต่อ
+              </span>
             </>
           )}
         </div>
@@ -136,9 +138,7 @@ const SocialConnectionsSection = ({ user }) => {
               </label>
               <div className="space-y-3">
                 {allProviders.map((provider) => (
-                  <div key={provider}>
-                    {renderConnectionStatus(provider)}
-                  </div>
+                  <div key={provider}>{renderConnectionStatus(provider)}</div>
                 ))}
               </div>
             </div>
@@ -149,4 +149,4 @@ const SocialConnectionsSection = ({ user }) => {
   );
 };
 
-export default SocialConnectionsSection; 
+export default SocialConnectionsSection;
