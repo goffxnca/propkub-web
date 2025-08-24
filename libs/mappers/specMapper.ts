@@ -1,16 +1,16 @@
-import { Spec, SpecDbFormat, SpecsObject } from "../../src/types/misc/spec";
+import { Spec, SpecDbFormat, SpecsObject } from '../../src/types/misc/spec';
 
 const specs: Spec[] = [
-  { id: "beds", label: "ห้องนอน" },
-  { id: "baths", label: "ห้องน้ำ" },
-  { id: "area", label: "ตรว." },
-  { id: "parkings", label: "ที่จอดรถ" },
-  { id: "kitchens", label: "ห้องครัว" },
-  { id: "livings", label: "ห้องรับแขก" },
+  { id: 'beds', label: 'ห้องนอน' },
+  { id: 'baths', label: 'ห้องน้ำ' },
+  { id: 'area', label: 'ตรว.' },
+  { id: 'parkings', label: 'ที่จอดรถ' },
+  { id: 'kitchens', label: 'ห้องครัว' },
+  { id: 'livings', label: 'ห้องรับแขก' }
 ];
 
 const getSpecLabel = (specId: string): string => {
-  return specs.find((a) => a.id === specId)?.label || "";
+  return specs.find((a) => a.id === specId)?.label || '';
 };
 
 // Convert from {beds: 2} -> [{id: "ิbeds", label: "ห้องนอน", value: 2}]

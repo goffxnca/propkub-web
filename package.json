@@ -1,12 +1,14 @@
 {
   "name": "propkub-web",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev -p 65432",
     "build": "next build",
     "start": "next start -p 3232",
     "lint": "next lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build"
@@ -39,7 +41,9 @@
     "cross-env": "^7.0.3",
     "eslint": "8.20.0",
     "eslint-config-next": "^14.2.26",
+    "eslint-config-prettier": "^10.1.8",
     "postcss": "^8.4.14",
+    "prettier": "^3.6.2",
     "tailwindcss": "^3.1.6",
     "typescript": "5.8.3"
   },

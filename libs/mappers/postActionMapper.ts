@@ -4,9 +4,9 @@ import {
   ExclamationIcon,
   CurrencyDollarIcon,
   XIcon,
-  RefreshIcon,
-} from "@heroicons/react/solid";
-import { Variant } from "../utils/style-utils";
+  RefreshIcon
+} from '@heroicons/react/solid';
+import { Variant } from '../utils/style-utils';
 
 export interface PostAction {
   id: string;
@@ -17,41 +17,41 @@ export interface PostAction {
 
 const postActions: PostAction[] = [
   {
-    id: "create",
-    label: "สร้างประกาศ",
-    variant: "success",
-    icon: DocumentAddIcon,
+    id: 'create',
+    label: 'สร้างประกาศ',
+    variant: 'success',
+    icon: DocumentAddIcon
   },
   {
-    id: "update",
-    label: "อัพเดทประกาศ",
-    variant: "info",
-    icon: PencilIcon,
+    id: 'update',
+    label: 'อัพเดทประกาศ',
+    variant: 'info',
+    icon: PencilIcon
   },
   {
-    id: "suspense",
-    label: "พักการใช้งาน",
-    variant: "warning",
-    icon: ExclamationIcon,
+    id: 'suspense',
+    label: 'พักการใช้งาน',
+    variant: 'warning',
+    icon: ExclamationIcon
   },
   {
-    id: "restore",
-    label: "เปิดประกาศใหม่",
-    variant: "success",
-    icon: RefreshIcon,
+    id: 'restore',
+    label: 'เปิดประกาศใหม่',
+    variant: 'success',
+    icon: RefreshIcon
   },
   {
-    id: "sell",
-    label: "ปิดการขาย",
-    variant: "info",
-    icon: CurrencyDollarIcon,
+    id: 'sell',
+    label: 'ปิดการขาย',
+    variant: 'info',
+    icon: CurrencyDollarIcon
   },
   {
-    id: "close",
-    label: "ปิดประกาศ",
-    variant: "error",
-    icon: XIcon,
-  },
+    id: 'close',
+    label: 'ปิดประกาศ',
+    variant: 'error',
+    icon: XIcon
+  }
 ];
 
 const getPostActionById = (actionId: string): PostAction => {
@@ -75,5 +75,5 @@ export {
   getPostActionById,
   getPostActionLabelById,
   getPostActionVariantById,
-  getPostActionIconById,
+  getPostActionIconById
 };

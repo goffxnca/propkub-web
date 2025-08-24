@@ -1,26 +1,26 @@
-import SpinnerIcon from "../../Icons/SpinnerIcon";
-import Overlay from "../Common/modals/Overlay";
+import SpinnerIcon from '../../Icons/SpinnerIcon';
+import Overlay from '../Common/modals/Overlay';
 
 const Button = ({
-  type = "button",
-  variant = "primary",
+  type = 'button',
+  variant = 'primary',
   loading = false,
   onClick,
   Icon,
   disabled = false,
   children,
-  spacingY = false,
+  spacingY = false
 }) => {
   const bgStyle = disabled
-    ? "bg-primary bg-opacity-50"
-    : variant === "secondary"
-    ? "bg-secondary hover:bg-secondary-hover"
-    : variant === "accent"
-    ? "bg-accent hover:bg-accent-hover"
-    : "bg-primary hover:bg-primary-hover";
-  const textStyle = variant === "secondary" ? "text-gray-700" : "text-white";
-  const borderStyle = variant === "secondary" ? "border border-gray-300" : "";
-  const buttonSpacingY = spacingY ? "py-3" : "py-4 md:py-2";
+    ? 'bg-primary bg-opacity-50'
+    : variant === 'secondary'
+      ? 'bg-secondary hover:bg-secondary-hover'
+      : variant === 'accent'
+        ? 'bg-accent hover:bg-accent-hover'
+        : 'bg-primary hover:bg-primary-hover';
+  const textStyle = variant === 'secondary' ? 'text-gray-700' : 'text-white';
+  const borderStyle = variant === 'secondary' ? 'border border-gray-300' : '';
+  const buttonSpacingY = spacingY ? 'py-3' : 'py-4 md:py-2';
 
   let applyButtonAttributes = {};
   if (disabled) {
@@ -43,8 +43,8 @@ const Button = ({
 
         {Icon && <div className=" mr-1">{Icon}</div>}
 
-        <div className={`${loading && "ml-1"}`}>
-          {loading && "กำลัง"}
+        <div className={`${loading && 'ml-1'}`}>
+          {loading && 'กำลัง'}
           {children}
         </div>
       </div>

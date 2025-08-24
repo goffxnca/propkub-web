@@ -1,6 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { ExclamationIcon } from "@heroicons/react/solid";
-import { useEffect } from "react";
+import { ExclamationIcon } from '@heroicons/react/solid';
 
 const InlineError = ({ title, messages, closeAfterMS, onClose }) => {
   let timer;
@@ -31,7 +30,7 @@ const InlineError = ({ title, messages, closeAfterMS, onClose }) => {
               <ul role="list" className="list-disc pl-5 space-y-1">
                 {messages.map((message) => (
                   <li key={message}>
-                    <div style={{ overflowWrap: "anywhere" }}>{message}</div>
+                    <div style={{ overflowWrap: 'anywhere' }}>{message}</div>
                   </li>
                 ))}
               </ul>

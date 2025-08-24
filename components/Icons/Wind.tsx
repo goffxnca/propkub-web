@@ -1,4 +1,4 @@
-import { IconProps } from "./types";
+import { IconProps } from './types';
 
 const WindIcon = ({ className }: IconProps) => {
   return (

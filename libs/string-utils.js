@@ -6,14 +6,14 @@ const getYoutubeVideoId = (url) => {
 };
 
 const randomLetter = () => {
-  return String.fromCharCode(65 + Math.floor(Math.random() * 26)) || "2";
+  return String.fromCharCode(65 + Math.floor(Math.random() * 26)) || '2';
   // return "hex";
 };
 
-const zeroPad = (num, places) => String(num).padStart(places, "0");
+const zeroPad = (num, places) => String(num).padStart(places, '0');
 
-const orDefault = (value, defaultValue = "-") =>
-  value == null || value === "" || (Array.isArray(value) && !value.length)
+const orDefault = (value, defaultValue = '-') =>
+  value == null || value === '' || (Array.isArray(value) && !value.length)
     ? defaultValue
     : value;
 

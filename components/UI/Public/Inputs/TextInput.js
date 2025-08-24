@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import BaseInput from "./BaseInput";
-import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline";
+import { useEffect, useState } from 'react';
+import BaseInput from './BaseInput';
+import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 
 const TextInput = ({
   id,
-  type = "text",
+  type = 'text',
   label,
   placeholder,
   value,
@@ -18,16 +18,16 @@ const TextInput = ({
   register = () => ({}),
   unregister = () => ({}),
   children,
-  spacingY = false,
+  spacingY = false
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const inputRingAndBorderStyle = error
-    ? "focus:ring-red-300  border-red-200 focus:border-red-300"
-    : "focus:ring-indigo-500 focus:border-indigo-500";
+    ? 'focus:ring-red-300  border-red-200 focus:border-red-300'
+    : 'focus:ring-indigo-500 focus:border-indigo-500';
 
-  const disabledStyle = disabled ? "bg-gray-50 text-gray-500" : "";
+  const disabledStyle = disabled ? 'bg-gray-50 text-gray-500' : '';
 
-  const textboxSpacingY = spacingY ? "py-3" : "";
+  const textboxSpacingY = spacingY ? 'py-3' : '';
 
   let applyInputAttributes = {};
   if (disabled) {
@@ -38,6 +38,7 @@ const TextInput = ({
     return () => {
       unregister(id);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const togglePasswordVisibility = () => {
@@ -52,27 +53,29 @@ const TextInput = ({
         </div>
         <input
           id={id}
-          type={type === "password" ? (showPassword ? "text" : "password") : type}
+          type={
+            type === 'password' ? (showPassword ? 'text' : 'password') : type
+          }
           name={id}
           value={value}
           placeholder={placeholder}
           onChange={onChange}
           onKeyPress={onKeyPress}
           className={`mt-1 ${textboxSpacingY} ${inputRingAndBorderStyle} block w-full shadow-sm sm:text-sm border-gray-300 rounded-md ${disabledStyle} ${
-            leadingSlot && "pl-7"
-          } ${type === "password" ? "pr-10" : ""}`}
+            leadingSlot && 'pl-7'
+          } ${type === 'password' ? 'pr-10' : ''}`}
           {...register()}
           {...applyInputAttributes}
         />
 
         <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-          {type === "password" && !disabled && (
+          {type === 'password' && !disabled && (
             <button
               type="button"
               onClick={togglePasswordVisibility}
               className="text-gray-400 hover:text-gray-500 focus:outline-none relative"
               style={{ zIndex: 1 }}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
               {showPassword ? (
                 <EyeIcon className="h-5 w-5" aria-hidden="true" />

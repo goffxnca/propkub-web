@@ -1,32 +1,32 @@
-import { CalendarIcon, LoginIcon, MailIcon } from "@heroicons/react/outline";
-import { getThaiFullDateTimeString } from "../../libs/date-utils";
-import GoogleIcon from "../Icons/GoogleIcon";
-import FacebookIcon from "../Icons/FacebookIcon";
+import { CalendarIcon, LoginIcon, MailIcon } from '@heroicons/react/outline';
+import { getThaiFullDateTimeString } from '../../libs/date-utils';
+import GoogleIcon from '../Icons/GoogleIcon';
+import FacebookIcon from '../Icons/FacebookIcon';
 
 const AccountDetailsSection = ({ user }) => {
   const getProviderDisplay = (provider) => {
     const providerMap = {
       email: {
-        name: "อีเมล",
+        name: 'อีเมล',
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-        color: "text-gray-600",
+        color: 'text-gray-600'
       },
       google: {
-        name: "Google",
+        name: 'Google',
         icon: <GoogleIcon />,
-        color: "text-blue-600",
+        color: 'text-blue-600'
       },
       facebook: {
-        name: "Facebook",
+        name: 'Facebook',
         icon: <FacebookIcon className="text-blue-600" />,
-        color: "text-blue-800",
-      },
+        color: 'text-blue-800'
+      }
     };
     return (
       providerMap[provider] || {
         name: provider,
-        icon: "🔗",
-        color: "text-gray-600",
+        icon: '🔗',
+        color: 'text-gray-600'
       }
     );
   };
@@ -35,50 +35,50 @@ const AccountDetailsSection = ({ user }) => {
     if (!provider)
       return {
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-        name: "อีเมล",
+        name: 'อีเมล'
       };
 
     const normalizedProvider = provider.toLowerCase();
     switch (normalizedProvider) {
-      case "email":
+      case 'email':
         return {
           icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-          name: "อีเมล",
+          name: 'อีเมล'
         };
-      case "google":
+      case 'google':
         return {
           icon: <GoogleIcon />,
-          name: "Google",
+          name: 'Google'
         };
-      case "facebook":
+      case 'facebook':
         return {
           icon: <FacebookIcon className="text-blue-600" />,
-          name: "Facebook",
+          name: 'Facebook'
         };
       default:
         return {
           icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-          name: "อีเมล",
+          name: 'อีเมล'
         };
     }
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return "ไม่ระบุ";
+    if (!dateString) return 'ไม่ระบุ';
     try {
       const date = new Date(dateString);
-      return date.toLocaleDateString("th-TH", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
+      return date.toLocaleDateString('th-TH', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
       });
     } catch (error) {
-      return "ไม่ระบุ";
+      return 'ไม่ระบุ';
     }
   };
 
   const formatLastLogin = (dateString) => {
-    if (!dateString) return "ไม่ระบุ";
+    if (!dateString) return 'ไม่ระบุ';
     try {
       const date = new Date(dateString);
       const now = new Date();
@@ -86,16 +86,16 @@ const AccountDetailsSection = ({ user }) => {
       const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
 
       if (diffInDays === 0) {
-        return "วันนี้";
+        return 'วันนี้';
       } else if (diffInDays === 1) {
-        return "เมื่อวาน";
+        return 'เมื่อวาน';
       } else if (diffInDays < 7) {
         return `${diffInDays} วันที่แล้ว`;
       } else {
-        return date.toLocaleDateString("th-TH");
+        return date.toLocaleDateString('th-TH');
       }
     } catch (error) {
-      return "ไม่ระบุ";
+      return 'ไม่ระบุ';
     }
   };
 

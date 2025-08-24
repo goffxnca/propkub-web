@@ -1,32 +1,31 @@
-import { getIcon } from "../../../libs/mappers/iconMapper";
-import { getPriceUnit } from "../../../libs/mappers/priceUnitMapper";
-import { useMemo } from "react";
-import Heading from "../../UI/Public/Heading";
-import LineBreak from "../../UI/Public/LineBreak";
-import PostMap from "../PostMap";
-import SizeIcon from "../../Icons/SizeIcon";
-import SpecItem from "../Specs/SpecItem";
-import LocationIcon from "../../Icons/LocationIcon";
-import { formatAddressFull } from "../../../libs/formatters/addressFomatter";
-import YoutubeIframe from "../../UI/Public/YoutubeIframe";
-import { getAreaUnitById } from "../../../libs/mappers/areaUnitMapper";
-import sanitizeHtml from "sanitize-html";
-import { getAssetType } from "../../../libs/mappers/assetTypeMapper";
-import { getPostType } from "../../../libs/mappers/postTypeMapper";
-import { getCondition } from "../../../libs/mappers/conditionMapper";
-import { InformationCircleIcon, ChartBarIcon } from "@heroicons/react/outline";
-import SpinnerIcon from "../../Icons/SpinnerIcon";
-import { SANITIZE_OPTIONS } from "../../../libs/constants";
-import { getLocalDateByISODateString } from "../../../libs/date-utils";
+import { getIcon } from '../../../libs/mappers/iconMapper';
+import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
+import { useMemo } from 'react';
+import Heading from '../../UI/Public/Heading';
+import LineBreak from '../../UI/Public/LineBreak';
+import PostMap from '../PostMap';
+import SizeIcon from '../../Icons/SizeIcon';
+import SpecItem from '../Specs/SpecItem';
+import LocationIcon from '../../Icons/LocationIcon';
+import { formatAddressFull } from '../../../libs/formatters/addressFomatter';
+import YoutubeIframe from '../../UI/Public/YoutubeIframe';
+import { getAreaUnitById } from '../../../libs/mappers/areaUnitMapper';
+import sanitizeHtml from 'sanitize-html';
+import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
+import { getPostType } from '../../../libs/mappers/postTypeMapper';
+import { getCondition } from '../../../libs/mappers/conditionMapper';
+import { ChartBarIcon } from '@heroicons/react/outline';
+import { SANITIZE_OPTIONS } from '../../../libs/constants';
+import { getLocalDateByISODateString } from '../../../libs/date-utils';
 
 const PostDetailBody = ({ post, postViews, images }) => {
   const studioSpec = post?.isStudio
     ? [
         {
-          id: "studio",
-          label: "ห้องสตูดิโอ",
-          icon: getIcon("studio"),
-        },
+          id: 'studio',
+          label: 'ห้องสตูดิโอ',
+          icon: getIcon('studio')
+        }
       ]
     : [];
 
@@ -34,23 +33,23 @@ const PostDetailBody = ({ post, postViews, images }) => {
     post?.specs.map((spec) => ({
       ...spec,
       label: `${spec.value} ${spec.label}`,
-      icon: getIcon(spec.id),
+      icon: getIcon(spec.id)
     }))
   );
 
   const facilitiesFormat = post?.facilities.map((facility) => ({
     ...facility,
     label: facility.label,
-    icon: getIcon(facility.id),
+    icon: getIcon(facility.id)
   }));
 
   const priceWithFormat = post?.price?.toLocaleString();
 
-  const forRent = post.postType === "rent";
-  const isLand = post.assetType === "land";
+  const forRent = post.postType === 'rent';
+  const isLand = post.assetType === 'land';
 
   const priceUnitFormat =
-    forRent || isLand ? " / " + getPriceUnit(post.priceUnit) : "";
+    forRent || isLand ? ' / ' + getPriceUnit(post.priceUnit) : '';
 
   const addressFormat = formatAddressFull(post.address);
 
@@ -84,9 +83,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
               <SpecItem
                 className=""
                 Icon={SizeIcon}
-                label={`พื้นที่ใช้สอย ${post.area} ${getAreaUnitById(
-                  post.areaUnit
-                )}`}
+                label={`พื้นที่ใช้สอย ${post.area} ${getAreaUnitById(post.areaUnit)}`}
               />
             )}
 
@@ -94,9 +91,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
               <SpecItem
                 className=""
                 Icon={SizeIcon}
-                label={`ขนาดที่ดิน ${post.land} ${getAreaUnitById(
-                  post.landUnit
-                )}`}
+                label={`ขนาดที่ดิน ${post.land} ${getAreaUnitById(post.landUnit)}`}
               />
             )}
           </ul>
@@ -122,7 +117,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
             </div>
             {post.updatedAt && (
               <div className="md:w-1/2">
-                วันที่อัพเดทล่าสุด:{" "}
+                วันที่อัพเดทล่าสุด:{' '}
                 {getLocalDateByISODateString(post.updatedAt)}
               </div>
             )}
@@ -229,10 +224,12 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <Heading size="2" label="รูปภาพ" />
         <div className="">
           {images.map((image, index) => (
+            // eslint-disable-next-line @next/next/no-img-element
             <img
               key={index}
               src={image.original}
               className="mx-auto mt-2"
+              alt=""
             ></img>
           ))}
         </div>

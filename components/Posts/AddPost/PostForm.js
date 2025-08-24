@@ -1,26 +1,26 @@
-import LocationSection from "./LocationSection";
-import BasicSection from "./BasicSection";
-import { useForm } from "react-hook-form";
-import { addNewPost, updatePost } from "../../../libs/post-utils";
-import MediaSection from "./MediaSection";
-import Modal from "../../UI/Public/Modal";
+import LocationSection from './LocationSection';
+import BasicSection from './BasicSection';
+import { useForm } from 'react-hook-form';
+import { addNewPost, updatePost } from '../../../libs/post-utils';
+import MediaSection from './MediaSection';
+import Modal from '../../UI/Public/Modal';
 import {
   CheckIcon,
   LockClosedIcon,
-  ExclamationIcon,
-} from "@heroicons/react/outline";
-import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import Button from "../../UI/Public/Button";
-import { authContext } from "../../../contexts/authContext";
-import AddDoc from "../../Icons/AddDoc";
-import PageTitle from "../../UI/Private/PageTitle";
+  ExclamationIcon
+} from '@heroicons/react/outline';
+import { useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import Button from '../../UI/Public/Button';
+import { authContext } from '../../../contexts/authContext';
+import AddDoc from '../../Icons/AddDoc';
+import PageTitle from '../../UI/Private/PageTitle';
 // import Banner from "../../Banner/Banner";
-import ConfirmSection from "./ConfirmSection";
-import Alert from "../../UI/Public/Alert";
-import { getFacilityObject } from "../../../libs/mappers/facilityMapper";
-import { getSpecsObject } from "../../../libs/mappers/specMapper";
-import { getEditedFields } from "../../../libs/form-utils";
+import ConfirmSection from './ConfirmSection';
+import Alert from '../../UI/Public/Alert';
+import { getFacilityObject } from '../../../libs/mappers/facilityMapper';
+import { getSpecsObject } from '../../../libs/mappers/specMapper';
+import { getEditedFields } from '../../../libs/form-utils';
 
 const PostForm = ({ postData }) => {
   // console.log("PostForm", postData);
@@ -49,7 +49,7 @@ const PostForm = ({ postData }) => {
         areaUnit: postData.areaUnit,
         priceUnit: postData.priceUnit,
         condition: postData.condition,
-        refId: postData.refId,
+        refId: postData.refId
       }
     : {};
 
@@ -60,7 +60,7 @@ const PostForm = ({ postData }) => {
     watch,
     setValue,
     setFocus,
-    formState: { errors, submitCount, dirtyFields, isDirty },
+    formState: { errors, submitCount, dirtyFields, isDirty }
   } = useForm({ defaultValues: defaultValues });
 
   const router = useRouter();
@@ -70,21 +70,21 @@ const PostForm = ({ postData }) => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [warningMessages, setWarningMessages] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [createdPostId, setCreatedPostId] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
+  const [createdPostId, setCreatedPostId] = useState('');
 
   const modalSuccessTitle = isEditMode
-    ? "อัพเดทประกาศสำเร็จ"
-    : "สร้างประกาศสำเร็จ";
+    ? 'อัพเดทประกาศสำเร็จ'
+    : 'สร้างประกาศสำเร็จ';
   const modalSuccessMessage = isEditMode
-    ? "ประกาศของคุณได้รับการอัพเดทเรียบร้อยแล้ว"
-    : "ประกาศของคุณได้รับการเผยแพร่เป็นสาธารณะแล้ว และจะปรากฏบนหน้าแรกใน 30 นาที";
+    ? 'ประกาศของคุณได้รับการอัพเดทเรียบร้อยแล้ว'
+    : 'ประกาศของคุณได้รับการเผยแพร่เป็นสาธารณะแล้ว และจะปรากฏบนหน้าแรกใน 30 นาที';
 
   const modeLabel = isEditMode
     ? `แก้ไขประกาศ #${postData.postNumber}`
-    : "ลงประกาศ";
+    : 'ลงประกาศ';
   const pageTitle =
-    modeLabel + (isAgent ? ` (เอเจ้นท์)` : " (ผู้ใช้งานทั่วไป)");
+    modeLabel + (isAgent ? ` (เอเจ้นท์)` : ' (ผู้ใช้งานทั่วไป)');
 
   const allowCreatePost = isAgent ? isProfileComplete : true;
 
@@ -98,18 +98,18 @@ const PostForm = ({ postData }) => {
         //UPDATE MODE
         const editedData = getEditedFields(dirtyFields, formData);
         const result = await updatePost(postData._id, editedData);
-        console.log("Post updated successfully", result);
+        console.log('Post updated successfully', result);
       } else {
         // CREATE MODE
         const result = await addNewPost(formData);
         setCreatedPostId(result._id);
-        console.log("Post created successfully", result);
+        console.log('Post created successfully', result);
       }
       setShowSuccessModal(true);
     } catch (error) {
-      console.error(`${isEditMode ? "Edit" : "Create"} post failed:`, error);
+      console.error(`${isEditMode ? 'Edit' : 'Create'} post failed:`, error);
       setErrorMessage(
-        "เกิดข้อผิดพลาดในการบันทึกประกาศ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง"
+        'เกิดข้อผิดพลาดในการบันทึกประกาศ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง'
       );
 
       setShowErrorModal(true);
@@ -128,12 +128,12 @@ const PostForm = ({ postData }) => {
       }
       if (!isProfileComplete) {
         messages.push(
-          "กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้"
+          'กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
         );
       }
       setWarningMessages(messages);
     }
-  }, [user]);
+  }, [user, isProfileComplete]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -153,9 +153,9 @@ const PostForm = ({ postData }) => {
               alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
               messages={warningMessages}
               showButton={true}
-              buttonLabel={"ไปที่โปรไฟล์"}
+              buttonLabel={'ไปที่โปรไฟล์'}
               onClick={() => {
-                router.push("/profile");
+                router.push('/profile');
               }}
             />
 
@@ -240,7 +240,7 @@ const PostForm = ({ postData }) => {
           Icon={ExclamationIcon}
           onClose={() => {
             setShowErrorModal(false);
-            setErrorMessage("");
+            setErrorMessage('');
           }}
         />
 
@@ -259,7 +259,7 @@ const PostForm = ({ postData }) => {
             <Button
               variant="secondary"
               onClick={() => {
-                router.push("/dashboard");
+                router.push('/dashboard');
               }}
             >
               ยกเลิก

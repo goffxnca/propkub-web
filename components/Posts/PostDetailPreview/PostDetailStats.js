@@ -3,47 +3,47 @@ import {
   PhoneIcon,
   ChatIcon,
   ShareIcon,
-  BookmarkIcon,
-} from "@heroicons/react/outline";
+  BookmarkIcon
+} from '@heroicons/react/outline';
 
 const PostDetailStats = ({
   postViews = 0,
   phoneViews = 0,
   lineViews = 0,
   shares,
-  pins,
+  pins
 }) => {
   const stats = [
     {
       id: 1,
-      name: "เข้าชม",
+      name: 'เข้าชม',
       stat: postViews,
-      icon: EyeIcon,
+      icon: EyeIcon
     },
     {
       id: 2,
-      name: "คลิกดูเบอร์",
+      name: 'คลิกดูเบอร์',
       stat: phoneViews,
-      icon: PhoneIcon,
+      icon: PhoneIcon
     },
     {
       id: 3,
-      name: "คลิกดูไลน์",
+      name: 'คลิกดูไลน์',
       stat: lineViews,
-      icon: ChatIcon,
+      icon: ChatIcon
     },
     {
       id: 4,
-      name: "แชร์",
+      name: 'แชร์',
       stat: shares,
-      icon: ShareIcon,
+      icon: ShareIcon
     },
     {
       id: 5,
-      name: "บันทึก",
+      name: 'บันทึก',
       stat: pins,
-      icon: BookmarkIcon,
-    },
+      icon: BookmarkIcon
+    }
   ];
 
   return (

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import BaseInput from "./BaseInput";
-import dynamic from "next/dynamic";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-import "react-quill/dist/quill.snow.css";
-import { maxLength, minLength } from "../../../../libs/form-validator";
+import { useEffect, useState } from 'react';
+import BaseInput from './BaseInput';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import 'react-quill/dist/quill.snow.css';
+import { maxLength, minLength } from '../../../../libs/form-validator';
 
 const TextEditorInput = ({
   id,
@@ -12,22 +12,22 @@ const TextEditorInput = ({
   register = () => ({}),
   unregister = () => ({}),
   setValue = () => ({}),
-  defaultValue = "",
+  defaultValue = ''
 }) => {
-  const [editorHtmlValue, setEditorHtmlValue] = useState("");
+  const [editorHtmlValue, setEditorHtmlValue] = useState('');
   const [editorRawLength, setEditorRawLength] = useState(0);
   const [initialized, setInitialized] = useState(false);
 
-  const idForRawContent = id + "_raw";
+  const idForRawContent = id + '_raw';
 
   const modules = {
     toolbar: [
-      ["link", "bold", "italic", "underline"],
-      [{ list: "ordered" }, { list: "bullet" }],
-    ],
+      ['link', 'bold', 'italic', 'underline'],
+      [{ list: 'ordered' }, { list: 'bullet' }]
+    ]
   };
 
-  const formats = ["bold", "italic", "underline", "list", "link"];
+  const formats = ['bold', 'italic', 'underline', 'list', 'link'];
 
   const remainingLengthRequired = 200 - editorRawLength;
 
@@ -36,7 +36,7 @@ const TextEditorInput = ({
     setValue(id, value, { shouldDirty: initialized });
     const rawEditorValue = editor.getText().trim();
     setValue(idForRawContent, rawEditorValue, {
-      shouldValidate: true,
+      shouldValidate: true
     });
     setEditorRawLength(rawEditorValue.length);
 
@@ -55,6 +55,7 @@ const TextEditorInput = ({
       unregister(id);
       unregister(idForRawContent);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -70,13 +71,13 @@ const TextEditorInput = ({
         className="hidden"
         type="text"
         {...register(idForRawContent, {
-          required: "กรุณาระบุรายละเอียดประกาศ",
-          minLength: { ...minLength(200, "รายละเอียดประกาศ") },
-          maxLength: { ...maxLength(3000, "รายละเอียดประกาศ") },
+          required: 'กรุณาระบุรายละเอียดประกาศ',
+          minLength: { ...minLength(200, 'รายละเอียดประกาศ') },
+          maxLength: { ...maxLength(3000, 'รายละเอียดประกาศ') }
         })}
       />
 
-      <div className={`border ${error ? "border-red-300" : "border-gray-300"}`}>
+      <div className={`border ${error ? 'border-red-300' : 'border-gray-300'}`}>
         <ReactQuill
           id={id}
           theme="snow"

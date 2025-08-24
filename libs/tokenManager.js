@@ -29,4 +29,4 @@ export const tokenManager = {
   hasToken() {
     return !!this.getToken();
   }
-}; 
+};

@@ -1,10 +1,10 @@
-import { useState } from "react";
-import Button from "../../UI/Public/Button";
-import { CheckIcon, ExclamationIcon } from "@heroicons/react/outline";
-import { useRouter } from "next/router";
-import Confirm from "../../UI/Public/Modals/Confirm";
-import Modal from "../../UI/Public/Modal";
-import { apiClient } from "../../../libs/client";
+import { useState } from 'react';
+import Button from '../../UI/Public/Button';
+import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
+import Confirm from '../../UI/Public/Modals/Confirm';
+import Modal from '../../UI/Public/Modal';
+import { apiClient } from '../../../libs/client';
 
 const PostActionConsole = ({ postId, postSlug, postStatus }) => {
   const router = useRouter();
@@ -13,7 +13,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const closePostHandler = async () => {
     setShowConfirmModal(false);
@@ -23,9 +23,9 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
       setShowSuccessModal(true);
       setLoading(false);
     } catch (error) {
-      console.error("Failed to close post:", error);
+      console.error('Failed to close post:', error);
       setLoading(false);
-      setErrorMessage("เกิดข้อผิดพลาดในการปิดประกาศ กรุณาลองใหม่อีกครั้ง");
+      setErrorMessage('เกิดข้อผิดพลาดในการปิดประกาศ กรุณาลองใหม่อีกครั้ง');
       setShowErrorModal(true);
     }
   };
@@ -34,7 +34,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
     <div className="bg-white shadow sm:rounded-lg p-4 min-h-[100px]">
       <h3 className="text-lg font-medium leading-6 text-gray-900"></h3>
       <div className="grid grid-cols-2 gap-x-2">
-        {postStatus === "active" && (
+        {postStatus === 'active' && (
           <Button
             variant="primary"
             loading={false}
@@ -55,7 +55,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
         >
           แสดงประกาศ
         </Button>
-        {postStatus === "active" && (
+        {postStatus === 'active' && (
           <Button
             variant="accent"
             loading={loading}
@@ -98,7 +98,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
         buttonCaption="ตกลง"
         onClose={() => {
           setShowErrorModal(false);
-          setErrorMessage("");
+          setErrorMessage('');
         }}
       />
     </div>

@@ -6,4 +6,4 @@ export interface VerifyEmailParams {
 export interface VerifyEmailResponse {
   success: boolean;
   message?: string;
-} 
+}

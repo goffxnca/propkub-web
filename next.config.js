@@ -1,19 +1,19 @@
 /** @type {import('next').NextConfig} */
-const { version } = require("./package.json");
+const { version } = require('./package.json');
 
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
     domains: [
-      "firebasestorage.googleapis.com",
-      "tailwindui.com",
-      "images.unsplash.com",
-    ],
+      'firebasestorage.googleapis.com',
+      'tailwindui.com',
+      'images.unsplash.com'
+    ]
   },
   publicRuntimeConfig: {
-    version: version,
-  },
+    version: version
+  }
 };
 
 module.exports = nextConfig;
@@ -26,13 +26,13 @@ module.exports = nextConfig;
 
 // Injected content via Sentry wizard below
 
-const { withSentryConfig } = require("@sentry/nextjs");
+const { withSentryConfig } = require('@sentry/nextjs');
 
 module.exports = withSentryConfig(module.exports, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-  org: "propkub",
+  org: 'propkub',
   // project: "propkub-web-dev",
 
   // Only print logs for uploading source maps in CI
@@ -48,7 +48,7 @@ module.exports = withSentryConfig(module.exports, {
   // This can increase your server load as well as your hosting bill.
   // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
   // side errors will fail.
-  tunnelRoute: "/monitoring",
+  tunnelRoute: '/monitoring',
 
   // Automatically tree-shake Sentry logger statements to reduce bundle size
   disableLogger: true,
@@ -57,5 +57,5 @@ module.exports = withSentryConfig(module.exports, {
   // See the following for more information:
   // https://docs.sentry.io/product/crons/
   // https://vercel.com/docs/cron-jobs
-  automaticVercelMonitors: true,
+  automaticVercelMonitors: true
 });

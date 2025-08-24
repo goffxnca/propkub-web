@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import BaseInput from "./BaseInput";
+import { useEffect } from 'react';
+import BaseInput from './BaseInput';
 
 const CheckboxInput = ({
   id,
@@ -7,12 +7,13 @@ const CheckboxInput = ({
   label,
   register = () => ({}),
   unregister = () => ({}),
-  error,
+  error
 }) => {
   useEffect(() => {
     return () => {
       unregister(id);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

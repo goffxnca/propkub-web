@@ -4,28 +4,28 @@ import {
   PencilIcon,
   CheckIcon,
   XIcon,
-  ExclamationIcon,
-} from "@heroicons/react/outline";
-import { useState, useContext } from "react";
-import { useForm } from "react-hook-form";
-import { apiClient } from "../../libs/client";
-import { authContext } from "../../contexts/authContext";
-import { minLength, maxLength } from "../../libs/form-validator";
-import TextInput from "../UI/Public/Inputs/TextInput";
-import Modal from "../UI/Public/Modal";
+  ExclamationIcon
+} from '@heroicons/react/outline';
+import { useState, useContext } from 'react';
+import { useForm } from 'react-hook-form';
+import { apiClient } from '../../libs/client';
+import { authContext } from '../../contexts/authContext';
+import { minLength, maxLength } from '../../libs/form-validator';
+import TextInput from '../UI/Public/Inputs/TextInput';
+import Modal from '../UI/Public/Modal';
 
-import ProfileImageInput from "./ProfileImageInput";
-import { uploadFileToStorage } from "../../libs/utils/file-utils";
+import ProfileImageInput from './ProfileImageInput';
+import { uploadFileToStorage } from '../../libs/utils/file-utils';
 
 const PersonalInfoSection = ({ user }) => {
   const { setUser } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [apiError, setApiError] = useState("");
+  const [apiError, setApiError] = useState('');
 
   const getDefaultFormValues = () => ({
-    name: user.name || "",
-    profileImg: user.profileImg || "",
+    name: user.name || '',
+    profileImg: user.profileImg || ''
   });
 
   const {
@@ -34,93 +34,93 @@ const PersonalInfoSection = ({ user }) => {
     handleSubmit,
     setValue,
     reset,
-    formState: { errors },
+    formState: { errors }
   } = useForm({
-    defaultValues: getDefaultFormValues(),
+    defaultValues: getDefaultFormValues()
   });
 
   const handleEdit = () => {
     setIsEditing(true);
-    setApiError("");
+    setApiError('');
     reset(getDefaultFormValues());
   };
 
   const handleCancel = () => {
     setIsEditing(false);
-    setApiError("");
+    setApiError('');
     reset(getDefaultFormValues());
   };
 
   const handleSave = async (formData) => {
     setIsSaving(true);
-    setApiError("");
+    setApiError('');
 
     try {
-      console.log("Saving personal info:", formData);
+      console.log('Saving personal info:', formData);
 
       const finalData = { name: formData.name };
 
       if (formData.profileImg?.changed) {
-        console.log("Uploading new profile image...");
+        console.log('Uploading new profile image...');
 
         const imageUrl = await uploadFileToStorage(
-          "us",
+          'us',
           user._id,
           formData.profileImg.file
         );
 
         if (!imageUrl) {
-          throw new Error("ไม่สามารถอัพโหลดรูปโปรไฟล์ได้");
+          throw new Error('ไม่สามารถอัพโหลดรูปโปรไฟล์ได้');
         }
 
         finalData.profileImg = imageUrl;
-        console.log("Profile image uploaded successfully:", imageUrl);
+        console.log('Profile image uploaded successfully:', imageUrl);
       }
 
       const updatedUser = await apiClient.auth.updateProfile(finalData);
       setUser(updatedUser);
       setIsEditing(false);
 
-      console.log("Personal info saved successfully!");
+      console.log('Personal info saved successfully!');
     } catch (error) {
-      console.error("Failed to save personal info:", error);
-      setApiError("เกิดข้อผิดพลาดในการบันทึกข้อมูล");
+      console.error('Failed to save personal info:', error);
+      setApiError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleCloseApiErrorModal = () => {
-    setApiError("");
+    setApiError('');
   };
 
   const getVerificationStatus = () => {
     if (user.emailVerified) {
       return {
-        text: "ยืนยันแล้ว",
+        text: 'ยืนยันแล้ว',
         icon: CheckCircleIcon,
-        color: "text-green-600",
-        bgColor: "bg-green-100",
+        color: 'text-green-600',
+        bgColor: 'bg-green-100'
       };
     } else {
       return {
-        text: "ยังไม่ยืนยัน",
+        text: 'ยังไม่ยืนยัน',
         icon: ExclamationCircleIcon,
-        color: "text-yellow-600",
-        bgColor: "bg-yellow-100",
+        color: 'text-yellow-600',
+        bgColor: 'bg-yellow-100'
       };
     }
   };
 
   const getRoleBadge = () => {
-    if (user.role === "agent") {
+    if (user.role === 'agent') {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
           นายหน้าอสังหาริมทรัพย์
         </span>
       );
     }
-    if (user.role === "normal") {
+    if (user.role === 'normal') {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
           ผู้ใช้ทั่วไป
@@ -168,7 +168,7 @@ const PersonalInfoSection = ({ user }) => {
                     <ProfileImageInput
                       id="profileImg"
                       label="รูปโปรไฟล์"
-                      register={() => register("profileImg")}
+                      register={() => register('profileImg')}
                       originFileUrl={user.profileImg}
                       unregister={unregister}
                       formError={errors.profileImg}
@@ -181,10 +181,10 @@ const PersonalInfoSection = ({ user }) => {
                       id="name"
                       label="ชื่อ"
                       register={() =>
-                        register("name", {
-                          required: "กรุณาระบุชื่อ",
-                          minLength: { ...minLength(5, "ชื่อ") },
-                          maxLength: { ...maxLength(30, "ชื่อ") },
+                        register('name', {
+                          required: 'กรุณาระบุชื่อ',
+                          minLength: { ...minLength(5, 'ชื่อ') },
+                          maxLength: { ...maxLength(30, 'ชื่อ') }
                         })
                       }
                       unregister={unregister}
@@ -201,7 +201,7 @@ const PersonalInfoSection = ({ user }) => {
                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                       >
                         <CheckIcon className="w-4 h-4 mr-1" />
-                        {isSaving ? "กำลังบันทึก..." : "บันทึก"}
+                        {isSaving ? 'กำลังบันทึก...' : 'บันทึก'}
                       </button>
                       <button
                         type="button"
@@ -218,12 +218,14 @@ const PersonalInfoSection = ({ user }) => {
               ) : (
                 <>
                   <div className="w-20 h-20 overflow-hidden rounded-full border-2 border-gray-200">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={user.profileImg || "/user.png"}
+                      src={user.profileImg || '/user.png'}
                       className="h-full w-full object-cover"
                       onError={(e) => {
-                        e.target.src = "/user.png";
+                        e.target.src = '/user.png';
                       }}
+                      alt=""
                     />
                   </div>
 

@@ -1,8 +1,7 @@
-import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { resizeFile } from "../../../../../libs/utils/file-utils";
-import InlineError from "../../InlineError";
-import BaseInput from "../BaseInput";
+import { useEffect, useRef, useState } from 'react';
+import { resizeFile } from '../../../../../libs/utils/file-utils';
+import InlineError from '../../InlineError';
+import BaseInput from '../BaseInput';
 
 const maxfileSizeMB = 10;
 
@@ -10,17 +9,18 @@ const ProfileImageInput = ({
   id,
   label,
   error,
-  originFileUrl = "",
+  originFileUrl = '',
   register = () => ({}),
   unregister = () => ({}),
-  setValue = () => ({}),
+  setValue = () => ({})
 }) => {
-  const errorStyle = error ? "border border-red-300" : "";
+  const errorStyle = error ? 'border border-red-300' : '';
 
   useEffect(() => {
     return () => {
       unregister(id);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fileRef = useRef();
@@ -35,11 +35,12 @@ const ProfileImageInput = ({
         {
           fileData: file,
           isFileChanged: fileUrl !== originFileUrl,
-          originFileUrl: originFileUrl,
+          originFileUrl: originFileUrl
         },
         { shouldValidate: true, shouldDirty: true }
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileUrl, file]);
 
   const filesSelectedHandler = (event) => {
@@ -49,7 +50,7 @@ const ProfileImageInput = ({
       return;
     }
 
-    const allowedFileTypes = ["image/jpg", "image/jpeg", "image/png"];
+    const allowedFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
     const errorMessages = [];
 
@@ -68,8 +69,8 @@ const ProfileImageInput = ({
 
     if (errorMessages.length > 0) {
       return setInlineError({
-        title: "ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้",
-        messages: errorMessages,
+        title: 'ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้',
+        messages: errorMessages
       });
     }
 
@@ -106,8 +107,9 @@ const ProfileImageInput = ({
               height={120}
               width={120}
             /> */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`${fileUrl || "/user.png"}`}
+              src={`${fileUrl || '/user.png'}`}
               alt=""
               className="h-full w-full object-cover"
             ></img>

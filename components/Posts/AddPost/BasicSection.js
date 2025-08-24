@@ -1,21 +1,21 @@
-import SelectInput from "../../UI/Public/Inputs/SelectInput";
-import TextInput from "../../UI/Public/Inputs/TextInput";
-import { postTypes, getPostType } from "../../../libs/mappers/postTypeMapper";
-import { assetTypes } from "../../../libs/mappers/assetTypeMapper";
-import { conditions } from "../../../libs/mappers/conditionMapper";
-import { getPriceUnitList } from "../../../libs/mappers/priceUnitMapper";
-import { getStandardAreaUnits } from "../../../libs/mappers/areaUnitMapper";
-import { min, max, minLength, maxLength } from "../../../libs/form-validator";
-import CheckboxGroupInput from "../../UI/Public/Inputs/CheckboxGroupInput";
+import SelectInput from '../../UI/Public/Inputs/SelectInput';
+import TextInput from '../../UI/Public/Inputs/TextInput';
+import { postTypes, getPostType } from '../../../libs/mappers/postTypeMapper';
+import { assetTypes } from '../../../libs/mappers/assetTypeMapper';
+import { conditions } from '../../../libs/mappers/conditionMapper';
+import { getPriceUnitList } from '../../../libs/mappers/priceUnitMapper';
+import { getStandardAreaUnits } from '../../../libs/mappers/areaUnitMapper';
+import { min, max, minLength, maxLength } from '../../../libs/form-validator';
+import CheckboxGroupInput from '../../UI/Public/Inputs/CheckboxGroupInput';
 import {
   getLandFacilities,
-  getNonLandFacilities,
-} from "../../../libs/mappers/facilityMapper";
-import TextWithUnitInput from "../../UI/Public/Inputs/TextWithUnitInput";
-import { getDropdownOptions } from "../../../libs/mappers/dropdownOptionsMapper";
-import { useEffect, useMemo } from "react";
-import TextEditorInput from "../../UI/Public/Inputs/TextEditorInput";
-import CheckboxInput from "../../UI/Public/Inputs/CheckboxInput";
+  getNonLandFacilities
+} from '../../../libs/mappers/facilityMapper';
+import TextWithUnitInput from '../../UI/Public/Inputs/TextWithUnitInput';
+import { getDropdownOptions } from '../../../libs/mappers/dropdownOptionsMapper';
+import { useEffect, useMemo } from 'react';
+import TextEditorInput from '../../UI/Public/Inputs/TextEditorInput';
+import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 
 const genericDropdownItems = getDropdownOptions(5);
 
@@ -26,25 +26,27 @@ const BasicSection = ({
   setValue,
   errors,
   isEditMode = false,
-  defaultValues,
+  defaultValues
 }) => {
-  const watchAssetType = watch("assetType");
-  const watchPostType = watch("postType");
-  const watchIsStudio = watch("isStudio");
+  const watchAssetType = watch('assetType');
+  const watchPostType = watch('postType');
+  const watchIsStudio = watch('isStudio');
 
-  const isLand = useMemo(() => watchAssetType === "land", [watchAssetType]);
-  const isCondo = useMemo(() => watchAssetType === "condo", [watchAssetType]);
+  const isLand = useMemo(() => watchAssetType === 'land', [watchAssetType]);
+  const isCondo = useMemo(() => watchAssetType === 'condo', [watchAssetType]);
 
   const facilityList = useMemo(
     () =>
-      watchAssetType === "land" ? getLandFacilities() : getNonLandFacilities(),
+      watchAssetType === 'land' ? getLandFacilities() : getNonLandFacilities(),
     [watchAssetType]
   );
 
   useEffect(() => {
     if (isLand && !isEditMode) {
-      setValue("landUnit", "rai");
+      setValue('landUnit', 'rai');
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLand]);
 
   return (
@@ -62,10 +64,10 @@ const BasicSection = ({
               id="title"
               label="หัวข้อประกาศ"
               register={() =>
-                register("title", {
-                  required: "กรุณาระบุหัวข้อประกาศ",
-                  minLength: { ...minLength(30, "หัวข้อประกาศ") },
-                  maxLength: { ...maxLength(120, "หัวข้อประกาศ") },
+                register('title', {
+                  required: 'กรุณาระบุหัวข้อประกาศ',
+                  minLength: { ...minLength(30, 'หัวข้อประกาศ') },
+                  maxLength: { ...maxLength(120, 'หัวข้อประกาศ') }
                 })
               }
               unregister={unregister}
@@ -81,8 +83,8 @@ const BasicSection = ({
                 options={postTypes}
                 disabled={isEditMode}
                 register={() =>
-                  register("postType", {
-                    required: "กรุณาระบุประเภทประกาศ",
+                  register('postType', {
+                    required: 'กรุณาระบุประเภทประกาศ'
                   })
                 }
                 unregister={unregister}
@@ -97,8 +99,8 @@ const BasicSection = ({
                 options={assetTypes}
                 disabled={isEditMode}
                 register={() =>
-                  register("assetType", {
-                    required: "กรุณาระบุประเภททรัพย์",
+                  register('assetType', {
+                    required: 'กรุณาระบุประเภททรัพย์'
                   })
                 }
                 unregister={unregister}
@@ -113,8 +115,8 @@ const BasicSection = ({
                   label="สภาพ"
                   options={conditions}
                   register={() =>
-                    register("condition", {
-                      required: "กรุณาระบุสภาพ",
+                    register('condition', {
+                      required: 'กรุณาระบุสภาพ'
                     })
                   }
                   unregister={unregister}
@@ -128,23 +130,23 @@ const BasicSection = ({
                 id="price"
                 unitId="priceUnit"
                 unitItems={[...getPriceUnitList(watchAssetType, watchPostType)]}
-                unitDefaultValues={["month", "rai"]}
+                unitDefaultValues={['month', 'rai']}
                 unitDefaultValue={defaultValues?.priceUnit || null}
                 unitPrefix="ต่อ"
                 type="number"
                 label={`ราคา${getPostType(watchPostType)}`}
                 leadingSlot="฿"
                 register={() =>
-                  register("price", {
+                  register('price', {
                     required: `กรุณาระบุราคา`,
                     valueAsNumber: true,
-                    min: { ...min(1, "ราคา") },
-                    max: { ...max(100000000, "ราคา") },
+                    min: { ...min(1, 'ราคา') },
+                    max: { ...max(100000000, 'ราคา') }
                   })
                 }
                 registerUnit={() =>
-                  register("priceUnit", {
-                    required: "กรุณาระบุหน่วยราคา",
+                  register('priceUnit', {
+                    required: 'กรุณาระบุหน่วยราคา'
                   })
                 }
                 unregister={unregister}
@@ -159,22 +161,22 @@ const BasicSection = ({
                   id="area"
                   unitId="areaUnit"
                   unitItems={getStandardAreaUnits()}
-                  unitDefaultValues={["sqm"]}
+                  unitDefaultValues={['sqm']}
                   unitDefaultValue={defaultValues?.areaUnit || null}
                   type="number"
                   decimalPlaces={2}
                   label="พื้นที่ใช้สอย"
                   register={() =>
-                    register("area", {
-                      required: "กรุณาระบุขนาดพื้นที่ใช้สอย",
+                    register('area', {
+                      required: 'กรุณาระบุขนาดพื้นที่ใช้สอย',
                       valueAsNumber: true,
-                      min: { ...min(1, "ขนาดพื้นที่ใช้สอย") },
-                      max: { ...max(1000000, "ขนาดพื้นที่ใช้สอย") },
+                      min: { ...min(1, 'ขนาดพื้นที่ใช้สอย') },
+                      max: { ...max(1000000, 'ขนาดพื้นที่ใช้สอย') }
                     })
                   }
                   registerUnit={() =>
-                    register("areaUnit", {
-                      required: "กรุณาระบุหน่วยพื้นที่ใช้สอย",
+                    register('areaUnit', {
+                      required: 'กรุณาระบุหน่วยพื้นที่ใช้สอย'
                     })
                   }
                   unregister={unregister}
@@ -190,22 +192,22 @@ const BasicSection = ({
                   id="land"
                   unitId="landUnit"
                   unitItems={getStandardAreaUnits()}
-                  unitDefaultValues={["sqw"]}
+                  unitDefaultValues={['sqw']}
                   unitDefaultValue={defaultValues?.landUnit || null}
                   type="number"
                   decimalPlaces={2}
                   label="ขนาดที่ดิน"
                   register={() =>
-                    register("land", {
-                      required: "กรุณาระบุขนาดที่ดิน",
+                    register('land', {
+                      required: 'กรุณาระบุขนาดที่ดิน',
                       valueAsNumber: true,
-                      min: { ...min(1, "ขนาดที่ดิน") },
-                      max: { ...max(1000000, "ขนาดที่ดิน") },
+                      min: { ...min(1, 'ขนาดที่ดิน') },
+                      max: { ...max(1000000, 'ขนาดที่ดิน') }
                     })
                   }
                   registerUnit={() =>
-                    register("landUnit", {
-                      required: "กรุณาระบุหน่วยที่ดิน",
+                    register('landUnit', {
+                      required: 'กรุณาระบุหน่วยที่ดิน'
                     })
                   }
                   unregister={unregister}
@@ -236,8 +238,8 @@ const BasicSection = ({
                       showPreOption={false}
                       options={genericDropdownItems}
                       register={() =>
-                        register("specs.beds", {
-                          valueAsNumber: true,
+                        register('specs.beds', {
+                          valueAsNumber: true
                         })
                       }
                       unregister={unregister}
@@ -255,8 +257,8 @@ const BasicSection = ({
                       showPreOption={false}
                       options={genericDropdownItems}
                       register={() =>
-                        register("specs.baths", {
-                          valueAsNumber: true,
+                        register('specs.baths', {
+                          valueAsNumber: true
                         })
                       }
                       unregister={unregister}
@@ -274,8 +276,8 @@ const BasicSection = ({
                       showPreOption={false}
                       options={genericDropdownItems}
                       register={() =>
-                        register("specs.kitchens", {
-                          valueAsNumber: true,
+                        register('specs.kitchens', {
+                          valueAsNumber: true
                         })
                       }
                       unregister={unregister}
@@ -292,8 +294,8 @@ const BasicSection = ({
                     showPreOption={false}
                     options={genericDropdownItems}
                     register={() =>
-                      register("specs.parkings", {
-                        valueAsNumber: true,
+                      register('specs.parkings', {
+                        valueAsNumber: true
                       })
                     }
                     unregister={unregister}
@@ -332,9 +334,9 @@ const BasicSection = ({
               label="หมายเลขอ้างอิง (ถ้ามี)"
               placeholder="หมายเลขอ้างอิงภายในของ Agent เอง"
               register={() =>
-                register("refId", {
-                  minLength: { ...minLength(4, "หมายเลขอ้างอิง") },
-                  maxLength: { ...maxLength(20, "หมายเลขอ้างอิง") },
+                register('refId', {
+                  minLength: { ...minLength(4, 'หมายเลขอ้างอิง') },
+                  maxLength: { ...maxLength(20, 'หมายเลขอ้างอิง') }
                 })
               }
               unregister={unregister}

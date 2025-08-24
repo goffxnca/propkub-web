@@ -1,4 +1,4 @@
-import { getLatestActivePostForSitemap } from "../libs/post-utils";
+import { getLatestActivePostForSitemap } from '../libs/post-utils';
 
 function generateSiteMap(lastModForPropertySitemap) {
   return `<?xml version="1.0" encoding="utf-8"?>
@@ -48,9 +48,9 @@ const MainSitemap = () => {
 };
 
 export async function getServerSideProps({ res }) {
-  console.log("MAIN-SITEMAP.XML.JS -> getServerSideProps EXECUTED");
+  console.log('MAIN-SITEMAP.XML.JS -> getServerSideProps EXECUTED');
 
-  const defaultDateTime = "2023-01-01T00:00:00Z";
+  const defaultDateTime = '2023-01-01T00:00:00Z';
   const latestActivePost = await getLatestActivePostForSitemap();
 
   const sitemap = generateSiteMap(
@@ -60,12 +60,12 @@ export async function getServerSideProps({ res }) {
   );
 
   // Send the XML to the browser
-  res.setHeader("Content-Type", "text/xml");
+  res.setHeader('Content-Type', 'text/xml');
   res.write(sitemap);
   res.end();
 
   return {
-    props: {},
+    props: {}
   };
 }
 

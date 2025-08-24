@@ -1,22 +1,17 @@
-import {
-  PhoneIcon,
-  MailIcon,
-  ChatIcon,
-  CheckIcon,
-} from "@heroicons/react/solid";
-import { useForm } from "react-hook-form";
+import { PhoneIcon, MailIcon, CheckIcon } from '@heroicons/react/solid';
+import { useForm } from 'react-hook-form';
 import {
   EmailPattern,
   maxLength,
   minLength,
-  GenericPhonePattern,
-} from "../../libs/form-validator";
-import TextAreaInput from "../UI/Public/Inputs/TextAreaInput";
-import TextInput from "../UI/Public/Inputs/TextInput";
-import Button from "../UI/Public/Button";
-import { useState } from "react";
-import Modal from "../UI/Public/Modal";
-import { useRouter } from "next/router";
+  GenericPhonePattern
+} from '../../libs/form-validator';
+import TextAreaInput from '../UI/Public/Inputs/TextAreaInput';
+import TextInput from '../UI/Public/Inputs/TextInput';
+import Button from '../UI/Public/Button';
+import { useState } from 'react';
+import Modal from '../UI/Public/Modal';
+import { useRouter } from 'next/router';
 
 const ContactForm = () => {
   const [loading, setLoading] = useState(false);
@@ -28,7 +23,7 @@ const ContactForm = () => {
     unregister,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
 
   const submitHandler = (data) => {
@@ -277,10 +272,10 @@ const ContactForm = () => {
                     label="ชื่อผู้ติดต่อ"
                     spacingY={true}
                     register={() =>
-                      register("name", {
-                        required: "กรุณาระบุชื่อผู้ติดต่อ",
-                        minLength: { ...minLength(8, "ชื่อผู้ติดต่อ") },
-                        maxLength: { ...maxLength(30, "ชื่อผู้ติดต่อ") },
+                      register('name', {
+                        required: 'กรุณาระบุชื่อผู้ติดต่อ',
+                        minLength: { ...minLength(8, 'ชื่อผู้ติดต่อ') },
+                        maxLength: { ...maxLength(30, 'ชื่อผู้ติดต่อ') }
                       })
                     }
                     unregister={unregister}
@@ -294,9 +289,9 @@ const ContactForm = () => {
                     label="อีเมล"
                     spacingY={true}
                     register={() =>
-                      register("email", {
-                        required: "กรุณาระบุอีเมล",
-                        pattern: EmailPattern(),
+                      register('email', {
+                        required: 'กรุณาระบุอีเมล',
+                        pattern: EmailPattern()
                       })
                     }
                     unregister={unregister}
@@ -310,9 +305,9 @@ const ContactForm = () => {
                     label="เบอร์ติดต่อกลับ"
                     spacingY={true}
                     register={() =>
-                      register("phone", {
-                        required: "กรุณาระบุเบอร์ติดต่อกลับ",
-                        pattern: GenericPhonePattern("หมายเลขโทรศัพท์มือถือ"),
+                      register('phone', {
+                        required: 'กรุณาระบุเบอร์ติดต่อกลับ',
+                        pattern: GenericPhonePattern('หมายเลขโทรศัพท์มือถือ')
                       })
                     }
                     unregister={unregister}
@@ -326,9 +321,9 @@ const ContactForm = () => {
                     label="ชื่อบริษัท (ถ้ามี)"
                     spacingY={true}
                     register={() =>
-                      register("company", {
-                        minLength: { ...minLength(6, "ชื่อบริษัท") },
-                        maxLength: { ...maxLength(50, "ชื่อบริษัท") },
+                      register('company', {
+                        minLength: { ...minLength(6, 'ชื่อบริษัท') },
+                        maxLength: { ...maxLength(50, 'ชื่อบริษัท') }
                       })
                     }
                     unregister={unregister}
@@ -341,10 +336,10 @@ const ContactForm = () => {
                     id="message"
                     label="ข้อความ"
                     register={() =>
-                      register("message", {
-                        required: "กรุณาระบุข้อความ",
-                        minLength: { ...minLength(50, "ข้อความ") },
-                        maxLength: { ...maxLength(500, "ข้อความ") },
+                      register('message', {
+                        required: 'กรุณาระบุข้อความ',
+                        minLength: { ...minLength(50, 'ข้อความ') },
+                        maxLength: { ...maxLength(500, 'ข้อความ') }
                       })
                     }
                     rows={7}
@@ -376,7 +371,7 @@ const ContactForm = () => {
         buttonCaption="กลับหน้าหลัก"
         Icon={CheckIcon}
         onClose={() => {
-          router.push("/");
+          router.push('/');
         }}
       />
     </div>

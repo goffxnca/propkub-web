@@ -1,18 +1,18 @@
-import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/outline";
-import GoogleIcon from "../Icons/GoogleIcon";
-import FacebookIcon from "../Icons/FacebookIcon";
-import { MailIcon } from "@heroicons/react/outline";
-import LinkGoogleAccountButton from "../UI/LinkGoogleAccountButton";
-import LinkFacebookAccountButton from "../UI/LinkFacebookAccountButton";
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/outline';
+import GoogleIcon from '../Icons/GoogleIcon';
+import FacebookIcon from '../Icons/FacebookIcon';
+import { MailIcon } from '@heroicons/react/outline';
+import LinkGoogleAccountButton from '../UI/LinkGoogleAccountButton';
+import LinkFacebookAccountButton from '../UI/LinkFacebookAccountButton';
 
 const SocialConnectionsSection = ({ user }) => {
   const getConnectionStatus = (provider) => {
     switch (provider) {
-      case "google":
-        return user.provider === "google" || !!user.googleId;
-      case "facebook":
-        return user.provider === "facebook" || !!user.facebookId;
-      case "email":
+      case 'google':
+        return user.provider === 'google' || !!user.googleId;
+      case 'facebook':
+        return user.provider === 'facebook' || !!user.facebookId;
+      case 'email':
         return true;
       default:
         return false;
@@ -22,23 +22,23 @@ const SocialConnectionsSection = ({ user }) => {
   const getProviderInfo = (provider) => {
     const providerMap = {
       email: {
-        name: "อีเมล",
+        name: 'อีเมล',
         icon: <MailIcon className="w-5 h-5 text-gray-600" />,
-        color: "text-gray-600",
-        description: "เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน",
+        color: 'text-gray-600',
+        description: 'เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน'
       },
       google: {
-        name: "Google",
+        name: 'Google',
         icon: <GoogleIcon className="w-5 h-5" />,
-        color: "text-blue-600",
-        description: "เข้าสู่ระบบด้วยบัญชี Google",
+        color: 'text-blue-600',
+        description: 'เข้าสู่ระบบด้วยบัญชี Google'
       },
       facebook: {
-        name: "Facebook",
+        name: 'Facebook',
         icon: <FacebookIcon className="w-5 h-5 text-blue-600" />,
-        color: "text-blue-800",
-        description: "เข้าสู่ระบบด้วยบัญชี Facebook",
-      },
+        color: 'text-blue-800',
+        description: 'เข้าสู่ระบบด้วยบัญชี Facebook'
+      }
     };
     return providerMap[provider];
   };
@@ -46,13 +46,13 @@ const SocialConnectionsSection = ({ user }) => {
   const getAllProviders = () => {
     // If user signed up with Google or Facebook, don't show email option
     // (since we don't allow linking back to email accounts)
-    if (user.provider === "google" || user.provider === "facebook") {
-      return ["google", "facebook"];
+    if (user.provider === 'google' || user.provider === 'facebook') {
+      return ['google', 'facebook'];
     }
 
     // If user signed up with email, show all options
     // return ['email', 'google', 'facebook'];
-    return ["email", "google"];
+    return ['email', 'google'];
   };
 
   const renderConnectionStatus = (provider) => {
@@ -89,7 +89,7 @@ const SocialConnectionsSection = ({ user }) => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          {provider === "google" ? (
+          {provider === 'google' ? (
             <LinkGoogleAccountButton
               currentUserEmail={user.email}
               size="sm"

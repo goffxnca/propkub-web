@@ -1,7 +1,7 @@
 const googleMapGeoCodeToAddress = (geoCodeResults = []) => {
-  let fullAddress = "";
+  let fullAddress = '';
   geoCodeResults.forEach((addressInfo) => {
-    fullAddress = fullAddress + " " + addressInfo.long_name || "";
+    fullAddress = fullAddress + ' ' + addressInfo.long_name || '';
   });
   return fullAddress;
 };

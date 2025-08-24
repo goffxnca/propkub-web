@@ -1,39 +1,39 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/outline";
-import { ExclamationCircleIcon, XIcon } from "@heroicons/react/outline";
+import { Fragment, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { CheckIcon } from '@heroicons/react/outline';
+import { ExclamationCircleIcon, XIcon } from '@heroicons/react/outline';
 
 const Confirm = ({
   visible = false,
   Icon = CheckIcon,
-  type = "success",
+  type = 'success',
   title,
   desc,
-  buttonCancelLabel = "ยกเลิก",
-  buttonConfirmLabel = "ยืนยัน",
+  buttonCancelLabel = 'ยกเลิก',
+  buttonConfirmLabel = 'ยืนยัน',
   onClose,
-  onConfirm,
+  onConfirm
 }) => {
   const [open, setOpen] = useState(true);
 
   const iconTextColor =
-    type === "success"
-      ? "text-green-600"
-      : type === "warning"
-      ? "text-red-500"
-      : type === "info"
-      ? "text-indigo-500"
-      : "";
+    type === 'success'
+      ? 'text-green-600'
+      : type === 'warning'
+        ? 'text-red-500'
+        : type === 'info'
+          ? 'text-indigo-500'
+          : '';
 
   const iconBgColor =
-    type === "success"
-      ? "bg-green-100"
-      : type === "warning"
-      ? "bg-red-100"
-      : type === "info"
-      ? "bg-indigo-100"
-      : "";
+    type === 'success'
+      ? 'bg-green-100'
+      : type === 'warning'
+        ? 'bg-red-100'
+        : type === 'info'
+          ? 'bg-indigo-100'
+          : '';
 
   return (
     <Transition.Root show={visible} as={Fragment}>

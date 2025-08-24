@@ -1,13 +1,13 @@
-import { useMemo, useState, useEffect } from "react";
-import PostFilter from "./PostFilter";
-import PostItem from "./PostItem";
-import { animateScroll, Element, scroller } from "react-scroll";
-import { queryPostWithFilters } from "../../libs/post-utils";
-import PostRow from "./PostRow";
-import PostsByRegion from "./PostsByRegion";
-import Modal from "../UI/Public/Modal";
-import { ExclamationIcon } from "@heroicons/react/outline";
-import { cleanObject } from "../../libs/object-utils";
+import { useMemo, useState, useEffect } from 'react';
+import PostFilter from './PostFilter';
+import PostItem from './PostItem';
+import { animateScroll, Element, scroller } from 'react-scroll';
+import { queryPostWithFilters } from '../../libs/post-utils';
+import PostRow from './PostRow';
+import PostsByRegion from './PostsByRegion';
+import Modal from '../UI/Public/Modal';
+import { ExclamationIcon } from '@heroicons/react/outline';
+import { cleanObject } from '../../libs/object-utils';
 
 const PostList = ({ posts, provinces, hasError }) => {
   const [searchCount, setSearchCount] = useState(0);
@@ -26,17 +26,17 @@ const PostList = ({ posts, provinces, hasError }) => {
       const { postType } = filters;
       const cleanFilters = cleanObject({
         ...filters,
-        postType: postType.searchFor,
+        postType: postType.searchFor
       });
       const results = await queryPostWithFilters(cleanFilters);
       setFilteredPosts(results);
       setSearchCount((prevSearchCount) => prevSearchCount + 1);
-      scroller.scrollTo("searchResult", {
-        smooth: true,
+      scroller.scrollTo('searchResult', {
+        smooth: true
       });
       onDone();
     } catch (error) {
-      console.error("Failed to search posts:", error);
+      console.error('Failed to search posts:', error);
       setLocalError(true);
       onDone();
     }
@@ -51,12 +51,12 @@ const PostList = ({ posts, provinces, hasError }) => {
 
   const filteredPostList = useMemo(() => {
     return searchCount === 0 ? posts : filteredPosts;
-  }, [searchCount, filteredPosts]);
+  }, [searchCount, filteredPosts, posts]);
 
   const listHeadingLabel = useMemo(() => {
     return searchCount > 0
       ? `ผลการค้นหา พบ (${filteredPosts.length}) รายการ`
-      : "รายการประกาศล่าสุด";
+      : 'รายการประกาศล่าสุด';
   }, [searchCount, filteredPosts]);
 
   return (
@@ -116,51 +116,51 @@ const PostList = ({ posts, provinces, hasError }) => {
         </div>
 
         <PostsByRegion
-          regionId={"r1"}
+          regionId={'r1'}
           regionName="ภาคเหนือ"
-          assetId={"land"}
-          assetName={"ขายที่ดิน"}
-          provinces={provinces.filter((p) => p.regionId === "r1")}
+          assetId={'land'}
+          assetName={'ขายที่ดิน'}
+          provinces={provinces.filter((p) => p.regionId === 'r1')}
         />
 
         <PostsByRegion
-          regionId={"r2"}
+          regionId={'r2'}
           regionName="ภาคกลาง"
-          assetId={"land"}
-          assetName={"ขายที่ดิน"}
-          provinces={provinces.filter((p) => p.regionId === "r2")}
+          assetId={'land'}
+          assetName={'ขายที่ดิน'}
+          provinces={provinces.filter((p) => p.regionId === 'r2')}
         />
 
         <PostsByRegion
-          regionId={"r3"}
+          regionId={'r3'}
           regionName="ภาคตะวันออกเฉียงเหนือ"
-          assetId={"land"}
-          assetName={"ขายที่ดิน"}
-          provinces={provinces.filter((p) => p.regionId === "r3")}
+          assetId={'land'}
+          assetName={'ขายที่ดิน'}
+          provinces={provinces.filter((p) => p.regionId === 'r3')}
         />
 
         <PostsByRegion
-          regionId={"r4"}
+          regionId={'r4'}
           regionName="ภาคตะวันตก"
-          assetId={"land"}
-          assetName={"ขายที่ดิน"}
-          provinces={provinces.filter((p) => p.regionId === "r4")}
+          assetId={'land'}
+          assetName={'ขายที่ดิน'}
+          provinces={provinces.filter((p) => p.regionId === 'r4')}
         />
 
         <PostsByRegion
-          regionId={"r5"}
+          regionId={'r5'}
           regionName="ภาคตะวันออก"
-          assetId={"land"}
-          assetName={"ขายที่ดิน"}
-          provinces={provinces.filter((p) => p.regionId === "r5")}
+          assetId={'land'}
+          assetName={'ขายที่ดิน'}
+          provinces={provinces.filter((p) => p.regionId === 'r5')}
         />
 
         <PostsByRegion
-          regionId={"r6"}
+          regionId={'r6'}
           regionName="ภาคใต้"
-          assetId={"land"}
-          assetName={"ขายที่ดิน"}
-          provinces={provinces.filter((p) => p.regionId === "r6")}
+          assetId={'land'}
+          assetName={'ขายที่ดิน'}
+          provinces={provinces.filter((p) => p.regionId === 'r6')}
         />
       </div>
 

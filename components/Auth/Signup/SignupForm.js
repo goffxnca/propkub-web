@@ -1,21 +1,20 @@
-import Link from "next/link";
-import { useContext, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { authContext } from "../../../contexts/authContext";
-import { ExclamationIcon } from "@heroicons/react/outline";
+import Link from 'next/link';
+import { useContext, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { authContext } from '../../../contexts/authContext';
+import { ExclamationIcon } from '@heroicons/react/outline';
 
 import {
   EmailPattern,
   maxLength,
-  minLength,
-} from "../../../libs/form-validator";
-import Logo from "../../Layouts/Logo";
-import Button from "../../UI/Public/Button";
-import RadioVerticalListInput from "../../UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput";
-import TextInput from "../../UI/Public/Inputs/TextInput";
-import GoogleLoginButton from "../../UI/Public/SocialLogin/GoogleLoginButton";
-import FacebookLoginButton from "../../UI/Public/SocialLogin/FacebookLoginButton";
-import Modal from "../../UI/Public/Modal";
+  minLength
+} from '../../../libs/form-validator';
+import Logo from '../../Layouts/Logo';
+import Button from '../../UI/Public/Button';
+import TextInput from '../../UI/Public/Inputs/TextInput';
+import GoogleLoginButton from '../../UI/Public/SocialLogin/GoogleLoginButton';
+import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton';
+import Modal from '../../UI/Public/Modal';
 
 const SignupForm = () => {
   const {
@@ -23,9 +22,9 @@ const SignupForm = () => {
     unregister,
     handleSubmit,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm();
-  console.log("SignupForm");
+  console.log('SignupForm');
 
   const { signup, loading, error, clearError } = useContext(authContext);
 
@@ -36,7 +35,7 @@ const SignupForm = () => {
 
   useEffect(() => {
     clearError();
-  }, []);
+  }, [clearError]);
 
   const handleCloseErrorModal = () => {
     clearError();
@@ -50,11 +49,11 @@ const SignupForm = () => {
     //     "ฉันกำลังมองหาบ้าน คอนโด ที่ดิน เพื่อซื้อ/เช่า และลงประกาศทรัพย์สินของตัวเองเป็นบางครั้ง (ฟรี/จำกัดจำนวนประกาศ)",
     // },
     {
-      id: "agent",
-      name: "นายหน้าอสังหาริมทรัพย์ (Agent)",
+      id: 'agent',
+      name: 'นายหน้าอสังหาริมทรัพย์ (Agent)',
       description:
-        "ฉันต้องการลงประกาศจำนวนมาก (ฟรีไม่จำกัดจำนวนประกาศ) และใช้งานระบบสนันสนุนการทำงานต่างๆ ของ Agent",
-    },
+        'ฉันต้องการลงประกาศจำนวนมาก (ฟรีไม่จำกัดจำนวนประกาศ) และใช้งานระบบสนันสนุนการทำงานต่างๆ ของ Agent'
+    }
   ];
 
   return (
@@ -89,10 +88,10 @@ const SignupForm = () => {
                 id="name"
                 label="ชื่อผู้ใช้งาน"
                 register={() =>
-                  register("name", {
-                    required: "กรุณาระบุชื่อ",
-                    minLength: { ...minLength(5, "ชื่อ") },
-                    maxLength: { ...maxLength(30, "ชื่อ") },
+                  register('name', {
+                    required: 'กรุณาระบุชื่อ',
+                    minLength: { ...minLength(5, 'ชื่อ') },
+                    maxLength: { ...maxLength(30, 'ชื่อ') }
                   })
                 }
                 placeholder="สมชาย รักดี"
@@ -105,9 +104,9 @@ const SignupForm = () => {
                 id="email"
                 label="อีเมล"
                 register={() =>
-                  register("email", {
-                    required: "กรุณาระบุอีเมล",
-                    pattern: EmailPattern(),
+                  register('email', {
+                    required: 'กรุณาระบุอีเมล',
+                    pattern: EmailPattern()
                   })
                 }
                 unregister={unregister}
@@ -119,10 +118,10 @@ const SignupForm = () => {
                 label="รหัสผ่าน"
                 type="password"
                 register={() =>
-                  register("password", {
-                    required: "กรุณาระบุรหัสผ่าน",
-                    minLength: { ...minLength(6, "รหัสผ่าน") },
-                    maxLength: { ...maxLength(64, "รหัสผ่าน") },
+                  register('password', {
+                    required: 'กรุณาระบุรหัสผ่าน',
+                    minLength: { ...minLength(6, 'รหัสผ่าน') },
+                    maxLength: { ...maxLength(64, 'รหัสผ่าน') }
                   })
                 }
                 unregister={unregister}
@@ -134,7 +133,7 @@ const SignupForm = () => {
                   id="isAgent"
                   type="checkbox"
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                  {...register("isAgent")}
+                  {...register('isAgent')}
                 />
                 <label htmlFor="isAgent" className="ml-3 text-sm text-gray-700">
                   <span className="font-medium">

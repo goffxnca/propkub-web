@@ -1,4 +1,4 @@
-import { fetchProvinces } from "../libs/managers/addressManager";
+import { fetchProvinces } from '../libs/managers/addressManager';
 
 function generateSiteMap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>
@@ -12,7 +12,7 @@ function generateSiteMap(posts) {
        </url>
      `;
        })
-       .join("")}
+       .join('')}
    </urlset>
  `;
 }
@@ -20,18 +20,18 @@ function generateSiteMap(posts) {
 const LandProvinceSitemap = () => {};
 
 export async function getServerSideProps({ res }) {
-  console.log("LAND-PROVINCE-SITEMAP.XML.JS -> getServerSideProps EXECUTED");
+  console.log('LAND-PROVINCE-SITEMAP.XML.JS -> getServerSideProps EXECUTED');
 
   const provinces = await fetchProvinces();
   const sitemap = generateSiteMap(provinces);
 
   // Send the XML to the browser
-  res.setHeader("Content-Type", "text/xml");
+  res.setHeader('Content-Type', 'text/xml');
   res.write(sitemap);
   res.end();
 
   return {
-    props: {},
+    props: {}
   };
 }
 

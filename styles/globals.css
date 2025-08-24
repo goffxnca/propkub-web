@@ -54,7 +54,7 @@
 }
 
 /* Firefox */
-.hide-spin > input[type="number"] {
+.hide-spin > input[type='number'] {
   -moz-appearance: textfield;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .ql-editor {
-  font-family: "Prompt";
+  font-family: 'Prompt';
 }
 
 .ql-toolbar,
@@ -100,7 +100,7 @@
   color: hsl(206deg 100% 52%);
 }
 
-input[type="password"] {
+input[type='password'] {
   font-family: Verdana;
   letter-spacing: 0.125em;
 }

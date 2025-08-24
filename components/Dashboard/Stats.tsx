@@ -4,8 +4,8 @@ import {
   PhoneIcon,
   ChatIcon,
   ShareIcon,
-  BookmarkIcon,
-} from "@heroicons/react/outline";
+  BookmarkIcon
+} from '@heroicons/react/outline';
 
 interface Link {
   href: string;
@@ -18,7 +18,7 @@ interface StatItem {
   stat: number;
   icon: (props: any) => React.ReactElement;
   change: string;
-  changeType: "increase" | "decrease";
+  changeType: 'increase' | 'decrease';
   note?: string;
   link?: Link;
 }
@@ -38,61 +38,61 @@ const Stats = ({
   totalPhoneViews,
   totalLineViews,
   totalShares,
-  totalPins,
+  totalPins
 }: StatsProps) => {
   const stats: StatItem[] = [
     {
       id: 1,
-      name: "ประกาศของฉันทั้งหมด",
+      name: 'ประกาศของฉันทั้งหมด',
       stat: totalCount,
       icon: DocumentDuplicateIcon,
-      change: "122",
-      changeType: "increase",
+      change: '122',
+      changeType: 'increase'
     },
     {
       id: 2,
-      name: "เข้าชม (ครั้ง)",
+      name: 'เข้าชม (ครั้ง)',
       stat: totalPostViews,
       icon: EyeIcon,
-      change: "5.4%",
-      changeType: "increase",
+      change: '5.4%',
+      changeType: 'increase'
     },
     {
       id: 3,
-      name: "กดดูเบอร์ (ครั้ง)",
+      name: 'กดดูเบอร์ (ครั้ง)',
       stat: totalPhoneViews,
       icon: PhoneIcon,
-      change: "3.2%",
-      changeType: "decrease",
-      note: "",
+      change: '3.2%',
+      changeType: 'decrease',
+      note: ''
     },
     {
       id: 4,
-      name: "กดดูไลน์ (ครั้ง)",
+      name: 'กดดูไลน์ (ครั้ง)',
       stat: totalLineViews,
       icon: ChatIcon,
-      change: "3.2%",
-      changeType: "decrease",
-      note: "",
+      change: '3.2%',
+      changeType: 'decrease',
+      note: ''
     },
     {
       id: 5,
-      name: "แชร์",
+      name: 'แชร์',
       stat: totalShares,
       icon: ShareIcon,
-      change: "3.2%",
-      changeType: "decrease",
-      note: "",
+      change: '3.2%',
+      changeType: 'decrease',
+      note: ''
     },
     {
       id: 6,
-      name: "บันทึก",
+      name: 'บันทึก',
       stat: totalPins,
       icon: BookmarkIcon,
-      change: "3.2%",
-      changeType: "decrease",
-      note: "",
-    },
+      change: '3.2%',
+      changeType: 'decrease',
+      note: ''
+    }
   ];
 
   return (

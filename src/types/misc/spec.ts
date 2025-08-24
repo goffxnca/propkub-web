@@ -11,4 +11,4 @@ export interface SpecDbFormat {
 
 export interface SpecsObject {
   [key: string]: number;
-} 
+}

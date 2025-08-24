@@ -1,9 +1,9 @@
-import { getFacilityArray } from "./mappers/facilityMapper";
-import { getSpecsArray } from "./mappers/specMapper";
-import { getUnixEpochTime } from "./date-utils";
-import { uploadFileToStorage } from "./utils/file-utils";
-import { apiClient } from "./client";
-import { populateAddressLabels } from "./utils/address-utils";
+import { getFacilityArray } from './mappers/facilityMapper';
+import { getSpecsArray } from './mappers/specMapper';
+import { getUnixEpochTime } from './date-utils';
+import { uploadFileToStorage } from './utils/file-utils';
+import { apiClient } from './client';
+import { populateAddressLabels } from './utils/address-utils';
 
 export const fetchActivePosts = async () => {
   const response = await apiClient.posts.getAllPosts(1, 50);
@@ -25,16 +25,16 @@ export const getAllActivePostsByLocation = async ({
   assetType,
   postType,
   locationType,
-  locationId,
+  locationId
 }) => {
   const conditions = {
     assetType: assetType,
-    postType: postType,
+    postType: postType
   };
 
-  if (locationType === "pv") {
+  if (locationType === 'pv') {
     conditions.provinceId = locationId;
-  } else if (locationType === "dt") {
+  } else if (locationType === 'dt') {
     conditions.districtId = locationId;
   } else {
     conditions.subDistrictId = locationId;
@@ -60,7 +60,7 @@ export const queryPostWithFilters = async ({
   regionId,
   provinceId,
   districtId,
-  subDistrictId,
+  subDistrictId
 }) => {
   const posts = await apiClient.posts.searchPosts({
     postType,
@@ -68,7 +68,7 @@ export const queryPostWithFilters = async ({
     regionId,
     provinceId,
     districtId,
-    subDistrictId,
+    subDistrictId
   });
   return posts;
 };
@@ -89,7 +89,7 @@ export const addNewPost = async (postData) => {
 
   try {
     downloadUrls = await Promise.all(
-      postData.images.map((file) => uploadFileToStorage("po", postNumber, file))
+      postData.images.map((file) => uploadFileToStorage('po', postNumber, file))
     );
 
     if (downloadUrls.length !== postData.images.length) {
@@ -129,7 +129,7 @@ export const addNewPost = async (postData) => {
     areaUnit: postData.areaUnit,
     priceUnit: postData.priceUnit,
     condition: postData.condition,
-    refId: postData.refId || undefined,
+    refId: postData.refId || undefined
   };
 
   const result = await apiClient.posts.create(newPost);

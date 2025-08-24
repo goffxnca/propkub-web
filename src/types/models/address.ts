@@ -29,4 +29,4 @@ export interface LocationBreadcrumb {
   type: 'pv' | 'dt' | 'sd';
   provinceId?: string;
   districtId?: string;
-} 
+}

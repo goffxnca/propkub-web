@@ -1,13 +1,13 @@
-import { apiClient } from "../../libs/client";
+import { apiClient } from '../../libs/client';
 import {
   Province,
   District,
   SubDistrict,
-  LocationBreadcrumb,
-} from "../../src/types/models/address";
+  LocationBreadcrumb
+} from '../../src/types/models/address';
 
-const PROVINCE_CACHE_KEY = "provinces";
-const CACHE_VERSION = "1.0"; //Bump this version if provinces DB changes, ex. new province introduced in thailand
+const PROVINCE_CACHE_KEY = 'provinces';
+const CACHE_VERSION = '1.0'; //Bump this version if provinces DB changes, ex. new province introduced in thailand
 
 interface CachedProvinces {
   timestamp: number;
@@ -29,7 +29,7 @@ const fetchProvincesCacheFirst = async (): Promise<Province[]> => {
         return parsedCache.data;
       }
     } catch (e) {
-      console.warn("Failed to parse provinces cache:", e);
+      console.warn('Failed to parse provinces cache:', e);
     }
   }
 
@@ -38,7 +38,7 @@ const fetchProvincesCacheFirst = async (): Promise<Province[]> => {
   const cacheData: CachedProvinces = {
     timestamp: Date.now(),
     data: provinces,
-    version: CACHE_VERSION,
+    version: CACHE_VERSION
   };
   localStorage.setItem(PROVINCE_CACHE_KEY, JSON.stringify(cacheData));
 
@@ -83,32 +83,32 @@ const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
 
 const getLocationBreadcrumbs = async (
   locationtId: string,
-  locationType: "pv" | "dt" | "sd"
+  locationType: 'pv' | 'dt' | 'sd'
 ): Promise<LocationBreadcrumb[]> => {
   let breadcrumbs: LocationBreadcrumb[] = [];
 
-  if (locationType === "sd") {
+  if (locationType === 'sd') {
     const subdistrict = await getSubdistrictById(locationtId);
-    breadcrumbs.unshift({ ...subdistrict, type: "sd" });
+    breadcrumbs.unshift({ ...subdistrict, type: 'sd' });
 
     const district = await getDistrictById(subdistrict.districtId);
-    breadcrumbs.unshift({ ...district, type: "dt" });
+    breadcrumbs.unshift({ ...district, type: 'dt' });
 
     const province = await getProvinceById(district.provinceId);
-    breadcrumbs.unshift({ ...province, type: "pv" });
+    breadcrumbs.unshift({ ...province, type: 'pv' });
   }
 
-  if (locationType === "dt") {
+  if (locationType === 'dt') {
     const district = await getDistrictById(locationtId);
-    breadcrumbs.unshift({ ...district, type: "dt" });
+    breadcrumbs.unshift({ ...district, type: 'dt' });
 
     const province = await getProvinceById(district.provinceId);
-    breadcrumbs.unshift({ ...province, type: "pv" });
+    breadcrumbs.unshift({ ...province, type: 'pv' });
   }
 
-  if (locationType === "pv") {
+  if (locationType === 'pv') {
     const province = await getProvinceById(locationtId);
-    breadcrumbs.unshift({ ...province, type: "pv" });
+    breadcrumbs.unshift({ ...province, type: 'pv' });
   }
 
   return breadcrumbs;
@@ -119,5 +119,5 @@ export {
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
   getLocationBreadcrumbs,
-  fetchProvinces,
+  fetchProvinces
 };
