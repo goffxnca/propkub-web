@@ -58,14 +58,14 @@ const SiginInForm = () => {
             <h1 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
               ล็อกอินเข้าสู่ระบบ
             </h1>
-            <div className="flex justify-center">
+            <div className="flex justify-center mt-2">
               <Logo />
             </div>
             <br />
 
             <div className="mb-6 space-y-3">
               <GoogleLoginButton text="ล็อกอินด้วย Google" />
-              <FacebookLoginButton text="ล็อกอินด้วย Facebook" />
+              {/* <FacebookLoginButton text="ล็อกอินด้วย Facebook" /> */}
             </div>
 
             <div className="relative mb-6">
