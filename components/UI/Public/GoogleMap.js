@@ -17,75 +17,44 @@ const GoogleMap = ({ address, onLocationSelected }) => {
 
   const searchMode = address.indexOf('__search') !== -1;
 
-  useEffect(() => {
-    console.log('useEffect');
+  const initMapFromAddressText = () => {
+    if (!geocoder) {
+      geocoder = new google.maps.Geocoder();
+    }
 
-    const initializeMap = (options) => {
-      console.log('initializeMap');
-      const mapOptions = {
-        zoom: 15,
-        minZoom: 10,
-        clickableIcons: false,
-        gestureHandling: 'greedy',
-        streetViewControl: false,
-        ...options
-      };
+    const actualAddress = address.replace('__search', '');
 
-      if (map) {
-        map.setCenter(mapOptions.center);
-        map.setZoom(mapOptions.zoom);
-      } else {
-        map = new window.google.maps.Map(
-          document.getElementById('googleMap'),
-          mapOptions
-        );
-
-        map.addListener('click', (e, d, f) => {
-          const lat = e.latLng.lat();
-          const lng = e.latLng.lng();
-          createMarker(map, { lat, lng }, true);
-          // createInfoWindow(map, { lat, lng }, false);
-        });
-      }
-      createMarker(map, mapOptions.center, searchMode);
-    };
-
-    const initMapFromAddressText = () => {
-      if (!geocoder) {
-        geocoder = new google.maps.Geocoder();
-      }
-
-      const actualAddress = address.replace('__search', '');
-
-      geocoder.geocode(
-        { address: actualAddress, region: 'TH' },
-        (results, status) => {
-          console.log('geocoding....');
-          if (status == 'OK') {
-            const { lat, lng } = results[0].geometry.location;
-            if (lat && lng) {
-              // const addressSecments = actualAddress.split(" ");
-              initializeMap({
-                center: { lat: lat(), lng: lng() },
-                // zoom: addressSecments.length > 2 ? 19 : 15,
-                zoom: 15
-              });
-            }
-          } else {
+    geocoder.geocode(
+      { address: actualAddress, region: 'TH' },
+      (results, status) => {
+        console.log('geocoding....');
+        if (status == 'OK') {
+          const { lat, lng } = results[0].geometry.location;
+          if (lat && lng) {
+            // const addressSecments = actualAddress.split(" ");
             initializeMap({
-              center: defaultCenter,
+              center: { lat: lat(), lng: lng() },
               // zoom: addressSecments.length > 2 ? 19 : 15,
               zoom: 15
             });
-
-            console.error(
-              'Geocode was not successful for the following reason: ' + status
-            );
           }
-        }
-      );
-    };
+        } else {
+          initializeMap({
+            center: defaultCenter,
+            // zoom: addressSecments.length > 2 ? 19 : 15,
+            zoom: 15
+          });
 
+          console.error(
+            'Geocode was not successful for the following reason: ' + status
+          );
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    console.log('useEffect');
     const loadGoogleMapScript = () => {
       const scriptElem = document.createElement('script');
       scriptElem.type = 'text/javascript';
@@ -99,69 +68,100 @@ const GoogleMap = ({ address, onLocationSelected }) => {
         initMapFromAddressText();
       });
     };
-
-    const createMarker = (map, position, pin = false) => {
-      console.log('createMarker');
-
-      markers.forEach((mk) => mk.setMap(null));
-      infoWindows.forEach((iw) => iw.setMap(null));
-
-      const marker = new window.google.maps.Marker({
-        position: position,
-        draggable: true,
-        map: map
-      });
-
-      marker.addListener('dragstart', () => {
-        infoWindows.forEach((iw) => iw.setMap(null));
-      });
-
-      marker.addListener('dragend', () => {
-        const currentLatitude = marker.position.lat();
-        const currentLongitude = marker.position.lng();
-        const newPosition = { lat: currentLatitude, lng: currentLongitude };
-        position = newPosition;
-        onLocationSelected(newPosition);
-        createInfoWindow(map, newPosition, false);
-      });
-
-      // marker.addListener("click", () => {
-      //   console.log("marker click");
-      //   alert("map click");
-      //   // infoWindows.forEach((iw) => iw.setMap(null));
-      //   createInfoWindow(map, position, false);
-      // });
-
-      markers.push(marker);
-
-      if (pin) {
-        createInfoWindow(map, position, false);
-        onLocationSelected(position);
-      } else {
-        createInfoWindow(map, position, true);
-        onLocationSelected(null);
-      }
-
-      scroller.scrollTo('googleMap', {
-        duration: 1000,
-        delay: 500,
-        smooth: true
-      });
-    };
-
     if (!window.google) {
       loadGoogleMapScript();
     } else {
       initMapFromAddressText();
     }
-  }, [address, searchMode, onLocationSelected]);
+  }, [address]);
+
+  const initializeMap = (options) => {
+    console.log('initializeMap');
+    const mapOptions = {
+      zoom: 15,
+      minZoom: 10,
+      clickableIcons: false,
+      gestureHandling: 'greedy',
+      streetViewControl: false,
+      ...options
+    };
+
+    if (map) {
+      map.setCenter(mapOptions.center);
+      map.setZoom(mapOptions.zoom);
+    } else {
+      map = new window.google.maps.Map(
+        document.getElementById('googleMap'),
+        mapOptions
+      );
+
+      map.addListener('click', (e, d, f) => {
+        const lat = e.latLng.lat();
+        const lng = e.latLng.lng();
+        createMarker(map, { lat, lng }, true);
+        // createInfoWindow(map, { lat, lng }, false);
+      });
+    }
+    createMarker(map, mapOptions.center, searchMode);
+  };
+
+  const createMarker = (map, position, pin = false) => {
+    console.log('createMarker');
+
+    markers.forEach((mk) => mk.setMap(null));
+    infoWindows.forEach((iw) => iw.setMap(null));
+
+    const marker = new window.google.maps.Marker({
+      position: position,
+      draggable: true,
+      map: map
+    });
+
+    marker.addListener('dragstart', () => {
+      infoWindows.forEach((iw) => iw.setMap(null));
+    });
+
+    marker.addListener('dragend', () => {
+      const currentLatitude = marker.position.lat();
+      const currentLongitude = marker.position.lng();
+      const newPosition = { lat: currentLatitude, lng: currentLongitude };
+      position = newPosition;
+      onLocationSelected(newPosition);
+      createInfoWindow(map, newPosition, false);
+    });
+
+    // marker.addListener("click", () => {
+    //   console.log("marker click");
+    //   alert("map click");
+    //   // infoWindows.forEach((iw) => iw.setMap(null));
+    //   createInfoWindow(map, position, false);
+    // });
+
+    markers.push(marker);
+
+    if (pin) {
+      createInfoWindow(map, position, false);
+      onLocationSelected(position);
+    } else {
+      createInfoWindow(map, position, true);
+      onLocationSelected(null);
+    }
+
+    scroller.scrollTo('googleMap', {
+      duration: 1000,
+      delay: 500,
+      smooth: true
+    });
+  };
 
   const createInfoWindow = (map, position, isFirstMarker) => {
     console.log('createInfoWindow');
 
     let contentText = isFirstMarker
       ? 'รอปักหมุดที่ตั้งทรัพย์'
-      : `พิกัด ${position.lat.toFixed(4)},${position.lng.toFixed(4)} (ปักหมุดแล้ว)<br>
+      : `พิกัด ${position.lat.toFixed(4)},${position.lng.toFixed(
+          4
+        )} (ปักหมุดแล้ว)<br>
      
       `;
 
