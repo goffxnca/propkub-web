@@ -33,7 +33,7 @@ const MyPropertyList = () => {
     goToPage,
     nextPage,
     prevPage
-  } = usePagination(getMyPosts, 5);
+  } = usePagination(getMyPosts, 10);
 
   const [apiError, setApiError] = useState('');
   const [stats, setStats] = useState({
