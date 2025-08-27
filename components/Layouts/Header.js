@@ -1,4 +1,4 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useContext } from 'react';
 import { Popover, Transition, Menu } from '@headlessui/react';
 import {
   MenuIcon,
@@ -18,115 +18,71 @@ import { ChevronDownIcon } from '@heroicons/react/solid';
 import { ChatIcon } from '@heroicons/react/solid';
 import MenuLinkItem from '../UI/Public/MenuLinkItem';
 
-const authenticatedMobileMenus = [
-  {
-    name: 'โปรไฟล์',
-    description: "Your customers' data will be safe and secure.",
-    href: '/profile',
-    icon: UserIcon
-  },
-  {
-    name: 'ออกจากระบบ',
-    description: "Your customers' data will be safe and secure.",
-    href: '',
-    onClick: () => {
-      signout('/');
-    },
-    icon: LogoutIcon
-  }
-];
-
-const agentUserMobileMenus = [
-  {
-    name: 'หน้าแรก',
-    description: "Your customers' data will be safe and secure.",
-    href: '/',
-    icon: HomeIcon
-  },
-  {
-    name: 'โปรไฟล์',
-    description: "Your customers' data will be safe and secure.",
-    href: '/profile',
-    icon: UserIcon
-  },
-  {
-    name: 'แดชบอร์ด',
-    description: "Your customers' data will be safe and secure.",
-    href: '/dashboard',
-    icon: ChartPieIcon
-  },
-  {
-    name: 'ลงประกาศ',
-    description: "Your customers' data will be safe and secure.",
-    href: '/account/posts/create',
-    icon: PencilAltIcon
-  },
-  {
-    name: 'ออกจากระบบ',
-    description: "Your customers' data will be safe and secure.",
-    href: '',
-    onClick: () => {
-      signout('/');
-    },
-    icon: LogoutIcon
-  }
-];
-
-const normalUserMobileMenus = [
-  {
-    name: 'หน้าแรก',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '/',
-    icon: HomeIcon
-  },
-  {
-    name: 'ลงประกาศฟรี',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '/login',
-    icon: PencilAltIcon
-  },
-  {
-    name: 'ติดต่อเรา',
-    description: 'Speak directly to your customers in a more meaningful way.',
-    href: '/contact',
-    icon: MailIcon
-  }
-];
-
 const Header = () => {
-  const [bannerActive, setBannerActive] = useState(false);
-  const [mobileMenus, setMobileMenus] = useState([]);
-
-  const { signout, user, isAgent, isNormalUser, isAuthenticated, loading } =
+  const { signout, user, isAgent, isAuthenticated, loading } =
     useContext(authContext);
 
-  const userNavigation = [
-    { name: 'โปรไฟล์', href: '/profile' },
-    { name: 'แดชบอร์ด', href: '/dashboard' },
-    { name: 'ลงประกาศ', href: '/account/posts/create' },
+  const navigations = [
+    {
+      name: 'หน้าแรก',
+      description: "Your customers' data will be safe and secure.",
+      href: '/',
+      icon: HomeIcon,
+      visible: true,
+      classes: 'md:hidden'
+    },
+    {
+      name: 'โปรไฟล์',
+      description: "Your customers' data will be safe and secure.",
+      href: '/profile',
+      icon: UserIcon,
+      visible: isAuthenticated,
+      classes: ''
+    },
+    {
+      name: 'แดชบอร์ด',
+      description: "Your customers' data will be safe and secure.",
+      href: '/dashboard',
+      icon: ChartPieIcon,
+      visible: isAuthenticated,
+      classes: ''
+    },
+    {
+      name: 'ลงประกาศ',
+      description: "Your customers' data will be safe and secure.",
+      href: '/account/posts/create',
+      icon: PencilAltIcon,
+      visible: isAuthenticated,
+      classes: ''
+    },
     {
       name: 'ออกจากระบบ',
+      description: "Your customers' data will be safe and secure.",
       href: '',
       onClick: () => {
         signout('/');
-      }
+      },
+      icon: LogoutIcon,
+      visible: isAuthenticated,
+      classes: ''
+    },
+    {
+      name: 'ลงประกาศฟรี',
+      description: 'Speak directly to your customers in a more meaningful way.',
+      href: '/login',
+      icon: PencilAltIcon,
+      visible: !isAuthenticated,
+      classes: ''
+    },
+    {
+      name: 'ติดต่อเรา',
+      description: 'Speak directly to your customers in a more meaningful way.',
+      href: '/contact',
+      icon: MailIcon,
+      visible: !isAuthenticated,
+      classes: ''
     }
   ];
-
-  useEffect(() => {
-    if (isAgent) {
-      setMobileMenus(agentUserMobileMenus);
-    } else if (isNormalUser) {
-      setMobileMenus(normalUserMobileMenus.concat(authenticatedMobileMenus));
-      setMobileMenus(agentUserMobileMenus);
-    } else {
-      setMobileMenus(normalUserMobileMenus);
-    }
-  }, [isAgent, isNormalUser]);
-
-  const closeHeaderBannerHandler = () => {
-    setBannerActive(false);
-  };
 
   return (
     <Popover className="relative bg-white shadow-sm">
@@ -209,7 +165,7 @@ const Header = () => {
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={`${user.photoURL || '/user.png'}`}
+                        src={`${user.profileImg || '/user.png'}`}
                         alt=""
                         className="rounded-full w-full h-full object-cover"
                       ></img>
@@ -217,10 +173,7 @@ const Header = () => {
 
                     <span className="hidden ml-2 text-gray-700 text-sm font-medium lg:block">
                       <span className="sr-only">Open user menu for </span>
-                      <span>
-                        {user?.displayName || ''}
-                        {isAgent && ' (เอเจ้นท์)'}
-                      </span>
+                      <span>{user.name}</span>
                     </span>
 
                     <ChevronDownIcon
@@ -239,27 +192,30 @@ const Header = () => {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-30">
-                    {userNavigation.map((item) => (
-                      <Menu.Item key={item.name}>
-                        {({ active }) => (
-                          <MenuLinkItem
-                            href={item.href}
-                            onClick={(e) => {
-                              if (item.onClick) {
-                                e.preventDefault();
-                                item.onClick();
-                              }
-                            }}
-                            className={joinClasses(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}
-                          >
-                            {item.name}
-                          </MenuLinkItem>
-                        )}
-                      </Menu.Item>
-                    ))}
+                    {navigations
+                      .filter((nav) => nav.visible)
+                      .map((item) => (
+                        <Menu.Item key={item.name}>
+                          {({ active }) => (
+                            <MenuLinkItem
+                              href={item.href}
+                              onClick={(e) => {
+                                if (item.onClick) {
+                                  e.preventDefault();
+                                  item.onClick();
+                                }
+                              }}
+                              className={joinClasses(
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700',
+                                item.classes
+                              )}
+                            >
+                              {item.name}
+                            </MenuLinkItem>
+                          )}
+                        </Menu.Item>
+                      ))}
                   </Menu.Items>
                 </Transition>
               </Menu>
@@ -297,20 +253,15 @@ const Header = () => {
                       >
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
-                          src={`${user.photoURL || '/user.png'}`}
+                          src={`${user.profileImg || '/user.png'}`}
                           alt=""
                           className="h-full w-full object-cover"
                         ></img>
                       </div>
 
                       <div className="text-primary font-bold ml-2">
-                        {user?.displayName}
+                        {user.name}
                       </div>
-                      {isAgent && (
-                        <div className="text-primary font-bold ml-1">
-                          ({user?.role})
-                        </div>
-                      )}
                     </div>
                   )}
 
@@ -325,34 +276,36 @@ const Header = () => {
                 <div className="mt-6">
                   <nav>
                     <ul className="grid gap-y-8">
-                      {mobileMenus.map((item, idx) => (
-                        <div key={item.name}>
-                          <li className="list-none">
-                            <Link
-                              href={item.href}
-                              className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
-                              onClick={(e) => {
-                                close();
-                                if (item.onClick) {
-                                  e.preventDefault();
-                                  item.onClick();
-                                }
-                              }}
-                            >
-                              <item.icon
-                                className="flex-shrink-0 h-6 w-6 text-indigo-600"
-                                aria-hidden="true"
-                              />
-                              <span className="ml-3 text-base font-medium text-gray-900">
-                                {item.name}
-                              </span>
-                            </Link>
-                          </li>
-                          {item.lineBreak && mobileMenus.length - idx > 1 && (
-                            <hr className="border-b border-gray-50" />
-                          )}
-                        </div>
-                      ))}
+                      {navigations
+                        .filter((nav) => nav.visible)
+                        .map((item, idx) => (
+                          <div key={item.name} className={item.classes}>
+                            <li className="list-none">
+                              <Link
+                                href={item.href}
+                                className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                                onClick={(e) => {
+                                  close();
+                                  if (item.onClick) {
+                                    e.preventDefault();
+                                    item.onClick();
+                                  }
+                                }}
+                              >
+                                <item.icon
+                                  className="flex-shrink-0 h-6 w-6 text-indigo-600"
+                                  aria-hidden="true"
+                                />
+                                <span className="ml-3 text-base font-medium text-gray-900">
+                                  {item.name}
+                                </span>
+                              </Link>
+                            </li>
+                            {item.lineBreak && navigations.length - idx > 1 && (
+                              <hr className="border-b border-gray-50" />
+                            )}
+                          </div>
+                        ))}
                     </ul>
                   </nav>
                 </div>
