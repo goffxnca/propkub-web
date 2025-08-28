@@ -143,7 +143,7 @@ const Header = () => {
           {isAuthenticated && (
             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               {/* chat messages */}
-              <Menu as="div" className="relative flex-shrink-0">
+              {/* <Menu as="div" className="relative flex-shrink-0">
                 <div>
                   <Menu.Button className="max-w-xs bg-white rounded-full flex items-center text-sm focus:outline-none lg:p-2 lg:rounded-md lg:hover:bg-gray-50">
                     <div className="hidden text-gray-500 text-sm font-medium lg:block">
@@ -154,7 +154,7 @@ const Header = () => {
                     </div>
                   </Menu.Button>
                 </div>
-              </Menu>
+              </Menu> */}
 
               {/* account menus */}
               <Menu as="div" className="ml-2 relative flex-shrink-0">
