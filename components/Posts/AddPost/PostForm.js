@@ -119,21 +119,28 @@ const PostForm = ({ postData }) => {
   };
 
   useEffect(() => {
-    if (user) {
-      const messages = [];
-      if (!user.emailVerified) {
-        messages.push(
-          `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล กรุณาตรวจสอบในโฟลเดอร์ Spam/Junk/Promotions)`
-        );
-      }
-      if (!isProfileComplete) {
-        messages.push(
-          'กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
-        );
-      }
-      setWarningMessages(messages);
+    const messages = [];
+    if (!user.emailVerified) {
+      messages.push(
+        `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user?.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล กรุณาตรวจสอบในโฟลเดอร์ Spam/Junk/Promotions)`
+      );
     }
-  }, [user, isProfileComplete]);
+    if (!user.name) {
+      messages.push('กรุณากำหนดชื่อ');
+    }
+
+    if (!user.profileImg) {
+      messages.push('กรุณากำหนดรูปภาพโปรไฟล์');
+    }
+
+    if (!user.phone || !user.line) {
+      messages.push(
+        'กรุณากำหนดหมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
+      );
+    }
+
+    setWarningMessages(messages);
+  }, [user]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,7 +155,7 @@ const PostForm = ({ postData }) => {
       >
         {/* Profile warning messages */}
         {warningMessages.length > 0 && (
-          <div className="animate-pulse">
+          <div>
             <Alert
               alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
               messages={warningMessages}

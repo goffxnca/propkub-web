@@ -10,25 +10,34 @@ import AccountSecuritySection from './AccountSecuritySection';
 import SocialConnectionsSection from './SocialConnectionsSection';
 import Button from '../UI/Public/Button';
 
-const ProfileScreen = ({ user }) => {
-  const { isProfileComplete } = useContext(authContext);
+const ProfileScreen = () => {
+  const { isProfileComplete, user } = useContext(authContext);
   const router = useRouter();
   const [warningMessages, setWarningMessages] = useState([]);
 
   useEffect(() => {
     const messages = [];
-    if (!user?.emailVerified) {
+    if (!user.emailVerified) {
       messages.push(
-        `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user?.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล กรุณาตรวจสอบในโฟลเดอร์ Spam/Junk/Promotions)`
+        `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล กรุณาตรวจสอบในโฟลเดอร์ Spam/Junk/Promotions)`
       );
     }
-    if (!isProfileComplete) {
+    if (!user.name) {
+      messages.push('กรุณากำหนดชื่อ');
+    }
+
+    if (!user.profileImg) {
+      messages.push('กรุณากำหนดรูปภาพโปรไฟล์');
+    }
+
+    if (!user.phone || !user.line) {
       messages.push(
-        'กรุณากำหนดชื่อ รูปภาพโปรไฟล์ หมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
+        'กรุณากำหนดหมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
       );
     }
+
     setWarningMessages(messages);
-  }, [user?.emailVerified, isProfileComplete, user?.email]);
+  }, [user]);
 
   if (!user) {
     return (
@@ -60,7 +69,7 @@ const ProfileScreen = ({ user }) => {
       </div>
 
       {warningMessages.length > 0 && (
-        <div className="animate-pulse mt-6">
+        <div className="my-6">
           <Alert
             alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
             messages={warningMessages}
