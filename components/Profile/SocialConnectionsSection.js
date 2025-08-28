@@ -47,11 +47,12 @@ const SocialConnectionsSection = ({ user }) => {
     // If user signed up with Google or Facebook, don't show email option
     // (since we don't allow linking back to email accounts)
     if (user.provider === 'google' || user.provider === 'facebook') {
-      return ['google', 'facebook'];
+      // return ['google', 'facebook']; //TODO: Use this when facebook linking ready
+      return ['google'];
     }
 
     // If user signed up with email, show all options
-    // return ['email', 'google', 'facebook'];
+    // return ['email', 'google', 'facebook']; //TODO: Use this when facebook linking ready
     return ['email', 'google'];
   };
 
@@ -71,9 +72,6 @@ const SocialConnectionsSection = ({ user }) => {
           </div>
           <div className="flex items-center space-x-2">
             <CheckCircleIcon className="w-5 h-5 text-green-600" />
-            <span className="text-sm font-medium text-green-900">
-              เชื่อมต่อแล้ว
-            </span>
           </div>
         </div>
       );
@@ -95,14 +93,13 @@ const SocialConnectionsSection = ({ user }) => {
               size="sm"
               buttonText="เชื่อมต่อ"
             />
+          ) : provider === 'facebook' ? (
+            <LinkFacebookAccountButton
+              currentUserEmail={user.email}
+              size="sm"
+              buttonText="เชื่อมต่อ"
+            />
           ) : (
-            // : provider === 'facebook' ? (
-            //   <LinkFacebookAccountButton
-            //     currentUserEmail={user.email}
-            //     size="sm"
-            //     buttonText="เชื่อมต่อ"
-            //   />
-            // )
             <>
               <XCircleIcon className="w-5 h-5 text-gray-400" />
               <span className="text-sm font-medium text-gray-600">
