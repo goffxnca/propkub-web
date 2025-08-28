@@ -37,19 +37,36 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
 
 // Always fetch fresh post and similarPosts data from API (SSR)
 export async function getServerSideProps({ params }) {
-  const slugSegments = params.slug.split('_');
-  const postNumber = slugSegments[slugSegments.length - 1];
+  const slug = params?.slug || '';
+  const parts = slug.split('_');
+  const postNumber = parts[parts.length - 1];
 
-  const post = await FetchPostByNumber(postNumber);
-  const similarPosts = post ? await FetchSimilarPosts(post._id) : [];
+  if (!postNumber) {
+    return { notFound: true };
+  }
 
-  return {
-    props: {
-      post,
-      similarPosts: similarPosts || []
-    },
-    notFound: !post
-  };
+  try {
+    const post = await FetchPostByNumber(postNumber);
+
+    if (!post) {
+      return { notFound: true };
+    }
+
+    const similarPosts = await FetchSimilarPosts(post._id);
+
+    return {
+      props: {
+        post,
+        similarPosts: similarPosts || []
+      }
+    };
+  } catch (error) {
+    console.error(
+      'Error occurred while fetching a post/similar posts:',
+      error?.message || error
+    );
+    return { notFound: true };
+  }
 }
 
 export default PropertyDetailPage;
