@@ -53,19 +53,17 @@ const ProfileScreen = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
         <PageTitle label="โปรไฟล์ของฉัน" />
-        {isProfileComplete && (
-          <div className="animate-bounce">
-            <Button
-              type="submit"
-              variant="primary"
-              onClick={() => {
-                router.push('/account/posts/create');
-              }}
-            >
-              ลงประกาศ
-            </Button>
-          </div>
-        )}
+        <div className="animate-bounce">
+          <Button
+            type="submit"
+            variant="primary"
+            onClick={() => {
+              router.push('/account/posts/create');
+            }}
+          >
+            ลงประกาศ
+          </Button>
+        </div>
       </div>
 
       {warningMessages.length > 0 && (
