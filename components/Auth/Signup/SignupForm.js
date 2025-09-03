@@ -41,21 +41,6 @@ const SignupForm = () => {
     clearError();
   };
 
-  const roleItems = [
-    // {
-    //   id: "normal",
-    //   name: "ผู้ใช้งานทั่วไป",
-    //   description:
-    //     "ฉันกำลังมองหาบ้าน คอนโด ที่ดิน เพื่อซื้อ/เช่า และลงประกาศทรัพย์สินของตัวเองเป็นบางครั้ง (ฟรี/จำกัดจำนวนประกาศ)",
-    // },
-    {
-      id: 'agent',
-      name: 'นายหน้าอสังหาริมทรัพย์ (Agent)',
-      description:
-        'ฉันต้องการลงประกาศจำนวนมาก (ฟรีไม่จำกัดจำนวนประกาศ) และใช้งานระบบสนันสนุนการทำงานต่างๆ ของ Agent'
-    }
-  ];
-
   return (
     <>
       <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
