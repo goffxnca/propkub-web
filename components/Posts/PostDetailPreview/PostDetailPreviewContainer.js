@@ -35,10 +35,8 @@ const PostDetailPreviewContainer = ({ postId }) => {
     fetchPostData();
   }, [postId]);
 
-  // Loading state
   if (fetching) return <Loader />;
 
-  // Error state
   if (error) {
     return (
       <Modal
