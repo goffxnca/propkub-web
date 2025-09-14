@@ -27,8 +27,6 @@ function generateSiteMap(posts) {
 const PropertySitemap = () => {};
 
 export async function getServerSideProps({ res }) {
-  console.log('PROPERTY-SITEMAP.XML.JS -> getServerSideProps EXECUTED');
-
   const posts = await getAllActivePostsForSitemap();
   const sitemap = generateSiteMap(posts);
 

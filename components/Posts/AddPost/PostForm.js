@@ -23,7 +23,6 @@ import { getSpecsObject } from '../../../libs/mappers/specMapper';
 import { getEditedFields } from '../../../libs/form-utils';
 
 const PostForm = ({ postData }) => {
-  // console.log("PostForm", postData);
 
   const isEditMode = !!postData;
 
@@ -98,12 +97,10 @@ const PostForm = ({ postData }) => {
         //UPDATE MODE
         const editedData = getEditedFields(dirtyFields, formData);
         const result = await updatePost(postData._id, editedData);
-        console.log('Post updated successfully', result);
       } else {
         // CREATE MODE
         const result = await addNewPost(formData);
         setCreatedPostId(result._id);
-        console.log('Post created successfully', result);
       }
       setShowSuccessModal(true);
     } catch (error) {

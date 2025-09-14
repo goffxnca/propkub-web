@@ -13,8 +13,6 @@ const defaultCenter = {
 }; //Victory Monument
 
 const GoogleMap = ({ address, onLocationSelected }) => {
-  console.log('GoogleMap');
-
   const searchMode = address.indexOf('__search') !== -1;
 
   const initMapFromAddressText = () => {
@@ -27,7 +25,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
     geocoder.geocode(
       { address: actualAddress, region: 'TH' },
       (results, status) => {
-        console.log('geocoding....');
         if (status == 'OK') {
           const { lat, lng } = results[0].geometry.location;
           if (lat && lng) {
@@ -54,7 +51,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
   };
 
   useEffect(() => {
-    console.log('useEffect');
     const loadGoogleMapScript = () => {
       const scriptElem = document.createElement('script');
       scriptElem.type = 'text/javascript';
@@ -76,7 +72,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
   }, [address]);
 
   const initializeMap = (options) => {
-    console.log('initializeMap');
     const mapOptions = {
       zoom: 15,
       minZoom: 10,
@@ -106,8 +101,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
   };
 
   const createMarker = (map, position, pin = false) => {
-    console.log('createMarker');
-
     markers.forEach((mk) => mk.setMap(null));
     infoWindows.forEach((iw) => iw.setMap(null));
 
@@ -155,8 +148,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
   };
 
   const createInfoWindow = (map, position, isFirstMarker) => {
-    console.log('createInfoWindow');
-
     let contentText = isFirstMarker
       ? 'รอปักหมุดที่ตั้งทรัพย์'
       : `พิกัด ${position.lat.toFixed(4)},${position.lng.toFixed(

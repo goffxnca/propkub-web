@@ -73,7 +73,6 @@ const PostFilter = ({ onSearch, onReset }) => {
   };
 
   const selectAssetTypeHandler = (assetType) => {
-    console.log('selectAssetTypeHandler');
     setSearchFilter((state) => ({ ...state, assetType: assetType }));
   };
 
@@ -112,7 +111,6 @@ const PostFilter = ({ onSearch, onReset }) => {
 
   //useEffect
   useEffect(() => {
-    console.log('regionid changed!!');
     setSearchFilter((state) => ({ ...state, provinceId: '' }));
 
     if (searchFilter.regionId) {
@@ -130,7 +128,6 @@ const PostFilter = ({ onSearch, onReset }) => {
   }, [searchFilter.regionId]);
 
   useEffect(() => {
-    console.log('provinceId changed!!');
     setSearchFilter((state) => ({ ...state, districtId: '' }));
 
     if (searchFilter.provinceId) {
@@ -143,7 +140,6 @@ const PostFilter = ({ onSearch, onReset }) => {
   }, [searchFilter.provinceId]);
 
   useEffect(() => {
-    console.log('districtId changed!!');
     setSearchFilter((state) => ({ ...state, subDistrictId: '' }));
 
     if (searchFilter.districtId) {

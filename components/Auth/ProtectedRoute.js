@@ -9,10 +9,6 @@ const ProtectedRoute = ({ children, redirectTo = '/' }) => {
 
   useEffect(() => {
     if (!initializing && !isAuthenticated) {
-      console.log(
-        '[Auth-Protected] User not authenticated, redirecting to:',
-        redirectTo
-      );
       router.push(redirectTo);
     }
   }, [initializing, isAuthenticated, router, redirectTo]);

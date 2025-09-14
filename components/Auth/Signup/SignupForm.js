@@ -24,12 +24,10 @@ const SignupForm = () => {
     setValue,
     formState: { errors }
   } = useForm();
-  console.log('SignupForm');
 
   const { signup, loading, error, clearError } = useContext(authContext);
 
   const submitHandler = (data) => {
-    console.log(data);
     signup(data.email, data.password, data.name, data.isAgent || false);
   };
 

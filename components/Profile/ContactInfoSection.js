@@ -57,12 +57,9 @@ const ContactInfoSection = ({ user }) => {
     setApiError('');
 
     try {
-      console.log('Saving contact info:', formData);
-
       const updatedUser = await apiClient.auth.updateProfile(formData);
       setUser(updatedUser);
       setIsEditing(false);
-      console.log('Contact info saved successfully!');
     } catch (error) {
       console.error('Failed to save contact info:', error);
       setApiError(error.message || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');

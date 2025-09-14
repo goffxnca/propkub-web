@@ -11,8 +11,6 @@ const MediaSection = ({
   errors,
   submitCount
 }) => {
-  console.log('MediaSection');
-
   const watchVideo = watch('video');
 
   return (

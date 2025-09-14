@@ -24,8 +24,6 @@ const IndexSitemap = () => {
 };
 
 export async function getServerSideProps({ res }) {
-  console.log('SITEMAP.XML.JS -> getServerSideProps EXECUTED');
-
   const defaultDateTime = '2023-01-01T00:00:00Z';
   const latestActivePost = await getLatestActivePostForSitemap();
 
