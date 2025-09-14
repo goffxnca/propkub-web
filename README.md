@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PropKub - Property Discovery Platform
 
-## Getting Started
+> **PropKub** is a property discovery platform for Thailand, helping users find their perfect home, condominium, land, and commercial property.
 
-1. Configure Firebase
-   Replicate `dotenv.sample` to `.env` file and enter all Firebase credentials, for development it targets `propkub-dev` Firebase project
+## 🏠 About PropKub
 
-2. Run the development server:
+PropKub is a full-stack property platform built with modern technologies. The platform connects property seekers with real estate opportunities across Thailand, featuring:
 
-```bash
-yarn &&
-yarn dev
+- **Property Listings** - Browse homes, condominiums, land, and commercial properties
+- **Advanced Search** - Filter by location, price, property type, and more
+- **User Profiles** - Manage your property preferences and saved listings
+- **Interactive Maps** - Visualize property locations with Google Maps integration
+- **Agent Management System** - Connect with real estate agents and property professionals
+
+## 🚀 Live Demo
+
+- **Frontend:** [https://propkub.com](https://propkub.com)
+- **API Documentation:** [https://dev-api.propkub.com/api](https://dev-api.propkub.com/api)
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Next.js 13** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Utility-first CSS framework
+- **Redux Toolkit** - State management
+- **React Hook Form** - Form handling
+
+### Backend
+- **NestJS** - Node.js framework
+- **MongoDB** - Database
+- **JWT** - Authentication
+- **Swagger** - API documentation
+- **SendGrid** - Email services
+- **LogRocket** - Logging solution
+
+> **Note:** The backend is currently private but will be open-sourced in the future as part of our roadmap.
+
+## 🏗️ Project Structure
+
+```
+propkub-web/          # Frontend (Next.js)
+├── components/       # Reusable UI components
+├── pages/           # Next.js pages
+├── libs/            # Utility functions
+├── contexts/        # React contexts
+└── styles/          # Global styles
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Getting Started
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Prerequisites
+- Node.js 18+ 
+- Yarn package manager
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Frontend Development
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/goffxnca/propkub-web.git
+   cd propkub-web
+   ```
 
-## Learn More
+2. **Install dependencies**
+   ```bash
+   yarn install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Configure environment**
+   ```bash
+   cp .env.example .env.development
+   # Add environment variable values
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Start development server**
+   ```bash
+   yarn dev
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. **Open your browser**
+   Navigate to [http://localhost:65432](http://localhost:65432)
 
-## Deploy on Vercel
+### API Integration
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The frontend connects to our development API:
+- **Base URL:** `https://dev-api.propkub.com`
+- **Documentation:** [Swagger UI](https://dev-api.propkub.com/api)
+- **Authentication:** JWT-based with Google/Facebook OAuth
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for detailed information on how to get started.
+
+## 🎯 Roadmap
+
+### Short Term
+- [ ] Multi-language support
+- [ ] Enhanced property search filters
+- [ ] User dashboard improvements
+- [ ] Advanced analytics
+
+### Big Vision
+- [ ] **Mobile App** - Native iOS and Android applications for better user experience
+- [ ] **AI-Powered Matching** - Integrate AI to help property seekers and owners/agents find perfect matches more easily
+- [ ] **Southeast Asia Expansion** - Scale as an open-source property platform across Southeast Asia
+- [ ] **Free Marketplace** - Create a truly free platform for home seekers, owners, and agents (no fees, unlike traditional property marketplace companies)
+- [ ] **Developer Community** - Build a welcoming place where developers of all skill levels can contribute to products that reach real end users
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Goff Patt** - [@goffxnca](https://github.com/goffxnca)
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ for the Thailand property market
+- Special thanks to all contributors
+- Powered by the open source community
+
+---
+
+**Ready to contribute?** Check out our [open issues](https://github.com/goffxnca/propkub-web/issues) and join the community! 🚀
