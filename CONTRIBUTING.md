@@ -2,11 +2,17 @@
 
 ## Quick Start
 
-1. **Fork the repository**
-2. **Create a feature branch** from `main`
-3. **Make your changes**
-4. **Test your changes**
-5. **Submit a pull request** to `main`
+1. **Find an issue** you want to work on
+2. **Check if someone is already assigned** - if yes, look for another issue
+3. **Comment to show interest** - we assign based on first come, first serve
+4. **Wait for assignment** - don't start coding until you're assigned
+5. **Fork the repository**
+6. **Create a feature branch** from `main`
+7. **Make your changes**
+8. **Test your changes**
+9. **Submit a pull request** to `main`
+
+**Important:** We work on assignment basis, not "first PR wins"!
 
 ## Code Standards
 
