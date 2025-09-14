@@ -68,8 +68,11 @@ propkub-web/          # Frontend (Next.js)
 
 3. **Configure environment**
    ```bash
+   # Create dev environment file
    cp .env.example .env.development
-   # Add environment variable values
+   
+   # No need to edit any values for now - all basic required values 
+   # are ready for contributors to start working and connecting to dev API
    ```
 
 4. **Start development server**
