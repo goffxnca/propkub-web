@@ -40,7 +40,6 @@ const AuthCallback = () => {
   useEffect(() => {
     const handleCallback = async () => {
       try {
-        console.log('[AuthCallback] Processing OAuth callback...');
         const { token, error, success, provider, expectedEmail } = router.query;
 
         if (error) {
@@ -78,15 +77,11 @@ const AuthCallback = () => {
 
         // Handle linking success
         if (success === 'linking') {
-          console.log('[AuthCallback] Account linking successful:', {
-            provider
-          });
           await handleAuthSuccess({ token, provider, isLinking: true });
           return;
         }
 
         // Handle regular login/signup success
-        console.log('[AuthCallback] Login successful:', { accessToken: token });
         await handleAuthSuccess({ token, provider, isLinking: false });
       } catch (error) {
         console.error('[AuthCallback] Error processing callback:', error);

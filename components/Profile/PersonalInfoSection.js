@@ -56,13 +56,9 @@ const PersonalInfoSection = ({ user }) => {
     setApiError('');
 
     try {
-      console.log('Saving personal info:', formData);
-
       const finalData = { name: formData.name };
 
       if (formData.profileImg?.changed) {
-        console.log('Uploading new profile image...');
-
         const imageUrl = await uploadFileToStorage(
           'us',
           user._id,
@@ -74,14 +70,11 @@ const PersonalInfoSection = ({ user }) => {
         }
 
         finalData.profileImg = imageUrl;
-        console.log('Profile image uploaded successfully:', imageUrl);
       }
 
       const updatedUser = await apiClient.auth.updateProfile(finalData);
       setUser(updatedUser);
       setIsEditing(false);
-
-      console.log('Personal info saved successfully!');
     } catch (error) {
       console.error('Failed to save personal info:', error);
       setApiError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');

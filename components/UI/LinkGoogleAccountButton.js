@@ -13,10 +13,6 @@ const LinkGoogleAccountButton = ({
       return;
     }
 
-    console.log('[Auth] Initiating Google account linking', {
-      currentUserEmail
-    });
-
     // Create structured state object
     const stateObject = {
       mode: 'link',

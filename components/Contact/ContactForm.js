@@ -28,7 +28,6 @@ const ContactForm = () => {
 
   const submitHandler = (data) => {
     //TODO: save later
-    console.log(data);
     setLoading(true);
     const timer = setTimeout(() => {
       setLoading(false);

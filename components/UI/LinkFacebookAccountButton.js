@@ -14,10 +14,6 @@ const LinkFacebookAccountButton = ({
       return;
     }
 
-    console.log('[Auth] Initiating Facebook account linking', {
-      currentUserEmail
-    });
-
     // Create structured state object
     const stateObject = {
       mode: 'link',

@@ -81,14 +81,6 @@ const ProfileImageInput = ({
     if (resizedFile && newFileUrl) {
       setFile(resizedFile);
       setFileUrl(newFileUrl);
-
-      console.log(
-        `Image resized from ${(selectedFile.size / 1024).toFixed(2)}kb to ${(
-          resizedFile.size / 1024
-        ).toFixed(
-          2
-        )}kb = ${(selectedFile.size / resizedFile.size).toFixed(2)}X smaller`
-      );
     }
   };
 

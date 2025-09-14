@@ -1,12 +1,7 @@
-import { useEffect } from 'react';
 import Heading from '../../UI/Public/Heading';
 import SimilarPostItem from './SimilarPostItem';
 
 const SimilarPosts = ({ similarPosts }) => {
-  useEffect(() => {
-    console.log('SimilarPosts');
-  }, []);
-
   return (
     <>
       <div className="">

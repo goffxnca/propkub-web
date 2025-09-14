@@ -20,8 +20,6 @@ function generateSiteMap(posts) {
 const LandProvinceSitemap = () => {};
 
 export async function getServerSideProps({ res }) {
-  console.log('LAND-PROVINCE-SITEMAP.XML.JS -> getServerSideProps EXECUTED');
-
   const provinces = await fetchProvinces();
   const sitemap = generateSiteMap(provinces);
 

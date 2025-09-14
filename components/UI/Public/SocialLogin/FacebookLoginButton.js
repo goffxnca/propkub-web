@@ -2,7 +2,6 @@ import { envConfig } from '../../../../libs/envConfig';
 
 const FacebookLoginButton = ({ text = 'เชื่อมต่อด้วย Facebook' }) => {
   const handleFacebookOAuth = () => {
-    console.log('[Auth] Initiating Facebook OAuth');
     window.location.href = `${envConfig.apiUrl()}/auth/facebook`;
   };
 

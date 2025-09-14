@@ -30,16 +30,11 @@ const AuthContextProvider = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('[Auth] Initialization...');
-
     const initializeAuth = async () => {
       try {
         if (tokenManager.hasToken()) {
-          console.log('[Auth] JWT token found, fetching user profile...');
-
           const userProfile = await apiClient.auth.getProfile();
-          console.log('[Auth] User profile restored:', userProfile);
-
+          
           if (userProfile) {
             setUser(userProfile);
           } else {
@@ -47,7 +42,6 @@ const AuthContextProvider = ({ children }) => {
           }
           setInitializing(false);
         } else {
-          console.log('[Auth] No JWT token found');
           setUser(null);
           setInitializing(false);
         }
@@ -65,14 +59,10 @@ const AuthContextProvider = ({ children }) => {
   const signin = async (email, password) => {
     setLoading(true);
     try {
-      console.log('[Auth] Login attempt for:', email);
-
       const result = await apiClient.auth.login(email, password);
-      console.log('[Auth] Login successful:', result);
 
       tokenManager.setToken(result.accessToken);
       const userProfile = await apiClient.auth.getProfile();
-      console.log('[Auth] User profile fetched after login:', userProfile);
       setUser(userProfile);
       setLoading(false);
     } catch (error) {
@@ -86,20 +76,16 @@ const AuthContextProvider = ({ children }) => {
   const signup = async (email, password, name, isAgent) => {
     setLoading(true);
     try {
-      console.log('[Auth] Signup attempt for:', email);
-
       const result = await apiClient.auth.signup(
         name,
         email,
         password,
         isAgent
       );
-      console.log('[Auth] Signup successful:', result);
 
       tokenManager.setToken(result.accessToken);
 
       const userProfile = await apiClient.auth.getProfile();
-      console.log('[Auth] User profile fetched after signup:', userProfile);
       setUser(userProfile);
       setLoading(false);
     } catch (error) {
@@ -113,12 +99,9 @@ const AuthContextProvider = ({ children }) => {
   const signout = async (redirectTo = '/') => {
     setLoading(true);
     try {
-      console.log('[Auth] Logout initiated...');
-
       tokenManager.removeToken();
       setUser(null);
       setLoading(false);
-      console.log('[Auth] Logout successful');
       router.push(redirectTo);
     } catch (error) {
       console.error('[Auth] Logout failed:', error.message);

@@ -2,8 +2,6 @@ import { ACCEPT_POST_MSG } from '../../../libs/constants';
 import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 
 const ConfirmSection = ({ register, unregister, errors }) => {
-  console.log('ConfirmSection');
-
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
       <div className="md:grid md:grid-cols-3 md:gap-6">

@@ -30,7 +30,6 @@ const LocationSection = ({
   const [districtList, setDistrictList] = useState([]);
   const [subDistrictList, setSubDistrictList] = useState([]);
 
-  console.log('LocationSection');
   const watchRegionId = watch('address.regionId');
   const watchProvinceId = watch('address.provinceId');
   const watchDistrictId = watch('address.districtId');
@@ -54,7 +53,6 @@ const LocationSection = ({
 
   // useEffects
   useEffect(() => {
-    console.log('regionid changed!!');
     setValue('address.provinceId', '', { shouldValidate: submitCount > 0 });
 
     if (watchRegionId) {
@@ -68,7 +66,6 @@ const LocationSection = ({
   }, [watchRegionId]);
 
   useEffect(() => {
-    console.log('provinceId changed!!');
     setValue('address.districtId', '', { shouldValidate: submitCount > 0 });
 
     if (watchProvinceId) {
@@ -82,7 +79,6 @@ const LocationSection = ({
   }, [watchProvinceId]);
 
   useEffect(() => {
-    console.log('watchDistrictId changed!!');
     setValue('address.subDistrictId', '', { shouldValidate: submitCount > 0 });
 
     if (watchDistrictId) {
@@ -97,7 +93,6 @@ const LocationSection = ({
 
   const renderMap = () => {
     if (watchSubDistrictId && mapSearchQuotaRemaining) {
-      console.log('watchSubDistrictId changed!!');
       const districtElem = document.getElementById('address.districtId');
       const distictLabel = districtElem.item(districtElem.selectedIndex).label;
       const subDistrictElem = document.getElementById('address.subDistrictId');
