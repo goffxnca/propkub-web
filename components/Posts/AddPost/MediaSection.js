@@ -34,12 +34,12 @@ const MediaSection = ({
               <UploadImagesInput
                 id="images"
                 label="รูปภาพ"
-                maxFile={8}
+                maxFile={10}
                 register={() =>
                   register('images', {
                     required: 'กรุณาอัพโหลดภาพของประกาศจำนวน 3-8 ภาพ',
                     validate: (value) => {
-                      if (value?.length < 3 || value?.length > 8) {
+                      if (value?.length < 1 || value?.length > 10) {
                         return 'กรุณาอัพโหลดภาพของประกาศจำนวน 3-8 ภาพ';
                       }
                     }
