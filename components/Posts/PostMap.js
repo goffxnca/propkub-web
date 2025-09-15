@@ -4,7 +4,7 @@ const PostMap = ({
   lng = 100.53829,
   heading = 0
 }) => {
-  const baseGoogleMapEmbededAPIUrl = `https://www.google.com/maps/embed/v1/${mode}?key=${process.env.NEXT_PUBLIC_GGMAP_apiKey}`;
+  const baseGoogleMapEmbededAPIUrl = `https://www.google.com/maps/embed/v1/${mode}?key=${process.env.NEXT_PUBLIC_GGMAP_API_KEY}`;
   const params =
     mode === 'place'
       ? `&q=${lat},${lng}&maptype=satellite`

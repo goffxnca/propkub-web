@@ -54,7 +54,7 @@ const GoogleMap = ({ address, onLocationSelected }) => {
     const loadGoogleMapScript = () => {
       const scriptElem = document.createElement('script');
       scriptElem.type = 'text/javascript';
-      scriptElem.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GGMAP_apiKey}&language=th`;
+      scriptElem.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GGMAP_API_KEY}&language=th`;
       const firstExistingScript = document.getElementsByTagName('script')[0];
       firstExistingScript.parentNode.insertBefore(
         scriptElem,
