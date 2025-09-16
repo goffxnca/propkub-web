@@ -20,11 +20,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   return (
     <div>
-      {/* <Banner
+      <Banner
         message={
-          '23 สิงหาคม 2568 | Propkub.com ประกาศ'
+          '[อัปเดต 16 กันยายน 2568] อัปโหลดรูปภาพต่อประกาศได้มากขึ้น จาก 8 รูปเป็น 10 รูป'
         }
-      /> */}
+      />
 
       <Header />
       <main className="min-h-screen py-4">{children}</main>
