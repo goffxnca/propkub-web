@@ -1,18 +1,46 @@
 # Changelog
 
-# 1.0.0 (2022-09-03)
+## 2.0.1 (2025-08-24)
 
 ### Features
 
-- Home page to show 20 latest posts (public) re-validate every 1 hour.
-- Propery detail page to show property details with google map & streetview (public).
-- Login & Signup page with only email/password provider available (public).
-- Profile page for updating user data & avatar (private).
-- Dashboard page to show all properties of a certain user (private).
-- Add post page for creating new post by agent or normal user (private).
+- Add pagination to the “My Posts” table
 
-# 1.0.1 (2022-09-04)
+### Improvements
+
+- Integrate Sentry for error tracking and performance monitoring
+
+### Developer Experience
+
+- Enforce strict ESLint and Prettier rules for consistent formatting
+
+## 2.0.0 (2025-08-19)
+
+### Breaking Changes
+
+- Migrate authentication from Firebase Auth to a NestJS-based system using Passport with Google OAuth support. (Password hashes cannot be exported from Firebase Auth, all users will need to reset their passwords to sign in with the new auth system.)
+- Remove public post creation feature
+
+### Improvements
+
+- Migrate from Firebase Functions/Firestore to a dedicated NestJS API with MongoDB
+
+- Upgrade Next.js from v12 → v13 → v14
+- Begin partial migration to TypeScript
+
+## 1.0.1 (2022-09-04)
 
 ### Bug Fixes
 
-- Fix CSS responsive for post item & ul ol tag.
+- Fix responsive CSS for post items and `<ul>/<ol>` tags
+
+## 1.0.0 (2022-09-03)
+
+### Features
+
+- Display the 20 latest public posts on the Home page, revalidating every hour
+- Show property details with Google Maps & Street View on the Property detail page (public)
+- Provide Login & Signup pages with email/password authentication (public)
+- Allow users to update their data and avatar on the Profile page (private)
+- List all properties of a specific user on the Dashboard page (private)
+- Enable agents and regular users to create new posts on the Add Post page (private)
