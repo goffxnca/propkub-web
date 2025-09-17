@@ -69,6 +69,7 @@ const GoogleMap = ({ address, onLocationSelected }) => {
     } else {
       initMapFromAddressText();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   const initializeMap = (options) => {
