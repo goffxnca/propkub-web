@@ -20,6 +20,7 @@ PropKub is a full-stack property platform built with modern technologies. The pl
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Next.js 13** - React framework with App Router
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first CSS framework
@@ -27,6 +28,7 @@ PropKub is a full-stack property platform built with modern technologies. The pl
 - **React Hook Form** - Form handling
 
 ### Backend
+
 - **NestJS** - Node.js framework
 - **MongoDB** - Database
 - **JWT** - Authentication
@@ -50,32 +52,37 @@ propkub-web/          # Frontend (Next.js)
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - Yarn package manager
 
 ### Frontend Development
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/goffxnca/propkub-web.git
    cd propkub-web
    ```
 
 2. **Install dependencies**
+
    ```bash
    yarn install
    ```
 
 3. **Configure environment**
+
    ```bash
    # Create dev environment file
    cp .env.example .env.development
-   
-   # No need to edit any values for now - all basic required values 
+
+   # No need to edit any values for now - all basic required values
    # are ready for contributors to start working and connecting to dev API
    ```
 
 4. **Start development server**
+
    ```bash
    yarn dev
    ```
@@ -86,6 +93,7 @@ propkub-web/          # Frontend (Next.js)
 ### API Integration
 
 The frontend connects to our development API:
+
 - **Base URL:** `https://dev-api.propkub.com`
 - **Documentation:** [Swagger UI](https://dev-api.propkub.com/api)
 - **Authentication:** JWT-based with Google/Facebook OAuth
@@ -97,12 +105,14 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ## 🎯 Roadmap
 
 ### Short Term
+
 - [ ] Multi-language support
 - [ ] Enhanced property search filters
 - [ ] User dashboard improvements
 - [ ] Advanced analytics
 
 ### Big Vision
+
 - [ ] **Mobile App** - Native iOS and Android applications for better user experience
 - [ ] **AI-Powered Matching** - Integrate AI to help property seekers and owners/agents find perfect matches more easily
 - [ ] **Southeast Asia Expansion** - Scale as an open-source property platform across Southeast Asia

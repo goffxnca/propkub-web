@@ -34,7 +34,7 @@ const AuthContextProvider = ({ children }) => {
       try {
         if (tokenManager.hasToken()) {
           const userProfile = await apiClient.auth.getProfile();
-          
+
           if (userProfile) {
             setUser(userProfile);
           } else {

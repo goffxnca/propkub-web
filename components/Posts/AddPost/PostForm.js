@@ -23,7 +23,6 @@ import { getSpecsObject } from '../../../libs/mappers/specMapper';
 import { getEditedFields } from '../../../libs/form-utils';
 
 const PostForm = ({ postData }) => {
-
   const isEditMode = !!postData;
 
   const defaultValues = isEditMode

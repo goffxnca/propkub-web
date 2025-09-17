@@ -22,11 +22,11 @@ const envConfig = {
   },
   mapKey: () => {
     const value = process.env.NEXT_PUBLIC_GGMAP_API_KEY;
-    
+
     if (!value && envConfig.isProd()) {
       throw new Error('NEXT_PUBLIC_GGMAP_API_KEY is required in production');
     }
-    
+
     return value || null;
   }
 };
