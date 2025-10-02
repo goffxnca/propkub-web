@@ -2,6 +2,7 @@ import Head from 'next/head';
 import MainLayout from '../components/Layouts/MainLayout';
 import { AuthContextProvider } from '../contexts/authContext';
 import '../styles/globals.css';
+import GithubCorner from '../components/Icons/GithubCorner';
 
 function MyApp({ Component, pageProps }) {
   const getDefaultLayout = (page) => <MainLayout>{page}</MainLayout>;
@@ -18,6 +19,7 @@ function MyApp({ Component, pageProps }) {
             />
           </Head>
           <Component {...pageProps} />
+          <GithubCorner />
         </>
       )}
     </AuthContextProvider>
