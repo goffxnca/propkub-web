@@ -20,6 +20,8 @@ const PostImageLightbox = ({
   initialIndex = 0 
 }: PostImageLightboxProps) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
   useEffect(() => {
     setCurrentIndex(initialIndex);
@@ -47,6 +49,32 @@ const PostImageLightbox = ({
       prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   }, [images.length]);
+
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      goToNext();
+    }
+    if (isRightSwipe) {
+      goToPrevious();
+    }
+  };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -87,7 +115,12 @@ const PostImageLightbox = ({
         </button>
       )}
 
-      <div className="relative w-full h-full flex items-center justify-center p-12">
+      <div 
+        className="relative w-full h-full flex items-center justify-center p-4 md:p-12"
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={images[currentIndex].original}
