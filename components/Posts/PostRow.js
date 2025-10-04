@@ -24,38 +24,33 @@ const PostRow = ({
   const priceWithFormat = price?.toLocaleString();
 
   return (
-    <li className="group">
-      <Link href={postLink} className="block cursor-pointer">
-        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all duration-200">
-          {/* Badge */}
-          <div className="flex items-start justify-between mb-3">
-            <span className="inline-flex rounded-md bg-blue-600 py-1.5 px-3 text-xs font-semibold text-white">
-              {postTypeFormat}
-              {assetTypeFormat}
+    <li className="group h-full">
+      <Link href={postLink} className="block cursor-pointer h-full">
+        <div className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+          <div className="flex items-start justify-between mb-2">
+            <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700">
+              {postTypeFormat}{assetTypeFormat}
             </span>
-            <div className="flex items-center text-xs text-gray-500 gap-1">
-              <ClockIcon className="w-3.5 h-3.5" />
+            <div className="flex items-center text-xs text-gray-400 gap-1">
+              <ClockIcon className="w-3 h-3" />
               <TimeAgo datetime={createdAt} locale="th" />
             </div>
           </div>
 
-          {/* Location */}
-          <p className="text-sm font-semibold text-gray-900 mb-1">
+          <p className="text-sm font-medium text-gray-500 mb-1">
             {addressFormat}
           </p>
 
-          {/* Title */}
-          <p className="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">
+          <p className="text-base text-gray-900 mb-3 line-clamp-2 leading-relaxed flex-grow">
             {title}
           </p>
 
-          {/* Price */}
-          <div className="flex items-baseline gap-1 pt-3 border-t border-gray-200">
-            <span className="text-lg font-bold text-gray-900">
+          <div className="flex items-baseline gap-1 mt-auto">
+            <span className="text-lg font-semibold text-gray-900">
               ฿{priceWithFormat}
             </span>
             {priceUnitFormat && (
-              <span className="text-sm text-gray-500 font-medium">
+              <span className="text-sm text-gray-500">
                 {priceUnitFormat}
               </span>
             )}

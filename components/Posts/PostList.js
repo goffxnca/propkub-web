@@ -97,7 +97,7 @@ const PostList = ({ posts, provinces, hasError }) => {
         </ul>
 
         {/* Recent 31-50 posts without thumbnail */}
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 px-4">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 px-4">
           {filteredPostList.slice(30, 50).map((post, index) => (
             <PostRow
               key={post._id}
