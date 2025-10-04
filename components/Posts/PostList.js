@@ -76,7 +76,7 @@ const PostList = ({ posts, provinces, hasError }) => {
         </Element>
 
         {/* 30 Recent posts with thumbnail */}
-        <ul className="flex flex-wrap justify-between mb-10">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10 px-4">
           {filteredPostList.slice(0, 30).map((post, index) => (
             <PostItem
               key={post._id}

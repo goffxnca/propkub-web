@@ -3,10 +3,8 @@ import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 import { getPostType } from '../../libs/mappers/postTypeMapper';
 import { getAssetType } from '../../libs/mappers/assetTypeMapper';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
-import LocationIcon from '../Icons/LocationIcon';
 import { useMemo } from 'react';
 import Link from 'next/link';
-import SpecItemWithCircle from './Specs/SpecItemWithCircle';
 
 const PostItem = ({
   id,
@@ -62,64 +60,56 @@ const PostItem = ({
   const addressFormat = useMemo(() => formatAddress(address), [address]);
 
   return (
-    <li className="w-full lg:w-1/2 p-2 group">
-      <Link
-        href={postLink}
-        // target="_blank"
-        // rel="noopener noreferrer"
-        className="md:flex rounded-md bg-white shadow-md cursor-pointer transition-all group-hover:shadow-xl group-hover:bg-gray-50"
-      >
-        <div className="md:w-2/5 h-64 md:h-48 overflow-hidden rounded-md rounded-t-md md:rounded-none md:rounded-l-md relative">
-          <span className="absolute top-2 rounded-r-full bg-gray-lighter py-0.5 px-2 text-sm text-gray-hard z-20 shadow-md">
-            {postTypeFormat + assetTypeFormat}
+    <li className="group">
+      <Link href={postLink} className="block cursor-pointer">
+        {/* Image Container */}
+        <div className="relative aspect-square w-full overflow-hidden rounded-xl mb-3">
+          {/* Badge */}
+          <span className="absolute top-3 left-0 rounded-r-lg bg-white/95 backdrop-blur-sm py-1.5 px-3 text-xs font-semibold text-gray-700 z-20 shadow-sm">
+            {postTypeFormat}
+            {assetTypeFormat}
           </span>
-          {/* <Image
-              src={thumbnail}
-              alt={thumbnailAlt}
-              className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md md:rounded-none"
-              width={250}
-              height={192}
-              layout="responsive"
-            /> */}
 
-          {/* eslint-disable-next-line @next/next/no-img-element */}
+          {/* Image */}
           <img
             src={thumbnail}
             alt={thumbnailAlt}
-            className="w-full h-full object-center object-cover transition-all ease-linear group-hover:scale-125 z-10 rounded-md md:rounded-none"
-          ></img>
+            className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+          />
         </div>
 
-        <div className="md:w-3/5 p-2 md:relative">
-          <h3 className="text-gray-harder mb-2 overflow-x-hidden">{title}</h3>
+        {/* Content */}
+        <div className="px-1">
+          {/* Location */}
+          <div className="flex items-start justify-between mb-1">
+            <p className="text-sm font-semibold text-gray-800 truncate flex-1">
+              {addressFormat}
+            </p>
+          </div>
 
-          <div className="md:absolute bottom-0 left-0 right-0">
-            <ul className="flex mb-2 ml-2">
-              {specsFormat.map((spec) => (
-                <SpecItemWithCircle
-                  key={spec.id}
-                  Icon={spec.icon}
-                  label={spec.label}
-                />
+          {/* Title */}
+          <p className="text-sm text-gray-600 truncate mb-2">{title}</p>
+
+          {/* Specs */}
+          {specsFormat.length > 0 && (
+            <div className="flex items-center gap-2 text-xs text-gray-500 mb-2">
+              {specsFormat.map((spec, index) => (
+                <span key={spec.id}>
+                  {spec.label}
+                  {index < specsFormat.length - 1 && ' · '}
+                </span>
               ))}
-            </ul>
-
-            <div className="border-t border-solid border-l-gray-light pl-2 pt-2 md:py-2">
-              <div className="flex items-center justify-between">
-                <div className="text-primary mr-2">
-                  <span className="text-xl font-bold">฿{priceWithFormat}</span>
-                  <span className="text-sm">{priceUnitFormat}</span>
-                </div>
-
-                <address className="not-italic">
-                  <SpecItemWithCircle
-                    Icon={LocationIcon}
-                    label={addressFormat}
-                    circle={false}
-                  />
-                </address>
-              </div>
             </div>
+          )}
+
+          {/* Price */}
+          <div className="flex items-baseline gap-1">
+            <span className="text-lg font-semibold text-gray-900">
+              ฿{priceWithFormat}
+            </span>
+            {priceUnitFormat && (
+              <span className="text-sm text-gray-600">{priceUnitFormat}</span>
+            )}
           </div>
         </div>
       </Link>
