@@ -24,7 +24,7 @@ const PostImageGrid = ({ images }: PostImageGridProps) => {
       {images.length > 0 && (
         <div>
           {images.length >= 5 ? (
-            <div className="grid grid-cols-4 gap-2 rounded-xl overflow-hidden h-[500px]">
+            <div className="grid grid-cols-4 gap-2 rounded-xl overflow-hidden h-[350px] md:h-[500px]">
               <div
                 onClick={() => openLightbox(0)}
                 className="col-span-2 row-span-2 relative group cursor-pointer overflow-hidden"
@@ -95,8 +95,8 @@ const PostImageGrid = ({ images }: PostImageGridProps) => {
                 images.length === 2
                   ? 'grid-cols-2'
                   : images.length === 3
-                  ? 'grid-cols-3'
-                  : 'grid-cols-2'
+                    ? 'grid-cols-3'
+                    : 'grid-cols-2'
               } h-[400px]`}
             >
               {images.map((image, index) => (
@@ -129,4 +129,3 @@ const PostImageGrid = ({ images }: PostImageGridProps) => {
 };
 
 export default PostImageGrid;
-
