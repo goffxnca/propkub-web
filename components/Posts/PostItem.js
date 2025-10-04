@@ -82,13 +82,15 @@ const PostItem = ({
         <div className="px-1">
           {/* Location */}
           <div className="flex items-start justify-between mb-1">
-            <p className="text-sm font-semibold text-gray-800 truncate flex-1">
+            <p className="text-sm font-semibold text-gray-900 truncate flex-1">
               {addressFormat}
             </p>
           </div>
 
           {/* Title */}
-          <p className="text-sm text-gray-600 truncate mb-2">{title}</p>
+          <p className="text-sm text-gray-600 truncate mb-2 leading-relaxed">
+            {title}
+          </p>
 
           {/* Specs */}
           {specsFormat.length > 0 && (
@@ -103,12 +105,14 @@ const PostItem = ({
           )}
 
           {/* Price */}
-          <div className="flex items-baseline gap-1">
-            <span className="text-lg font-semibold text-gray-900">
+          <div className="flex items-baseline gap-1 mt-1">
+            <span className="text-lg font-bold text-gray-900">
               ฿{priceWithFormat}
             </span>
             {priceUnitFormat && (
-              <span className="text-sm text-gray-600">{priceUnitFormat}</span>
+              <span className="text-sm text-gray-500 font-medium">
+                {priceUnitFormat}
+              </span>
             )}
           </div>
         </div>

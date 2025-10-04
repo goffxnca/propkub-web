@@ -97,23 +97,21 @@ const PostList = ({ posts, provinces, hasError }) => {
         </ul>
 
         {/* Recent 31-50 posts without thumbnail */}
-        <div className="overflow-hidden bg-white shadow sm:rounded-m">
-          <ul role="list" className="divide-y divide-gray-200">
-            {filteredPostList.slice(30, 50).map((post, index) => (
-              <PostRow
-                key={post._id}
-                postType={post.postType}
-                assetType={post.assetType}
-                title={post.title}
-                slug={post.slug}
-                price={post.price}
-                priceUnit={post.priceUnit}
-                address={post.address}
-                createdAt={post.createdAt}
-              />
-            ))}
-          </ul>
-        </div>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10 px-4">
+          {filteredPostList.slice(30, 50).map((post, index) => (
+            <PostRow
+              key={post._id}
+              postType={post.postType}
+              assetType={post.assetType}
+              title={post.title}
+              slug={post.slug}
+              price={post.price}
+              priceUnit={post.priceUnit}
+              address={post.address}
+              createdAt={post.createdAt}
+            />
+          ))}
+        </ul>
 
         <PostsByRegion
           regionId={'r1'}
