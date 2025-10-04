@@ -2,8 +2,11 @@ import Head from 'next/head';
 import ContactForm from '../components/Contact/ContactForm';
 import { BASE_SITE_URL } from '../libs/constants';
 import { genPageTitle } from '../libs/seo-utils';
+import { useRouter } from 'next/router';
 
 const ContactPage = () => {
+  const { locale, locales, defaultLocale } = useRouter();
+
   return (
     <>
       <Head>

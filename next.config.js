@@ -2,6 +2,11 @@
 const { version } = require('./package.json');
 
 const nextConfig = {
+  i18n: {
+    locales: ['th', 'en'],
+    defaultLocale: 'th',
+    localeDetection: false
+  },
   reactStrictMode: false,
   swcMinify: true,
   images: {

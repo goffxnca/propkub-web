@@ -1,0 +1,13 @@
+{
+  "nav": {
+    "home": "Home",
+    "contact": "Contact Us",
+    "login": "Login",
+    "signup": "Sign Up",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "createPost": "Create Post",
+    "logout": "Logout"
+  }
+}
+
