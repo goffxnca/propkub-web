@@ -1,6 +1,6 @@
 import { getStatusLabelById } from '../../../libs/mappers/statusMapper';
 import Card from '../../UI/Public/Card';
-import PostImageGallery from '../PostImageGallery';
+import PostImageGrid from '../PostImageGrid';
 import PostDetailAgent from './PostDetailAgent';
 import PostDetailBody from './PostDetailBody';
 import SimilarPosts from './SimilarPosts';
@@ -16,15 +16,13 @@ const PostDetail = ({ post, similarPosts }) => {
 
   return (
     <div className="max-w-7xl m-auto p-2 ">
-      <h1 className="text-2xl font-bold text-gray-harder py-6 break-words">
+      <h1 className="text-2xl font-bold text-gray-900 py-6 break-words">
         {titleStatusPrefix}
         {post.title}
       </h1>
 
-      <div className="mb-2">
-        <Card>
-          <PostImageGallery images={images} />
-        </Card>
+      <div className="mb-6">
+        <PostImageGrid images={images} />
       </div>
 
       <div className="md:flex md:gap-x-2">
