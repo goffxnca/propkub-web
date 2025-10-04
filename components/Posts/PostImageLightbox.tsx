@@ -108,7 +108,7 @@ const PostImageLightbox = ({
 
       {images.length > 1 && (
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-50 max-w-4xl w-full px-4">
-          <div className="flex gap-3 overflow-x-auto pb-2 justify-center py-2">
+          <div className="flex gap-3 overflow-x-auto pb-2 py-2">
             {images.map((image, index) => (
               <button
                 key={index}
