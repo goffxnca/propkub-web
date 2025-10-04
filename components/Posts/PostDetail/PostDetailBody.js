@@ -232,7 +232,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
           <LineBreak />
           <div>
             <Heading size="2" label={`รูปภาพทั้งหมด (${images.length} รูป)`} />
-            <div className="grid grid-cols-2 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {images.map((image, index) => (
                 <div
                   key={index}
@@ -245,8 +245,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
                     alt={`Property ${index + 1}`}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  {/* Image number overlay */}
-                  <div className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded-md font-medium">
+                  <div className="absolute top-2 left-2 bg-black/20 text-white text-xs px-1.5 py-0.5 rounded font-normal">
                     {index + 1}
                   </div>
                 </div>
