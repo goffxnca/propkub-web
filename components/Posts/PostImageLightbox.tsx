@@ -1,5 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
-import { XIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
+import {
+  XIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon
+} from '@heroicons/react/outline';
 
 interface ImageData {
   original: string;
@@ -13,11 +17,11 @@ interface PostImageLightboxProps {
   initialIndex?: number;
 }
 
-const PostImageLightbox = ({ 
-  images, 
-  isOpen, 
-  onClose, 
-  initialIndex = 0 
+const PostImageLightbox = ({
+  images,
+  isOpen,
+  onClose,
+  initialIndex = 0
 }: PostImageLightboxProps) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [touchStart, setTouchStart] = useState<number | null>(null);
@@ -63,7 +67,7 @@ const PostImageLightbox = ({
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
+
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
@@ -115,8 +119,8 @@ const PostImageLightbox = ({
         </button>
       )}
 
-      <div 
-        className="relative w-full h-full flex items-center justify-center p-4 md:p-12"
+      <div
+        className="relative w-full h-full flex items-center justify-center px-4 py-4 pb-32 md:p-12"
         onTouchStart={onTouchStart}
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnd}
@@ -148,7 +152,7 @@ const PostImageLightbox = ({
                 onClick={() => setCurrentIndex(index)}
                 className="flex-shrink-0 p-0.5 transition-all rounded-lg"
               >
-                <div 
+                <div
                   className={`w-20 h-20 rounded-md overflow-hidden transition-all ${
                     currentIndex === index
                       ? 'ring-2 ring-white opacity-100'
@@ -178,4 +182,3 @@ const PostImageLightbox = ({
 };
 
 export default PostImageLightbox;
-
