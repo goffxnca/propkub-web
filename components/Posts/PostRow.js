@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
 import TimeAgo from 'timeago-react';
 import { useTranslation } from '../../hooks/useTranslation';
+import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 
 const PostRow = ({
   postType,
@@ -24,9 +25,7 @@ const PostRow = ({
     assetType: t(`assetTypes.${assetType}`)
   });
   const addressFormat = formatAddress(address);
-  const priceUnitFormat = priceUnit
-    ? ` / ${tCommon(`priceUnits.${priceUnit}`)}`
-    : '';
+  const priceUnitFormat = priceUnit ? ` / ${getPriceUnit(priceUnit, tCommon)}` : '';
   const priceWithFormat = price?.toLocaleString();
 
   return (

@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
 import { getPostType } from '../../../libs/mappers/postTypeMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const SimilarPostItem = ({
   id,
@@ -19,14 +20,15 @@ const SimilarPostItem = ({
   specs,
   isStudio
 }) => {
+  const { t: tCommon } = useTranslation('common');
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
 
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
   const postTypeFormat = useMemo(() => getPostType(postType), [postType]);
   const assetTypeFormat = useMemo(() => getAssetType(assetType), [assetType]);
   const priceUnitFormat = useMemo(
-    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ''),
-    [priceUnit]
+    () => (priceUnit ? ` / ${getPriceUnit(priceUnit, tCommon)}` : ''),
+    [priceUnit, tCommon]
   );
 
   return (

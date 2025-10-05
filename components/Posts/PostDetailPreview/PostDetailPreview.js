@@ -1,8 +1,6 @@
 import { useMemo } from 'react';
 import PageTitle from '../../UI/Private/PageTitle';
 import sanitizeHtml from 'sanitize-html';
-import { getPostType } from '../../../libs/mappers/postTypeMapper';
-import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
 import { getCondition } from '../../../libs/mappers/conditionMapper';
 import { getAreaUnitById } from '../../../libs/mappers/areaUnitMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
@@ -14,8 +12,11 @@ import PostActionConsole from './PostActionConsole';
 import PostStatusBadge from '../PostStatusBadge/PostStatusBadge';
 import PostTimeline from './PostTimeline';
 import { SANITIZE_OPTIONS } from '../../../libs/constants';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const PostDetailPreview = ({ post, postActions }) => {
+  const { t: tPosts } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
   // Calculated fields - exact order from posts.schema.ts
 
   // Required fields (schema order)
@@ -24,15 +25,15 @@ const PostDetailPreview = ({ post, postActions }) => {
     () => sanitizeHtml(post.desc, SANITIZE_OPTIONS),
     [post.desc]
   );
-  const assetType = getAssetType(post.assetType);
-  const postType = getPostType(post.postType);
+  const assetType = tPosts(`assetTypes.${post.assetType}`);
+  const postType = tPosts(`postTypes.${post.postType}`);
 
   const forRent = post.postType === 'rent';
   const isLand = post.assetType === 'land';
 
   const priceWithUnit = post.priceUnit
     ? `${post.price.toLocaleString()} ${
-        forRent || isLand ? '/ ' + getPriceUnit(post.priceUnit) : ''
+        forRent || isLand ? '/ ' + getPriceUnit(post.priceUnit, tCommon) : ''
       }`
     : post.price.toLocaleString();
   const thumbnail = post.thumbnail;
@@ -57,13 +58,16 @@ const PostDetailPreview = ({ post, postActions }) => {
   const video = orDefault(post.video);
   const landWithUnit =
     post.land && post.landUnit
-      ? `${post.land} ${getAreaUnitById(post.landUnit)}`
+      ? `${post.land} ${tCommon(`areaUnits.${post.landUnit}`) || getAreaUnitById(post.landUnit)}`
       : orDefault(post.land);
   const areaWithUnit =
     post.area && post.areaUnit
-      ? `${post.area} ${getAreaUnitById(post.areaUnit)}`
+      ? `${post.area} ${tCommon(`areaUnits.${post.areaUnit}`) || getAreaUnitById(post.areaUnit)}`
       : orDefault(post.area);
-  const condition = orDefault(post.condition && getCondition(post.condition));
+  const condition = orDefault(
+    post.condition &&
+      (tCommon(`conditions.${post.condition}`) || getCondition(post.condition))
+  );
   const agentRefNumber = orDefault(post.refId);
   const createdAt = new Date(post.createdAt).toLocaleDateString('th-TH');
   const updatedAt = orDefault(
@@ -80,7 +84,7 @@ const PostDetailPreview = ({ post, postActions }) => {
             <dl className="sm:divide-y sm:divide-gray-200">
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  หมายเลขประกาศ
+                  {tPosts('fields.postNumber')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {postNumber}
@@ -88,7 +92,9 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">สถานะ</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.status')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   <PostStatusBadge status={post.status} />
                 </dd>
@@ -96,7 +102,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  หัวข้อประกาศ
+                  {tPosts('fields.title')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {title}
@@ -105,7 +111,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  รายละเอียด
+                  {tPosts('fields.desc')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   <div
@@ -116,7 +122,9 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ต้องการ</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.postType')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {postType}
                 </dd>
@@ -124,7 +132,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  ประเภททรัพย์
+                  {tPosts('fields.assetType')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {assetType}
@@ -132,29 +140,35 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">สภาพ</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.condition')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {condition}
                 </dd>
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ที่ตั้ง</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('sections.location')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {address}
                 </dd>
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">ราคา</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.price')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-                  {priceWithUnit}
+                  ฿{priceWithUnit}
                 </dd>
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  พื้นที่ใช้สอย
+                  {tPosts('fields.area')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {areaWithUnit}
@@ -163,7 +177,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  ขนาดที่ดิน
+                  {tPosts('fields.land')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {landWithUnit}
@@ -171,7 +185,9 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">รูปหลัก</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.thumbnail')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -183,7 +199,9 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">รูปภาพ</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.images')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   <ul className="flex flex-wrap">
                     {images.map((image, index) => (
@@ -201,7 +219,9 @@ const PostDetailPreview = ({ post, postActions }) => {
               </div>
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">วิดีโอ</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.video')}
+                </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {video}
                 </dd>
@@ -209,7 +229,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  สาธารณูปโภค
+                  {tPosts('fields.facilities')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {facilities}
@@ -218,7 +238,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  ข้อมูลห้อง
+                  {tPosts('fields.specs')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {specs}
@@ -227,7 +247,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  ห้อง Studio
+                  {tPosts('fields.isStudio')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {isStudio}
@@ -238,7 +258,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  หมายเลขอ้างอิง
+                  {tPosts('fields.refId')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {agentRefNumber}
@@ -247,7 +267,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  วันที่สร้าง
+                  {tPosts('fields.createdAt')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {createdAt}
@@ -256,7 +276,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  วันที่แก้ไข
+                  {tPosts('fields.updatedAt')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {updatedAt}

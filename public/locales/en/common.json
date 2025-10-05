@@ -30,6 +30,23 @@
     "cancel": "Cancel",
     "confirm": "Confirm"
   },
+  "areaUnits": {
+    "whole": "whole",
+    "sqm": "sqm.",
+    "sqw": "sqw.",
+    "ngan": "ngan",
+    "rai": "rai"
+  },
+  "timeUnits": {
+    "year": "year",
+    "month": "month",
+    "week": "week",
+    "day": "day"
+  },
+  "conditions": {
+    "used": "Used",
+    "new": "New Project"
+  },
   "actions": {
     "submit": "Submit",
     "submitting": "Submitting..."
@@ -40,17 +57,6 @@
   "footer": {
     "copyright": "Copyright © 2025 PropKub.com - All rights reserved",
     "version": "v.{{version}}:{{commit}}"
-  },
-  "priceUnits": {
-    "month": "month",
-    "year": "year",
-    "day": "day",
-    "week": "week",
-    "whole": "lot",
-    "sqm": "sqm",
-    "sqw": "sqw",
-    "ngan": "ngan",
-    "rai": "rai"
   },
   "validation": {
     "required": "Required",

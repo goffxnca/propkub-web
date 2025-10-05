@@ -23,10 +23,16 @@ const pricePerUnitMapping: PricePerUnitMapping[] = [
   { assetType: 'land', postType: 'rent', units: [...areaUnits] }
 ];
 
-const getPriceUnit = (priceUnit: string): string => {
-  return (
-    timeUnits.concat(areaUnits).find((p) => p.id === priceUnit)?.label || ''
-  );
+const getPriceUnit = (
+  unitId: string,
+  tCommon: (key: string, params?: Record<string, any>) => string
+): string => {
+  if (!unitId) return '';
+  const area = tCommon(`areaUnits.${unitId}`);
+  if (area !== `areaUnits.${unitId}`) return area;
+  const time = tCommon(`timeUnits.${unitId}`);
+  if (time !== `timeUnits.${unitId}`) return time;
+  return timeUnits.concat(areaUnits).find((p) => p.id === unitId)?.label || '';
 };
 
 const getPriceUnitList = (assetType: string, postType: string): PriceUnit[] => {

@@ -30,6 +30,23 @@
     "cancel": "ยกเลิก",
     "confirm": "ยืนยัน"
   },
+  "areaUnits": {
+    "whole": "แปลง",
+    "sqm": "ตรม.",
+    "sqw": "ตรว.",
+    "ngan": "งาน",
+    "rai": "ไร่"
+  },
+  "timeUnits": {
+    "year": "ปี",
+    "month": "เดือน",
+    "week": "สัปดาห์",
+    "day": "วัน"
+  },
+  "conditions": {
+    "used": "มือสอง",
+    "new": "โครงการใหม่"
+  },
   "actions": {
     "submit": "บันทึก",
     "submitting": "กำลังบันทึก..."
@@ -40,17 +57,6 @@
   "footer": {
     "copyright": "สงวนลิขสิทธิ์ © 2025 PropKub.com",
     "version": "v.{{version}}:{{commit}}"
-  },
-  "priceUnits": {
-    "month": "เดือน",
-    "year": "ปี",
-    "day": "วัน",
-    "week": "สัปดาห์",
-    "whole": "ยกแปลง",
-    "sqm": "ตรม.",
-    "sqw": "ตรว.",
-    "ngan": "งาน",
-    "rai": "ไร่"
   },
   "validation": {
     "required": "โปรดระบุ",

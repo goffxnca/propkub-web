@@ -1,5 +1,6 @@
 import { getIcon } from '../../../libs/mappers/iconMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
+import { useTranslation } from '../../../hooks/useTranslation';
 import { useMemo } from 'react';
 import Heading from '../../UI/Public/Heading';
 import LineBreak from '../../UI/Public/LineBreak';
@@ -19,6 +20,7 @@ import { SANITIZE_OPTIONS } from '../../../libs/constants';
 import { getLocalDateByISODateString } from '../../../libs/date-utils';
 
 const PostDetailBody = ({ post, postViews, images }) => {
+  const { t: tCommon } = useTranslation('common');
   const studioSpec = post?.isStudio
     ? [
         {
@@ -49,7 +51,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
   const isLand = post.assetType === 'land';
 
   const priceUnitFormat =
-    forRent || isLand ? ' / ' + getPriceUnit(post.priceUnit) : '';
+    forRent || isLand ? ' / ' + getPriceUnit(post.priceUnit, tCommon) : '';
 
   const addressFormat = formatAddressFull(post.address);
 

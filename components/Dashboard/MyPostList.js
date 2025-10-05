@@ -64,7 +64,8 @@ const MyPropertyList = () => {
     };
 
     fetchStats();
-  }, [tCommon]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Update apiError when pagination hook has an error
   useEffect(() => {

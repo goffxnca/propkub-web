@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import SpecItemWithCircle from './Specs/SpecItemWithCircle';
 import { useTranslation } from '../../hooks/useTranslation';
+import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 
 const PostItem = ({
   id,
@@ -62,10 +63,11 @@ const PostItem = ({
       }),
     [postType, assetType, t]
   );
-  const priceUnitFormat = useMemo(
-    () => (priceUnit ? ` / ${tCommon(`priceUnits.${priceUnit}`)}` : ''),
-    [priceUnit, tCommon]
-  );
+  const priceUnitFormat = useMemo(() => {
+    if (!priceUnit) return '';
+    const label = getPriceUnit(priceUnit, tCommon);
+    return label ? ` / ${label}` : '';
+  }, [priceUnit, tCommon]);
   const addressFormat = useMemo(() => formatAddress(address), [address]);
 
   return (
