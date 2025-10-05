@@ -31,6 +31,9 @@
     "submit": "Submit",
     "submitting": "Submitting..."
   },
+  "pagination": {
+    "showing": "Showing {{start}} to {{end}} of {{total}} items"
+  },
   "footer": {
     "copyright": "Copyright © 2025 PropKub.com - All rights reserved",
     "version": "v.{{version}}:{{commit}}"

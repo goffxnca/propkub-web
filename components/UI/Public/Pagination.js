@@ -1,4 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const Pagination = ({
   page,
@@ -11,6 +12,7 @@ const Pagination = ({
   totalCount,
   perPage
 }) => {
+  const { t } = useTranslation('common');
   if (totalPages <= 1) return null;
 
   const startItem = (page - 1) * perPage + 1;
@@ -80,9 +82,11 @@ const Pagination = ({
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-gray-700">
-            แสดง <span className="font-medium">{startItem}</span> ถึง{' '}
-            <span className="font-medium">{endItem}</span> จาก{' '}
-            <span className="font-medium">{totalCount}</span> รายการ
+            {t('pagination.showing', {
+              start: startItem,
+              end: endItem,
+              total: totalCount
+            })}
           </p>
         </div>
 
