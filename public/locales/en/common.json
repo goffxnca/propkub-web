@@ -26,7 +26,9 @@
   "buttons": {
     "goHome": "Go Home",
     "contactUs": "Contact Us",
-    "ok": "OK"
+    "ok": "OK",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "actions": {
     "submit": "Submit",

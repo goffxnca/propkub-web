@@ -26,7 +26,9 @@
   "buttons": {
     "goHome": "กลับหน้าหลัก",
     "contactUs": "ติดต่อเรา",
-    "ok": "ตกลง"
+    "ok": "ตกลง",
+    "cancel": "ยกเลิก",
+    "confirm": "ยืนยัน"
   },
   "actions": {
     "submit": "บันทึก",

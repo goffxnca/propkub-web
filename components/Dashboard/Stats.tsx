@@ -115,7 +115,7 @@ const Stats = ({
               <div className="absolute rounded-md bg-indigo-500 p-3">
                 <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
               </div>
-              <p className="ml-16 truncate text-sm font-medium text-gray-500">
+              <p className="ml-16 line-clamp-2 text-sm font-medium text-gray-500">
                 {item.name}
               </p>
             </dt>
