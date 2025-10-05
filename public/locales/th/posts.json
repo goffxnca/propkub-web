@@ -53,6 +53,14 @@
     "house": "บ้านเดี่ยว",
     "land": "ที่ดิน"
   },
+  "actions": {
+    "create": "สร้างประกาศ",
+    "update": "อัพเดทประกาศ",
+    "suspense": "พักการใช้งาน",
+    "restore": "เปิดประกาศใหม่",
+    "sell": "ปิดการขาย",
+    "close": "ปิดประกาศ"
+  },
   "card": {
     "badge": "{{postType}}{{assetType}}"
   },

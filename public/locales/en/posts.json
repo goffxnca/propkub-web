@@ -53,6 +53,14 @@
     "house": "House",
     "land": "Land"
   },
+  "actions": {
+    "create": "Create Post",
+    "update": "Update Post",
+    "suspense": "Suspend",
+    "restore": "Reopen",
+    "sell": "Mark as Sold",
+    "close": "Close Post"
+  },
   "card": {
     "badge": "{{assetType}} for {{postType}}"
   },

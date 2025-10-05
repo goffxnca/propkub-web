@@ -64,7 +64,7 @@ const MyPropertyList = () => {
     };
 
     fetchStats();
-  }, []);
+  }, [tCommon]);
 
   // Update apiError when pagination hook has an error
   useEffect(() => {

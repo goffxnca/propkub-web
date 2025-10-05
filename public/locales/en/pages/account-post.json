@@ -1,4 +1,8 @@
 {
+  "timeline": {
+    "title": "Post Timeline",
+    "by": "By {{name}}"
+  },
   "stats": {
     "title": "Statistics"
   },
