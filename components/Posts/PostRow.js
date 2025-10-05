@@ -17,14 +17,16 @@ const PostRow = ({
 }) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
-  
+
   const postLink = `/property/${slug}`;
   const badgeLabel = t('card.badge', {
     postType: t(`postTypes.${postType}`),
     assetType: t(`assetTypes.${assetType}`)
   });
   const addressFormat = formatAddress(address);
-  const priceUnitFormat = priceUnit ? ` / ${tCommon(`priceUnits.${priceUnit}`)}` : '';
+  const priceUnitFormat = priceUnit
+    ? ` / ${tCommon(`priceUnits.${priceUnit}`)}`
+    : '';
   const priceWithFormat = price?.toLocaleString();
 
   return (

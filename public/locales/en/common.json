@@ -39,7 +39,12 @@
     "month": "month",
     "year": "year",
     "day": "day",
-    "week": "week"
+    "week": "week",
+    "whole": "lot",
+    "sqm": "sqm",
+    "sqw": "sqw",
+    "ngan": "ngan",
+    "rai": "rai"
   },
   "validation": {
     "required": "Required",

@@ -55,10 +55,11 @@ const PostItem = ({
 
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
   const badgeLabel = useMemo(
-    () => t('card.badge', {
-      postType: t(`postTypes.${postType}`),
-      assetType: t(`assetTypes.${assetType}`)
-    }),
+    () =>
+      t('card.badge', {
+        postType: t(`postTypes.${postType}`),
+        assetType: t(`assetTypes.${assetType}`)
+      }),
     [postType, assetType, t]
   );
   const priceUnitFormat = useMemo(
