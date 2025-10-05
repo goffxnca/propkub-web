@@ -8,6 +8,12 @@
     "dashboard": "Dashboard",
     "createPost": "Create Post",
     "logout": "Logout"
+  },
+  "error": {
+    "generic": {
+      "title": "Something went wrong",
+      "description": "An error occurred. Please try again"
+    }
   }
 }
 

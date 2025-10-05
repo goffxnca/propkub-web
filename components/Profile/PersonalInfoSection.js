@@ -16,8 +16,10 @@ import Modal from '../UI/Public/Modal';
 
 import ProfileImageInput from './ProfileImageInput';
 import { uploadFileToStorage } from '../../libs/utils/file-utils';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const PersonalInfoSection = ({ user }) => {
+  const { t } = useTranslation('common');
   const { setUser } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -77,7 +79,7 @@ const PersonalInfoSection = ({ user }) => {
       setIsEditing(false);
     } catch (error) {
       console.error('Failed to save personal info:', error);
-      setApiError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      setApiError(t('error.generic.description'));
     } finally {
       setIsSaving(false);
     }
@@ -259,7 +261,7 @@ const PersonalInfoSection = ({ user }) => {
         visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={t('error.generic.title')}
         desc={apiError}
         buttonCaption="ตกลง"
         onClose={handleCloseApiErrorModal}
