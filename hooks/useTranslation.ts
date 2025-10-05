@@ -7,23 +7,32 @@ import thContact from '../public/locales/th/pages/contact.json';
 import enContact from '../public/locales/en/pages/contact.json';
 import thDashboard from '../public/locales/th/pages/dashboard.json';
 import enDashboard from '../public/locales/en/pages/dashboard.json';
+import thAccountPost from '../public/locales/th/pages/account-post.json';
+import enAccountPost from '../public/locales/en/pages/account-post.json';
 
 const translations = {
   th: {
     common: thCommon,
     posts: thPosts,
     'pages/contact': thContact,
-    'pages/dashboard': thDashboard
+    'pages/dashboard': thDashboard,
+    'pages/account-post': thAccountPost
   },
   en: {
     common: enCommon,
     posts: enPosts,
     'pages/contact': enContact,
-    'pages/dashboard': enDashboard
+    'pages/dashboard': enDashboard,
+    'pages/account-post': enAccountPost
   }
 };
 
-type Namespace = 'common' | 'posts' | 'pages/contact' | 'pages/dashboard';
+type Namespace =
+  | 'common'
+  | 'posts'
+  | 'pages/contact'
+  | 'pages/dashboard'
+  | 'pages/account-post';
 
 export function useTranslation(namespace: Namespace = 'common') {
   const router = useRouter();

@@ -41,12 +41,13 @@ const Stats = ({
   totalShares,
   totalPins
 }: StatsProps) => {
-  const { t } = useTranslation('pages/dashboard');
+  const { t: tDashboard } = useTranslation('pages/dashboard');
+  const { t: tPosts } = useTranslation('posts');
   
   const stats: StatItem[] = [
     {
       id: 1,
-      name: t('stats.totalPosts'),
+      name: tDashboard('stats.totalPosts'),
       stat: totalCount,
       icon: DocumentDuplicateIcon,
       change: '122',
@@ -54,7 +55,7 @@ const Stats = ({
     },
     {
       id: 2,
-      name: t('stats.postViews'),
+      name: tPosts('fields.stats.views.post'),
       stat: totalPostViews,
       icon: EyeIcon,
       change: '5.4%',
@@ -62,7 +63,7 @@ const Stats = ({
     },
     {
       id: 3,
-      name: t('stats.phoneViews'),
+      name: tPosts('fields.stats.views.phone'),
       stat: totalPhoneViews,
       icon: PhoneIcon,
       change: '3.2%',
@@ -71,7 +72,7 @@ const Stats = ({
     },
     {
       id: 4,
-      name: t('stats.lineViews'),
+      name: tPosts('fields.stats.views.line'),
       stat: totalLineViews,
       icon: ChatIcon,
       change: '3.2%',
@@ -80,7 +81,7 @@ const Stats = ({
     },
     {
       id: 5,
-      name: t('stats.shares'),
+      name: tPosts('fields.stats.shares'),
       stat: totalShares,
       icon: ShareIcon,
       change: '3.2%',
@@ -89,7 +90,7 @@ const Stats = ({
     },
     {
       id: 6,
-      name: t('stats.pins'),
+      name: tPosts('fields.stats.pins'),
       stat: totalPins,
       icon: BookmarkIcon,
       change: '3.2%',
