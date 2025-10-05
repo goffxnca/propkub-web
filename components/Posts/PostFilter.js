@@ -19,12 +19,7 @@ import {
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId
 } from '../../libs/managers/addressManager';
-
-const postTypes = [
-  { id: 'rent', label: 'เช่า', searchFor: 'rent' },
-  { id: 'buy', label: 'ซื้อ', searchFor: 'sale' },
-  { id: 'sale', label: 'ลงประกาศ' }
-];
+import { useTranslation } from '../../hooks/useTranslation';
 
 const initialFilters = {
   postType: '',
@@ -38,7 +33,14 @@ const initialFilters = {
 
 const PostFilter = ({ onSearch, onReset }) => {
   const router = useRouter();
+  const { t } = useTranslation('posts');
   const [searchFilter, setSearchFilter] = useState({ ...initialFilters });
+  
+  const postTypes = [
+    { id: 'rent', label: t('filter.actions.rent'), searchFor: 'rent' },
+    { id: 'buy', label: t('filter.actions.buy'), searchFor: 'sale' },
+    { id: 'sale', label: t('filter.actions.sale') }
+  ];
 
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
@@ -52,6 +54,7 @@ const PostFilter = ({ onSearch, onReset }) => {
 
   const assetTypeList = assetTypes.map((assetType) => ({
     ...assetType,
+    label: t(`assetTypes.${assetType.id}`),
     isActive: searchFilter.assetType === assetType.id
   }));
 
@@ -162,7 +165,7 @@ const PostFilter = ({ onSearch, onReset }) => {
               {/* filters content */}
               <div className="relative h-auto top-0 z-20 p-4 md:p-10">
                 <div className="text-3xl text-center text-white font-bold">
-                  ฉันกำลังสนใจ?
+                  {t('filter.title')}
                 </div>
 
                 {/* post types */}
@@ -233,7 +236,7 @@ const PostFilter = ({ onSearch, onReset }) => {
                             <div className="lg:w-1/4">
                               <SelectInput
                                 id="region"
-                                label="ภาค"
+                                label={t('filter.location.region')}
                                 options={regionList}
                                 onChange={regionChangeHandler}
                               />
@@ -242,7 +245,7 @@ const PostFilter = ({ onSearch, onReset }) => {
                             <div className="lg:w-1/4">
                               <SelectInput
                                 id="province"
-                                label="จังหวัด"
+                                label={t('filter.location.province')}
                                 options={provinceList}
                                 onChange={provinceChangeHandler}
                               />
@@ -251,7 +254,7 @@ const PostFilter = ({ onSearch, onReset }) => {
                             <div className="lg:w-1/4">
                               <SelectInput
                                 id="district"
-                                label="เขต/อำเภอ"
+                                label={t('filter.location.district')}
                                 options={districtList}
                                 onChange={districtChangeHandler}
                               />
@@ -260,7 +263,7 @@ const PostFilter = ({ onSearch, onReset }) => {
                             <div className="lg:w-1/4">
                               <SelectInput
                                 id="subDistrict"
-                                label="แขวง/ตำบล"
+                                label={t('filter.location.subDistrict')}
                                 options={subDistrictList}
                                 onChange={subDistrictChangeHandler}
                               />
@@ -280,14 +283,14 @@ const PostFilter = ({ onSearch, onReset }) => {
                                   className="-ml-0.5 mr-2 h-8 w-8 animate-none"
                                   aria-hidden="true"
                                 />
-                                ค้นหา
+                                {t('filter.search')}
                               </button>
 
                               <div
                                 className="mt-2 md:absolute md:bottom-2 md:left-4 md:mt-0  text-accent hover:text-accent-hover text-center  text-xs italic underline cursor-pointer select-none"
                                 onClick={resetFilterHandler}
                               >
-                                รีเซ็ตตัวกรอง
+                                {t('filter.reset')}
                               </div>
                             </div>
                           </div>

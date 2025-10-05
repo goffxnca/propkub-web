@@ -1,11 +1,10 @@
 import { ClockIcon } from '@heroicons/react/outline';
 import { LocationMarkerIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
-import { getPostType } from '../../libs/mappers/postTypeMapper';
-import { getAssetType } from '../../libs/mappers/assetTypeMapper';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
 import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 import TimeAgo from 'timeago-react';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const PostRow = ({
   postType,
@@ -17,9 +16,13 @@ const PostRow = ({
   address,
   createdAt
 }) => {
+  const { t } = useTranslation('posts');
+  
   const postLink = `/property/${slug}`;
-  const postTypeFormat = getPostType(postType);
-  const assetTypeFormat = getAssetType(assetType);
+  const badgeLabel = t('card.badge', {
+    postType: t(`postTypes.${postType}`),
+    assetType: t(`assetTypes.${assetType}`)
+  });
   const addressFormat = formatAddress(address);
   const priceUnitFormat = priceUnit ? ` / ${getPriceUnit(priceUnit)}` : '';
   const priceWithFormat = price?.toLocaleString();
@@ -39,7 +42,7 @@ const PostRow = ({
             </p>
             <div className="ml-2 flex flex-shrink-0">
               <p className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                {postTypeFormat + assetTypeFormat}
+                {badgeLabel}
               </p>
             </div>
           </div>

@@ -1,0 +1,53 @@
+{
+  "filter": {
+    "title": "I'm interested in?",
+    "search": "Search",
+    "reset": "Reset Filter",
+    "actions": {
+      "rent": "Rent",
+      "buy": "Buy",
+      "sale": "Create Post"
+    },
+    "location": {
+      "region": "Region",
+      "province": "Province",
+      "district": "District",
+      "subDistrict": "Sub-District"
+    }
+  },
+  "list": {
+    "pageTitle": "#1 Open Source Real Estate Listing - Propkub.com",
+    "pageDescription": "PropKub.com helps you search/post real estate listings across Thailand. Buy, sell, or rent houses, land, townhomes, condos, commercial buildings. Free to use with no fees.",
+    "latestPosts": "Latest Listings",
+    "searchResults": "Search Results ({{count}}) items found",
+    "error": {
+      "title": "Error Occurred",
+      "description": "Unable to load listings. Please try again",
+      "button": "OK"
+    }
+  },
+  "regions": {
+    "r1": "Northern",
+    "r2": "Central",
+    "r3": "Northeastern",
+    "r4": "Western",
+    "r5": "Eastern",
+    "r6": "Southern"
+  },
+  "byRegion": {
+    "sellLand": "Land for Sale"
+  },
+  "postTypes": {
+    "sale": "Sale",
+    "rent": "Rent"
+  },
+  "assetTypes": {
+    "condo": "Condo",
+    "townhome": "Townhome",
+    "house": "House",
+    "land": "Land"
+  },
+  "card": {
+    "badge": "{{assetType}} for {{postType}}"
+  }
+}

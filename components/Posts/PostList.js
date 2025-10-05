@@ -8,8 +8,10 @@ import PostsByRegion from './PostsByRegion';
 import Modal from '../UI/Public/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { cleanObject } from '../../libs/object-utils';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const PostList = ({ posts, provinces, hasError }) => {
+  const { t } = useTranslation('posts');
   const [searchCount, setSearchCount] = useState(0);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [localError, setLocalError] = useState(false);
@@ -55,19 +57,19 @@ const PostList = ({ posts, provinces, hasError }) => {
 
   const listHeadingLabel = useMemo(() => {
     return searchCount > 0
-      ? `ผลการค้นหา พบ (${filteredPosts.length}) รายการ`
-      : 'รายการประกาศล่าสุด';
-  }, [searchCount, filteredPosts]);
+      ? t('list.searchResults', { count: filteredPosts.length })
+      : t('list.latestPosts');
+  }, [searchCount, filteredPosts, t]);
 
   return (
     <div className="lg:max-w-7xl mx-auto">
       <h1 className="text-2xl font-extrabold tracking-tight text-gray-500 p-2 text-center">
-        ลงประกาศอสังหาฟรี Propkub.com
+        {t('list.pageTitle')}
       </h1>
 
       <PostFilter onSearch={searchHandler} onReset={resetHandler} />
 
-      {/* ผลการค้นหา */}
+      {/* Search Results */}
       <div>
         <Element name="searchResult">
           <h2 className="text-xl font-extrabold tracking-tight text-gray-700 p-2">
@@ -117,49 +119,49 @@ const PostList = ({ posts, provinces, hasError }) => {
 
         <PostsByRegion
           regionId={'r1'}
-          regionName="ภาคเหนือ"
+          regionName={t('regions.r1')}
           assetId={'land'}
-          assetName={'ขายที่ดิน'}
+          assetName={t('byRegion.sellLand')}
           provinces={provinces.filter((p) => p.regionId === 'r1')}
         />
 
         <PostsByRegion
           regionId={'r2'}
-          regionName="ภาคกลาง"
+          regionName={t('regions.r2')}
           assetId={'land'}
-          assetName={'ขายที่ดิน'}
+          assetName={t('byRegion.sellLand')}
           provinces={provinces.filter((p) => p.regionId === 'r2')}
         />
 
         <PostsByRegion
           regionId={'r3'}
-          regionName="ภาคตะวันออกเฉียงเหนือ"
+          regionName={t('regions.r3')}
           assetId={'land'}
-          assetName={'ขายที่ดิน'}
+          assetName={t('byRegion.sellLand')}
           provinces={provinces.filter((p) => p.regionId === 'r3')}
         />
 
         <PostsByRegion
           regionId={'r4'}
-          regionName="ภาคตะวันตก"
+          regionName={t('regions.r4')}
           assetId={'land'}
-          assetName={'ขายที่ดิน'}
+          assetName={t('byRegion.sellLand')}
           provinces={provinces.filter((p) => p.regionId === 'r4')}
         />
 
         <PostsByRegion
           regionId={'r5'}
-          regionName="ภาคตะวันออก"
+          regionName={t('regions.r5')}
           assetId={'land'}
-          assetName={'ขายที่ดิน'}
+          assetName={t('byRegion.sellLand')}
           provinces={provinces.filter((p) => p.regionId === 'r5')}
         />
 
         <PostsByRegion
           regionId={'r6'}
-          regionName="ภาคใต้"
+          regionName={t('regions.r6')}
           assetId={'land'}
-          assetName={'ขายที่ดิน'}
+          assetName={t('byRegion.sellLand')}
           provinces={provinces.filter((p) => p.regionId === 'r6')}
         />
       </div>
@@ -168,9 +170,9 @@ const PostList = ({ posts, provinces, hasError }) => {
       <Modal
         visible={showErrorModal}
         type="warning"
-        title="เกิดข้อผิดพลาด"
-        desc="ไม่สามารถโหลดข้อมูลประกาศได้ กรุณาลองใหม่อีกครั้ง"
-        buttonCaption="ตกลง"
+        title={t('list.error.title')}
+        desc={t('list.error.description')}
+        buttonCaption={t('list.error.button')}
         Icon={ExclamationIcon}
         onClose={() => {
           setShowErrorModal(false);

@@ -7,15 +7,18 @@ import { BASE_SITE_URL } from '../libs/constants';
 import { fetchProvinces } from '../libs/managers/addressManager';
 import { fetchActivePosts } from '../libs/post-utils';
 import { genPageTitle } from '../libs/seo-utils';
+import { useTranslation } from '../hooks/useTranslation';
 
 const HomePage = ({ posts, provinces, hasError }) => {
+  const { t } = useTranslation('posts');
+  
   return (
     <>
       <Head>
-        <title>ลงประกาศอสังหาฟรี Propkub.com</title>
+        <title>{t('list.pageTitle')}</title>
         <meta
           name="description"
-          content="PropKub.com ตัวช่วยค้นหา/ลงประกาศ อสังหาริมทรัพย์ทุกประเทศ ไม่ว่าจะเป็นการซื้อ-ขาย-เช่า บ้าน ที่ดิน ทาวน์โฮม คอนโด อาคารพาณิชย์ ใช้งานฟรีไม่มีค่าใช้จ่าย"
+          content={t('list.pageDescription')}
         />
         <link rel="canonical" href={BASE_SITE_URL} />
       </Head>

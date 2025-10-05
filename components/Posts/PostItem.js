@@ -1,12 +1,11 @@
 import { getIcon } from '../../libs/mappers/iconMapper';
 import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
-import { getPostType } from '../../libs/mappers/postTypeMapper';
-import { getAssetType } from '../../libs/mappers/assetTypeMapper';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
 import LocationIcon from '../Icons/LocationIcon';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import SpecItemWithCircle from './Specs/SpecItemWithCircle';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const PostItem = ({
   id,
@@ -52,9 +51,16 @@ const PostItem = ({
     [specs, studioSpec]
   );
 
+  const { t } = useTranslation('posts');
+
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
-  const postTypeFormat = useMemo(() => getPostType(postType), [postType]);
-  const assetTypeFormat = useMemo(() => getAssetType(assetType), [assetType]);
+  const badgeLabel = useMemo(
+    () => t('card.badge', {
+      postType: t(`postTypes.${postType}`),
+      assetType: t(`assetTypes.${assetType}`)
+    }),
+    [postType, assetType, t]
+  );
   const priceUnitFormat = useMemo(
     () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ''),
     [priceUnit]
@@ -71,7 +77,7 @@ const PostItem = ({
       >
         <div className="md:w-2/5 h-64 md:h-48 overflow-hidden rounded-md rounded-t-md md:rounded-none md:rounded-l-md relative">
           <span className="absolute top-2 rounded-r-full bg-gray-lighter py-0.5 px-2 text-sm text-gray-hard z-20 shadow-md">
-            {postTypeFormat + assetTypeFormat}
+            {badgeLabel}
           </span>
           {/* <Image
               src={thumbnail}
