@@ -1,32 +1,31 @@
 import { getAllAreaUnits } from './areaUnitMapper';
 import { PriceUnit, PricePerUnitMapping } from '../../src/types/misc/priceUnit';
 
-const timeMatricUnits: PriceUnit[] = [
+const timeUnits: PriceUnit[] = [
   { id: 'year', label: 'ปี' },
   { id: 'month', label: 'เดือน' },
   { id: 'week', label: 'สัปดาห์' },
   { id: 'day', label: 'วัน' }
 ];
 
-const areaMatricUnits = getAllAreaUnits();
+const areaUnits = getAllAreaUnits();
 
 const pricePerUnitMapping: PricePerUnitMapping[] = [
   { assetType: 'condo', postType: 'sale', units: [] },
-  { assetType: 'condo', postType: 'rent', units: [...timeMatricUnits] },
+  { assetType: 'condo', postType: 'rent', units: [...timeUnits] },
   { assetType: 'townhome', postType: 'sale', units: [] },
-  { assetType: 'townhome', postType: 'rent', units: [...timeMatricUnits] },
+  { assetType: 'townhome', postType: 'rent', units: [...timeUnits] },
   { assetType: 'house', postType: 'sale', units: [] },
-  { assetType: 'house', postType: 'rent', units: [...timeMatricUnits] },
+  { assetType: 'house', postType: 'rent', units: [...timeUnits] },
   { assetType: 'commercial', postType: 'sale', units: [] },
-  { assetType: 'commercial', postType: 'rent', units: [...timeMatricUnits] },
-  { assetType: 'land', postType: 'sale', units: [...areaMatricUnits] },
-  { assetType: 'land', postType: 'rent', units: [...areaMatricUnits] }
+  { assetType: 'commercial', postType: 'rent', units: [...timeUnits] },
+  { assetType: 'land', postType: 'sale', units: [...areaUnits] },
+  { assetType: 'land', postType: 'rent', units: [...areaUnits] }
 ];
 
 const getPriceUnit = (priceUnit: string): string => {
   return (
-    timeMatricUnits.concat(areaMatricUnits).find((p) => p.id === priceUnit)
-      ?.label || ''
+    timeUnits.concat(areaUnits).find((p) => p.id === priceUnit)?.label || ''
   );
 };
 
