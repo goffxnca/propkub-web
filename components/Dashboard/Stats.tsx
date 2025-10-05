@@ -6,6 +6,7 @@ import {
   ShareIcon,
   BookmarkIcon
 } from '@heroicons/react/outline';
+import { useTranslation } from '../../hooks/useTranslation';
 
 interface Link {
   href: string;
@@ -40,10 +41,12 @@ const Stats = ({
   totalShares,
   totalPins
 }: StatsProps) => {
+  const { t } = useTranslation('pages/dashboard');
+  
   const stats: StatItem[] = [
     {
       id: 1,
-      name: 'ประกาศของฉันทั้งหมด',
+      name: t('stats.totalPosts'),
       stat: totalCount,
       icon: DocumentDuplicateIcon,
       change: '122',
@@ -51,7 +54,7 @@ const Stats = ({
     },
     {
       id: 2,
-      name: 'เข้าชม (ครั้ง)',
+      name: t('stats.postViews'),
       stat: totalPostViews,
       icon: EyeIcon,
       change: '5.4%',
@@ -59,7 +62,7 @@ const Stats = ({
     },
     {
       id: 3,
-      name: 'กดดูเบอร์ (ครั้ง)',
+      name: t('stats.phoneViews'),
       stat: totalPhoneViews,
       icon: PhoneIcon,
       change: '3.2%',
@@ -68,7 +71,7 @@ const Stats = ({
     },
     {
       id: 4,
-      name: 'กดดูไลน์ (ครั้ง)',
+      name: t('stats.lineViews'),
       stat: totalLineViews,
       icon: ChatIcon,
       change: '3.2%',
@@ -77,7 +80,7 @@ const Stats = ({
     },
     {
       id: 5,
-      name: 'แชร์',
+      name: t('stats.shares'),
       stat: totalShares,
       icon: ShareIcon,
       change: '3.2%',
@@ -86,7 +89,7 @@ const Stats = ({
     },
     {
       id: 6,
-      name: 'บันทึก',
+      name: t('stats.pins'),
       stat: totalPins,
       icon: BookmarkIcon,
       change: '3.2%',

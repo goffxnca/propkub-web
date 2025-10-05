@@ -25,7 +25,8 @@
   },
   "buttons": {
     "goHome": "Go Home",
-    "contactUs": "Contact Us"
+    "contactUs": "Contact Us",
+    "ok": "OK"
   },
   "actions": {
     "submit": "Submit",

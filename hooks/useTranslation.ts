@@ -5,21 +5,25 @@ import thPosts from '../public/locales/th/posts.json';
 import enPosts from '../public/locales/en/posts.json';
 import thContact from '../public/locales/th/pages/contact.json';
 import enContact from '../public/locales/en/pages/contact.json';
+import thDashboard from '../public/locales/th/pages/dashboard.json';
+import enDashboard from '../public/locales/en/pages/dashboard.json';
 
 const translations = {
   th: {
     common: thCommon,
     posts: thPosts,
-    'pages/contact': thContact
+    'pages/contact': thContact,
+    'pages/dashboard': thDashboard
   },
   en: {
     common: enCommon,
     posts: enPosts,
-    'pages/contact': enContact
+    'pages/contact': enContact,
+    'pages/dashboard': enDashboard
   }
 };
 
-type Namespace = 'common' | 'posts' | 'pages/contact';
+type Namespace = 'common' | 'posts' | 'pages/contact' | 'pages/dashboard';
 
 export function useTranslation(namespace: Namespace = 'common') {
   const router = useRouter();

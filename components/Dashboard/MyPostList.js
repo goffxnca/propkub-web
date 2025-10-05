@@ -20,6 +20,8 @@ import Link from 'next/link';
 const MyPropertyList = () => {
   const router = useRouter();
   const { t } = useTranslation('posts');
+  const { t: tDashboard } = useTranslation('pages/dashboard');
+  const { t: tCommon } = useTranslation('common');
   const {
     data: myPosts,
     loading,
@@ -49,12 +51,13 @@ const MyPropertyList = () => {
   useEffect(() => {
     const fetchStats = async () => {
       setStatsLoading(true);
+
       try {
         const statsData = await getMyPostsStats();
         setStats(statsData);
       } catch (error) {
         console.error('Error fetching stats:', error);
-        setApiError('เกิดข้อผิดพลาดในการโหลดข้อมูลสถิติ');
+        setApiError(tCommon('error.generic.description'));
       } finally {
         setStatsLoading(false);
       }
@@ -72,7 +75,7 @@ const MyPropertyList = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-      <PageTitle label="แดชบอร์ด" />
+      <PageTitle label={tDashboard('title')} />
 
       <Stats
         totalCount={stats.totalPosts}
@@ -87,7 +90,7 @@ const MyPropertyList = () => {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-xl font-semibold text-gray-900">
-              ประกาศทั้งหมด
+              {tDashboard('allPosts')}
             </h1>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -98,7 +101,7 @@ const MyPropertyList = () => {
                 router.push('/account/posts/create');
               }}
             >
-              ลงประกาศ
+              {tDashboard('createPost')}
             </Button>
           </div>
         </div>
@@ -211,9 +214,9 @@ const MyPropertyList = () => {
         visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={apiError}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={() => {
           setApiError('');
         }}

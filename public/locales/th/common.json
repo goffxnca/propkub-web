@@ -25,7 +25,8 @@
   },
   "buttons": {
     "goHome": "กลับหน้าหลัก",
-    "contactUs": "ติดต่อเรา"
+    "contactUs": "ติดต่อเรา",
+    "ok": "ตกลง"
   },
   "actions": {
     "submit": "บันทึก",

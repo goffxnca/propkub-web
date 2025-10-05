@@ -1,0 +1,13 @@
+{
+  "title": "Dashboard",
+  "allPosts": "All Posts",
+  "createPost": "Create Post",
+  "stats": {
+    "totalPosts": "My Total Posts",
+    "postViews": "Views",
+    "phoneViews": "Phone Views",
+    "lineViews": "Line Views",
+    "shares": "Shares",
+    "pins": "Pins"
+  }
+}
