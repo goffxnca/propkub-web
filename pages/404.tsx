@@ -1,6 +1,8 @@
 import Link from 'next/link';
+import { useTranslation } from '../hooks/useTranslation';
 
 const PageNotFound = () => {
+  const { t } = useTranslation('common');
   return (
     <>
       {/*
@@ -20,10 +22,10 @@ const PageNotFound = () => {
             <div className="sm:ml-6">
               <div className="sm:border-l sm:border-gray-200 sm:pl-6">
                 <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">
-                  ไม่พบข้อมูล
+                  {t('http.status.404.title')}
                 </h1>
                 <p className="mt-2 text-base text-gray-500">
-                  มีบางอย่างผิดพลาด เราไม่พบหน้าที่คุณกำลังค้นหา.
+                  {t('http.status.404.description')}
                 </p>
               </div>
               <div className="mt-10 flex space-x-3 sm:border-l sm:border-transparent sm:pl-6">
@@ -31,14 +33,14 @@ const PageNotFound = () => {
                   href="/"
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  กลับหน้าหลัก
+                  {t('buttons.goHome')}
                 </Link>
 
                 <Link
                   href="/contact"
                   className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
-                  ติดต่อเรา
+                  {t('buttons.contactUs')}
                 </Link>
               </div>
             </div>
