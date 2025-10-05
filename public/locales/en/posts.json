@@ -41,6 +41,12 @@
     "sale": "Sale",
     "rent": "Rent"
   },
+  "statuses": {
+    "active": "Published",
+    "hold": "On Hold",
+    "sold": "Sold",
+    "closed": "Closed"
+  },
   "assetTypes": {
     "condo": "Condo",
     "townhome": "Townhome",

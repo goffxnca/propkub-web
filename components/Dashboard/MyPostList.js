@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router';
 import { useTranslation } from '../../hooks/useTranslation';
 
-import { getAssetType } from '../../libs/mappers/assetTypeMapper';
-import { getPostType } from '../../libs/mappers/postTypeMapper';
 import PostStatusBadge from '../Posts/PostStatusBadge/PostStatusBadge';
 
 import PageTitle from '../UI/Private/PageTitle';
@@ -150,13 +148,13 @@ const MyPropertyList = () => {
             {
               title: t('fields.assetType'),
               field: 'assetType',
-              resolver: (item) => getAssetType(item.assetType)
+              resolver: (item) => t(`assetTypes.${item.assetType}`)
             },
 
             {
-              title: t('fields.postType'),
+              title: t('fields.postTypeAlt'),
               field: 'postType',
-              resolver: (item) => getPostType(item.postType)
+              resolver: (item) => t(`postTypes.${item.postType}`)
             },
             {
               title: t('fields.address.provinceLabel'),
