@@ -49,5 +49,63 @@
   },
   "card": {
     "badge": "{{assetType}} for {{postType}}"
+  },
+  "fields": {
+    "title": "Title",
+    "slug": "Slug",
+    "desc": "Description",
+    "assetType": "Asset Type",
+    "postType": "Post Type",
+    "postTypeAlt": "I want to",
+    "price": "Price",
+    "status": "Status",
+    "thumbnail": "Thumbnail",
+    "images": "Images",
+    "facilities": "Facilities",
+    "specs": "Specifications",
+    "address": {
+      "subDistrictLabel": "Sub-District",
+      "subDistrictId": "Sub-District ID",
+      "districtLabel": "District",
+      "districtId": "District ID",
+      "provinceLabel": "Province",
+      "provinceId": "Province ID",
+      "regionId": "Region ID",
+      "location": {
+        "lat": "Latitude",
+        "lng": "Longitude"
+      }
+    },
+    "stats": {
+      "views": {
+        "post": "Views",
+        "phone": "Phone Views",
+        "line": "Line Views"
+      },
+      "shares": "Shares",
+      "pins": "Pins"
+    },
+    "cid": "CID",
+    "postNumber": "Post Number",
+    "isStudio": "Studio Room",
+    "video": "Video",
+    "land": "Land Size",
+    "landUnit": "Land Unit",
+    "area": "Area Size",
+    "areaUnit": "Area Unit",
+    "priceUnit": "Price Unit",
+    "condition": "Condition",
+    "refId": "Reference ID",
+    "createdAt": "Created At",
+    "createdBy": "Created By",
+    "updatedAt": "Updated At",
+    "updatedBy": "Updated By"
+  },
+  "sections": {
+    "basicInfo": "Basic Information",
+    "specs": "Specifications",
+    "details": "Details", 
+    "facilities": "Facilities",
+    "images": "Images",
+    "location": "Location"
   }
-}

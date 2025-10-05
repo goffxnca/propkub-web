@@ -49,5 +49,63 @@
   },
   "card": {
     "badge": "{{postType}}{{assetType}}"
+  },
+  "fields": {
+    "title": "หัวข้อประกาศ",
+    "slug": "ลิงก์",
+    "desc": "รายละเอียด",
+    "assetType": "ประเภททรัพย์",
+    "postType": "ประเภทประกาศ",
+    "postTypeAlt": "ต้องการ",
+    "price": "ราคา",
+    "status": "สถานะ",
+    "thumbnail": "รูปภาพหลัก",
+    "images": "รูปภาพ",
+    "facilities": "สิ่งอำนวยความสะดวก",
+    "specs": "สเปค",
+    "address": {
+      "subDistrictLabel": "แขวง/ตำบล",
+      "subDistrictId": "รหัสแขวง/ตำบล",
+      "districtLabel": "เขต/อำเภอ",
+      "districtId": "รหัสเขต/อำเภอ",
+      "provinceLabel": "จังหวัด",
+      "provinceId": "รหัสจังหวัด",
+      "regionId": "รหัสภาค",
+      "location": {
+        "lat": "ละติจูด",
+        "lng": "ลองจิจูด"
+      }
+    },
+    "stats": {
+      "views": {
+        "post": "เข้าชม",
+        "phone": "เข้าชมโทรศัพท์",
+        "line": "เข้าชมไลน์"
+      },
+      "shares": "แชร์",
+      "pins": "ปักหมุด"
+    },
+    "cid": "รหัสรอง",
+    "postNumber": "เลขประกาศ",
+    "isStudio": "ห้องสตูดิโอ",
+    "video": "วิดีโอ",
+    "land": "ขนาดที่ดิน",
+    "landUnit": "หน่วยที่ดิน",
+    "area": "พื้นที่ใช้สอย",
+    "areaUnit": "หน่วยพื้นที่ใช้สอย",
+    "priceUnit": "หน่วยราคา",
+    "condition": "สภาพ",
+    "refId": "เลขอ้างอิง",
+    "createdAt": "วันที่สร้าง",
+    "createdBy": "สร้างโดย",
+    "updatedAt": "วันที่อัพเดท",
+    "updatedBy": "อัพเดทโดย"
+  },
+  "sections": {
+    "basicInfo": "ข้อมูลเบื้องต้น",
+    "specs": "สเปค",
+    "details": "รายละเอียด",
+    "facilities": "สิ่งอำนวยความสะดวก", 
+    "images": "รูปภาพ",
+    "location": "ที่ตั้ง"
   }
-}
