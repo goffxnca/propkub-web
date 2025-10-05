@@ -2,7 +2,6 @@ import { ClockIcon } from '@heroicons/react/outline';
 import { LocationMarkerIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
-import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 import TimeAgo from 'timeago-react';
 import { useTranslation } from '../../hooks/useTranslation';
 
@@ -17,6 +16,7 @@ const PostRow = ({
   createdAt
 }) => {
   const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
   
   const postLink = `/property/${slug}`;
   const badgeLabel = t('card.badge', {
@@ -24,7 +24,7 @@ const PostRow = ({
     assetType: t(`assetTypes.${assetType}`)
   });
   const addressFormat = formatAddress(address);
-  const priceUnitFormat = priceUnit ? ` / ${getPriceUnit(priceUnit)}` : '';
+  const priceUnitFormat = priceUnit ? ` / ${tCommon(`priceUnits.${priceUnit}`)}` : '';
   const priceWithFormat = price?.toLocaleString();
 
   return (

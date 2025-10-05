@@ -1,5 +1,4 @@
 import { getIcon } from '../../libs/mappers/iconMapper';
-import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
 import LocationIcon from '../Icons/LocationIcon';
 import { useMemo } from 'react';
@@ -52,6 +51,7 @@ const PostItem = ({
   );
 
   const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
 
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
   const badgeLabel = useMemo(
@@ -62,8 +62,8 @@ const PostItem = ({
     [postType, assetType, t]
   );
   const priceUnitFormat = useMemo(
-    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ''),
-    [priceUnit]
+    () => (priceUnit ? ` / ${tCommon(`priceUnits.${priceUnit}`)}` : ''),
+    [priceUnit, tCommon]
   );
   const addressFormat = useMemo(() => formatAddress(address), [address]);
 

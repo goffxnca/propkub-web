@@ -35,6 +35,12 @@
     "copyright": "Copyright © 2025 PropKub.com - All rights reserved",
     "version": "v.{{version}}:{{commit}}"
   },
+  "priceUnits": {
+    "month": "month",
+    "year": "year",
+    "day": "day",
+    "week": "week"
+  },
   "validation": {
     "required": "Required",
     "min": "Must be at least {{min}}",
