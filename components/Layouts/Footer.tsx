@@ -1,4 +1,6 @@
 import getConfig from 'next/config';
+import { useTranslation } from '../../hooks/useTranslation';
+
 const { publicRuntimeConfig } = getConfig();
 
 const navigation = {
@@ -48,6 +50,8 @@ const navigation = {
   ]
 };
 const Footer = () => {
+  const { t } = useTranslation('common');
+
   return (
     <footer className="bg-white border-t border-gray-100">
       <div className="max-w-7xl mx-auto py-4 px-4 overflow-hidden sm:px-6 lg:px-8">
@@ -77,7 +81,7 @@ const Footer = () => {
           ))}
         </div> */}
         <p className="text-center text-base text-gray-400">
-          Copyright &copy; 2025 PropKub.com - All rights reserved
+          {t('footer.copyright')}
         </p>
         <div className="text-gray-400 text-sm text-center mt-2">
           {/* Developed By{" "}
@@ -90,8 +94,13 @@ const Footer = () => {
             WebFessional
           </a> */}
           <span className="text-xs ml-2 text-gray-200">
-            v.{publicRuntimeConfig.version}:
-            {process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.substring(0, 4)}
+            {t('footer.version', {
+              version: publicRuntimeConfig.version,
+              commit: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.substring(
+                0,
+                4
+              )
+            })}
           </span>
         </div>
 

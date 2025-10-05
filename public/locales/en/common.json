@@ -31,6 +31,10 @@
     "submit": "Submit",
     "submitting": "Submitting..."
   },
+  "footer": {
+    "copyright": "Copyright © 2025 PropKub.com - All rights reserved",
+    "version": "v.{{version}}:{{commit}}"
+  },
   "validation": {
     "required": "Required",
     "min": "Must be at least {{min}}",
