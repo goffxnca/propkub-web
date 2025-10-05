@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "title": "Contact PropKub.com",
+    "subtitle": "Our team is here to help. Leave your details and we'll get back to you."
+  },
+  "form": {
+    "title": "Contact form or request",
+    "fields": {
+      "name": {
+        "label": "Contact Name"
+      },
+      "email": {
+        "label": "Email Address"
+      },
+      "phone": {
+        "label": "Phone Number (optional)"
+      },
+      "company": {
+        "label": "Company Name (optional)"
+      },
+      "message": {
+        "label": "Message"
+      }
+    },
+    "success": {
+      "title": "Message sent",
+      "description": "We've received your message and will get back to you soon."
+    }
+  }
+}

@@ -3,19 +3,23 @@ import thCommon from '../public/locales/th/common.json';
 import enCommon from '../public/locales/en/common.json';
 import thPosts from '../public/locales/th/posts.json';
 import enPosts from '../public/locales/en/posts.json';
+import thContact from '../public/locales/th/pages/contact.json';
+import enContact from '../public/locales/en/pages/contact.json';
 
 const translations = {
   th: {
     common: thCommon,
-    posts: thPosts
+    posts: thPosts,
+    'pages/contact': thContact
   },
   en: {
     common: enCommon,
-    posts: enPosts
+    posts: enPosts,
+    'pages/contact': enContact
   }
 };
 
-type Namespace = 'common' | 'posts';
+type Namespace = 'common' | 'posts' | 'pages/contact';
 
 export function useTranslation(namespace: Namespace = 'common') {
   const router = useRouter();
@@ -29,11 +33,27 @@ export function useTranslation(namespace: Namespace = 'common') {
       value = value?.[k];
     }
 
-    // Handle interpolation like {{count}}
+    // Handle interpolation like {{count}} and {{title|lowercase}} and {{title|capitalize}}
     if (typeof value === 'string' && params) {
-      return value.replace(/\{\{(\w+)\}\}/g, (match, key) => {
-        return params[key]?.toString() || match;
-      });
+      return value.replace(
+        /\{\{(\w+)(?:\|(\w+))?\}\}/g,
+        (match, key, modifier) => {
+          const paramValue = params[key]?.toString() || match;
+
+          if (modifier === 'lowercase') {
+            return paramValue.toLowerCase();
+          }
+
+          if (modifier === 'capitalize') {
+            return (
+              paramValue.charAt(0).toUpperCase() +
+              paramValue.slice(1).toLowerCase()
+            );
+          }
+
+          return paramValue;
+        }
+      );
     }
 
     return value || key;
@@ -41,4 +61,3 @@ export function useTranslation(namespace: Namespace = 'common') {
 
   return { t, locale };
 }
-

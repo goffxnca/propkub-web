@@ -26,6 +26,20 @@
   "buttons": {
     "goHome": "Go Home",
     "contactUs": "Contact Us"
+  },
+  "actions": {
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  },
+  "validation": {
+    "required": "Required",
+    "min": "Must be at least {{min}}",
+    "max": "Must not exceed {{max}}",
+    "minLength": "Must be at least {{minLength}} characters",
+    "maxLength": "Must not exceed {{maxLength}} characters",
+    "email": "Invalid email format",
+    "phone": "Phone number must be 9-10 digits only",
+    "mobilePhone": "Mobile phone must be 10 digits only, no dashes",
+    "lineId": "Line ID must be 3-18 characters using lowercase letters, numbers, dots (.), dashes (-), and underscores (_) only. Include @ if present"
   }
 }
-

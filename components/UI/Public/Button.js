@@ -43,10 +43,7 @@ const Button = ({
 
         {Icon && <div className=" mr-1">{Icon}</div>}
 
-        <div className={`${loading && 'ml-1'}`}>
-          {loading && 'กำลัง'}
-          {children}
-        </div>
+        <div className={`${loading && 'ml-1'}`}>{children}</div>
       </div>
       {loading && <Overlay />}
     </button>
