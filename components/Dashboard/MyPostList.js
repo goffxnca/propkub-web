@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from '../../hooks/useTranslation';
 
 import { getAssetType } from '../../libs/mappers/assetTypeMapper';
 import { getPostType } from '../../libs/mappers/postTypeMapper';
@@ -20,6 +21,7 @@ import Link from 'next/link';
 
 const MyPropertyList = () => {
   const router = useRouter();
+  const { t } = useTranslation('posts');
   const {
     data: myPosts,
     loading,
@@ -118,16 +120,16 @@ const MyPropertyList = () => {
                 </Link>
               )
             },
-            { title: 'เลขประกาศ', field: 'postNumber' },
+            { title: t('fields.postNumber'), field: 'postNumber' },
             // { title: "#", field: "cid" },
             {
-              title: 'ลงวันที่',
+              title: t('fields.createdAt'),
               field: 'createdAt',
               resolver: (item) =>
                 new Date(item.createdAt).toLocaleDateString('th-TH')
             },
             {
-              title: 'รูปภาพ',
+              title: t('fields.images'),
               field: 'image',
               custom: (item) => (
                 <div className="h-12 w-12 ">
@@ -141,49 +143,49 @@ const MyPropertyList = () => {
               )
             },
             {
-              title: 'สถานะ',
+              title: t('fields.status'),
               field: 'status',
               custom: (item) => <PostStatusBadge status={item.status} />
             },
             {
-              title: 'ประเภท',
+              title: t('fields.assetType'),
               field: 'assetType',
               resolver: (item) => getAssetType(item.assetType)
             },
 
             {
-              title: 'สำหรับ',
+              title: t('fields.postType'),
               field: 'postType',
               resolver: (item) => getPostType(item.postType)
             },
             {
-              title: 'จังหวัด',
+              title: t('fields.address.provinceLabel'),
               field: 'address.provinceId',
               resolver: (item) => item.address.provinceLabel
             },
-            { title: 'หัวข้อประกาศ', field: 'title' },
+            { title: t('fields.title'), field: 'title' },
             {
-              title: 'เข้าชม',
+              title: t('fields.stats.views.post'),
               field: 'postViews',
               resolver: (item) => item.stats.views.post || 0
             },
             {
-              title: 'ดูเบอร์',
+              title: t('fields.stats.views.phone'),
               field: 'phoneViews',
               resolver: (item) => item.stats.views.phone || 0
             },
             {
-              title: 'ดูไลน์',
+              title: t('fields.stats.views.line'),
               field: 'lineViews',
               resolver: (item) => item.stats.views.line || 0
             },
             {
-              title: 'แชร์',
+              title: t('fields.stats.shares'),
               field: 'shares',
               resolver: (item) => item.stats.shares || 0
             },
             {
-              title: 'บันทึก',
+              title: t('fields.stats.pins'),
               field: 'pins',
               resolver: (item) => item.stats.pins || 0
             }

@@ -104,8 +104,9 @@
   "sections": {
     "basicInfo": "Basic Information",
     "specs": "Specifications",
-    "details": "Details", 
+    "details": "Details",
     "facilities": "Facilities",
     "images": "Images",
     "location": "Location"
   }
+}
