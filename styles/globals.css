@@ -108,3 +108,27 @@ input[type='password'] {
 select:disabled {
   background-color: #f9fafb;
 }
+
+/* GitHub corner icon */
+.github-corner {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  transition: background 0.2s;
+}
+
+.github-corner:hover {
+  background: #24292f !important;
+}
+
+@media (max-width: 600px) {
+  .github-corner {
+    width: 44px !important;
+    height: 44px !important;
+    right: 8px !important;
+    bottom: 8px !important;
+  }
+
+  .github-corner svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
