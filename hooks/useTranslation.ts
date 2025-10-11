@@ -11,6 +11,8 @@ import thAccountPost from '../public/locales/th/pages/account-post.json';
 import enAccountPost from '../public/locales/en/pages/account-post.json';
 import thLogin from '../public/locales/th/pages/login.json';
 import enLogin from '../public/locales/en/pages/login.json';
+import thForgotPassword from '../public/locales/th/pages/forgot-password.json';
+import enForgotPassword from '../public/locales/en/pages/forgot-password.json';
 import thServerErrors from '../public/locales/th/server-errors.json';
 import enServerErrors from '../public/locales/en/server-errors.json';
 
@@ -22,7 +24,8 @@ const translations = {
     'pages/contact': thContact,
     'pages/dashboard': thDashboard,
     'pages/account-post': thAccountPost,
-    'pages/login': thLogin
+    'pages/login': thLogin,
+    'pages/forgot-password': thForgotPassword
   },
   en: {
     common: enCommon,
@@ -31,7 +34,8 @@ const translations = {
     'pages/contact': enContact,
     'pages/dashboard': enDashboard,
     'pages/account-post': enAccountPost,
-    'pages/login': enLogin
+    'pages/login': enLogin,
+    'pages/forgot-password': enForgotPassword
   }
 };
 
@@ -42,7 +46,8 @@ type Namespace =
   | 'pages/contact'
   | 'pages/dashboard'
   | 'pages/account-post'
-  | 'pages/login';
+  | 'pages/login'
+  | 'pages/forgot-password';
 
 export function useTranslation(namespace: Namespace = 'common') {
   const router = useRouter();
