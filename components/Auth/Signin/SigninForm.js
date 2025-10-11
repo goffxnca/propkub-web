@@ -3,12 +3,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { authContext } from '../../../contexts/authContext';
 import { ExclamationIcon } from '@heroicons/react/outline';
-
-import {
-  EmailPattern,
-  maxLength,
-  minLength
-} from '../../../libs/form-validator';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { useValidators } from '../../../hooks/useValidators';
 import Logo from '../../Layouts/Logo';
 import Button from '../../UI/Public/Button';
 import TextInput from '../../UI/Public/Inputs/TextInput';
@@ -19,6 +15,9 @@ import ForgotPasswordModal from '../ForgotPasswordModal';
 
 const SiginInForm = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
+  const { t } = useTranslation('pages/login');
+  const { t: tCommon } = useTranslation('common');
+  const { required, minLength, maxLength, EmailPattern } = useValidators();
 
   const {
     register,
@@ -28,10 +27,6 @@ const SiginInForm = () => {
   } = useForm();
 
   const { signin, loading, error, clearError } = useContext(authContext);
-
-  useEffect(() => {
-    clearError();
-  }, [clearError]);
 
   const handleCloseErrorModal = () => {
     clearError();
@@ -56,7 +51,7 @@ const SiginInForm = () => {
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow rounded-lg sm:px-10 mx-2">
             <h1 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
-              ล็อกอินเข้าสู่ระบบ
+              {t('form.title')}
             </h1>
             <div className="flex justify-center mt-2">
               <Logo />
@@ -64,8 +59,8 @@ const SiginInForm = () => {
             <br />
 
             <div className="mb-6 space-y-3">
-              <GoogleLoginButton text="ล็อกอินด้วย Google" />
-              {/* <FacebookLoginButton text="ล็อกอินด้วย Facebook" /> */}
+              <GoogleLoginButton text={t('form.googleLogin')} />
+              {/* <FacebookLoginButton text={t('form.facebookLogin')} /> */}
             </div>
 
             <div className="relative mb-6">
@@ -73,18 +68,20 @@ const SiginInForm = () => {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">หรือ</span>
+                <span className="px-2 bg-white text-gray-500">
+                  {t('form.or')}
+                </span>
               </div>
             </div>
 
             <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
               <TextInput
                 id="email"
-                label="อีเมล"
+                label={t('form.fields.email.label')}
                 register={() =>
                   register('email', {
-                    required: 'กรุณาระบุอีเมล',
-                    pattern: EmailPattern()
+                    ...required(),
+                    ...EmailPattern()
                   })
                 }
                 unregister={unregister}
@@ -92,13 +89,13 @@ const SiginInForm = () => {
               />
               <TextInput
                 id="password"
-                label="รหัสผ่าน"
+                label={t('form.fields.password.label')}
                 type="password"
                 register={() =>
                   register('password', {
-                    required: 'กรุณาระบุรหัสผ่าน',
-                    minLength: { ...minLength(6, 'รหัสผ่าน') },
-                    maxLength: { ...maxLength(64, 'รหัสผ่าน') }
+                    ...required(),
+                    ...minLength(6),
+                    ...maxLength(64)
                   })
                 }
                 unregister={unregister}
@@ -127,7 +124,7 @@ const SiginInForm = () => {
                     onClick={handleForgotPasswordClick}
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    ลืมรหัสผ่าน?
+                    {t('form.forgotPassword')}
                   </a>
                 </div>
               </div>
@@ -140,18 +137,18 @@ const SiginInForm = () => {
                 </button> */}
 
                 <Button type="submit" variant="primary" loading={loading}>
-                  เข้าสู่ระบบ
+                  {t('form.submit')}
                 </Button>
               </div>
             </form>
 
             <div className="text-sm text-center  mt-2">
-              ยังไม่มีบัญชี?
+              {t('form.noAccount')}
               <Link
                 href="/signup"
                 className="text-primary hover:text-primary-hover ml-2"
               >
-                สมัครใช้งาน
+                {t('form.signup')}
               </Link>
             </div>
             {/* <div className="mt-6">
@@ -214,9 +211,9 @@ const SiginInForm = () => {
         visible={!!error}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={error}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={handleCloseErrorModal}
       />
 

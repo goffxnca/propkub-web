@@ -1,0 +1,23 @@
+{
+  "title": "Login to PropKub",
+  "meta": {
+    "description": "Login to PropKub.com - Your property search and listing platform. Buy, sell, rent houses, land, townhomes, condos, commercial buildings. Free to use with no charges."
+  },
+  "form": {
+    "title": "Login",
+    "googleLogin": "Login with Google",
+    "or": "Or",
+    "fields": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      }
+    },
+    "forgotPassword": "Forgot password?",
+    "submit": "Login",
+    "noAccount": "Don't have an account?",
+    "signup": "Register"
+  }
+}

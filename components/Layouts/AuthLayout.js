@@ -1,4 +1,5 @@
 import Logo from './Logo';
+import LocaleSwitcher from '../UI/LocaleSwitcher';
 
 // interface AuthLayoutProps {
 //   children: React.ReactNode;
@@ -19,7 +20,10 @@ const AuthLayout = ({ children }) => {
       <div className="z-10">{children}</div>
 
       <div className="absolute top-0 left-0 w-screen p-4">
-        <Logo />
+        <div className="flex justify-between items-center">
+          <Logo />
+          <LocaleSwitcher />
+        </div>
       </div>
     </div>
   );
