@@ -47,6 +47,10 @@
     "used": "Used",
     "new": "New Project"
   },
+  "roles": {
+    "agent": "Real Estate Agent",
+    "normal": "Regular User"
+  },
   "actions": {
     "submit": "Submit",
     "submitting": "Submitting..."

@@ -9,6 +9,25 @@
     "profileImageRequired": "Please set your profile picture",
     "contactRequired": "Please set your phone number and Line ID so visitors can contact you",
     "checkAgain": "Check Again"
+  },
+  "sections": {
+    "personal": {
+      "title": "Personal Information",
+      "subtitle": "Your basic information displayed in the system",
+      "profileImage": "Profile Picture",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailVerified": "Verified",
+      "emailNotVerified": "Not Verified",
+      "uploadImageError": "Unable to upload profile picture",
+      "imageUpload": {
+        "changeButton": "Change",
+        "errorTitle": "Unable to upload and preview file",
+        "errorInvalidType": "File '{{filename}}' is not a valid image type (.jpg, .jpeg, .png)",
+        "errorFileSize": "File '{{filename}}' exceeds 10MB size limit"
+      }
+    }
   }
 }
 

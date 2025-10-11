@@ -9,6 +9,25 @@
     "profileImageRequired": "กรุณากำหนดรูปภาพโปรไฟล์",
     "contactRequired": "กรุณากำหนดหมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้",
     "checkAgain": "ตรวจสอบอีกครั้ง"
+  },
+  "sections": {
+    "personal": {
+      "title": "ข้อมูลส่วนตัว",
+      "subtitle": "ข้อมูลพื้นฐานของคุณที่แสดงในระบบ",
+      "profileImage": "รูปโปรไฟล์",
+      "name": "ชื่อ",
+      "namePlaceholder": "ระบุชื่อของคุณ",
+      "email": "อีเมล",
+      "emailVerified": "ยืนยันแล้ว",
+      "emailNotVerified": "ยังไม่ยืนยัน",
+      "uploadImageError": "ไม่สามารถอัพโหลดรูปโปรไฟล์ได้",
+      "imageUpload": {
+        "changeButton": "เปลี่ยน",
+        "errorTitle": "ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้",
+        "errorInvalidType": "ไฟล์ '{{filename}}' ไม่ใช่ไฟล์รูปภาพประเภท .jpg, .jpeg, .png",
+        "errorFileSize": "ไฟล์ '{{filename}}' มีขนาดไฟล์เกิน 10MB"
+      }
+    }
   }
 }
 

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { resizeFile } from '../../libs/utils/file-utils';
 import Modal from '../UI/Public/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const maxfileSizeMB = 10;
 
@@ -15,6 +16,8 @@ const ProfileImageInput = ({
   setValue = () => ({}),
   disabled = false
 }) => {
+  const { t } = useTranslation('pages/profile');
+  const { t: tCommon } = useTranslation('common');
   const errorStyle = formError ? 'border border-red-300' : '';
 
   useEffect(() => {
@@ -57,19 +60,21 @@ const ProfileImageInput = ({
     // Validate file type
     if (!allowedFileTypes.includes(selectedFile.type)) {
       errorMessages.push(
-        `ไฟล์ '${selectedFile.name}' ไม่ใช่ไฟล์รูปภาพประเภท .jpg, .jpeg, .png`
+        t('sections.personal.imageUpload.errorInvalidType', { filename: selectedFile.name })
       );
     }
 
     // Validate file size
     const fileSizeMB = selectedFile.size / 1024 / 1024;
     if (fileSizeMB > maxfileSizeMB) {
-      errorMessages.push(`ไฟล์ '${selectedFile.name}' มีขนาดไฟล์เกิน 10MB`);
+      errorMessages.push(
+        t('sections.personal.imageUpload.errorFileSize', { filename: selectedFile.name })
+      );
     }
 
     if (errorMessages.length > 0) {
       setError({
-        title: 'ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้',
+        title: t('sections.personal.imageUpload.errorTitle'),
         messages: errorMessages
       });
       return;
@@ -120,7 +125,7 @@ const ProfileImageInput = ({
               }
             }}
           >
-            เปลี่ยน
+            {t('sections.personal.imageUpload.changeButton')}
           </button>
 
           <input
@@ -145,7 +150,7 @@ const ProfileImageInput = ({
         type="warning"
         title={error?.title}
         desc={error?.messages?.join(', ')}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={() => {
           setError(null);
         }}
