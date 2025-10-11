@@ -6,6 +6,7 @@ import { conditions } from '../../../libs/mappers/conditionMapper';
 import { getPriceUnitList } from '../../../libs/mappers/priceUnitMapper';
 import { getStandardAreaUnits } from '../../../libs/mappers/areaUnitMapper';
 import { min, max, minLength, maxLength } from '../../../libs/form-validator';
+import { useValidators } from '../../../hooks/useValidators';
 import CheckboxGroupInput from '../../UI/Public/Inputs/CheckboxGroupInput';
 import {
   getLandFacilities,
@@ -16,6 +17,7 @@ import { getDropdownOptions } from '../../../libs/mappers/dropdownOptionsMapper'
 import { useEffect, useMemo } from 'react';
 import TextEditorInput from '../../UI/Public/Inputs/TextEditorInput';
 import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const genericDropdownItems = getDropdownOptions(5);
 
@@ -28,6 +30,8 @@ const BasicSection = ({
   isEditMode = false,
   defaultValues
 }) => {
+  const { t } = useTranslation('posts');
+  const { required, minLength: minLengthValidator, maxLength: maxLengthValidator } = useValidators();
   const watchAssetType = watch('assetType');
   const watchPostType = watch('postType');
   const watchIsStudio = watch('isStudio');
@@ -54,7 +58,7 @@ const BasicSection = ({
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            ข้อมูลพื้นฐาน
+            {t('sections.basicInfo')}
           </h3>
         </div>
 
@@ -62,12 +66,12 @@ const BasicSection = ({
           <div className="col-span-6">
             <TextInput
               id="title"
-              label="หัวข้อประกาศ"
+              label={t('fields.title')}
               register={() =>
                 register('title', {
-                  required: 'กรุณาระบุหัวข้อประกาศ',
-                  minLength: { ...minLength(30, 'หัวข้อประกาศ') },
-                  maxLength: { ...maxLength(120, 'หัวข้อประกาศ') }
+                  ...required(),
+                  ...minLengthValidator(30),
+                  ...maxLengthValidator(120)
                 })
               }
               unregister={unregister}

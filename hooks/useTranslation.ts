@@ -21,6 +21,8 @@ import thProfile from '../public/locales/th/pages/profile.json';
 import enProfile from '../public/locales/en/pages/profile.json';
 import thAuthCallback from '../public/locales/th/pages/auth-callback.json';
 import enAuthCallback from '../public/locales/en/pages/auth-callback.json';
+import thPostForm from '../public/locales/th/pages/post-form.json';
+import enPostForm from '../public/locales/en/pages/post-form.json';
 import thServerErrors from '../public/locales/th/server-errors.json';
 import enServerErrors from '../public/locales/en/server-errors.json';
 
@@ -37,7 +39,8 @@ const translations = {
     'pages/reset-password': thResetPassword,
     'pages/signup': thSignup,
     'pages/profile': thProfile,
-    'pages/auth-callback': thAuthCallback
+    'pages/auth-callback': thAuthCallback,
+    'pages/post-form': thPostForm
   },
   en: {
     common: enCommon,
@@ -51,7 +54,8 @@ const translations = {
     'pages/reset-password': enResetPassword,
     'pages/signup': enSignup,
     'pages/profile': enProfile,
-    'pages/auth-callback': enAuthCallback
+    'pages/auth-callback': enAuthCallback,
+    'pages/post-form': enPostForm
   }
 };
 
@@ -67,7 +71,8 @@ type Namespace =
   | 'pages/reset-password'
   | 'pages/signup'
   | 'pages/profile'
-  | 'pages/auth-callback';
+  | 'pages/auth-callback'
+  | 'pages/post-form';
 
 export function useTranslation(namespace: Namespace = 'common') {
   const router = useRouter();
