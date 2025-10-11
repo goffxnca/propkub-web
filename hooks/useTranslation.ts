@@ -61,7 +61,7 @@ type Namespace =
 
 export function useTranslation(namespace: Namespace = 'common') {
   const router = useRouter();
-  const { locale = 'th' } = router;
+  const { locale } = router;
 
   const t = (key: string, params?: Record<string, string | number>): string => {
     const keys = key.split('.');

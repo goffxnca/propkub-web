@@ -28,7 +28,7 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
-  const { locale = 'th' } = router;
+  const { locale } = router;
 
   useEffect(() => {
     const initializeAuth = async () => {
