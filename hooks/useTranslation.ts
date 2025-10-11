@@ -9,30 +9,40 @@ import thDashboard from '../public/locales/th/pages/dashboard.json';
 import enDashboard from '../public/locales/en/pages/dashboard.json';
 import thAccountPost from '../public/locales/th/pages/account-post.json';
 import enAccountPost from '../public/locales/en/pages/account-post.json';
+import thLogin from '../public/locales/th/pages/login.json';
+import enLogin from '../public/locales/en/pages/login.json';
+import thServerErrors from '../public/locales/th/server-errors.json';
+import enServerErrors from '../public/locales/en/server-errors.json';
 
 const translations = {
   th: {
     common: thCommon,
     posts: thPosts,
+    'server-errors': thServerErrors,
     'pages/contact': thContact,
     'pages/dashboard': thDashboard,
-    'pages/account-post': thAccountPost
+    'pages/account-post': thAccountPost,
+    'pages/login': thLogin
   },
   en: {
     common: enCommon,
     posts: enPosts,
+    'server-errors': enServerErrors,
     'pages/contact': enContact,
     'pages/dashboard': enDashboard,
-    'pages/account-post': enAccountPost
+    'pages/account-post': enAccountPost,
+    'pages/login': enLogin
   }
 };
 
 type Namespace =
   | 'common'
   | 'posts'
+  | 'server-errors'
   | 'pages/contact'
   | 'pages/dashboard'
-  | 'pages/account-post';
+  | 'pages/account-post'
+  | 'pages/login';
 
 export function useTranslation(namespace: Namespace = 'common') {
   const router = useRouter();

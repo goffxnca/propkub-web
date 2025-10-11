@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import {
   MailIcon,
   CheckIcon,
@@ -11,9 +12,11 @@ import TextInput from '../UI/Public/Inputs/TextInput';
 import Button from '../UI/Public/Button';
 import { EmailPattern } from '../../libs/form-validator';
 import { apiClient } from '../../libs/client';
-import { t } from '../../libs/translator';
+import { translateServerError } from '../../libs/serverErrorTranslator';
 
 const ForgotPasswordModal = ({ visible, onClose }) => {
+  const router = useRouter();
+  const { locale } = router;
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -48,16 +51,14 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
         response.message &&
         response.message.includes('This account was registered with')
       ) {
-        const errorMessage =
-          t(response.message) || 'เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน';
+        const errorMessage = translateServerError(response.message, locale);
         setError(errorMessage);
         setIsProviderError(true);
       } else {
         setSuccess(true);
       }
     } catch (err) {
-      const errorMessage =
-        t(err.message) || 'เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน';
+      const errorMessage = translateServerError(err.message, locale);
       setError(errorMessage);
     } finally {
       setLoading(false);

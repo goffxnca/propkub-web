@@ -10,12 +10,13 @@ import Loader from '../../components/UI/Common/modals/Loader';
 import TextInput from '../../components/UI/Public/Inputs/TextInput';
 import Button from '../../components/UI/Public/Button';
 import { minLength, maxLength } from '../../libs/form-validator';
-import { t } from '../../libs/translator';
+import { translateServerError } from '../../libs/serverErrorTranslator';
 import GuestOnlyRoute from '../../components/Auth/GuestOnlyRoute';
 
 const ResetPasswordPage = () => {
   const router = useRouter();
   const { token } = router.query;
+  const { locale } = router;
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -30,23 +31,20 @@ const ResetPasswordPage = () => {
 
   useEffect(() => {
     const validateToken = async () => {
-      if (token) {
+      if (router.isReady && token && locale) {
         try {
           await apiClient.auth.validateResetToken(token);
           setTokenValid(true);
         } catch (err) {
           setTokenValid(false);
-          const errorMessage = t(err.message);
+          const errorMessage = translateServerError(err.message, locale);
           setError(errorMessage);
         }
-      } else if (router.isReady && !token) {
-        setTokenValid(false);
-        setError('ลิ้งค์รีเซ็ตรหัสผ่านไม่ถูกต้องหรือหมดอายุ');
       }
     };
 
     validateToken();
-  }, [token, router.isReady]);
+  }, [router.isReady, token, locale]);
 
   const submitHandler = async (data) => {
     setLoading(true);
@@ -56,8 +54,7 @@ const ResetPasswordPage = () => {
       await apiClient.auth.resetPassword(token, data.newPassword);
       setSuccess(true);
     } catch (err) {
-      const errorMessage =
-        t(err.message) || 'เกิดข้อผิดพลาดในการรีเซ็ตรหัสผ่าน';
+      const errorMessage = translateServerError(err.message, locale);
       setError(errorMessage);
     } finally {
       setLoading(false);

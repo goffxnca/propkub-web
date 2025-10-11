@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import {
   ShieldCheckIcon,
   KeyIcon,
@@ -11,9 +12,11 @@ import TextInput from '../UI/Public/Inputs/TextInput';
 import Modal from '../UI/Public/Modal';
 import { minLength, maxLength } from '../../libs/form-validator';
 import { apiClient } from '../../libs/client';
-import { t } from '../../libs/translator';
+import { translateServerError } from '../../libs/serverErrorTranslator';
 
 const AccountSecuritySection = ({ user }) => {
+  const router = useRouter();
+  const { locale } = router;
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -73,8 +76,7 @@ const AccountSecuritySection = ({ user }) => {
       setIsEditing(false);
       reset();
     } catch (error) {
-      const errorMessage =
-        t(error.message) || 'เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน';
+      const errorMessage = translateServerError(error.message, locale);
       setApiError(errorMessage);
     } finally {
       setIsSaving(false);

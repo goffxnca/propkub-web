@@ -31,10 +31,6 @@ const SignupForm = () => {
     signup(data.email, data.password, data.name, data.isAgent || false);
   };
 
-  useEffect(() => {
-    clearError();
-  }, [clearError]);
-
   const handleCloseErrorModal = () => {
     clearError();
   };

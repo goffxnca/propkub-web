@@ -1,0 +1,13 @@
+{
+  "Unauthorized": "Invalid email or password",
+  "Email already registered": "This email is already registered",
+  "This account was registered with Google": "This account was registered with Google. Please use the \"Login with Google\" button to sign in",
+  "This account was registered with Facebook": "This account was registered with Facebook. Please use the \"Login with Facebook\" button to sign in",
+  "Invalid or expired reset token": "Reset password link is invalid or expired",
+  "Reset token is valid": "Reset token is valid",
+  "Password has been reset successfully": "Password has been reset successfully",
+  "Current password is incorrect": "Current password is incorrect",
+  "Password has been updated successfully": "Password has been updated successfully",
+  "Failed to update password": "Failed to update password",
+  "_generic": "An error occurred. Please try again"
+}
