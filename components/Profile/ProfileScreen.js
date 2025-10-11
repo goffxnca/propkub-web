@@ -9,41 +9,42 @@ import AccountDetailsSection from './AccountDetailsSection';
 import AccountSecuritySection from './AccountSecuritySection';
 import SocialConnectionsSection from './SocialConnectionsSection';
 import Button from '../UI/Public/Button';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const ProfileScreen = () => {
+  const { t } = useTranslation('pages/profile');
   const { isProfileComplete, user } = useContext(authContext);
   const router = useRouter();
   const [warningMessages, setWarningMessages] = useState([]);
 
   useEffect(() => {
+    if (!user) return;
+
     const messages = [];
     if (!user.emailVerified) {
-      messages.push(
-        `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล กรุณาตรวจสอบในโฟลเดอร์ Spam/Junk/Promotions)`
-      );
+      messages.push(t('warnings.emailNotVerified', { email: user.email }));
     }
     if (!user.name) {
-      messages.push('กรุณากำหนดชื่อ');
+      messages.push(t('warnings.nameRequired'));
     }
 
     if (!user.profileImg) {
-      messages.push('กรุณากำหนดรูปภาพโปรไฟล์');
+      messages.push(t('warnings.profileImageRequired'));
     }
 
     if (!user.phone || !user.line) {
-      messages.push(
-        'กรุณากำหนดหมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
-      );
+      messages.push(t('warnings.contactRequired'));
     }
 
     setWarningMessages(messages);
-  }, [user]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, router.locale]);
 
   if (!user) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center items-center h-64">
-          <div className="text-gray-500">กำลังโหลดข้อมูลโปรไฟล์...</div>
+          <div className="text-gray-500">{t('loading')}</div>
         </div>
       </div>
     );
@@ -52,7 +53,7 @@ const ProfileScreen = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
-        <PageTitle label="โปรไฟล์ของฉัน" />
+        <PageTitle label={t('title')} />
         <div>
           <Button
             type="submit"
@@ -61,7 +62,7 @@ const ProfileScreen = () => {
               router.push('/account/posts/create');
             }}
           >
-            ลงประกาศ
+            {t('createPost')}
           </Button>
         </div>
       </div>
@@ -69,10 +70,10 @@ const ProfileScreen = () => {
       {warningMessages.length > 0 && (
         <div className="my-6">
           <Alert
-            alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
+            alertTitle={t('warnings.title')}
             messages={warningMessages}
             showButton={true}
-            buttonLabel={'ตรวจสอบอีกครั้ง'}
+            buttonLabel={t('warnings.checkAgain')}
             onClick={() => {
               router.reload();
             }}
