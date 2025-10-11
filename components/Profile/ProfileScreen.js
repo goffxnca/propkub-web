@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import PageTitle from '../UI/Private/PageTitle';
 import { authContext } from '../../contexts/authContext';
-import Alert from '../UI/Public/Alert';
+import ProfileWarnings from './ProfileWarnings';
 import PersonalInfoSection from './PersonalInfoSection';
 import ContactInfoSection from './ContactInfoSection';
 import AccountDetailsSection from './AccountDetailsSection';
@@ -15,30 +15,6 @@ const ProfileScreen = () => {
   const { t } = useTranslation('pages/profile');
   const { isProfileComplete, user } = useContext(authContext);
   const router = useRouter();
-  const [warningMessages, setWarningMessages] = useState([]);
-
-  useEffect(() => {
-    if (!user) return;
-
-    const messages = [];
-    if (!user.emailVerified) {
-      messages.push(t('warnings.emailNotVerified', { email: user.email }));
-    }
-    if (!user.name) {
-      messages.push(t('warnings.nameRequired'));
-    }
-
-    if (!user.profileImg) {
-      messages.push(t('warnings.profileImageRequired'));
-    }
-
-    if (!user.phone || !user.line) {
-      messages.push(t('warnings.contactRequired'));
-    }
-
-    setWarningMessages(messages);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, router.locale]);
 
   if (!user) {
     return (
@@ -67,19 +43,12 @@ const ProfileScreen = () => {
         </div>
       </div>
 
-      {warningMessages.length > 0 && (
-        <div className="my-6">
-          <Alert
-            alertTitle={t('warnings.title')}
-            messages={warningMessages}
-            showButton={true}
-            buttonLabel={t('warnings.checkAgain')}
-            onClick={() => {
-              router.reload();
-            }}
-          />
-        </div>
-      )}
+      <div className="my-6">
+        <ProfileWarnings
+          user={user}
+          onCheckAgainClick={() => router.reload()}
+        />
+      </div>
 
       <div className="space-y-6">
         <PersonalInfoSection user={user} />
