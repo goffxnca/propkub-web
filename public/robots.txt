@@ -1,6 +1,9 @@
 # Allow all crawlers to index main public content
 User-agent: *
 
+# Disallow English locale pages (use Thai as canonical)
+Disallow: /en/
+
 # Disallow authenticated/user-only pages
 Disallow: /dashboard
 Disallow: /profile
