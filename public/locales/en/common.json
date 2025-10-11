@@ -58,6 +58,9 @@
     "copyright": "Copyright © 2025 PropKub.com - All rights reserved",
     "version": "v.{{version}}:{{commit}}"
   },
+  "meta": {
+    "defaultDescription": "{{page}} | PropKub.com - Your property search and listing platform. Buy, sell, rent houses, land, townhomes, condos, commercial buildings. Free to use with no charges."
+  },
   "validation": {
     "required": "Required",
     "min": "Must be at least {{min}}",

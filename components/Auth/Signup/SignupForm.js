@@ -3,20 +3,19 @@ import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { authContext } from '../../../contexts/authContext';
 import { ExclamationIcon } from '@heroicons/react/outline';
-
-import {
-  EmailPattern,
-  maxLength,
-  minLength
-} from '../../../libs/form-validator';
 import Logo from '../../Layouts/Logo';
 import Button from '../../UI/Public/Button';
 import TextInput from '../../UI/Public/Inputs/TextInput';
 import GoogleLoginButton from '../../UI/Public/SocialLogin/GoogleLoginButton';
 import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton';
 import Modal from '../../UI/Public/Modal';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { useValidators } from '../../../hooks/useValidators';
 
 const SignupForm = () => {
+  const { t } = useTranslation('pages/signup');
+  const { t: tCommon } = useTranslation('common');
+  const { required, minLength, maxLength, EmailPattern } = useValidators();
   const {
     register,
     unregister,
@@ -41,7 +40,7 @@ const SignupForm = () => {
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow rounded-lg sm:px-10 mx-2">
             <h1 className="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">
-              ลงทะเบียนใช้งาน
+              {t('form.title')}
             </h1>
             <div className="flex justify-center mt-2">
               <Logo />
@@ -49,8 +48,8 @@ const SignupForm = () => {
             <br />
 
             <div className="mb-6 space-y-3">
-              <GoogleLoginButton text="ลงทะเบียนด้วย Google" />
-              {/* <FacebookLoginButton text="ลงทะเบียนด้วย Facebook" /> */}
+              <GoogleLoginButton text={t('form.googleSignup')} />
+              {/* <FacebookLoginButton text={t('form.facebookSignup')} /> */}
             </div>
 
             <div className="relative mb-6">
@@ -58,34 +57,36 @@ const SignupForm = () => {
                 <div className="w-full border-t border-gray-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">หรือ</span>
+                <span className="px-2 bg-white text-gray-500">
+                  {t('form.or')}
+                </span>
               </div>
             </div>
 
             <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
               <TextInput
                 id="name"
-                label="ชื่อผู้ใช้งาน"
+                label={t('form.fields.name.label')}
                 register={() =>
                   register('name', {
-                    required: 'กรุณาระบุชื่อ',
-                    minLength: { ...minLength(5, 'ชื่อ') },
-                    maxLength: { ...maxLength(30, 'ชื่อ') }
+                    ...required(),
+                    ...minLength(5),
+                    ...maxLength(30)
                   })
                 }
-                placeholder="สมชาย รักดี"
+                placeholder={t('form.fields.name.placeholder')}
                 unregister={unregister}
                 error={errors.name}
-                info="สามารถเปลี่ยนได้ภายหลัง"
+                info={t('form.fields.name.info')}
               />
 
               <TextInput
                 id="email"
-                label="อีเมล"
+                label={t('form.fields.email.label')}
                 register={() =>
                   register('email', {
-                    required: 'กรุณาระบุอีเมล',
-                    pattern: EmailPattern()
+                    ...required(),
+                    ...EmailPattern()
                   })
                 }
                 unregister={unregister}
@@ -94,13 +95,13 @@ const SignupForm = () => {
 
               <TextInput
                 id="password"
-                label="รหัสผ่าน"
+                label={t('form.fields.password.label')}
                 type="password"
                 register={() =>
                   register('password', {
-                    required: 'กรุณาระบุรหัสผ่าน',
-                    minLength: { ...minLength(6, 'รหัสผ่าน') },
-                    maxLength: { ...maxLength(64, 'รหัสผ่าน') }
+                    ...required(),
+                    ...minLength(6),
+                    ...maxLength(64)
                   })
                 }
                 unregister={unregister}
@@ -116,12 +117,10 @@ const SignupForm = () => {
                 />
                 <label htmlFor="isAgent" className="ml-3 text-sm text-gray-700">
                   <span className="font-medium">
-                    ฉันเป็นนายหน้าอสังหาริมทรัพย์ (Agent)
+                    {t('form.fields.isAgent.label')}
                   </span>
                   <div className="text-gray-500 text-xs mt-1">
-                    ฉันต้องการลงประกาศจำนวนมาก
-                    และใช้งานระบบสนับสนุนการทำงานต่างๆ ของ Agent
-                    (ไม่มีค่าใช้จ่าย)
+                    {t('form.fields.isAgent.description')}
                   </div>
                 </label>
               </div>
@@ -173,18 +172,18 @@ const SignupForm = () => {
 
               <div>
                 <Button type="submit" variant="primary" loading={loading}>
-                  ลงทะเบียน
+                  {t('form.submit')}
                 </Button>
               </div>
             </form>
 
             <div className="text-sm text-center  mt-2">
-              มีบัญชีอยู่แล้ว?
+              {t('form.hasAccount')}
               <Link
                 href="/login"
                 className="text-primary hover:text-primary-hover ml-2"
               >
-                เข้าสู่ระบบ
+                {t('form.login')}
               </Link>
             </div>
 
@@ -269,9 +268,9 @@ const SignupForm = () => {
         visible={!!error}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={error}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={handleCloseErrorModal}
       />
     </>

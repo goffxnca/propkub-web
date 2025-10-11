@@ -8,6 +8,7 @@ import { useTranslation } from '../hooks/useTranslation';
 
 const LoginPage = () => {
   const { t } = useTranslation('pages/login');
+  const { t: tCommon } = useTranslation('common');
 
   return (
     <GuestOnlyRoute>
@@ -15,7 +16,7 @@ const LoginPage = () => {
         <title>{genPageTitle(t('title'))}</title>
         <meta
           name="description"
-          content={t('meta.description')}
+          content={tCommon('meta.defaultDescription', { page: t('title') })}
         />
         <link rel="canonical" href={BASE_SITE_URL + '/login'} />
       </Head>

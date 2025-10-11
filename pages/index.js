@@ -11,6 +11,7 @@ import { useTranslation } from '../hooks/useTranslation';
 
 const HomePage = ({ posts, provinces, hasError }) => {
   const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
   
   return (
     <>
@@ -18,7 +19,7 @@ const HomePage = ({ posts, provinces, hasError }) => {
         <title>{t('list.pageTitle')}</title>
         <meta
           name="description"
-          content={t('list.pageDescription')}
+          content={tCommon('meta.defaultDescription', { page: t('list.pageTitle') })}
         />
         <link rel="canonical" href={BASE_SITE_URL} />
       </Head>

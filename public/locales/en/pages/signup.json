@@ -1,0 +1,28 @@
+{
+  "title": "Register",
+  "form": {
+    "title": "Register",
+    "googleSignup": "Register with Google",
+    "or": "Or",
+    "fields": {
+      "name": {
+        "label": "Username",
+        "placeholder": "John Doe",
+        "info": "Can be changed later"
+      },
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      },
+      "isAgent": {
+        "label": "I am a Real Estate Agent",
+        "description": "I want to post multiple listings and use advanced tools for agents (Free to use)"
+      }
+    },
+    "submit": "Register",
+    "hasAccount": "Already have an account?",
+    "login": "Login"
+  }
+}
