@@ -65,6 +65,32 @@
         "google": "เข้าสู่ระบบด้วยบัญชี Google",
         "facebook": "เข้าสู่ระบบด้วยบัญชี Facebook"
       }
+    },
+    "security": {
+      "title": "ความปลอดภัยบัญชี",
+      "subtitle": "จัดการความปลอดภัยและการเข้าถึงบัญชีของคุณ",
+      "password": "รหัสผ่าน",
+      "changePasswordButton": "เปลี่ยนรหัสผ่าน",
+      "currentPassword": "รหัสผ่านปัจจุบัน",
+      "newPassword": "รหัสผ่านใหม่",
+      "confirmPassword": "ยืนยันรหัสผ่านใหม่",
+      "status": {
+        "hasPassword": "รหัสผ่านได้รับการตั้งค่าแล้ว",
+        "canChange": "คุณสามารถเปลี่ยนรหัสผ่านได้",
+        "noPassword": "ไม่มีรหัสผ่าน",
+        "noPasswordRequired": "คุณลงทะเบียนด้วย {{provider}} Account ไม่จำเป็นต้องมีรหัสผ่าน"
+      },
+      "tips": {
+        "title": "เคล็ดลับความปลอดภัย",
+        "changeRegularly": "แนะนำให้เปลี่ยนรหัสผ่านเป็นระยะๆ เพื่อความปลอดภัย"
+      },
+      "success": {
+        "title": "เปลี่ยนรหัสผ่านสำเร็จ",
+        "description": "รหัสผ่านของคุณได้รับการเปลี่ยนแปลงเรียบร้อยแล้ว"
+      },
+      "validation": {
+        "confirmPasswordMismatch": "รหัสผ่านไม่ตรงกัน"
+      }
     }
   }
 }

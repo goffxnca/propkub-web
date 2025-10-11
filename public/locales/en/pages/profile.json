@@ -65,6 +65,32 @@
         "google": "Sign in with Google account",
         "facebook": "Sign in with Facebook account"
       }
+    },
+    "security": {
+      "title": "Account Security",
+      "subtitle": "Manage your account security and access",
+      "password": "Password",
+      "changePasswordButton": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "status": {
+        "hasPassword": "Password is set",
+        "canChange": "You can change your password",
+        "noPassword": "No password",
+        "noPasswordRequired": "You registered with {{provider}} Account and don't need a password"
+      },
+      "tips": {
+        "title": "Security Tips",
+        "changeRegularly": "We recommend changing your password regularly for security"
+      },
+      "success": {
+        "title": "Password Changed Successfully",
+        "description": "Your password has been changed successfully"
+      },
+      "validation": {
+        "confirmPasswordMismatch": "Passwords do not match"
+      }
     }
   }
 }
