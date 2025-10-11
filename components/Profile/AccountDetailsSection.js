@@ -1,23 +1,27 @@
 import { CalendarIcon, LoginIcon, MailIcon } from '@heroicons/react/outline';
-import { getThaiFullDateTimeString } from '../../libs/date-utils';
+import { getDateTimeString } from '../../libs/date-utils';
 import GoogleIcon from '../Icons/GoogleIcon';
 import FacebookIcon from '../Icons/FacebookIcon';
+import { useTranslation } from '../../hooks/useTranslation';
+import { useRouter } from 'next/router';
 
 const AccountDetailsSection = ({ user }) => {
+  const router = useRouter();
+  const { t } = useTranslation('pages/profile');
   const getProviderDisplay = (provider) => {
     const providerMap = {
       email: {
-        name: 'อีเมล',
+        name: t('sections.account.providers.email'),
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
         color: 'text-gray-600'
       },
       google: {
-        name: 'Google',
+        name: t('sections.account.providers.google'),
         icon: <GoogleIcon />,
         color: 'text-blue-600'
       },
       facebook: {
-        name: 'Facebook',
+        name: t('sections.account.providers.facebook'),
         icon: <FacebookIcon className="text-blue-600" />,
         color: 'text-blue-800'
       }
@@ -35,7 +39,7 @@ const AccountDetailsSection = ({ user }) => {
     if (!provider)
       return {
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-        name: 'อีเมล'
+        name: t('sections.account.providers.email')
       };
 
     const normalizedProvider = provider.toLowerCase();
@@ -43,76 +47,37 @@ const AccountDetailsSection = ({ user }) => {
       case 'email':
         return {
           icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-          name: 'อีเมล'
+          name: t('sections.account.providers.email')
         };
       case 'google':
         return {
           icon: <GoogleIcon />,
-          name: 'Google'
+          name: t('sections.account.providers.google')
         };
       case 'facebook':
         return {
           icon: <FacebookIcon className="text-blue-600" />,
-          name: 'Facebook'
+          name: t('sections.account.providers.facebook')
         };
       default:
         return {
           icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-          name: 'อีเมล'
+          name: t('sections.account.providers.email')
         };
     }
   };
 
-  const formatDate = (dateString) => {
-    if (!dateString) return 'ไม่ระบุ';
-    try {
-      const date = new Date(dateString);
-      return date.toLocaleDateString('th-TH', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-    } catch (error) {
-      return 'ไม่ระบุ';
-    }
-  };
-
-  const formatLastLogin = (dateString) => {
-    if (!dateString) return 'ไม่ระบุ';
-    try {
-      const date = new Date(dateString);
-      const now = new Date();
-      const diffInMs = now - date;
-      const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-
-      if (diffInDays === 0) {
-        return 'วันนี้';
-      } else if (diffInDays === 1) {
-        return 'เมื่อวาน';
-      } else if (diffInDays < 7) {
-        return `${diffInDays} วันที่แล้ว`;
-      } else {
-        return date.toLocaleDateString('th-TH');
-      }
-    } catch (error) {
-      return 'ไม่ระบุ';
-    }
-  };
-
   const providerInfo = getProviderDisplay(user.provider);
-  const lastLoginProviderInfo = user.lastLoginProvider
-    ? getProviderDisplay(user.lastLoginProvider)
-    : null;
 
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            👤 ข้อมูลบัญชีผู้ใช้
+            👤 {t('sections.account.title')}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            ข้อมูลเกี่ยวกับสถานะและประวัติการใช้งานบัญชี
+            {t('sections.account.subtitle')}
           </p>
         </div>
 
@@ -121,7 +86,7 @@ const AccountDetailsSection = ({ user }) => {
             {/* Account Registration Info */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                สมัครสมาชิกด้วย
+                {t('sections.account.registeredWith')}
               </label>
               <div className="mt-1 flex items-center space-x-2">
                 {providerInfo.icon}
@@ -134,12 +99,14 @@ const AccountDetailsSection = ({ user }) => {
             {/* Member Since */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                สมาชิกตั้งแต่
+                {t('sections.account.memberSince')}
               </label>
               <div className="mt-1 flex items-center space-x-2">
                 <CalendarIcon className="w-4 h-4 text-gray-400" />
                 <span className="text-sm text-gray-900">
-                  {formatDate(user.createdAt)}
+                  {user.createdAt
+                    ? getDateTimeString(user.createdAt, router.locale)
+                    : t('sections.account.notSpecified')}
                 </span>
               </div>
             </div>
@@ -148,7 +115,7 @@ const AccountDetailsSection = ({ user }) => {
             {user.cid && (
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  หมายเลขสมาชิก
+                  {t('sections.account.memberId')}
                 </label>
                 <div className="mt-1">
                   <span className="text-sm text-gray-900 font-mono">
@@ -162,14 +129,16 @@ const AccountDetailsSection = ({ user }) => {
             {user.lastLoginAt && (
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  เข้าสู่ระบบครั้งล่าสุด
+                  {t('sections.account.lastLogin')}
                 </label>
                 <div className="mt-1 flex items-center space-x-2">
                   <LoginIcon className="w-4 h-4 text-gray-400" />
                   <span className="text-sm text-gray-900">
-                    {getThaiFullDateTimeString(user.lastLoginAt)}
+                    {getDateTimeString(user.lastLoginAt, router.locale)}
                   </span>
-                  <span className="text-sm text-gray-500">ผ่าน</span>
+                  <span className="text-sm text-gray-500">
+                    {t('sections.account.via')}
+                  </span>
                   <div className="inline-flex items-center">
                     <span className="text-sm text-gray-900">
                       {getLoginProviderInfo(user.lastLoginProvider).name}
@@ -183,12 +152,12 @@ const AccountDetailsSection = ({ user }) => {
             {user.updatedAt && (
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  อัพเดทล่าสุด
+                  {t('sections.account.lastUpdated')}
                 </label>
                 <div className="mt-1 flex items-center space-x-2">
                   <CalendarIcon className="w-4 h-4 text-gray-400" />
                   <span className="text-sm text-gray-900">
-                    {getThaiFullDateTimeString(user.updatedAt)}
+                    {getDateTimeString(user.updatedAt, router.locale)}
                   </span>
                 </div>
               </div>
@@ -198,10 +167,12 @@ const AccountDetailsSection = ({ user }) => {
             {user.tos && (
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  ข้อกำหนดการใช้งาน
+                  {t('sections.account.termsOfService')}
                 </label>
                 <div className="mt-1 flex items-center space-x-2">
-                  <span className="text-sm text-green-600">✓ ยอมรับแล้ว</span>
+                  <span className="text-sm text-green-600">
+                    {t('sections.account.termsAccepted')}
+                  </span>
                 </div>
               </div>
             )}

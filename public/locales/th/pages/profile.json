@@ -27,6 +27,24 @@
         "errorInvalidType": "ไฟล์ '{{filename}}' ไม่ใช่ไฟล์รูปภาพประเภท .jpg, .jpeg, .png",
         "errorFileSize": "ไฟล์ '{{filename}}' มีขนาดไฟล์เกิน 10MB"
       }
+    },
+    "account": {
+      "title": "ข้อมูลบัญชีผู้ใช้",
+      "subtitle": "ข้อมูลเกี่ยวกับสถานะและประวัติการใช้งานบัญชี",
+      "registeredWith": "สมัครสมาชิกด้วย",
+      "memberSince": "สมาชิกตั้งแต่",
+      "memberId": "หมายเลขสมาชิก",
+      "lastLogin": "เข้าสู่ระบบครั้งล่าสุด",
+      "lastUpdated": "อัพเดทล่าสุด",
+      "termsOfService": "ข้อกำหนดการใช้งาน",
+      "termsAccepted": "✓ ยอมรับแล้ว",
+      "via": "ผ่าน",
+      "notSpecified": "ไม่ระบุ",
+      "providers": {
+        "email": "อีเมล",
+        "google": "Google",
+        "facebook": "Facebook"
+      }
     }
   }
 }

@@ -27,6 +27,24 @@
         "errorInvalidType": "File '{{filename}}' is not a valid image type (.jpg, .jpeg, .png)",
         "errorFileSize": "File '{{filename}}' exceeds 10MB size limit"
       }
+    },
+    "account": {
+      "title": "Account Information",
+      "subtitle": "Information about your account status and usage history",
+      "registeredWith": "Registered With",
+      "memberSince": "Member Since",
+      "memberId": "Member ID",
+      "lastLogin": "Last Login",
+      "lastUpdated": "Last Updated",
+      "termsOfService": "Terms of Service",
+      "termsAccepted": "✓ Accepted",
+      "via": "via",
+      "notSpecified": "Not specified",
+      "providers": {
+        "email": "Email",
+        "google": "Google",
+        "facebook": "Facebook"
+      }
     }
   }
 }
