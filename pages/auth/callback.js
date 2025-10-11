@@ -8,9 +8,12 @@ import Modal from '../../components/UI/Public/Modal';
 import GoogleIcon from '../../components/Icons/GoogleIcon';
 import FacebookIcon from '../../components/Icons/FacebookIcon';
 import { tokenManager } from '../../libs/tokenManager';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const AuthCallback = () => {
   const router = useRouter();
+  const { t } = useTranslation('pages/auth-callback');
+  const { t: tCommon } = useTranslation('common');
   const { setUser } = useContext(authContext);
   const [error, setError] = useState('');
   const [isProcessing, setIsProcessing] = useState(true);
@@ -19,11 +22,15 @@ const AuthCallback = () => {
 
   const formatProviderName = (provider) => {
     if (!provider) return 'provider';
-    const providerMap = {
-      google: 'Google',
-      facebook: 'Facebook'
-    };
-    return providerMap[provider?.toLowerCase()] || provider;
+    const normalized = provider?.toLowerCase();
+    switch (normalized) {
+      case 'google':
+        return tCommon('providers.google');
+      case 'facebook':
+        return tCommon('providers.facebook');
+      default:
+        return provider;
+    }
   };
 
   const formatProviderIcon = (provider) => {
@@ -48,22 +55,23 @@ const AuthCallback = () => {
 
           if (error === 'email_mismatch') {
             setError(
-              `เชื่อมต่อไม่ได้ กรุณาใช้บัญชี ${formatProviderName(
-                provider
-              )} ที่ผูกกับอีเมล: ${expectedEmail || 'email'}`
+              t('errors.emailMismatch', {
+                provider: formatProviderName(provider),
+                email: expectedEmail || 'email'
+              })
             );
           } else if (error === 'linking_failed') {
-            setError('เกิดข้อผิดพลาดในการเชื่อมต่อบัญชี กรุณาลองใหม่อีกครั้ง');
+            setError(t('errors.linkingFailed'));
           } else if (error === 'already_linked') {
             setError(
-              `บัญชี ${formatProviderName(provider)} นี้เชื่อมต่ออยู่แล้ว กรุณารีเฟรชหน้าเว็บ`
+              t('errors.alreadyLinked', { provider: formatProviderName(provider) })
             );
           } else if (error === 'oauth_cancelled') {
             setError(
-              `การเชื่อมต่อบัญชี ${formatProviderName(provider)} ถูกยกเลิก`
+              t('errors.oauthCancelled', { provider: formatProviderName(provider) })
             );
           } else {
-            setError('เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+            setError(t('errors.loginFailed'));
           }
           return;
         }
@@ -71,7 +79,7 @@ const AuthCallback = () => {
         if (!token) {
           console.error('[AuthCallback] Missing token');
           setIsProcessing(false);
-          setError('เข้าสู่ระบบไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
+          setError(t('errors.loginFailed'));
           return;
         }
 
@@ -88,7 +96,7 @@ const AuthCallback = () => {
         tokenManager.removeToken();
         setUser(null);
         setIsProcessing(false);
-        setError('เกิดข้อผิดพลาดในการเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง');
+        setError(t('errors.processingFailed'));
       }
     };
 
@@ -122,7 +130,7 @@ const AuthCallback = () => {
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
             <Loader />
-            <p className="mt-4 text-gray-600">กำลังเข้าสู่ระบบ...</p>
+            <p className="mt-4 text-gray-600">{t('processing')}</p>
           </div>
         </div>
       )}
@@ -131,9 +139,9 @@ const AuthCallback = () => {
         visible={!!error}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={error}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={handleCloseErrorModal}
       />
 
@@ -141,16 +149,15 @@ const AuthCallback = () => {
         visible={showLinkSuccess}
         Icon={() => formatProviderIcon(linkProvider)}
         type="success"
-        title={`เชื่อมต่อบัญชี ${formatProviderName(linkProvider)} สำเร็จ!`}
+        title={t('success.title', { provider: formatProviderName(linkProvider) })}
         desc={
           <>
             <p className="mt-2 text-gray-500">
-              ครั้งถัดไปคุณสามารถเข้าสู่ระบบด้วยบัญชี{' '}
-              {formatProviderName(linkProvider)} นี้ได้เช่นกัน
+              {t('success.description', { provider: formatProviderName(linkProvider) })}
             </p>
           </>
         }
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={() => router.push('/profile')}
       />
     </>
