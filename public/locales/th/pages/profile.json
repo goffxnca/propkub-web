@@ -45,7 +45,19 @@
         "google": "Google",
         "facebook": "Facebook"
       }
+    },
+    "contact": {
+      "title": "ข้อมูลการติดต่อ",
+      "subtitle": "ข้อมูลที่ผู้สนใจประกาศสามารถติดต่อคุณได้",
+      "phone": "หมายเลขโทรศัพท์มือถือ",
+      "line": "ไลน์ไอดี",
+      "linePlaceholder": "somchai149_property (ระบุเครื่องหมาย @ ถ้ามี)",
+      "phoneAction": "โทร",
+      "lineAction": "เปิด LINE",
+      "noContact": {
+        "title": "ยังไม่มีข้อมูลการติดต่อ",
+        "description": "กรุณาเพิ่มข้อมูลการติดต่อเพื่อให้ผู้สนใจสามารถติดต่อคุณได้"
+      }
     }
   }
 }
-
