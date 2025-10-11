@@ -4,8 +4,11 @@ import FacebookIcon from '../Icons/FacebookIcon';
 import { MailIcon } from '@heroicons/react/outline';
 import LinkGoogleAccountButton from '../UI/LinkGoogleAccountButton';
 import LinkFacebookAccountButton from '../UI/LinkFacebookAccountButton';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const SocialConnectionsSection = ({ user }) => {
+  const { t } = useTranslation('pages/profile');
+  const { t: tCommon } = useTranslation('common');
   const getConnectionStatus = (provider) => {
     switch (provider) {
       case 'google':
@@ -22,22 +25,22 @@ const SocialConnectionsSection = ({ user }) => {
   const getProviderInfo = (provider) => {
     const providerMap = {
       email: {
-        name: 'อีเมล',
+        name: tCommon('providers.email'),
         icon: <MailIcon className="w-5 h-5 text-gray-600" />,
         color: 'text-gray-600',
-        description: 'เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน'
+        description: t('sections.social.descriptions.email')
       },
       google: {
-        name: 'Google',
+        name: tCommon('providers.google'),
         icon: <GoogleIcon className="w-5 h-5" />,
         color: 'text-blue-600',
-        description: 'เข้าสู่ระบบด้วยบัญชี Google'
+        description: t('sections.social.descriptions.google')
       },
       facebook: {
-        name: 'Facebook',
+        name: tCommon('providers.facebook'),
         icon: <FacebookIcon className="w-5 h-5 text-blue-600" />,
         color: 'text-blue-800',
-        description: 'เข้าสู่ระบบด้วยบัญชี Facebook'
+        description: t('sections.social.descriptions.facebook')
       }
     };
     return providerMap[provider];
@@ -91,19 +94,19 @@ const SocialConnectionsSection = ({ user }) => {
             <LinkGoogleAccountButton
               currentUserEmail={user.email}
               size="sm"
-              buttonText="เชื่อมต่อ"
+              buttonText={t('sections.social.connectButton')}
             />
           ) : provider === 'facebook' ? (
             <LinkFacebookAccountButton
               currentUserEmail={user.email}
               size="sm"
-              buttonText="เชื่อมต่อ"
+              buttonText={t('sections.social.connectButton')}
             />
           ) : (
             <>
               <XCircleIcon className="w-5 h-5 text-gray-400" />
               <span className="text-sm font-medium text-gray-600">
-                ยังไม่เชื่อมต่อ
+                {t('sections.social.notConnected')}
               </span>
             </>
           )}
@@ -119,10 +122,10 @@ const SocialConnectionsSection = ({ user }) => {
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            🔗 การเชื่อมต่อโซเชียล
+            🔗 {t('sections.social.title')}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            เชื่อมต่อบัญชีโซเชียลเพื่อความสะดวกในการเข้าสู่ระบบ
+            {t('sections.social.subtitle')}
           </p>
         </div>
 
@@ -131,7 +134,7 @@ const SocialConnectionsSection = ({ user }) => {
             {/* All Social Connection Status */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-3">
-                สถานะการเชื่อมต่อบัญชี
+                {t('sections.social.statusLabel')}
               </label>
               <div className="space-y-3">
                 {allProviders.map((provider) => (

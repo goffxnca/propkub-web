@@ -8,20 +8,21 @@ import { useRouter } from 'next/router';
 const AccountDetailsSection = ({ user }) => {
   const router = useRouter();
   const { t } = useTranslation('pages/profile');
+  const { t: tCommon } = useTranslation('common');
   const getProviderDisplay = (provider) => {
     const providerMap = {
       email: {
-        name: t('sections.account.providers.email'),
+        name: tCommon('providers.email'),
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
         color: 'text-gray-600'
       },
       google: {
-        name: t('sections.account.providers.google'),
+        name: tCommon('providers.google'),
         icon: <GoogleIcon />,
         color: 'text-blue-600'
       },
       facebook: {
-        name: t('sections.account.providers.facebook'),
+        name: tCommon('providers.facebook'),
         icon: <FacebookIcon className="text-blue-600" />,
         color: 'text-blue-800'
       }
@@ -39,7 +40,7 @@ const AccountDetailsSection = ({ user }) => {
     if (!provider)
       return {
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-        name: t('sections.account.providers.email')
+        name: tCommon('providers.email')
       };
 
     const normalizedProvider = provider.toLowerCase();
@@ -47,22 +48,22 @@ const AccountDetailsSection = ({ user }) => {
       case 'email':
         return {
           icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-          name: t('sections.account.providers.email')
+          name: tCommon('providers.email')
         };
       case 'google':
         return {
           icon: <GoogleIcon />,
-          name: t('sections.account.providers.google')
+          name: tCommon('providers.google')
         };
       case 'facebook':
         return {
           icon: <FacebookIcon className="text-blue-600" />,
-          name: t('sections.account.providers.facebook')
+          name: tCommon('providers.facebook')
         };
       default:
         return {
           icon: <MailIcon className="w-4 h-4 text-gray-600" />,
-          name: t('sections.account.providers.email')
+          name: tCommon('providers.email')
         };
     }
   };

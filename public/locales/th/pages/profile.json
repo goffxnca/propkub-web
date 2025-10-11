@@ -39,12 +39,7 @@
       "termsOfService": "ข้อกำหนดการใช้งาน",
       "termsAccepted": "✓ ยอมรับแล้ว",
       "via": "ผ่าน",
-      "notSpecified": "ไม่ระบุ",
-      "providers": {
-        "email": "อีเมล",
-        "google": "Google",
-        "facebook": "Facebook"
-      }
+      "notSpecified": "ไม่ระบุ"
     },
     "contact": {
       "title": "ข้อมูลการติดต่อ",
@@ -57,6 +52,18 @@
       "noContact": {
         "title": "ยังไม่มีข้อมูลการติดต่อ",
         "description": "กรุณาเพิ่มข้อมูลการติดต่อเพื่อให้ผู้สนใจสามารถติดต่อคุณได้"
+      }
+    },
+    "social": {
+      "title": "การเชื่อมต่อโซเชียล",
+      "subtitle": "เชื่อมต่อบัญชีโซเชียลเพื่อความสะดวกในการเข้าสู่ระบบ",
+      "statusLabel": "สถานะการเชื่อมต่อบัญชี",
+      "connectButton": "เชื่อมต่อ",
+      "notConnected": "ยังไม่เชื่อมต่อ",
+      "descriptions": {
+        "email": "เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน",
+        "google": "เข้าสู่ระบบด้วยบัญชี Google",
+        "facebook": "เข้าสู่ระบบด้วยบัญชี Facebook"
       }
     }
   }

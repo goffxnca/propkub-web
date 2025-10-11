@@ -51,6 +51,11 @@
     "agent": "Real Estate Agent",
     "normal": "Regular User"
   },
+  "providers": {
+    "email": "Email",
+    "google": "Google",
+    "facebook": "Facebook"
+  },
   "actions": {
     "submit": "Submit",
     "submitting": "Submitting..."

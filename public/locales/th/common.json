@@ -51,6 +51,11 @@
     "agent": "นายหน้าอสังหาริมทรัพย์",
     "normal": "ผู้ใช้ทั่วไป"
   },
+  "providers": {
+    "email": "อีเมล",
+    "google": "Google",
+    "facebook": "Facebook"
+  },
   "actions": {
     "submit": "บันทึก",
     "submitting": "กำลังบันทึก..."

@@ -39,12 +39,7 @@
       "termsOfService": "Terms of Service",
       "termsAccepted": "✓ Accepted",
       "via": "via",
-      "notSpecified": "Not specified",
-      "providers": {
-        "email": "Email",
-        "google": "Google",
-        "facebook": "Facebook"
-      }
+      "notSpecified": "Not specified"
     },
     "contact": {
       "title": "Contact Information",
@@ -57,6 +52,18 @@
       "noContact": {
         "title": "No contact information",
         "description": "Please add contact information so interested parties can reach you"
+      }
+    },
+    "social": {
+      "title": "Social Connections",
+      "subtitle": "Connect social accounts for easier login access",
+      "statusLabel": "Connection Status",
+      "connectButton": "Connect",
+      "notConnected": "Not Connected",
+      "descriptions": {
+        "email": "Sign in with email and password",
+        "google": "Sign in with Google account",
+        "facebook": "Sign in with Facebook account"
       }
     }
   }
