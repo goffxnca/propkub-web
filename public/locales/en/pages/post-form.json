@@ -1,4 +1,10 @@
 {
+  "sections": {
+    "media": {
+      "title": "Images",
+      "description": "You can upload {{min}}-{{max}} images per listing"
+    }
+  },
   "fields": {
     "price": {
       "unitPrefix": "/"
@@ -9,6 +15,13 @@
     "refId": {
       "label": "Reference ID (Optional)",
       "placeholder": "Agent's internal reference number"
+    },
+    "images": {
+      "label": "Images",
+      "validation": {
+        "required": "Please upload {{min}}-{{max}} images for your listing",
+        "count": "Please upload {{min}}-{{max}} images for your listing"
+      }
     }
   }
 }

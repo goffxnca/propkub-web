@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import UploadImagesInputDetail from './UploadImagesInputDetail';
 import BaseInput from '../BaseInput';
+import { useTranslation } from '../../../../../hooks/useTranslation';
 
 const UploadImagesInput = ({
   id,
@@ -12,6 +13,7 @@ const UploadImagesInput = ({
   unregister = () => ({}),
   submitCount = 0
 }) => {
+  const { t } = useTranslation('common');
   const [reachMaxImageCount, setReachMaxImageCount] = useState(false);
 
   const onImageChangeHandler = (images) => {
@@ -43,10 +45,8 @@ const UploadImagesInput = ({
       </div>
       {!reachMaxImageCount && (
         <div className="text-sm text-gray-600">
-          <p className="">คลิกไอคอนบวก(+) เพื่อ Browse ไฟล์</p>
-          <p className="text-xs text-gray-500">
-            ต้องเป็นไฟล์ JPG, JPEG, PNG ขนาดไม่เกิน 10MB เท่านั้น
-          </p>
+          <p className="">{t('upload.helperText')}</p>
+          <p className="text-xs text-gray-500">{t('upload.fileRequirements')}</p>
         </div>
       )}
     </BaseInput>

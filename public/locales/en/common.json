@@ -70,6 +70,18 @@
   "meta": {
     "defaultDescription": "{{page}} | PropKub.com - Your property search and listing platform. Buy, sell, rent houses, land, townhomes, condos, commercial buildings. Free to use with no charges."
   },
+  "upload": {
+    "helperText": "Click the plus (+) icon to browse files",
+    "fileRequirements": "Must be JPG, JPEG, PNG files with maximum size of 10MB",
+    "errors": {
+      "warning": "Warning",
+      "maxFiles": "Maximum {{maxFile}} files allowed",
+      "invalidType": "File '{{filename}}' is not a valid image file (.jpg, .jpeg, .png)",
+      "maxSize": "File '{{filename}}' exceeds 10MB",
+      "duplicate": "File '{{filename}}' cannot be uploaded twice",
+      "uploadFailed": "Unable to upload and preview these files"
+    }
+  },
   "validation": {
     "required": "Required",
     "min": "Must be at least {{min}}",
