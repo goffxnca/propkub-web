@@ -1,11 +1,11 @@
 import SelectInput from '../../UI/Public/Inputs/SelectInput';
 import TextInput from '../../UI/Public/Inputs/TextInput';
-import { postTypes, getPostType } from '../../../libs/mappers/postTypeMapper';
-import { assetTypes } from '../../../libs/mappers/assetTypeMapper';
-import { conditions } from '../../../libs/mappers/conditionMapper';
+import { getPostTypes } from '../../../libs/mappers/postTypeMapper';
+import { getAssetTypes } from '../../../libs/mappers/assetTypeMapper';
+import { getConditions } from '../../../libs/mappers/conditionMapper';
 import { getPriceUnitList } from '../../../libs/mappers/priceUnitMapper';
 import { getStandardAreaUnits } from '../../../libs/mappers/areaUnitMapper';
-import { min, max, minLength, maxLength } from '../../../libs/form-validator';
+import { minLength, maxLength } from '../../../libs/form-validator';
 import { useValidators } from '../../../hooks/useValidators';
 import CheckboxGroupInput from '../../UI/Public/Inputs/CheckboxGroupInput';
 import {
@@ -18,6 +18,7 @@ import { useEffect, useMemo } from 'react';
 import TextEditorInput from '../../UI/Public/Inputs/TextEditorInput';
 import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { useRouter } from 'next/router';
 
 const genericDropdownItems = getDropdownOptions(5);
 
@@ -30,8 +31,17 @@ const BasicSection = ({
   isEditMode = false,
   defaultValues
 }) => {
+  const router = useRouter();
+  const { locale } = router;
   const { t } = useTranslation('posts');
-  const { required, minLength: minLengthValidator, maxLength: maxLengthValidator } = useValidators();
+  const { t: tForm } = useTranslation('pages/post-form');
+  const {
+    required,
+    min: minValidator,
+    max: maxValidator,
+    minLength: minLengthValidator,
+    maxLength: maxLengthValidator
+  } = useValidators();
   const watchAssetType = watch('assetType');
   const watchPostType = watch('postType');
   const watchIsStudio = watch('isStudio');
@@ -83,12 +93,12 @@ const BasicSection = ({
             <div className="col-span-6 sm:col-span-3">
               <SelectInput
                 id="postType"
-                label="ต้องการ"
-                options={postTypes}
+                label={t('fields.postTypeAlt')}
+                options={getPostTypes(locale)}
                 disabled={isEditMode}
                 register={() =>
                   register('postType', {
-                    required: 'กรุณาระบุประเภทประกาศ'
+                    ...required()
                   })
                 }
                 unregister={unregister}
@@ -99,12 +109,12 @@ const BasicSection = ({
             <div className="col-span-6 sm:col-span-3">
               <SelectInput
                 id="assetType"
-                label="ประเภททรัพย์"
-                options={assetTypes}
+                label={t('fields.assetType')}
+                options={getAssetTypes(locale)}
                 disabled={isEditMode}
                 register={() =>
                   register('assetType', {
-                    required: 'กรุณาระบุประเภททรัพย์'
+                    ...required()
                   })
                 }
                 unregister={unregister}
@@ -116,11 +126,11 @@ const BasicSection = ({
               <div className="col-span-6 sm:col-span-3">
                 <SelectInput
                   id="condition"
-                  label="สภาพ"
-                  options={conditions}
+                  label={t('fields.condition')}
+                  options={getConditions(locale)}
                   register={() =>
                     register('condition', {
-                      required: 'กรุณาระบุสภาพ'
+                      ...required()
                     })
                   }
                   unregister={unregister}
@@ -133,24 +143,26 @@ const BasicSection = ({
               <TextWithUnitInput
                 id="price"
                 unitId="priceUnit"
-                unitItems={[...getPriceUnitList(watchAssetType, watchPostType)]}
+                unitItems={[
+                  ...getPriceUnitList(watchAssetType, watchPostType, locale)
+                ]}
                 unitDefaultValues={['month', 'rai']}
                 unitDefaultValue={defaultValues?.priceUnit || null}
-                unitPrefix="ต่อ"
+                unitPrefix={tForm('fields.price.unitPrefix')}
                 type="number"
-                label={`ราคา${getPostType(watchPostType)}`}
+                label={t('fields.price')}
                 leadingSlot="฿"
                 register={() =>
                   register('price', {
-                    required: `กรุณาระบุราคา`,
+                    ...required(),
                     valueAsNumber: true,
-                    min: { ...min(1, 'ราคา') },
-                    max: { ...max(100000000, 'ราคา') }
+                    ...minValidator(1),
+                    ...maxValidator(100000000)
                   })
                 }
                 registerUnit={() =>
                   register('priceUnit', {
-                    required: 'กรุณาระบุหน่วยราคา'
+                    ...required()
                   })
                 }
                 unregister={unregister}
@@ -164,23 +176,23 @@ const BasicSection = ({
                 <TextWithUnitInput
                   id="area"
                   unitId="areaUnit"
-                  unitItems={getStandardAreaUnits()}
+                  unitItems={getStandardAreaUnits(locale)}
                   unitDefaultValues={['sqm']}
                   unitDefaultValue={defaultValues?.areaUnit || null}
                   type="number"
                   decimalPlaces={2}
-                  label="พื้นที่ใช้สอย"
+                  label={t('fields.area')}
                   register={() =>
                     register('area', {
-                      required: 'กรุณาระบุขนาดพื้นที่ใช้สอย',
+                      ...required(),
                       valueAsNumber: true,
-                      min: { ...min(1, 'ขนาดพื้นที่ใช้สอย') },
-                      max: { ...max(1000000, 'ขนาดพื้นที่ใช้สอย') }
+                      ...minValidator(1),
+                      ...maxValidator(1000000)
                     })
                   }
                   registerUnit={() =>
                     register('areaUnit', {
-                      required: 'กรุณาระบุหน่วยพื้นที่ใช้สอย'
+                      ...required()
                     })
                   }
                   unregister={unregister}
@@ -195,23 +207,23 @@ const BasicSection = ({
                 <TextWithUnitInput
                   id="land"
                   unitId="landUnit"
-                  unitItems={getStandardAreaUnits()}
+                  unitItems={getStandardAreaUnits(locale)}
                   unitDefaultValues={['sqw']}
                   unitDefaultValue={defaultValues?.landUnit || null}
                   type="number"
                   decimalPlaces={2}
-                  label="ขนาดที่ดิน"
+                  label={t('fields.land')}
                   register={() =>
                     register('land', {
-                      required: 'กรุณาระบุขนาดที่ดิน',
+                      ...required(),
                       valueAsNumber: true,
-                      min: { ...min(1, 'ขนาดที่ดิน') },
-                      max: { ...max(1000000, 'ขนาดที่ดิน') }
+                      ...minValidator(1),
+                      ...maxValidator(1000000)
                     })
                   }
                   registerUnit={() =>
                     register('landUnit', {
-                      required: 'กรุณาระบุหน่วยที่ดิน'
+                      ...required()
                     })
                   }
                   unregister={unregister}

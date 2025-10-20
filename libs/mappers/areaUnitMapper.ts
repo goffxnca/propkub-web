@@ -1,23 +1,30 @@
-import { AreaUnit } from '../../src/types/misc/areaUnit';
+import { AreaUnit, AreaUnitData } from '../../src/types/misc/areaUnit';
+import { Locale } from '../../src/types/locale';
 
-const areaUnits: AreaUnit[] = [
-  { id: 'whole', label: 'ยกแปลง', ignorePrefix: true },
-  { id: 'sqm', label: 'ตรม.' },
-  { id: 'sqw', label: 'ตรว.' },
-  { id: 'ngan', label: 'งาน' },
-  { id: 'rai', label: 'ไร่' }
+const areaUnits: AreaUnitData[] = [
+  { id: 'whole', labelTH: 'ยกแปลง', labelEN: 'Whole Plot', ignorePrefix: true },
+  { id: 'sqm', labelTH: 'ตรม.', labelEN: 'Sq.m.' },
+  { id: 'sqw', labelTH: 'ตรว.', labelEN: 'Sq.w.' },
+  { id: 'ngan', labelTH: 'งาน', labelEN: 'Ngan' },
+  { id: 'rai', labelTH: 'ไร่', labelEN: 'Rai' }
 ];
 
-const getAreaUnitById = (areaUnit: string): string => {
-  return areaUnits.find((a) => a.id === areaUnit)?.label || '';
+const getAreaUnits = (locale: Locale = 'th'): AreaUnit[] => {
+  return areaUnits.map((au) => ({
+    id: au.id,
+    label: locale === 'en' ? au.labelEN : au.labelTH,
+    ignorePrefix: au.ignorePrefix
+  }));
 };
 
-const getStandardAreaUnits = (): AreaUnit[] => {
-  return areaUnits.filter((a) => a.id !== 'whole');
+const getStandardAreaUnits = (locale: Locale = 'th'): AreaUnit[] => {
+  return getAreaUnits(locale).filter((a) => a.id !== 'whole');
 };
 
-const getAllAreaUnits = (): AreaUnit[] => {
-  return areaUnits;
+const getAreaUnitLabel = (areaUnitId: string, locale: Locale = 'th'): string => {
+  const areaUnit = areaUnits.find((a) => a.id === areaUnitId);
+  if (!areaUnit) return '';
+  return locale === 'en' ? areaUnit.labelEN : areaUnit.labelTH;
 };
 
-export { areaUnits, getAreaUnitById, getStandardAreaUnits, getAllAreaUnits };
+export { getAreaUnits, getAreaUnitLabel, getStandardAreaUnits };

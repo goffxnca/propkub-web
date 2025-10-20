@@ -1,27 +1,26 @@
-import { getAllAreaUnits } from './areaUnitMapper';
-import { PriceUnit, PricePerUnitMapping } from '../../src/types/misc/priceUnit';
+import { getAreaUnits } from './areaUnitMapper';
+import { PriceUnit } from '../../src/types/misc/priceUnit';
+import { Locale } from '../../src/types/locale';
 
-const timeUnits: PriceUnit[] = [
-  { id: 'year', label: 'ปี' },
-  { id: 'month', label: 'เดือน' },
-  { id: 'week', label: 'สัปดาห์' },
-  { id: 'day', label: 'วัน' }
+interface TimeUnitData {
+  id: string;
+  labelTH: string;
+  labelEN: string;
+}
+
+const timeUnitsData: TimeUnitData[] = [
+  { id: 'year', labelTH: 'ปี', labelEN: 'Year' },
+  { id: 'month', labelTH: 'เดือน', labelEN: 'Month' },
+  { id: 'week', labelTH: 'สัปดาห์', labelEN: 'Week' },
+  { id: 'day', labelTH: 'วัน', labelEN: 'Day' }
 ];
 
-const areaUnits = getAllAreaUnits();
-
-const pricePerUnitMapping: PricePerUnitMapping[] = [
-  { assetType: 'condo', postType: 'sale', units: [] },
-  { assetType: 'condo', postType: 'rent', units: [...timeUnits] },
-  { assetType: 'townhome', postType: 'sale', units: [] },
-  { assetType: 'townhome', postType: 'rent', units: [...timeUnits] },
-  { assetType: 'house', postType: 'sale', units: [] },
-  { assetType: 'house', postType: 'rent', units: [...timeUnits] },
-  { assetType: 'commercial', postType: 'sale', units: [] },
-  { assetType: 'commercial', postType: 'rent', units: [...timeUnits] },
-  { assetType: 'land', postType: 'sale', units: [...areaUnits] },
-  { assetType: 'land', postType: 'rent', units: [...areaUnits] }
-];
+const getTimeUnits = (locale: Locale = 'th'): PriceUnit[] => {
+  return timeUnitsData.map((tu) => ({
+    id: tu.id,
+    label: locale === 'en' ? tu.labelEN : tu.labelTH
+  }));
+};
 
 const getPriceUnit = (
   unitId: string,
@@ -32,15 +31,26 @@ const getPriceUnit = (
   if (area !== `areaUnits.${unitId}`) return area;
   const time = tCommon(`timeUnits.${unitId}`);
   if (time !== `timeUnits.${unitId}`) return time;
-  return timeUnits.concat(areaUnits).find((p) => p.id === unitId)?.label || '';
+  return '';
 };
 
-const getPriceUnitList = (assetType: string, postType: string): PriceUnit[] => {
-  return (
-    pricePerUnitMapping.find(
-      (p) => p.assetType === assetType && p.postType === postType
-    )?.units || []
-  );
+const getPriceUnitList = (
+  assetType: string,
+  postType: string,
+  locale: Locale = 'th'
+): PriceUnit[] => {
+  const timeUnits = getTimeUnits(locale);
+  const areaUnits = getAreaUnits(locale);
+
+  const mapping: Record<string, Record<string, PriceUnit[]>> = {
+    condo: { sale: [], rent: timeUnits },
+    townhome: { sale: [], rent: timeUnits },
+    house: { sale: [], rent: timeUnits },
+    commercial: { sale: [], rent: timeUnits },
+    land: { sale: areaUnits, rent: areaUnits }
+  };
+
+  return mapping[assetType]?.[postType] || [];
 };
 
 export { getPriceUnit, getPriceUnitList };
