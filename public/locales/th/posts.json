@@ -75,7 +75,13 @@
     "thumbnail": "รูปภาพหลัก",
     "images": "รูปภาพ",
     "facilities": "สิ่งอำนวยความสะดวก",
-    "specs": "สเปค",
+    "specs": {
+      "label": "สเปค",
+      "beds": "ห้องนอน",
+      "baths": "ห้องน้ำ",
+      "kitchens": "ห้องครัว",
+      "parkings": "ที่จอดรถ"
+    },
     "address": {
       "subDistrictLabel": "แขวง/ตำบล",
       "subDistrictId": "รหัสแขวง/ตำบล",

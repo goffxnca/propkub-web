@@ -250,7 +250,7 @@ const BasicSection = ({
                   <div className="col-span-6 sm:col-span-3">
                     <SelectInput
                       id="specs.beds"
-                      label="ห้องนอน"
+                      label={t('fields.specs.beds')}
                       showPreOption={false}
                       options={genericDropdownItems}
                       register={() =>
@@ -268,7 +268,7 @@ const BasicSection = ({
                   <div className="col-span-6 sm:col-span-3">
                     <SelectInput
                       id="specs.baths"
-                      label="ห้องน้ำ"
+                      label={t('fields.specs.baths')}
                       type="number"
                       showPreOption={false}
                       options={genericDropdownItems}
@@ -287,7 +287,7 @@ const BasicSection = ({
                   <div className="col-span-6 sm:col-span-3">
                     <SelectInput
                       id="specs.kitchens"
-                      label="ห้องครัว"
+                      label={t('fields.specs.kitchens')}
                       type="number"
                       showPreOption={false}
                       options={genericDropdownItems}
@@ -305,7 +305,7 @@ const BasicSection = ({
                 <div className="col-span-6 sm:col-span-3">
                   <SelectInput
                     id="specs.parkings"
-                    label="ที่จอดรถ"
+                    label={t('fields.specs.parkings')}
                     type="number"
                     showPreOption={false}
                     options={genericDropdownItems}

@@ -75,7 +75,13 @@
     "thumbnail": "Thumbnail",
     "images": "Images",
     "facilities": "Facilities",
-    "specs": "Specifications",
+    "specs": {
+      "label": "Specifications",
+      "beds": "Bedrooms",
+      "baths": "Bathrooms",
+      "kitchens": "Kitchens",
+      "parkings": "Parking Spaces"
+    },
     "address": {
       "subDistrictLabel": "Sub-District",
       "subDistrictId": "Sub-District ID",
