@@ -353,12 +353,12 @@ const BasicSection = ({
           <div className="col-span-3">
             <TextInput
               id="refId"
-              label="หมายเลขอ้างอิง (ถ้ามี)"
-              placeholder="หมายเลขอ้างอิงภายในของ Agent เอง"
+              label={tForm('fields.refId.label')}
+              placeholder={tForm('fields.refId.placeholder')}
               register={() =>
                 register('refId', {
-                  minLength: { ...minLength(4, 'หมายเลขอ้างอิง') },
-                  maxLength: { ...maxLength(20, 'หมายเลขอ้างอิง') }
+                  ...minLengthValidator(4),
+                  ...maxLengthValidator(20)
                 })
               }
               unregister={unregister}
