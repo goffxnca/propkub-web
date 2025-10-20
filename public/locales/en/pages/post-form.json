@@ -3,6 +3,9 @@
     "media": {
       "title": "Images",
       "description": "You can upload {{min}}-{{max}} images per listing"
+    },
+    "confirm": {
+      "title": "Confirmation"
     }
   },
   "fields": {
@@ -21,6 +24,12 @@
       "validation": {
         "required": "Please upload {{min}}-{{max}} images for your listing",
         "count": "Please upload {{min}}-{{max}} images for your listing"
+      }
+    },
+    "accept": {
+      "label": "I confirm that I am the owner or an authorized representative to post all images and information provided in this listing. I agree to take full responsibility for any disputes that may arise regarding this listing in the future.",
+      "validation": {
+        "required": "Please confirm"
       }
     }
   }
