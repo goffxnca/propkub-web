@@ -51,8 +51,8 @@ const BasicSection = ({
 
   const facilityList = useMemo(
     () =>
-      watchAssetType === 'land' ? getLandFacilities() : getNonLandFacilities(),
-    [watchAssetType]
+      watchAssetType === 'land' ? getLandFacilities(locale) : getNonLandFacilities(locale),
+    [watchAssetType, locale]
   );
 
   useEffect(() => {
@@ -343,7 +343,7 @@ const BasicSection = ({
           <div className="col-span-6">
             <CheckboxGroupInput
               id="facilities"
-              groupLabel="สาธารณูปโภคอื่นๆ"
+              groupLabel={t('fields.facilities')}
               items={facilityList}
               register={register}
               unregister={unregister}
