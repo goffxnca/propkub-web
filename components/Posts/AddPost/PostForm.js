@@ -4,10 +4,7 @@ import { useForm } from 'react-hook-form';
 import { addNewPost, updatePost } from '../../../libs/post-utils';
 import MediaSection from './MediaSection';
 import Modal from '../../UI/Public/Modal';
-import {
-  CheckIcon,
-  ExclamationIcon
-} from '@heroicons/react/outline';
+import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
 import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../../UI/Public/Button';
@@ -105,9 +102,7 @@ const PostForm = ({ postData }) => {
       setShowSuccessModal(true);
     } catch (error) {
       console.error(`${isEditMode ? 'Edit' : 'Create'} post failed:`, error);
-      setErrorMessage(
-        'เกิดข้อผิดพลาดในการบันทึกประกาศ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง'
-      );
+      setErrorMessage(tCommon('error.generic.description'));
 
       setShowErrorModal(true);
     } finally {
@@ -218,7 +213,7 @@ const PostForm = ({ postData }) => {
               loading={saving}
               disabled={isEditMode && !formDataChanged}
             >
-              บันทึก
+              {tCommon('buttons.save')}
             </Button>
 
             <Button
@@ -227,7 +222,7 @@ const PostForm = ({ postData }) => {
                 router.push('/dashboard');
               }}
             >
-              ยกเลิก
+              {tCommon('buttons.cancel')}
             </Button>
           </div>
         )}
