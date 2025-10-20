@@ -325,7 +325,13 @@ const BasicSection = ({
           <div className="col-span-6">
             <TextEditorInput
               id="desc"
-              label="รายละเอียด"
+              label={t('fields.desc')}
+              info={tForm('fields.desc.info')}
+              validation={{
+                ...required(),
+                ...minLengthValidator(200),
+                ...maxLengthValidator(3000)
+              }}
               register={register}
               unregister={unregister}
               setValue={setValue}

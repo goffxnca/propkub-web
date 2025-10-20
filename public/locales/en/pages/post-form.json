@@ -2,6 +2,9 @@
   "fields": {
     "price": {
       "unitPrefix": "/"
+    },
+    "desc": {
+      "info": "Describe your property in detail. Quality posts should have a description between 200-4000 characters. Please note that posting inappropriate or spam links is against our terms of use. If detected, your account will be permanently banned without prior notice. Allowed links include: links to your website or company, Facebook fan pages, LINE accounts, or your social media accounts. You can add links by highlighting text and clicking the chain icon above."
     }
   }
 }
