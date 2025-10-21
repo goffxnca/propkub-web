@@ -5,7 +5,7 @@ import { addNewPost, updatePost } from '../../../libs/post-utils';
 import MediaSection from './MediaSection';
 import Modal from '../../UI/Public/Modal';
 import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../../UI/Public/Button';
 import { authContext } from '../../../contexts/authContext';
@@ -57,11 +57,20 @@ const PostForm = ({ postData }) => {
     watch,
     setValue,
     setFocus,
+    trigger,
     formState: { errors, submitCount, dirtyFields, isDirty }
   } = useForm({ defaultValues: defaultValues });
 
   const router = useRouter();
+  const { locale } = router;
   const { user, isAgent, isProfileComplete } = useContext(authContext);
+
+  // Re-trigger validation when locale changes to update error messages
+  useEffect(() => {
+    if (submitCount > 0) {
+      trigger();
+    }
+  }, [locale, submitCount, trigger]);
 
   const [saving, setSaving] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
