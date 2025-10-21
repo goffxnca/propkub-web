@@ -1,4 +1,3 @@
-import regions from '../../../data/regions.json';
 import SelectInput from '../../UI/Public/Inputs/SelectInput';
 import { useEffect, useMemo, useState } from 'react';
 import GoogleMap from '../../UI/Public/GoogleMap';
@@ -16,6 +15,10 @@ import {
 } from '../../../libs/formatters/addressFomatter';
 import PostMap from '../../../components/Posts/PostMap';
 import { envConfig } from '../../../libs/envConfig';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { useRouter } from 'next/router';
+import { getRegions } from '../../../libs/mappers/regionMapper';
+import { useValidators } from '../../../hooks/useValidators';
 
 const MAP_SEARCH_QUOTA = 5; //TODO: CHANGE TO 3 LATER
 
@@ -27,6 +30,14 @@ const LocationSection = ({
   submitCount,
   errors
 }) => {
+  const { t } = useTranslation('pages/post-form');
+  const { t: tCommon } = useTranslation('common');
+  const { required } = useValidators();
+  const router = useRouter();
+  const locale = router.locale;
+
+  const regionList = useMemo(() => getRegions(locale), [locale]);
+
   const [provinceList, setProvinceList] = useState([]);
   const [districtList, setDistrictList] = useState([]);
   const [subDistrictList, setSubDistrictList] = useState([]);
@@ -182,7 +193,7 @@ const LocationSection = ({
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            ตำแหน่งที่ตั้งทรัพย์
+            {t('sections.location.title')}
           </h3>
         </div>
         <div className="mt-5 md:mt-0 md:col-span-2">
@@ -190,12 +201,12 @@ const LocationSection = ({
             <div className="col-span-6 sm:col-span-3">
               <SelectInput
                 id="address.regionId"
-                label="ภูมิภาค"
-                options={regions}
+                label={t('fields.address.regionId.label')}
+                options={regionList}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
                   register('address.regionId', {
-                    required: 'กรุณาระบุภูมิภาค'
+                    ...required()
                   })
                 }
                 unregister={unregister}
@@ -205,12 +216,12 @@ const LocationSection = ({
             <div className="col-span-6 sm:col-span-3">
               <SelectInput
                 id="address.provinceId"
-                label="จังหวัด"
+                label={t('fields.address.provinceId.label')}
                 options={provinceList}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
                   register('address.provinceId', {
-                    required: 'กรุณาระบุจังหวัด'
+                    ...required()
                   })
                 }
                 unregister={unregister}
@@ -220,12 +231,12 @@ const LocationSection = ({
             <div className="col-span-6 sm:col-span-3">
               <SelectInput
                 id="address.districtId"
-                label="เขต/อำเภอ"
+                label={t('fields.address.districtId.label')}
                 options={districtList}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
                   register('address.districtId', {
-                    required: 'กรุณาระบุเขต/อำเภอ'
+                    ...required()
                   })
                 }
                 unregister={unregister}
@@ -235,12 +246,12 @@ const LocationSection = ({
             <div className="col-span-6 sm:col-span-3">
               <SelectInput
                 id="address.subDistrictId"
-                label="แขวง/ตำบล"
+                label={t('fields.address.subDistrictId.label')}
                 options={subDistrictList}
                 disabled={!mapSearchQuotaRemaining}
                 register={() =>
                   register('address.subDistrictId', {
-                    required: 'กรุณาระบุแขวง/ตำบล'
+                    ...required()
                   })
                 }
                 unregister={unregister}
@@ -250,11 +261,9 @@ const LocationSection = ({
             {!missingMapKeyInDevMode && (
               <Modal
                 visible={showMapGuideModal}
-                title="การปักหมุด"
-                // desc={`เราได้แสดงแผนที่คร่าวๆของ ${getSubDistrictPrefix(
-                //   isBangkok
-                // )}${subDistrictLabel} แล้ว คุณสามารถซูมเข้าออก/เลื่อนไปมา เพื่อหาจุดที่ตั้งของทรัพย์ และลากหมุดสีแดงเพื่อยืนยันพิกัด หรือพิมพ์ชื่อสถานที่ใกล้เคียงบนช่องด้านบนเพื่อค้นหาง่ายขึ้น`}
-                desc="เริ่มต้นปักหมุดโดยพิมพ์ชื่อโครงการ/สถานที่บนช่องค้นหาด้านบน"
+                title={t('sections.location.map.modal.title')}
+                desc={t('sections.location.map.modal.description')}
+                buttonCaption={tCommon('buttons.ok')}
                 Icon={LocationMarkerIcon}
                 onClose={() => {
                   setShowMapGuideModal(false);
@@ -273,8 +282,10 @@ const LocationSection = ({
                     {mapSearchQuotaRemaining <= MAP_SEARCH_QUOTA && (
                       <TextInput
                         id="searchAddress"
-                        label="พิมพ์คำค้นหาเพื่อปักหมุดอัตโนมัติ"
-                        placeholder="ค้นหาด้วยชื่อโครงการเช่น คอนโดไอดีโอ โอทู (หรืออ่านคำแนะนำการปักแผนที่ด้านล่าง)"
+                        label={t('sections.location.map.searchLabel')}
+                        placeholder={t(
+                          'sections.location.map.searchPlaceholder'
+                        )}
                         tailingSlot={
                           mapSearchQuotaRemaining ? (
                             <div
@@ -285,7 +296,7 @@ const LocationSection = ({
                                 }
                               }}
                             >
-                              ค้นหา
+                              {t('sections.location.map.searchButton')}
                             </div>
                           ) : null
                         }
@@ -304,12 +315,11 @@ const LocationSection = ({
                       />
                     )}
                     <p className="text-xs text-gray-600 my-1">
-                      โควต้าการค้นหาบนแผนที่เหลือ
+                      {t('sections.location.map.quotaRemaining')}
                       <span className="text-red-600 text-lg px-2">
                         {mapSearchQuotaRemaining}
                       </span>
-                      ครั้ง **เราจำกัดจำนวนครั้งการค้นหาเนื่องจาก Google Map
-                      มีค่าบริการสูง
+                      {t('sections.location.map.quotaNote')}
                     </p>
                     <p
                       className="text-primary text-sm underline mb-2 cursor-pointer select-none"
@@ -317,51 +327,41 @@ const LocationSection = ({
                         setShowMapGuideModal2(!showMapGuideModal2);
                       }}
                     >
-                      อ่านคำแนะนำการปักแผนที่
+                      {t('sections.location.map.guideToggle')}
                     </p>
 
                     {showMapGuideModal2 && (
                       <div className="ml-6 mb-2">
                         <p className="text-xs text-gray-600 mb-2">
-                          ตัวอย่างคำค้นหาที่ช่วยให้เจอที่ตั้งของทรัพย์ได้ง่ายขึ้น
-                          โดยให้ลองตามลำดับ
+                          {t('sections.location.map.guideTitle')}
                         </p>
                         <p className="text-xs text-gray-600">
-                          1. คอนโดไอดีโอ โอทู
+                          1. คอนโดไอดีโอ โมบิ สุขุมวิท อีสท์เกต
                           <span className="italic ml-2">
-                            (ชื่อโครงการเต็มภาษาไทย)
+                            {t('sections.location.map.guideExample1Note')}
                           </span>
                         </p>
                         <p className="text-xs text-gray-600">
-                          2. Condo Ideo O2
+                          2. Condo Ideo Mobi Sukhumvit Eastgate
                           <span className="italic ml-2">
-                            (ชื่อโครงการเต็มภาษาอังกฤษ)
+                            {t('sections.location.map.guideExample2Note')}
                           </span>
                         </p>
                         <p className="text-xs text-gray-600">
-                          3. คอนโดไอดีโอ โอทู ถนนสรรพาวุธ
+                          {t('sections.location.map.guideExample3')}
                           <span className="italic ml-2">
-                            (ชื่อโครงการ + ถนน/ซอย)
+                            {t('sections.location.map.guideExample3Note')}
                           </span>
                         </p>
                         <p className="text-xs text-gray-600">
-                          4. คอนโดไอดีโอ โอทู บางนา
+                          {t('sections.location.map.guideExample4')}
                           <span className="italic ml-2">
-                            (ชื่อโครงการ + เขต/อำเภอ)
+                            {t('sections.location.map.guideExample4Note')}
                           </span>
                         </p>
-                        {/* <p className="text-xs text-gray-600 mb-2">
-                        คอนโดไอดีโอ โอทู บางนา กรุงเทพมหานคร
-                        <span className="italic ml-2">
-                          (ชื่อโครงการ + เขต/อำเภอ + จังหวัด)
-                        </span>
-                      </p> */}
 
                         <p className="text-xs text-red-400">
-                          5. หากคุณค้นหาแล้ว 4 ครั้งยังไม่เจอ
-                          ครั้งสุดท้ายให้คุณค้นหาสถานที่สำคัญที่ใกล้เคียงที่สุด
-                          เช่นสี่แยกบางนา
-                          หลังจากนั้นให้เลื่อนแผนที่เพื่อปักหมุดเอง
+                          {t('sections.location.map.guideExample5')}
                         </p>
                       </div>
                     )}
@@ -441,12 +441,12 @@ const LocationSection = ({
                         disabled
                         hidden
                         {...register('address.location', {
-                          required: true
+                          ...required()
                         })}
                       />
                       {errors?.address?.location && (
                         <div className="text-red-400 text-xs py-1">
-                          กรุณาปักหมุดบนแผนที่เพื่อยืนยันที่ตั้งทรัพย์
+                          {errors.address.location.message}
                         </div>
                       )}
                     </div>

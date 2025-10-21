@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Element as ScrollElement, scroller } from 'react-scroll';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 let markers = [];
 let infoWindows = [];
@@ -13,6 +14,7 @@ const defaultCenter = {
 }; //Victory Monument
 
 const GoogleMap = ({ address, onLocationSelected }) => {
+  const { t } = useTranslation('pages/post-form');
   const searchMode = address.indexOf('__search') !== -1;
 
   const initMapFromAddressText = () => {
@@ -101,6 +103,30 @@ const GoogleMap = ({ address, onLocationSelected }) => {
     createMarker(map, mapOptions.center, searchMode);
   };
 
+  const createInfoWindow = (map, position, isFirstMarker) => {
+    let contentText = isFirstMarker
+      ? t('sections.location.map.infoWindow.waiting')
+      : t('sections.location.map.infoWindow.pinned', {
+          lat: position.lat.toFixed(4),
+          lng: position.lng.toFixed(4)
+        });
+
+    const infoWindow = new window.google.maps.InfoWindow({
+      content: `<div class="text-center md:text-lg font-sans ${
+        isFirstMarker ? 'text-primary' : 'text-green-600'
+      }">${contentText}<br><div class='text-gray-400 text-xs italic'>${t('sections.location.map.infoWindow.instructions')}</div></div>`,
+      position: position,
+      pixelOffset: new google.maps.Size(0, -42)
+    });
+
+    infoWindow.addListener('domready', () => {
+      return <infoWindow />;
+    });
+
+    infoWindows.push(infoWindow);
+    infoWindow.open({ map, shouldFocus: false });
+  };
+
   const createMarker = (map, position, pin = false) => {
     markers.forEach((mk) => mk.setMap(null));
     infoWindows.forEach((iw) => iw.setMap(null));
@@ -146,31 +172,6 @@ const GoogleMap = ({ address, onLocationSelected }) => {
       delay: 500,
       smooth: true
     });
-  };
-
-  const createInfoWindow = (map, position, isFirstMarker) => {
-    let contentText = isFirstMarker
-      ? 'รอปักหมุดที่ตั้งทรัพย์'
-      : `พิกัด ${position.lat.toFixed(4)},${position.lng.toFixed(
-          4
-        )} (ปักหมุดแล้ว)<br>
-     
-      `;
-
-    const infoWindow = new window.google.maps.InfoWindow({
-      content: `<div class="text-center md:text-lg font-sans ${
-        isFirstMarker ? 'text-primary' : 'text-green-600'
-      }">${contentText}<div class='text-gray-400 text-xs italic'>คลิกบนแผนที่หรือลากหมุดสีแดงหากต้องการเปลี่ยนจุดปักหมุด</div></div>`,
-      position: position,
-      pixelOffset: new google.maps.Size(0, -42)
-    });
-
-    infoWindow.addListener('domready', () => {
-      return <infoWindow />;
-    });
-
-    infoWindows.push(infoWindow);
-    infoWindow.open({ map, shouldFocus: false });
   };
 
   return (
