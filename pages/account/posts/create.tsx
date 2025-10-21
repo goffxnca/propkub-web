@@ -7,12 +7,12 @@ import { useContext } from 'react';
 import { authContext } from '../../../contexts/authContext';
 
 const AddPostPage = () => {
-  const { t } = useTranslation('pages/profile');
+  const { t } = useTranslation('pages/post-form');
   const { t: tCommon } = useTranslation('common');
   const { isAgent } = useContext(authContext);
   
   const roleLabel = isAgent ? tCommon('roles.agent') : tCommon('roles.normal');
-  const pageTitle = `${t('createPost')} (${roleLabel})`;
+  const pageTitle = `${t('mode.create')} (${roleLabel})`;
   
   return (
     <ProtectedRoute>

@@ -1,4 +1,20 @@
 {
+  "mode": {
+    "create": "Create Listing",
+    "edit": "Edit Listing #{{postNumber}}"
+  },
+  "success": {
+    "create": {
+      "title": "Listing Created Successfully",
+      "message": "Your listing has been published and will appear on the home page within 30 minutes",
+      "button": "Go to Listing"
+    },
+    "update": {
+      "title": "Listing Updated Successfully",
+      "message": "Your listing has been updated successfully",
+      "button": "Go to Listing"
+    }
+  },
   "sections": {
     "media": {
       "title": "Images",

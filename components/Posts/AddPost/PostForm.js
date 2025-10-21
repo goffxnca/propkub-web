@@ -22,6 +22,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 const PostForm = ({ postData }) => {
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
+  const { t: tForm } = useTranslation('pages/post-form');
   const isEditMode = !!postData;
 
   const defaultValues = isEditMode
@@ -79,16 +80,16 @@ const PostForm = ({ postData }) => {
   const [createdPostId, setCreatedPostId] = useState('');
 
   const modalSuccessTitle = isEditMode
-    ? 'อัพเดทประกาศสำเร็จ'
-    : 'สร้างประกาศสำเร็จ';
+    ? tForm('success.update.title')
+    : tForm('success.create.title');
   const modalSuccessMessage = isEditMode
-    ? 'ประกาศของคุณได้รับการอัพเดทเรียบร้อยแล้ว'
-    : 'ประกาศของคุณได้รับการเผยแพร่เป็นสาธารณะแล้ว และจะปรากฏบนหน้าแรกใน 30 นาที';
+    ? tForm('success.update.message')
+    : tForm('success.create.message');
 
   const roleLabel = isAgent ? tCommon('roles.agent') : tCommon('roles.normal');
   const modeLabel = isEditMode
-    ? `แก้ไขประกาศ #${postData.postNumber}`
-    : t('createPost');
+    ? tForm('mode.edit', { postNumber: postData.postNumber })
+    : tForm('mode.create');
   const pageTitle = `${modeLabel} (${roleLabel})`;
 
   const allowCreatePost = isAgent ? isProfileComplete : true;
@@ -191,7 +192,7 @@ const PostForm = ({ postData }) => {
           visible={showSuccessModal}
           title={modalSuccessTitle}
           desc={modalSuccessMessage}
-          buttonCaption="ไปยังประกาศ"
+          buttonCaption={isEditMode ? tForm('success.update.button') : tForm('success.create.button')}
           Icon={CheckIcon}
           onClose={() => {
             setShowSuccessModal(false);
@@ -203,9 +204,9 @@ const PostForm = ({ postData }) => {
         <Modal
           visible={showErrorModal}
           type="warning"
-          title="เกิดข้อผิดพลาด"
+          title={tCommon('error.generic.title')}
           desc={errorMessage}
-          buttonCaption="ตกลง"
+          buttonCaption={tCommon('buttons.ok')}
           Icon={ExclamationIcon}
           onClose={() => {
             setShowErrorModal(false);
