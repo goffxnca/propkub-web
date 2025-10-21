@@ -5,7 +5,6 @@ import { getAssetTypes } from '../../../libs/mappers/assetTypeMapper';
 import { getConditions } from '../../../libs/mappers/conditionMapper';
 import { getPriceUnitList } from '../../../libs/mappers/priceUnitMapper';
 import { getStandardAreaUnits } from '../../../libs/mappers/areaUnitMapper';
-import { minLength, maxLength } from '../../../libs/form-validator';
 import { useValidators } from '../../../hooks/useValidators';
 import CheckboxGroupInput from '../../UI/Public/Inputs/CheckboxGroupInput';
 import {
@@ -35,13 +34,7 @@ const BasicSection = ({
   const { locale } = router;
   const { t } = useTranslation('posts');
   const { t: tForm } = useTranslation('pages/post-form');
-  const {
-    required,
-    min: minValidator,
-    max: maxValidator,
-    minLength: minLengthValidator,
-    maxLength: maxLengthValidator
-  } = useValidators();
+  const { required, min, max, minLength, maxLength } = useValidators();
   const watchAssetType = watch('assetType');
   const watchPostType = watch('postType');
   const watchIsStudio = watch('isStudio');
@@ -80,8 +73,8 @@ const BasicSection = ({
               register={() =>
                 register('title', {
                   ...required(),
-                  ...minLengthValidator(30),
-                  ...maxLengthValidator(120)
+                  ...minLength(30),
+                  ...maxLength(120)
                 })
               }
               unregister={unregister}
@@ -156,8 +149,8 @@ const BasicSection = ({
                   register('price', {
                     ...required(),
                     valueAsNumber: true,
-                    ...minValidator(1),
-                    ...maxValidator(100000000)
+                    ...min(1),
+                    ...max(100000000)
                   })
                 }
                 registerUnit={() =>
@@ -186,8 +179,8 @@ const BasicSection = ({
                     register('area', {
                       ...required(),
                       valueAsNumber: true,
-                      ...minValidator(1),
-                      ...maxValidator(1000000)
+                      ...min(1),
+                      ...max(1000000)
                     })
                   }
                   registerUnit={() =>
@@ -217,8 +210,8 @@ const BasicSection = ({
                     register('land', {
                       ...required(),
                       valueAsNumber: true,
-                      ...minValidator(1),
-                      ...maxValidator(1000000)
+                      ...min(1),
+                      ...max(1000000)
                     })
                   }
                   registerUnit={() =>
@@ -329,8 +322,8 @@ const BasicSection = ({
               info={tForm('fields.desc.info')}
               validation={{
                 ...required(),
-                ...minLengthValidator(200),
-                ...maxLengthValidator(3000)
+                ...minLength(200),
+                ...maxLength(3000)
               }}
               register={register}
               unregister={unregister}
@@ -357,8 +350,8 @@ const BasicSection = ({
               placeholder={tForm('fields.refId.placeholder')}
               register={() =>
                 register('refId', {
-                  ...minLengthValidator(4),
-                  ...maxLengthValidator(20)
+                  ...minLength(4),
+                  ...maxLength(20)
                 })
               }
               unregister={unregister}

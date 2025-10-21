@@ -1,8 +1,10 @@
 import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { useValidators } from '../../../hooks/useValidators';
 
 const ConfirmSection = ({ register, unregister, errors }) => {
   const { t } = useTranslation('pages/post-form');
+  const { required } = useValidators();
 
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -21,7 +23,7 @@ const ConfirmSection = ({ register, unregister, errors }) => {
                 label={t('fields.accept.label')}
                 register={() =>
                   register('accept', {
-                    required: t('fields.accept.validation.required')
+                    ...required()
                   })
                 }
                 unregister={unregister}
