@@ -3,6 +3,7 @@ import Footer from './Footer';
 import Header from './Header';
 import { ReactNode } from 'react';
 import Banner from '../Banner/Banner';
+import { useAnnouncements } from '../../hooks/useAnnouncements';
 // import UserSidebar from "./Sidebar";
 
 interface MainLayoutProps {
@@ -11,6 +12,8 @@ interface MainLayoutProps {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const router = useRouter();
+  const { getFirstActiveAnnouncement } = useAnnouncements();
+  const bannerMessage = getFirstActiveAnnouncement();
 
   const isHomePage = router.pathname === '/';
 
@@ -20,11 +23,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
   return (
     <div>
-      {/* <Banner
-        message={
-          '[อัปเดต 16 กันยายน 2568] อัปโหลดรูปภาพต่อประกาศได้มากขึ้น จาก 8 รูปเป็น 10 รูป'
-        }
-      /> */}
+      {bannerMessage && <Banner message={bannerMessage} />}
 
       <Header />
       <main className="min-h-screen py-4">{children}</main>

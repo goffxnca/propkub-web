@@ -3,10 +3,11 @@ import { SpeakerphoneIcon } from '@heroicons/react/outline';
 interface BannerProps {
   onAction?: () => void;
   onClose?: () => void;
-  message: string;
+  message?: string;
 }
 
 const Banner = ({ onAction, onClose, message }: BannerProps) => {
+  if (!message) return null;
   return (
     <>
       <div className="bg-primary">
