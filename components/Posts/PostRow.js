@@ -1,5 +1,4 @@
 import { ClockIcon } from '@heroicons/react/outline';
-import { LocationMarkerIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
 import TimeAgo from 'timeago-react';
@@ -31,61 +30,34 @@ const PostRow = ({
   const priceWithFormat = price?.toLocaleString();
 
   return (
-    <li>
-      <Link
-        href={postLink}
-        // target="_blank"
-        // rel="noopener noreferrer"
-        className="block hover:bg-gray-50"
-      >
-        <div className="px-4 py-4 sm:px-6">
-          <div className="flex items-center justify-between">
-            <p className="truncate text-sm font-medium text-indigo-600">
-              {title}
-            </p>
-            <div className="ml-2 flex flex-shrink-0">
-              <p className="inline-flex rounded-full bg-green-100 px-2 text-xs font-semibold leading-5 text-green-800">
-                {badgeLabel}
-              </p>
+    <li className="group h-full">
+      <Link href={postLink} className="block cursor-pointer h-full">
+        <div className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
+          <div className="flex items-start justify-between mb-2">
+            <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700">
+              ฿{priceWithFormat} {priceUnitFormat}
+            </span>
+            <div className="flex items-center text-xs text-gray-400 gap-1">
+              <ClockIcon className="w-3 h-3" />
+              <TimeAgo datetime={createdAt} locale="th" />
             </div>
           </div>
-          <div className="mt-2 sm:flex sm:justify-between">
-            <div className="sm:flex">
-              <p className="flex items-center text-md text-gray-500">
-                {/* <CurrencyDollarIcon
-                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                    aria-hidden="true"
-                  /> */}
-                ฿{priceWithFormat} {priceUnitFormat}
-              </p>
-              <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-                <LocationMarkerIcon
-                  className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
-                  aria-hidden="true"
-                />
-                {addressFormat}
-              </p>
-            </div>
 
-            <div className="flex gap-x-10">
-              {/* <div className="mt-2 flex items-center text-sm text-gray-300 sm:mt-0">
-                  <UserIcon
-                    className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-300"
-                    aria-hidden="true"
-                  />
-                  <p>{createdBy?.name}</p>
-                </div> */}
+          <p className="text-sm font-medium text-gray-500 mb-1">
+            {addressFormat}
+          </p>
 
-              <div className="mt-2 flex items-center text-sm text-gray-400 sm:mt-0">
-                <ClockIcon
-                  className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-300"
-                  aria-hidden="true"
-                />
-                <p>
-                  <TimeAgo datetime={createdAt} locale="th" />
-                </p>
-              </div>
-            </div>
+          <p className="text-base text-gray-900 mb-3 line-clamp-2 leading-relaxed flex-grow">
+            {title}
+          </p>
+
+          <div className="flex items-baseline gap-1 mt-auto">
+            <span className="text-lg font-semibold text-gray-900">
+              ฿{priceWithFormat}
+            </span>
+            {priceUnitFormat && (
+              <span className="text-sm text-gray-500">{priceUnitFormat}</span>
+            )}
           </div>
         </div>
       </Link>

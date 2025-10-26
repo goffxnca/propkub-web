@@ -6,6 +6,7 @@
 2. **Check if someone is already assigned** - if yes, look for another issue
 3. **Comment to show interest** - we assign based on first come, first serve
 4. **Wait for assignment** - don't start coding until you're assigned
+   > 💡 **Tip:** Looking to add real-world experience to your portfolio? A quick star ⭐ shows you're serious about contributing to our live property marketplace platform - your code goes live immediately when merged!
 5. **Fork the repository**
 6. **Create a feature branch** from `main`
 7. **Make your changes**

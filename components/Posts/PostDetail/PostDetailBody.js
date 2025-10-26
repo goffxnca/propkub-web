@@ -2,6 +2,7 @@ import { getIcon } from '../../../libs/mappers/iconMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useMemo } from 'react';
+import { useState } from 'react';
 import Heading from '../../UI/Public/Heading';
 import LineBreak from '../../UI/Public/LineBreak';
 import PostMap from '../PostMap';
@@ -18,6 +19,7 @@ import { ChartBarIcon } from '@heroicons/react/outline';
 import { SANITIZE_OPTIONS } from '../../../libs/constants';
 import { getLocalDateByISODateString } from '../../../libs/date-utils';
 import { useRouter } from 'next/router';
+import PostImageLightbox from '../PostImageLightbox';
 
 const PostDetailBody = ({ post, postViews, images }) => {
   const { t } = useTranslation('posts');
@@ -25,6 +27,13 @@ const PostDetailBody = ({ post, postViews, images }) => {
   const router = useRouter();
   const locale = router.locale;
 
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (index) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
   const studioSpec = post?.isStudio
     ? [
         {
@@ -232,21 +241,33 @@ const PostDetailBody = ({ post, postViews, images }) => {
         )}
       </div>
 
-      <LineBreak />
-      <div className="wysiwyg-content">
-        <Heading size="2" label={t('sections.images')} />
-        <div className="">
-          {images.map((image, index) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              key={index}
-              src={image.original}
-              className="mx-auto mt-2"
-              alt=""
-            ></img>
-          ))}
-        </div>
-      </div>
+      {images.length > 0 && (
+        <>
+          <LineBreak />
+          <div>
+            <Heading size="2" label={`รูปภาพทั้งหมด (${images.length} รูป)`} />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              {images.map((image, index) => (
+                <div
+                  key={index}
+                  onClick={() => openLightbox(index)}
+                  className="relative aspect-square group cursor-pointer overflow-hidden rounded-lg shadow-sm hover:shadow-md transition-all"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={image.original}
+                    alt={`Property ${index + 1}`}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute top-2 left-2 bg-black/20 text-white text-xs px-1.5 py-0.5 rounded font-normal">
+                    {index + 1}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      )}
 
       <LineBreak />
       <div>
@@ -266,6 +287,13 @@ const PostDetailBody = ({ post, postViews, images }) => {
           </div> */}
         </div>
       </div>
+
+      <PostImageLightbox
+        images={images}
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        initialIndex={lightboxIndex}
+      />
     </div>
   );
 };
