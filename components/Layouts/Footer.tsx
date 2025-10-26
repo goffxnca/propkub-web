@@ -84,7 +84,7 @@ const Footer = () => {
           {t('footer.copyright')}
         </p>
         <div className="text-gray-400 text-sm text-center mt-2">
-          <span className="text-xs ml-2 text-gray-200">
+          <span className="text-xs ml-2 text-gray-300">
             {t('footer.version', {
               version: publicRuntimeConfig.version,
               commit: process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA?.substring(
