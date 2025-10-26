@@ -133,7 +133,7 @@ const LocationSection = ({
       setSubDistrictLabel(subDistrictLabel);
       if (distictLabel !== '-' && subDistrictLabel !== '-') {
         if (watchAddressSearch) {
-          //Render map with typed address ex.คอนโด Ideo O2 (User can pinned the map at place which is not belong to district or subdistrict, it's okay we are accept this to happen)
+          //Render map with typed address ex. Condo Ideo Mobi Sukhumvit Eastgate (User can pinned the map at place which is not belong to district or subdistrict, it's okay we are accept this to happen)
           setAddress(`${watchAddressSearch}__search`); //with __search, means render map for the searched place and auto pin the map,
           // without __search means render the map area of specific subDistrict without pinning the map
 
@@ -146,7 +146,7 @@ const LocationSection = ({
           // );
           setMapSearchQuotaRemaining((prevCount) => prevCount - 1);
         } else {
-          //Render map at an area of specific subdistrict ex.แขวงจุมพล เขตจตุจักร
+          //Render map at an area of specific subdistrict ex. Jompol, Chatuchak
           setAddress(
             `${getSubDistrictPrefix(isBangkok)}${subDistrictLabel} ${getDistrictPrefix(
               isBangkok
@@ -391,10 +391,10 @@ const LocationSection = ({
                     {/* {watchAddressLocation && (
                     <div className="relative">
                       <div className="text-sm text-gray-500 mt-2">
-                        ด้านล่างเป็นแผนที่ StreetView จากตำแหน่งที่คุณปักหมุด
-                        ซึ่งจะถูกแสดงบนประกาศมุมและองศาตรงตามนี้เลย
-                        หากเลื่อนซ้ายขวาแล้วไม่เจอ
-                        แสดงว่าคุณต้องปักหมุดใกล้กว่านี้อีก
+                        The StreetView map below shows from the location you pinned
+                        and will be displayed on the listing at this exact angle
+                        If you cannot find it by panning left/right,
+                        you need to pin the map closer
                       </div>
 
                       <PostMap
@@ -414,7 +414,7 @@ const LocationSection = ({
                               });
                             }}
                           >
-                            หมุนซ้าย
+                            Rotate Left
                           </div>
                         </div>
 
@@ -428,7 +428,7 @@ const LocationSection = ({
                               });
                             }}
                           >
-                            หมุนขวา
+                            Rotate Right
                           </div>
                         </div>
                       </div>

@@ -28,7 +28,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
     } catch (error) {
       console.error('Failed to close post:', error);
       setLoading(false);
-      setErrorMessage('เกิดข้อผิดพลาดในการปิดประกาศ กรุณาลองใหม่อีกครั้ง');
+      setErrorMessage(tCommon('error.generic.description'));
       setShowErrorModal(true);
     }
   };
