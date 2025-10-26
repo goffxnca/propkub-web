@@ -3,7 +3,7 @@ import { envConfig } from '../../libs/envConfig';
 const LinkGoogleAccountButton = ({
   currentUserEmail,
   size = 'sm',
-  buttonText
+  buttonText = ''
 }) => {
   const handleGoogleLinking = () => {
     if (!currentUserEmail) {

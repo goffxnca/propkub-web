@@ -4,7 +4,7 @@ import FacebookIcon from '../Icons/FacebookIcon';
 const LinkFacebookAccountButton = ({
   currentUserEmail,
   size = 'sm',
-  buttonText
+  buttonText = ''
 }) => {
   const handleFacebookLinking = () => {
     if (!currentUserEmail) {
