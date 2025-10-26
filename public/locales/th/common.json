@@ -65,7 +65,9 @@
     "generic": "กำลังโหลด..."
   },
   "pagination": {
-    "showing": "แสดง {{start}} ถึง {{end}} จาก {{total}} รายการ"
+    "showing": "แสดง {{start}} ถึง {{end}} จาก {{total}} รายการ",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป"
   },
   "footer": {
     "copyright": "สงวนลิขสิทธิ์ © 2025 PropKub.com",

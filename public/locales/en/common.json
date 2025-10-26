@@ -65,7 +65,9 @@
     "generic": "Loading..."
   },
   "pagination": {
-    "showing": "Showing {{start}} to {{end}} of {{total}} items"
+    "showing": "Showing {{start}} to {{end}} of {{total}} items",
+    "previous": "Previous",
+    "next": "Next"
   },
   "footer": {
     "copyright": "Copyright © 2025 PropKub.com - All rights reserved",

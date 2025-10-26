@@ -68,14 +68,14 @@ const Pagination = ({
           disabled={!hasPrevPage}
           className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          ก่อนหน้า
+          {t('pagination.previous')}
         </button>
         <button
           onClick={nextPage}
           disabled={!hasNextPage}
           className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          ถัดไป
+          {t('pagination.next')}
         </button>
       </div>
 
@@ -100,7 +100,7 @@ const Pagination = ({
               disabled={!hasPrevPage}
               className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span className="sr-only">Previous</span>
+              <span className="sr-only">{t('pagination.previous')}</span>
               <ChevronLeftIcon aria-hidden="true" className="h-5 w-5" />
             </button>
 
@@ -134,7 +134,7 @@ const Pagination = ({
               disabled={!hasNextPage}
               className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-gray-300 ring-inset hover:bg-gray-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span className="sr-only">Next</span>
+              <span className="sr-only">{t('pagination.next')}</span>
               <ChevronRightIcon aria-hidden="true" className="h-5 w-5" />
             </button>
           </nav>
