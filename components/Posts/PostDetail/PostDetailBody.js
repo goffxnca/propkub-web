@@ -9,7 +9,7 @@ import PostMap from '../PostMap';
 import SizeIcon from '../../Icons/SizeIcon';
 import SpecItem from '../Specs/SpecItem';
 import LocationIcon from '../../Icons/LocationIcon';
-import { formatAddressFull } from '../../../libs/formatters/addressFomatter';
+import { formatAddressFull } from '../../../libs/formatters/addressFormatter';
 import YoutubeIframe from '../../UI/Public/YoutubeIframe';
 import { getAreaUnitLabel } from '../../../libs/mappers/areaUnitMapper';
 import sanitizeHtml from 'sanitize-html';
@@ -283,7 +283,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
 
           {/* <div className="flex items-center text-gray-500 hover:text-gray-900 cursor-pointer w-1/2">
             <InformationCircleIcon className="w-5 h-5" />
-            <p className="text-base font-medium ml-1">รายงานประกาศ</p>
+            <p className="text-base font-medium ml-1">Report Listing</p>
           </div> */}
         </div>
       </div>

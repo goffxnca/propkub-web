@@ -4,14 +4,14 @@ const PostMap = ({
   lng = 100.53829,
   heading = 0
 }) => {
-  const baseGoogleMapEmbededAPIUrl = `https://www.google.com/maps/embed/v1/${mode}?key=${process.env.NEXT_PUBLIC_GGMAP_API_KEY}`;
+  const baseGoogleMapEmbeddedAPIUrl = `https://www.google.com/maps/embed/v1/${mode}?key=${process.env.NEXT_PUBLIC_GGMAP_API_KEY}`;
   const params =
     mode === 'place'
       ? `&q=${lat},${lng}&maptype=satellite`
       : mode === 'streetview' &&
         `&location=${lat},${lng}&heading=${heading}&pitch=10&fov=100`;
   const fullUrl =
-    baseGoogleMapEmbededAPIUrl + params + '&language=th&region=TH';
+    baseGoogleMapEmbeddedAPIUrl + params + '&language=th&region=TH';
   return (
     <div className="google-maps">
       <iframe

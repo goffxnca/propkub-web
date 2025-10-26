@@ -1,6 +1,6 @@
 import { IconProps } from './types';
 
-const BownRiceIcon = ({ className }: IconProps) => {
+const BrownRiceIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +15,5 @@ const BownRiceIcon = ({ className }: IconProps) => {
   );
 };
 
-export default BownRiceIcon;
+export default BrownRiceIcon;
+

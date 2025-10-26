@@ -15,7 +15,7 @@ import SwimIcon from '../../components/Icons/SwimIcon';
 import BoxIcon from '../../components/Icons/BoxIcon';
 import SofaIcon from '../../components/Icons/SofaIcon';
 import TemperatureIcon from '../../components/Icons/TemperatureIcon';
-import BownRiceIcon from '../../components/Icons/BownRiceIcon';
+import BrownRiceIcon from '../../components/Icons/BrownRiceIcon';
 import LockIcon from '../../components/Icons/LockIcon';
 import DoorOpenIcon from '../../components/Icons/DoorOpenIcon';
 import ClubIcon from '../../components/Icons/ClubIcon';
@@ -64,7 +64,7 @@ const icons: Icons = {
   sofa: SofaIcon,
   tv: TvIcon,
   fridge: SnowFlakeIcon,
-  microwave: BownRiceIcon,
+  microwave: BrownRiceIcon,
   ddl: LockIcon,
   balcony: DoorOpenIcon,
   club: ClubIcon,

@@ -13,7 +13,7 @@ import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton
 import Modal from '../../UI/Public/Modal';
 import ForgotPasswordModal from '../ForgotPasswordModal';
 
-const SiginInForm = () => {
+const SigninForm = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const { t } = useTranslation('pages/login');
   const { t: tCommon } = useTranslation('common');
@@ -225,4 +225,4 @@ const SiginInForm = () => {
   );
 };
 
-export default SiginInForm;
+export default SigninForm;

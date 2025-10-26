@@ -1,6 +1,6 @@
 import { ClockIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import { formatAddress } from '../../libs/formatters/addressFomatter';
+import { formatAddress } from '../../libs/formatters/addressFormatter';
 import TimeAgo from 'timeago-react';
 import { useTranslation } from '../../hooks/useTranslation';
 import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';

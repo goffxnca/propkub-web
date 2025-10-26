@@ -12,7 +12,7 @@ import {
 import {
   getDistrictPrefix,
   getSubDistrictPrefix
-} from '../../../libs/formatters/addressFomatter';
+} from '../../../libs/formatters/addressFormatter';
 import PostMap from '../../../components/Posts/PostMap';
 import { envConfig } from '../../../libs/envConfig';
 import { useTranslation } from '../../../hooks/useTranslation';
@@ -124,14 +124,14 @@ const LocationSection = ({
   const renderMap = () => {
     if (watchSubDistrictId && mapSearchQuotaRemaining) {
       const districtElem = document.getElementById('address.districtId');
-      const distictLabel = districtElem.item(districtElem.selectedIndex).label;
+      const districtLabel = districtElem.item(districtElem.selectedIndex).label;
       const subDistrictElem = document.getElementById('address.subDistrictId');
       const subDistrictLabel = subDistrictElem.item(
         subDistrictElem.selectedIndex
       ).label;
 
       setSubDistrictLabel(subDistrictLabel);
-      if (distictLabel !== '-' && subDistrictLabel !== '-') {
+      if (districtLabel !== '-' && subDistrictLabel !== '-') {
         if (watchAddressSearch) {
           //Render map with typed address ex. Condo Ideo Mobi Sukhumvit Eastgate (User can pinned the map at place which is not belong to district or subdistrict, it's okay we are accept this to happen)
           setAddress(`${watchAddressSearch}__search`); //with __search, means render map for the searched place and auto pin the map,
@@ -142,7 +142,7 @@ const LocationSection = ({
           //     isBangkok
           //   )}${subDistrictLabel} ${getDistrictPrefix(
           //     isBangkok
-          //   )}${distictLabel}`
+          //   )}${districtLabel}`
           // );
           setMapSearchQuotaRemaining((prevCount) => prevCount - 1);
         } else {
@@ -150,7 +150,7 @@ const LocationSection = ({
           setAddress(
             `${getSubDistrictPrefix(isBangkok)}${subDistrictLabel} ${getDistrictPrefix(
               isBangkok
-            )}${distictLabel}`
+            )}${districtLabel}`
           );
         }
       }

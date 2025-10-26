@@ -84,15 +84,6 @@ const Footer = () => {
           {t('footer.copyright')}
         </p>
         <div className="text-gray-400 text-sm text-center mt-2">
-          {/* Developed By{" "}
-          <a
-            href="https://webfessional.com"
-            target="_blank"
-            rel="noreferrer"
-            className="text-blue-300 underline"
-          >
-            WebFessional
-          </a> */}
           <span className="text-xs ml-2 text-gray-200">
             {t('footer.version', {
               version: publicRuntimeConfig.version,

@@ -1,5 +1,5 @@
 import { getIcon } from '../../libs/mappers/iconMapper';
-import { formatAddress } from '../../libs/formatters/addressFomatter';
+import { formatAddress } from '../../libs/formatters/addressFormatter';
 import { useMemo } from 'react';
 import Link from 'next/link';
 import SpecItemWithCircle from './Specs/SpecItemWithCircle';

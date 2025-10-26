@@ -5,7 +5,7 @@ import sanitizeHtml from 'sanitize-html';
 import { getCondition } from '../../../libs/mappers/conditionMapper';
 import { getAreaUnitById } from '../../../libs/mappers/areaUnitMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
-import { formatAddressFull } from '../../../libs/formatters/addressFomatter';
+import { formatAddressFull } from '../../../libs/formatters/addressFormatter';
 import { getSpecLabel, getSpecsArray } from '../../../libs/mappers/specMapper';
 import { orDefault } from '../../../libs/string-utils';
 import { getDateString } from '../../../libs/date-utils';
