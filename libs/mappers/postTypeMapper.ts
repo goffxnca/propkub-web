@@ -13,10 +13,18 @@ const getPostTypes = (locale: Locale = 'th'): PostType[] => {
   }));
 };
 
-const getPostTypeLabel = (postTypeId: string, locale: Locale = 'th'): string => {
+const getPostTypeLabel = (
+  postTypeId: string,
+  locale: Locale = 'th',
+  withEnglishPrefix: false
+): string => {
   const postType = postTypes.find((p) => p.id === postTypeId);
   if (!postType) return '';
-  return locale === 'en' ? postType.labelEN : postType.labelTH;
+  return locale === 'en'
+    ? withEnglishPrefix
+      ? 'For ' + postType.labelEN
+      : postType.labelEN
+    : postType.labelTH;
 };
 
 export { getPostTypes, getPostTypeLabel };

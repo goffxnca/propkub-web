@@ -126,6 +126,14 @@
     "details": "Details",
     "facilities": "Facilities",
     "images": "Images",
-    "location": "Location"
+    "location": "Location",
+    "video": "Video"
+  },
+  "details": {
+    "type": "Type",
+    "createdAt": "Listed Date",
+    "updatedAt": "Last Updated",
+    "streetviewNote": "Below is the Google Map Street View at the pinned location. You can pan left/right to see the surrounding area. (Please note that in some cases/areas, the images may not reflect the current year.)",
+    "views": "Views"
   }
 }
