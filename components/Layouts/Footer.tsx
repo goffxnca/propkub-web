@@ -5,11 +5,11 @@ const { publicRuntimeConfig } = getConfig();
 
 const navigation = {
   main: [
-    { name: 'เกี่ยวกับเรา', href: '/about' },
-    { name: 'บทความ', href: '/blog' },
-    { name: 'ร่วมงานกับเรา', href: '/career' },
-    { name: 'คำถามที่พบบ่อย', href: '/faq' },
-    { name: 'ติดต่อเรา', href: '/contact' }
+    { name: 'About Us', href: '/about' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Career', href: '/career' },
+    { name: 'FAQ', href: '/faq' },
+    { name: 'Contact Us', href: '/contact' }
   ],
   social: [
     {
