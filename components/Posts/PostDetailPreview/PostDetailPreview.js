@@ -5,7 +5,7 @@ import { getCondition } from '../../../libs/mappers/conditionMapper';
 import { getAreaUnitById } from '../../../libs/mappers/areaUnitMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 import { formatAddressFull } from '../../../libs/formatters/addressFomatter';
-import { getSpecLabel } from '../../../libs/mappers/specMapper';
+import { getSpecLabel, getSpecsArray } from '../../../libs/mappers/specMapper';
 import { orDefault } from '../../../libs/string-utils';
 import PostDetailStats from './PostDetailStats';
 import PostActionConsole from './PostActionConsole';
@@ -238,7 +238,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
               <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
                 <dt className="text-sm font-medium text-gray-500">
-                  {tPosts('fields.specs')}
+                  {tPosts('fields.specs.label')}
                 </dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
                   {specs}
