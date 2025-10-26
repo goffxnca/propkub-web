@@ -1,0 +1,26 @@
+{
+  "timeline": {
+    "title": "Post Timeline",
+    "by": "By {{name}}"
+  },
+  "stats": {
+    "title": "Statistics"
+  },
+  "actions": {
+    "edit": "Edit Post",
+    "view": "View Post",
+    "close": "Close Post"
+  },
+  "confirm": {
+    "close": {
+      "title": "Close Post",
+      "description": "Are you sure you want to close this post?"
+    }
+  },
+  "success": {
+    "close": {
+      "title": "Post Closed",
+      "description": "Your post has been closed and will be removed from the homepage within 30 minutes."
+    }
+  }
+}

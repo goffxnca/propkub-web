@@ -1,0 +1,16 @@
+{
+  "processing": "Signing in...",
+  "errors": {
+    "emailMismatch": "Connection failed. Please use the {{provider}} account linked to: {{email}}",
+    "linkingFailed": "Failed to connect account. Please try again",
+    "alreadyLinked": "This {{provider}} account is already connected. Please refresh the page",
+    "oauthCancelled": "{{provider}} account connection was cancelled",
+    "loginFailed": "Sign in failed. Please try again",
+    "processingFailed": "An error occurred during sign in. Please try again"
+  },
+  "success": {
+    "title": "{{provider}} Account Connected!",
+    "description": "You can now sign in with this {{provider}} account next time"
+  }
+}
+

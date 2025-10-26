@@ -5,9 +5,12 @@ import { useRouter } from 'next/router';
 import Confirm from '../../UI/Public/Modals/Confirm';
 import Modal from '../../UI/Public/Modal';
 import { apiClient } from '../../../libs/client';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const PostActionConsole = ({ postId, postSlug, postStatus }) => {
   const router = useRouter();
+  const { t: tPage } = useTranslation('pages/account-post');
+  const { t: tCommon } = useTranslation('common');
 
   const [loading, setLoading] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -42,7 +45,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
               router.push(`/account/posts/edit/${postId}`);
             }}
           >
-            แก้ไขประกาศ
+            {tPage('actions.edit')}
           </Button>
         )}
 
@@ -53,7 +56,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
             window.open(`/property/${postSlug}`);
           }}
         >
-          แสดงประกาศ
+          {tPage('actions.view')}
         </Button>
         {postStatus === 'active' && (
           <Button
@@ -63,16 +66,16 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
               setShowConfirmModal(true);
             }}
           >
-            ปิดประกาศ
+            {tPage('actions.close')}
           </Button>
         )}
       </div>
 
       <Modal
         visible={showSuccessModal}
-        title="ปิดประกาศสำเร็จ"
-        desc="ประกาศของคุณถูกปิดใช้งานเรียบร้อยแล้ว และจะถูกนำออกจากหน้าแรกใน 30 นาที"
-        buttonCaption="ตกลง"
+        title={tPage('success.close.title')}
+        desc={tPage('success.close.description')}
+        buttonCaption={tCommon('buttons.ok')}
         Icon={CheckIcon}
         onClose={() => {
           router.reload();
@@ -81,8 +84,10 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
 
       <Confirm
         visible={showConfirmModal}
-        title="ปิดประกาศ"
-        desc="คุณยืนยันว่าคุณต้องการปิดประกาศนี้ใช่หรือไม่?"
+        title={tPage('confirm.close.title')}
+        desc={tPage('confirm.close.description')}
+        buttonCancelLabel={tCommon('buttons.cancel')}
+        buttonConfirmLabel={tCommon('buttons.confirm')}
         onConfirm={closePostHandler}
         onClose={() => {
           setShowConfirmModal(false);
@@ -93,9 +98,9 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
         visible={showErrorModal}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={errorMessage}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={() => {
           setShowErrorModal(false);
           setErrorMessage('');

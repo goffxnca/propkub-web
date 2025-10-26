@@ -1,0 +1,13 @@
+{
+  "Unauthorized": "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
+  "Email already registered": "อีเมลนี้ถูกใช้งานแล้ว",
+  "This account was registered with Google": "บัญชีนี้ลงทะเบียนด้วย Google กรุณาคลิก \"ล็อกอินด้วย Google\" เพื่อเข้าสู่ระบบ",
+  "This account was registered with Facebook": "บัญชีนี้ลงทะเบียนด้วย Facebook กรุณาคลิก \"ล็อกอินด้วย Facebook\" เพื่อเข้าสู่ระบบ",
+  "Invalid or expired reset token": "ลิ้งค์รีเซ็ตรหัสผ่านไม่ถูกต้องหรือหมดอายุ",
+  "Reset token is valid": "โทเค็นรีเซ็ตถูกต้อง",
+  "Password has been reset successfully": "รหัสผ่านถูกรีเซ็ตเรียบร้อยแล้ว",
+  "Current password is incorrect": "รหัสผ่านปัจจุบันไม่ถูกต้อง",
+  "Password has been updated successfully": "รหัสผ่านได้รับการอัปเดตเรียบร้อยแล้ว",
+  "Failed to update password": "ไม่สามารถอัปเดตรหัสผ่านได้",
+  "_generic": "เกิดข้อผิดพลาด กรุณาลองใหม่"
+}

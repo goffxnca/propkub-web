@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 import { apiClient } from '../libs/client';
 import { tokenManager } from '../libs/tokenManager';
-import { t } from '../libs/translator';
+import { translateServerError } from '../libs/serverErrorTranslator';
 
 const initialContext = {
   user: null,
@@ -28,6 +28,7 @@ const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
+  const { locale } = router;
 
   useEffect(() => {
     const initializeAuth = async () => {
@@ -66,7 +67,7 @@ const AuthContextProvider = ({ children }) => {
       setUser(userProfile);
       setLoading(false);
     } catch (error) {
-      const errorMessage = t(error.message);
+      const errorMessage = translateServerError(error.message, locale);
       setError(errorMessage);
       setLoading(false);
       console.error('[Auth] Login failed:', error.message);
@@ -89,7 +90,7 @@ const AuthContextProvider = ({ children }) => {
       setUser(userProfile);
       setLoading(false);
     } catch (error) {
-      const errorMessage = t(error.message);
+      const errorMessage = translateServerError(error.message, locale);
       setError(errorMessage);
       setLoading(false);
       console.error('[Auth] Signup failed:', error.message);

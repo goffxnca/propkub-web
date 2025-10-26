@@ -9,12 +9,16 @@ import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { apiClient } from '../../libs/client';
 import { authContext } from '../../contexts/authContext';
-import { MobilePhonePattern, LineIdPattern } from '../../libs/form-validator';
+import { useValidators } from '../../hooks/useValidators';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Modal from '../UI/Public/Modal';
 import { getLineUrl } from '../../libs/string-utils';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const ContactInfoSection = ({ user }) => {
+  const { t } = useTranslation('pages/profile');
+  const { t: tCommon } = useTranslation('common');
+  const { MobilePhonePattern, LineIdPattern, required } = useValidators();
   const { setUser } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -62,7 +66,7 @@ const ContactInfoSection = ({ user }) => {
       setIsEditing(false);
     } catch (error) {
       console.error('Failed to save contact info:', error);
-      setApiError(error.message || 'เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      setApiError(tCommon('error.generic.description'));
     } finally {
       setIsSaving(false);
     }
@@ -88,10 +92,10 @@ const ContactInfoSection = ({ user }) => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-medium leading-6 text-gray-900">
-                📞 ข้อมูลการติดต่อ
+                📞 {t('sections.contact.title')}
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                ข้อมูลที่ผู้สนใจประกาศสามารถติดต่อคุณได้
+                {t('sections.contact.subtitle')}
               </p>
             </div>
             {!isEditing && (
@@ -111,13 +115,13 @@ const ContactInfoSection = ({ user }) => {
               {/* Edit Form */}
               <TextInput
                 id="phone"
-                label="หมายเลขโทรศัพท์มือถือ"
+                label={t('sections.contact.phone')}
                 type="tel"
                 disabled={isSaving}
                 register={() =>
                   register('phone', {
-                    required: 'กรุณาระบุหมายเลขโทรศัพท์มือถือ',
-                    pattern: MobilePhonePattern('หมายเลขโทรศัพท์มือถือ')
+                    ...required(),
+                    ...MobilePhonePattern()
                   })
                 }
                 unregister={unregister}
@@ -127,17 +131,17 @@ const ContactInfoSection = ({ user }) => {
 
               <TextInput
                 id="line"
-                label="ไลน์ไอดี"
+                label={t('sections.contact.line')}
                 disabled={isSaving}
                 register={() =>
                   register('line', {
-                    required: 'กรุณาระบุไลน์ไอดี',
-                    pattern: LineIdPattern('ไลน์ไอดี')
+                    ...required(),
+                    ...LineIdPattern()
                   })
                 }
                 unregister={unregister}
                 error={errors.line}
-                placeholder="somchai149_property (ระบุเครื่องหมาย @ ถ้ามี)"
+                placeholder={t('sections.contact.linePlaceholder')}
               />
 
               {/* Save/Cancel Buttons */}
@@ -148,7 +152,9 @@ const ContactInfoSection = ({ user }) => {
                   className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
                   <CheckIcon className="w-4 h-4 mr-1" />
-                  {isSaving ? 'กำลังบันทึก...' : 'บันทึก'}
+                  {isSaving
+                    ? tCommon('actions.submitting')
+                    : tCommon('actions.submit')}
                 </button>
                 <button
                   type="button"
@@ -157,7 +163,7 @@ const ContactInfoSection = ({ user }) => {
                   className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                 >
                   <XIcon className="w-4 h-4 mr-1" />
-                  ยกเลิก
+                  {tCommon('buttons.cancel')}
                 </button>
               </div>
             </form>
@@ -169,7 +175,7 @@ const ContactInfoSection = ({ user }) => {
                   {user.phone && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        หมายเลขโทรศัพท์มือถือ
+                        {t('sections.contact.phone')}
                       </label>
                       <div className="mt-1 flex items-center space-x-2">
                         <PhoneIcon className="w-4 h-4 text-gray-400" />
@@ -180,7 +186,7 @@ const ContactInfoSection = ({ user }) => {
                           href={`tel:${user.phone}`}
                           className="text-sm text-blue-600 hover:text-blue-500"
                         >
-                          โทร
+                          {t('sections.contact.phoneAction')}
                         </a>
                       </div>
                     </div>
@@ -190,7 +196,7 @@ const ContactInfoSection = ({ user }) => {
                   {user.line && (
                     <div>
                       <label className="block text-sm font-medium text-gray-700">
-                        ไลน์ไอดี
+                        {t('sections.contact.line')}
                       </label>
                       <div className="mt-1 flex items-center space-x-2">
                         <svg
@@ -209,7 +215,7 @@ const ContactInfoSection = ({ user }) => {
                           rel="noopener noreferrer"
                           className="text-sm text-green-600 hover:text-green-500"
                         >
-                          เปิด LINE
+                          {t('sections.contact.lineAction')}
                         </a>
                       </div>
                     </div>
@@ -221,10 +227,10 @@ const ContactInfoSection = ({ user }) => {
                     <PhoneIcon className="mx-auto h-12 w-12" />
                   </div>
                   <h3 className="mt-2 text-sm font-medium text-gray-900">
-                    ยังไม่มีข้อมูลการติดต่อ
+                    {t('sections.contact.noContact.title')}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
-                    กรุณาเพิ่มข้อมูลการติดต่อเพื่อให้ผู้สนใจสามารถติดต่อคุณได้
+                    {t('sections.contact.noContact.description')}
                   </p>
                 </div>
               )}
@@ -238,9 +244,9 @@ const ContactInfoSection = ({ user }) => {
         visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={apiError}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={handleCloseApiErrorModal}
       />
     </div>

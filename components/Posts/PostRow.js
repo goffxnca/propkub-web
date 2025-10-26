@@ -1,10 +1,9 @@
 import { ClockIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import { getPostType } from '../../libs/mappers/postTypeMapper';
-import { getAssetType } from '../../libs/mappers/assetTypeMapper';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
-import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 import TimeAgo from 'timeago-react';
+import { useTranslation } from '../../hooks/useTranslation';
+import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 
 const PostRow = ({
   postType,
@@ -16,11 +15,18 @@ const PostRow = ({
   address,
   createdAt
 }) => {
+  const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
+
   const postLink = `/property/${slug}`;
-  const postTypeFormat = getPostType(postType);
-  const assetTypeFormat = getAssetType(assetType);
+  const badgeLabel = t('card.badge', {
+    postType: t(`postTypes.${postType}`),
+    assetType: t(`assetTypes.${assetType}`)
+  });
   const addressFormat = formatAddress(address);
-  const priceUnitFormat = priceUnit ? ` / ${getPriceUnit(priceUnit)}` : '';
+  const priceUnitFormat = priceUnit
+    ? ` / ${getPriceUnit(priceUnit, tCommon)}`
+    : '';
   const priceWithFormat = price?.toLocaleString();
 
   return (
@@ -29,7 +35,7 @@ const PostRow = ({
         <div className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
           <div className="flex items-start justify-between mb-2">
             <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700">
-              {postTypeFormat}{assetTypeFormat}
+              ฿{priceWithFormat} {priceUnitFormat}
             </span>
             <div className="flex items-center text-xs text-gray-400 gap-1">
               <ClockIcon className="w-3 h-3" />
@@ -50,9 +56,7 @@ const PostRow = ({
               ฿{priceWithFormat}
             </span>
             {priceUnitFormat && (
-              <span className="text-sm text-gray-500">
-                {priceUnitFormat}
-              </span>
+              <span className="text-sm text-gray-500">{priceUnitFormat}</span>
             )}
           </div>
         </div>

@@ -6,6 +6,7 @@ import {
   ShareIcon,
   BookmarkIcon
 } from '@heroicons/react/outline';
+import { useTranslation } from '../../hooks/useTranslation';
 
 interface Link {
   href: string;
@@ -40,10 +41,13 @@ const Stats = ({
   totalShares,
   totalPins
 }: StatsProps) => {
+  const { t: tDashboard } = useTranslation('pages/dashboard');
+  const { t: tPosts } = useTranslation('posts');
+  
   const stats: StatItem[] = [
     {
       id: 1,
-      name: 'ประกาศของฉันทั้งหมด',
+      name: tDashboard('stats.totalPosts'),
       stat: totalCount,
       icon: DocumentDuplicateIcon,
       change: '122',
@@ -51,7 +55,7 @@ const Stats = ({
     },
     {
       id: 2,
-      name: 'เข้าชม (ครั้ง)',
+      name: tPosts('fields.stats.views.post'),
       stat: totalPostViews,
       icon: EyeIcon,
       change: '5.4%',
@@ -59,7 +63,7 @@ const Stats = ({
     },
     {
       id: 3,
-      name: 'กดดูเบอร์ (ครั้ง)',
+      name: tPosts('fields.stats.views.phone'),
       stat: totalPhoneViews,
       icon: PhoneIcon,
       change: '3.2%',
@@ -68,7 +72,7 @@ const Stats = ({
     },
     {
       id: 4,
-      name: 'กดดูไลน์ (ครั้ง)',
+      name: tPosts('fields.stats.views.line'),
       stat: totalLineViews,
       icon: ChatIcon,
       change: '3.2%',
@@ -77,7 +81,7 @@ const Stats = ({
     },
     {
       id: 5,
-      name: 'แชร์',
+      name: tPosts('fields.stats.shares'),
       stat: totalShares,
       icon: ShareIcon,
       change: '3.2%',
@@ -86,7 +90,7 @@ const Stats = ({
     },
     {
       id: 6,
-      name: 'บันทึก',
+      name: tPosts('fields.stats.pins'),
       stat: totalPins,
       icon: BookmarkIcon,
       change: '3.2%',
@@ -111,7 +115,7 @@ const Stats = ({
               <div className="absolute rounded-md bg-indigo-500 p-3">
                 <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
               </div>
-              <p className="ml-16 truncate text-sm font-medium text-gray-500">
+              <p className="ml-16 line-clamp-2 text-sm font-medium text-gray-500">
                 {item.name}
               </p>
             </dt>

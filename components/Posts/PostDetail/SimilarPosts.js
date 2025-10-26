@@ -1,11 +1,14 @@
 import Heading from '../../UI/Public/Heading';
 import SimilarPostItem from './SimilarPostItem';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const SimilarPosts = ({ similarPosts }) => {
+  const { t } = useTranslation('posts');
+  
   return (
     <>
       <div className="">
-        <Heading size="2" label="ประกาศที่คล้ายกัน" />
+        <Heading size="2" label={t('sections.similar')} />
         <div>
           <ul className="flex flex-wrap">
             {similarPosts.map((post) => (

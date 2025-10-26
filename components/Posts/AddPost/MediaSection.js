@@ -2,6 +2,7 @@ import { getYoutubeVideoId } from '../../../libs/string-utils';
 import TextInput from '../../UI/Public/Inputs/TextInput';
 import UploadImagesInput from '../../UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
 import YoutubeIframe from '../../UI/Public/YoutubeIframe';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const MediaSection = ({
   register,
@@ -11,7 +12,11 @@ const MediaSection = ({
   errors,
   submitCount
 }) => {
+  const { t: tForm } = useTranslation('pages/post-form');
   const watchVideo = watch('video');
+
+  const minImages = 3;
+  const maxImages = 10;
 
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
@@ -21,10 +26,13 @@ const MediaSection = ({
             รูปภาพ&วิดีโอ
           </h3> */}
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            รูปภาพ
+            {tForm('sections.media.title')}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            คุณสามารถอัพโหลดรูปภาพได้จำนวน 3-10 รูปต่อ 1 ประกาศ
+            {tForm('sections.media.description', {
+              min: minImages,
+              max: maxImages
+            })}
           </p>
         </div>
 
@@ -33,14 +41,23 @@ const MediaSection = ({
             <div className="space-y-1 text-center">
               <UploadImagesInput
                 id="images"
-                label="รูปภาพ"
-                maxFile={10}
+                label={tForm('fields.images.label')}
+                maxFile={maxImages}
                 register={() =>
                   register('images', {
-                    required: 'กรุณาอัพโหลดภาพของประกาศจำนวน 3-10 ภาพ',
+                    required: tForm('fields.images.validation.required', {
+                      min: minImages,
+                      max: maxImages
+                    }),
                     validate: (value) => {
-                      if (value?.length < 3 || value?.length > 10) {
-                        return 'กรุณาอัพโหลดภาพของประกาศจำนวน 3-10 ภาพ';
+                      if (
+                        value?.length < minImages ||
+                        value?.length > maxImages
+                      ) {
+                        return tForm('fields.images.validation.count', {
+                          min: minImages,
+                          max: maxImages
+                        });
                       }
                     }
                   })

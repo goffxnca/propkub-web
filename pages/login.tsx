@@ -4,20 +4,26 @@ import AuthLayout from '../components/Layouts/AuthLayout';
 import GuestOnlyRoute from '../components/Auth/GuestOnlyRoute';
 import { BASE_SITE_URL } from '../libs/constants';
 import { genPageTitle } from '../libs/seo-utils';
+import { useTranslation } from '../hooks/useTranslation';
 
-const LoginPage = () => (
-  <GuestOnlyRoute>
-    <Head>
-      <title>{genPageTitle('ล็อกอินเข้าสู่ระบบ')}</title>
-      <meta
-        name="description"
-        content="ล็อกอินเพื่อเข้าใช้งาน PropKub.com ตัวช่วยค้นหา/ลงประกาศ อสังหาริมทรัพย์ทุกประเทศ ไม่ว่าจะเป็นการซื้อ-ขาย-เช่า บ้าน ที่ดิน ทาวน์โฮม คอนโด อาคารพาณิชย์ ใช้งานฟรีไม่มีค่าใช้จ่าย"
-      />
-      <link rel="canonical" href={BASE_SITE_URL + '/login'} />
-    </Head>
-    <SigninForm />
-  </GuestOnlyRoute>
-);
+const LoginPage = () => {
+  const { t } = useTranslation('pages/login');
+  const { t: tCommon } = useTranslation('common');
+
+  return (
+    <GuestOnlyRoute>
+      <Head>
+        <title>{genPageTitle(t('title'))}</title>
+        <meta
+          name="description"
+          content={tCommon('meta.defaultDescription', { page: t('title') })}
+        />
+        <link rel="canonical" href={BASE_SITE_URL + '/login'} />
+      </Head>
+      <SigninForm />
+    </GuestOnlyRoute>
+  );
+};
 
 export default LoginPage;
 

@@ -9,8 +9,11 @@ import {
   increaseLineView
 } from '../../../libs/managers/postManager';
 import { getLineUrl } from '../../../libs/string-utils';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const PostDetailAgent = ({ postId, postOwner }) => {
+  const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
   const [phoneVisible, setPhoneVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
@@ -26,7 +29,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
       setPhoneVisible(true);
     } catch (error) {
       console.error('Failed to increase phone view:', error);
-      setError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      setError(tCommon('error.generic.description'));
     } finally {
       setIsLoading(false);
     }
@@ -40,7 +43,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
       await increaseLineView(postId);
     } catch (error) {
       console.error('Failed to increase line view:', error);
-      setError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      setError(tCommon('error.generic.description'));
     } finally {
       setIsLoading(false);
     }
@@ -80,12 +83,12 @@ const PostDetailAgent = ({ postId, postOwner }) => {
           >
             {phoneVisible ? (
               <a href={`tel:${postOwner.phone}`}>
-                {postOwner.phone} (คลิกเพื่อโทรออก)
+                {postOwner.phone} ({t('contact.clickToCall')})
               </a>
             ) : isLoading ? (
-              'กำลังดึงข้อมูล'
+              tCommon('loading.generic')
             ) : (
-              '(คลิกเพื่อโชว์หมายเลข)'
+              t('contact.showPhone')
             )}
           </Button>
 
@@ -96,7 +99,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
             disabled={isLoading}
           >
             <LineIcon className="text-green-500 md:w-6 md:h-6 mr-1" />
-            {isLoading ? 'กำลังดึงข้อมูล...' : 'แอดไลน์'}
+            {t('contact.addLine')}
           </LinkButton>
 
           {error && <div className="mt-2 text-sm text-red-600">{error}</div>}

@@ -3,11 +3,14 @@ import Badge from '../../UI/Badge/Badge';
 import { getThaiFullDateTimeString } from '../../../libs/date-utils';
 import {
   getPostActionVariantById,
-  getPostActionIconById,
-  getPostActionLabelById
+  getPostActionIconById
 } from '../../../libs/mappers/postActionMapper';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const PostTimeline = ({ postActions = [] }) => {
+  const { t: tPosts } = useTranslation('posts');
+  const { t: tAccountPost } = useTranslation('pages/account-post');
+
   if (!postActions || postActions.length === 0) {
     return null;
   }
@@ -25,7 +28,7 @@ const PostTimeline = ({ postActions = [] }) => {
     <div className="bg-white shadow sm:rounded-lg">
       <div className="px-4 py-5 sm:p-6">
         <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
-          ไทม์ไลน์ประกาศ
+          {tAccountPost('timeline.title')}
         </h3>
 
         <div className="flow-root">
@@ -44,14 +47,16 @@ const PostTimeline = ({ postActions = [] }) => {
                     <div className="min-w-0 flex-1 pt-1.5">
                       <div className="flex items-center space-x-2">
                         <Badge variant={getPostActionVariantById(action.type)}>
-                          {getPostActionLabelById(action.type)}
+                          {tPosts(`actions.${action.type}`)}
                         </Badge>
                       </div>
                       <div className="mt-1 text-sm text-gray-500">
                         <p>
                           {action.createdBy?.name && (
                             <span className="font-medium">
-                              โดย {action.createdBy.name}
+                              {tAccountPost('timeline.by', {
+                                name: action.createdBy.name
+                              })}
                             </span>
                           )}
                           {action.createdBy?.name && ' • '}

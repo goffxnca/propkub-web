@@ -24,9 +24,28 @@ const getThaiFullDateTimeString = (isoDateString) => {
   });
 };
 
+const getDateTimeString = (isoDateString, locale) => {
+  const localeMap = {
+    th: 'th-TH',
+    en: 'en-US'
+  };
+
+  return new Date(isoDateString).toLocaleDateString(
+    localeMap[locale] || 'th-TH',
+    {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }
+  );
+};
+
 export {
   getUnixEpochTime,
   getLocalDateByISODateString,
   getLocalDateTimeByISODateString,
-  getThaiFullDateTimeString
+  getThaiFullDateTimeString,
+  getDateTimeString
 };

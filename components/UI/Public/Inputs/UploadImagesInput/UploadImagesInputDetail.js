@@ -3,6 +3,7 @@ import CirclePlus from '../../../../Icons/CirclePlus';
 import ImagePreviewItem from './UploadImagePreviewItem';
 import InlineError from '../../InlineError';
 import { resizeFile } from '../../../../../libs/utils/file-utils';
+import { useTranslation } from '../../../../../hooks/useTranslation';
 
 const UploadImagesInputDetail = ({
   maxFile = 1,
@@ -10,6 +11,7 @@ const UploadImagesInputDetail = ({
   onImageChange,
   error
 }) => {
+  const { t } = useTranslation('common');
   const fileRef = useRef();
 
   const [files, setFiles] = useState([]); //track list of resized files
@@ -41,8 +43,8 @@ const UploadImagesInputDetail = ({
 
     if (totalBrowsedFile + totalBrowsingFile > maxFile) {
       return setInlineError({
-        title: 'แจ้งเตือน',
-        messages: [`อนุญาตให้อัพโหลดได้สูงสุดจำนวน ${maxFile} ไฟล์เท่านั้น`]
+        title: t('upload.errors.warning'),
+        messages: [t('upload.errors.maxFiles', { maxFile })]
       });
     }
 
@@ -52,23 +54,21 @@ const UploadImagesInputDetail = ({
 
     const allowedFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
-    const errorMessages = [];
+    const errors = [];
 
     for (const file of uploadFiles) {
       setInlineError(null);
 
       //validate file type
       if (!allowedFileTypes.includes(file.type)) {
-        errorMessages.push(
-          `ไฟล์ '${file.name}' ไม่ใช่ไฟล์รูปภาพประเภท .jpg, .jpeg, .png`
-        );
+        errors.push(t('upload.errors.invalidType', { filename: file.name }));
         continue;
       }
 
       //validate file size
       const fileSizeMB = file.size / 1024 / 1024;
       if (fileSizeMB > maxfileSizeMB) {
-        errorMessages.push(`ไฟล์ '${file.name}' มีขนาดไฟล์เกิน 10MB`);
+        errors.push(t('upload.errors.maxSize', { filename: file.name }));
         continue;
       }
 
@@ -82,7 +82,7 @@ const UploadImagesInputDetail = ({
       );
 
       if (existingFile) {
-        errorMessages.push(`ไฟล์ '${file.name}' ไม่สามารถอัพโหลดซ้ำได้`);
+        errors.push(t('upload.errors.duplicate', { filename: file.name }));
         continue;
       }
 
@@ -136,10 +136,10 @@ const UploadImagesInputDetail = ({
     //     });
     // });
 
-    if (errorMessages.length > 0) {
+    if (errors.length > 0) {
       setInlineError({
-        title: 'ไม่สามารถอัพโหลดและพรีวิวไฟล์เหล่านี้ได้',
-        messages: errorMessages
+        title: t('upload.errors.uploadFailed'),
+        messages: errors
       });
     }
 

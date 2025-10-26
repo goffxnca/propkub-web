@@ -1,0 +1,100 @@
+{
+  "nav": {
+    "home": "Home",
+    "contact": "Contact Us",
+    "login": "Login",
+    "signup": "Sign Up",
+    "profile": "Profile",
+    "dashboard": "Dashboard",
+    "createPost": "Create Post",
+    "logout": "Logout"
+  },
+  "error": {
+    "generic": {
+      "title": "Something went wrong",
+      "description": "An error occurred. Please try again"
+    }
+  },
+  "http": {
+    "status": {
+      "404": {
+        "title": "Page not found",
+        "description": "We couldn't find the page you're looking for."
+      }
+    }
+  },
+  "buttons": {
+    "goHome": "Go Home",
+    "contactUs": "Contact Us",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save"
+  },
+  "areaUnits": {
+    "whole": "whole",
+    "sqm": "sqm.",
+    "sqw": "sqw.",
+    "ngan": "ngan",
+    "rai": "rai"
+  },
+  "timeUnits": {
+    "year": "year",
+    "month": "month",
+    "week": "week",
+    "day": "day"
+  },
+  "conditions": {
+    "used": "Used",
+    "new": "New Project"
+  },
+  "roles": {
+    "agent": "Real Estate Agent",
+    "normal": "Regular User"
+  },
+  "providers": {
+    "email": "Email",
+    "google": "Google",
+    "facebook": "Facebook"
+  },
+  "actions": {
+    "submit": "Submit",
+    "submitting": "Submitting..."
+  },
+  "loading": {
+    "generic": "Loading..."
+  },
+  "pagination": {
+    "showing": "Showing {{start}} to {{end}} of {{total}} items"
+  },
+  "footer": {
+    "copyright": "Copyright © 2025 PropKub.com - All rights reserved",
+    "version": "v.{{version}}:{{commit}}"
+  },
+  "meta": {
+    "defaultDescription": "{{page}} | PropKub.com - Your property search and listing platform. Buy, sell, rent houses, land, townhomes, condos, commercial buildings. Free to use with no charges."
+  },
+  "upload": {
+    "helperText": "Click the plus (+) icon to browse files",
+    "fileRequirements": "Must be JPG, JPEG, PNG files with maximum size of 10MB",
+    "errors": {
+      "warning": "Warning",
+      "maxFiles": "Maximum {{maxFile}} files allowed",
+      "invalidType": "File '{{filename}}' is not a valid image file (.jpg, .jpeg, .png)",
+      "maxSize": "File '{{filename}}' exceeds 10MB",
+      "duplicate": "File '{{filename}}' cannot be uploaded twice",
+      "uploadFailed": "Unable to upload and preview these files"
+    }
+  },
+  "validation": {
+    "required": "Required",
+    "min": "Must be at least {{min}}",
+    "max": "Must not exceed {{max}}",
+    "minLength": "Must be at least {{minLength}} characters",
+    "maxLength": "Must not exceed {{maxLength}} characters",
+    "email": "Invalid email format",
+    "phone": "Phone number must be 9-10 digits only",
+    "mobilePhone": "Mobile phone must be 10 digits only, no dashes",
+    "lineId": "Line ID must be 3-18 characters using lowercase letters, numbers, dots (.), dashes (-), and underscores (_) only. Include @ if present"
+  }
+}

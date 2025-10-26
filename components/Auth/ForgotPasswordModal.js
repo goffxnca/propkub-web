@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import {
   MailIcon,
   CheckIcon,
@@ -9,11 +10,17 @@ import {
 } from '@heroicons/react/outline';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Button from '../UI/Public/Button';
-import { EmailPattern } from '../../libs/form-validator';
 import { apiClient } from '../../libs/client';
-import { t } from '../../libs/translator';
+import { translateServerError } from '../../libs/serverErrorTranslator';
+import { useTranslation } from '../../hooks/useTranslation';
+import { useValidators } from '../../hooks/useValidators';
 
 const ForgotPasswordModal = ({ visible, onClose }) => {
+  const router = useRouter();
+  const { locale } = router;
+  const { t } = useTranslation('pages/forgot-password');
+  const { t: tCommon } = useTranslation('common');
+  const { required, EmailPattern } = useValidators();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -48,16 +55,14 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
         response.message &&
         response.message.includes('This account was registered with')
       ) {
-        const errorMessage =
-          t(response.message) || 'เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน';
+        const errorMessage = translateServerError(response.message, locale);
         setError(errorMessage);
         setIsProviderError(true);
       } else {
         setSuccess(true);
       }
     } catch (err) {
-      const errorMessage =
-        t(err.message) || 'เกิดข้อผิดพลาดในการส่งอีเมลรีเซ็ตรหัสผ่าน';
+      const errorMessage = translateServerError(err.message, locale);
       setError(errorMessage);
     } finally {
       setLoading(false);
@@ -103,11 +108,11 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                     as="h3"
                     className="text-xl font-semibold text-gray-900 mb-2"
                   >
-                    ส่งอีเมลสำเร็จ
+                    {t('success.title')}
                   </Dialog.Title>
 
                   <p className="text-gray-600 mb-6 leading-relaxed">
-                    เราได้ส่งลิ้งค์รีเซ็ตรหัสผ่านไปยังอีเมลของคุณแล้ว
+                    {t('success.description')}
                   </p>
 
                   <button
@@ -115,7 +120,7 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                     className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
                     onClick={handleClose}
                   >
-                    ตกลง
+                    {tCommon('buttons.ok')}
                   </button>
                 </Dialog.Panel>
               </Transition.Child>
@@ -165,7 +170,7 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                     as="h3"
                     className="text-xl font-semibold text-gray-900 mb-2"
                   >
-                    โปรดเข้าสู่ระบบด้วยวิธีอื่น
+                    {t('providerError.title')}
                   </Dialog.Title>
 
                   <p className="text-gray-600 mb-6 leading-relaxed">{error}</p>
@@ -175,7 +180,7 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                     className="w-full bg-indigo-600 text-white py-3 px-4 rounded-md font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors"
                     onClick={handleClose}
                   >
-                    ตกลง
+                    {tCommon('buttons.ok')}
                   </button>
                 </Dialog.Panel>
               </Transition.Child>
@@ -234,12 +239,10 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                   as="h3"
                   className="text-xl font-semibold text-gray-900 mb-2"
                 >
-                  ลืมรหัสผ่าน?
+                  {t('title')}
                 </Dialog.Title>
 
-                <p className="text-gray-600 mb-6">
-                  กรอกอีเมลของคุณ เราจะส่งลิ้งค์รีเซ็ตให้คุณ
-                </p>
+                <p className="text-gray-600 mb-6">{t('description')}</p>
 
                 <form
                   className="space-y-4"
@@ -248,11 +251,11 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                   <div className="text-left">
                     <TextInput
                       id="email"
-                      label="อีเมล"
+                      label={t('form.fields.email.label')}
                       register={() =>
                         register('email', {
-                          required: 'กรุณาระบุอีเมล',
-                          pattern: EmailPattern()
+                          ...required(),
+                          ...EmailPattern()
                         })
                       }
                       unregister={unregister}
@@ -280,14 +283,14 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                       loading={loading}
                       className="w-full"
                     >
-                      ยืนยัน
+                      {tCommon('buttons.confirm')}
                     </Button>
                     <button
                       type="button"
                       className="w-full text-gray-600 hover:text-gray-800 font-medium py-2 transition-colors"
                       onClick={handleClose}
                     >
-                      ยกเลิก
+                      {tCommon('buttons.cancel')}
                     </button>
                   </div>
                 </form>

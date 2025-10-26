@@ -1,0 +1,96 @@
+{
+  "title": "โปรไฟล์ของฉัน",
+  "createPost": "ลงประกาศ",
+  "loading": "กำลังโหลดข้อมูลโปรไฟล์...",
+  "warnings": {
+    "title": "ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:",
+    "emailNotVerified": "เราส่งลิ้งค์ยืนยันอีเมลไปที่ {{email}} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล กรุณาตรวจสอบในโฟลเดอร์ Spam/Junk/Promotions)",
+    "nameRequired": "กรุณากำหนดชื่อ",
+    "profileImageRequired": "กรุณากำหนดรูปภาพโปรไฟล์",
+    "contactRequired": "กรุณากำหนดหมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้",
+    "checkAgain": "ตรวจสอบอีกครั้ง"
+  },
+  "sections": {
+    "personal": {
+      "title": "ข้อมูลส่วนตัว",
+      "subtitle": "ข้อมูลพื้นฐานของคุณที่แสดงในระบบ",
+      "profileImage": "รูปโปรไฟล์",
+      "name": "ชื่อ",
+      "namePlaceholder": "ระบุชื่อของคุณ",
+      "email": "อีเมล",
+      "emailVerified": "ยืนยันแล้ว",
+      "emailNotVerified": "ยังไม่ยืนยัน",
+      "uploadImageError": "ไม่สามารถอัพโหลดรูปโปรไฟล์ได้",
+      "imageUpload": {
+        "changeButton": "เปลี่ยน",
+        "errorTitle": "ไม่สามารถอัพโหลดและพรีวิวไฟล์ได้",
+        "errorInvalidType": "ไฟล์ '{{filename}}' ไม่ใช่ไฟล์รูปภาพประเภท .jpg, .jpeg, .png",
+        "errorFileSize": "ไฟล์ '{{filename}}' มีขนาดไฟล์เกิน 10MB"
+      }
+    },
+    "account": {
+      "title": "ข้อมูลบัญชีผู้ใช้",
+      "subtitle": "ข้อมูลเกี่ยวกับสถานะและประวัติการใช้งานบัญชี",
+      "registeredWith": "สมัครสมาชิกด้วย",
+      "memberSince": "สมาชิกตั้งแต่",
+      "memberId": "หมายเลขสมาชิก",
+      "lastLogin": "เข้าสู่ระบบครั้งล่าสุด",
+      "lastUpdated": "อัพเดทล่าสุด",
+      "termsOfService": "ข้อกำหนดการใช้งาน",
+      "termsAccepted": "✓ ยอมรับแล้ว",
+      "via": "ผ่าน",
+      "notSpecified": "ไม่ระบุ"
+    },
+    "contact": {
+      "title": "ข้อมูลการติดต่อ",
+      "subtitle": "ข้อมูลที่ผู้สนใจประกาศสามารถติดต่อคุณได้",
+      "phone": "หมายเลขโทรศัพท์มือถือ",
+      "line": "ไลน์ไอดี",
+      "linePlaceholder": "somchai149_property (ระบุเครื่องหมาย @ ถ้ามี)",
+      "phoneAction": "โทร",
+      "lineAction": "เปิด LINE",
+      "noContact": {
+        "title": "ยังไม่มีข้อมูลการติดต่อ",
+        "description": "กรุณาเพิ่มข้อมูลการติดต่อเพื่อให้ผู้สนใจสามารถติดต่อคุณได้"
+      }
+    },
+    "social": {
+      "title": "การเชื่อมต่อโซเชียล",
+      "subtitle": "เชื่อมต่อบัญชีโซเชียลเพื่อความสะดวกในการเข้าสู่ระบบ",
+      "statusLabel": "สถานะการเชื่อมต่อบัญชี",
+      "connectButton": "เชื่อมต่อ",
+      "notConnected": "ยังไม่เชื่อมต่อ",
+      "descriptions": {
+        "email": "เข้าสู่ระบบด้วยอีเมลและรหัสผ่าน",
+        "google": "เข้าสู่ระบบด้วยบัญชี Google",
+        "facebook": "เข้าสู่ระบบด้วยบัญชี Facebook"
+      }
+    },
+    "security": {
+      "title": "ความปลอดภัยบัญชี",
+      "subtitle": "จัดการความปลอดภัยและการเข้าถึงบัญชีของคุณ",
+      "password": "รหัสผ่าน",
+      "changePasswordButton": "เปลี่ยนรหัสผ่าน",
+      "currentPassword": "รหัสผ่านปัจจุบัน",
+      "newPassword": "รหัสผ่านใหม่",
+      "confirmPassword": "ยืนยันรหัสผ่านใหม่",
+      "status": {
+        "hasPassword": "รหัสผ่านได้รับการตั้งค่าแล้ว",
+        "canChange": "คุณสามารถเปลี่ยนรหัสผ่านได้",
+        "noPassword": "ไม่มีรหัสผ่าน",
+        "noPasswordRequired": "คุณลงทะเบียนด้วย {{provider}} Account ไม่จำเป็นต้องมีรหัสผ่าน"
+      },
+      "tips": {
+        "title": "เคล็ดลับความปลอดภัย",
+        "changeRegularly": "แนะนำให้เปลี่ยนรหัสผ่านเป็นระยะๆ เพื่อความปลอดภัย"
+      },
+      "success": {
+        "title": "เปลี่ยนรหัสผ่านสำเร็จ",
+        "description": "รหัสผ่านของคุณได้รับการเปลี่ยนแปลงเรียบร้อยแล้ว"
+      },
+      "validation": {
+        "confirmPasswordMismatch": "รหัสผ่านไม่ตรงกัน"
+      }
+    }
+  }
+}

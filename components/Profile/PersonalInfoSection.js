@@ -10,14 +10,18 @@ import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { apiClient } from '../../libs/client';
 import { authContext } from '../../contexts/authContext';
-import { minLength, maxLength } from '../../libs/form-validator';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Modal from '../UI/Public/Modal';
 
 import ProfileImageInput from './ProfileImageInput';
 import { uploadFileToStorage } from '../../libs/utils/file-utils';
+import { useTranslation } from '../../hooks/useTranslation';
+import { useValidators } from '../../hooks/useValidators';
 
 const PersonalInfoSection = ({ user }) => {
+  const { t } = useTranslation('pages/profile');
+  const { t: tCommon } = useTranslation('common');
+  const { required, minLength, maxLength } = useValidators();
   const { setUser } = useContext(authContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -66,7 +70,7 @@ const PersonalInfoSection = ({ user }) => {
         );
 
         if (!imageUrl) {
-          throw new Error('ไม่สามารถอัพโหลดรูปโปรไฟล์ได้');
+          throw new Error(t('sections.personal.uploadImageError'));
         }
 
         finalData.profileImg = imageUrl;
@@ -77,7 +81,7 @@ const PersonalInfoSection = ({ user }) => {
       setIsEditing(false);
     } catch (error) {
       console.error('Failed to save personal info:', error);
-      setApiError('เกิดข้อผิดพลาดในการบันทึกข้อมูล');
+      setApiError(tCommon('error.generic.description'));
     } finally {
       setIsSaving(false);
     }
@@ -90,14 +94,14 @@ const PersonalInfoSection = ({ user }) => {
   const getVerificationStatus = () => {
     if (user.emailVerified) {
       return {
-        text: 'ยืนยันแล้ว',
+        text: t('sections.personal.emailVerified'),
         icon: CheckCircleIcon,
         color: 'text-green-600',
         bgColor: 'bg-green-100'
       };
     } else {
       return {
-        text: 'ยังไม่ยืนยัน',
+        text: t('sections.personal.emailNotVerified'),
         icon: ExclamationCircleIcon,
         color: 'text-yellow-600',
         bgColor: 'bg-yellow-100'
@@ -109,14 +113,14 @@ const PersonalInfoSection = ({ user }) => {
     if (user.role === 'agent') {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-          นายหน้าอสังหาริมทรัพย์
+          {tCommon('roles.agent')}
         </span>
       );
     }
     if (user.role === 'normal') {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-          ผู้ใช้ทั่วไป
+          {tCommon('roles.normal')}
         </span>
       );
     }
@@ -133,10 +137,10 @@ const PersonalInfoSection = ({ user }) => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-medium leading-6 text-gray-900">
-                🧑‍💼 ข้อมูลส่วนตัว
+                🧑‍💼 {t('sections.personal.title')}
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                ข้อมูลพื้นฐานของคุณที่แสดงในระบบ
+                {t('sections.personal.subtitle')}
               </p>
             </div>
             {!isEditing && (
@@ -160,7 +164,7 @@ const PersonalInfoSection = ({ user }) => {
                     {/* Profile Image Input */}
                     <ProfileImageInput
                       id="profileImg"
-                      label="รูปโปรไฟล์"
+                      label={t('sections.personal.profileImage')}
                       register={() => register('profileImg')}
                       originFileUrl={user.profileImg}
                       unregister={unregister}
@@ -172,17 +176,17 @@ const PersonalInfoSection = ({ user }) => {
                     {/* Name Input */}
                     <TextInput
                       id="name"
-                      label="ชื่อ"
+                      label={t('sections.personal.name')}
                       register={() =>
                         register('name', {
-                          required: 'กรุณาระบุชื่อ',
-                          minLength: { ...minLength(5, 'ชื่อ') },
-                          maxLength: { ...maxLength(30, 'ชื่อ') }
+                          ...required(),
+                          ...minLength(5),
+                          ...maxLength(30)
                         })
                       }
                       unregister={unregister}
                       error={errors.name}
-                      placeholder="ระบุชื่อของคุณ"
+                      placeholder={t('sections.personal.namePlaceholder')}
                       disabled={isSaving}
                     />
 
@@ -194,7 +198,7 @@ const PersonalInfoSection = ({ user }) => {
                         className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                       >
                         <CheckIcon className="w-4 h-4 mr-1" />
-                        {isSaving ? 'กำลังบันทึก...' : 'บันทึก'}
+                        {isSaving ? tCommon('actions.submitting') : tCommon('actions.submit')}
                       </button>
                       <button
                         type="button"
@@ -203,7 +207,7 @@ const PersonalInfoSection = ({ user }) => {
                         className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                       >
                         <XIcon className="w-4 h-4 mr-1" />
-                        ยกเลิก
+                        {tCommon('buttons.cancel')}
                       </button>
                     </div>
                   </div>
@@ -238,7 +242,7 @@ const PersonalInfoSection = ({ user }) => {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  อีเมล
+                  {t('sections.personal.email')}
                 </label>
                 <div className="mt-1 flex items-center space-x-3">
                   <span className="text-sm text-gray-900">{user.email}</span>
@@ -259,9 +263,9 @@ const PersonalInfoSection = ({ user }) => {
         visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={apiError}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={handleCloseApiErrorModal}
       />
     </div>

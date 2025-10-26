@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 import {
   ShieldCheckIcon,
   KeyIcon,
@@ -9,11 +10,17 @@ import {
 } from '@heroicons/react/outline';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Modal from '../UI/Public/Modal';
-import { minLength, maxLength } from '../../libs/form-validator';
+import { useValidators } from '../../hooks/useValidators';
 import { apiClient } from '../../libs/client';
-import { t } from '../../libs/translator';
+import { translateServerError } from '../../libs/serverErrorTranslator';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const AccountSecuritySection = ({ user }) => {
+  const router = useRouter();
+  const { locale } = router;
+  const { t } = useTranslation('pages/profile');
+  const { t: tCommon } = useTranslation('common');
+  const { required, minLength, maxLength } = useValidators();
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -34,16 +41,15 @@ const AccountSecuritySection = ({ user }) => {
       return {
         hasPassword: true,
         canChangePassword: true,
-        message: 'คุณสามารถเปลี่ยนรหัสผ่านได้'
+        message: t('sections.security.status.canChange')
       };
     } else {
       // Users who signed up with Google/Facebook don't have passwords
+      const providerName = tCommon(`providers.${user.provider}`);
       return {
         hasPassword: false,
         canChangePassword: false,
-        message: `คุณลงทะเบียนด้วย ${
-          user.provider === 'google' ? 'Google' : 'Facebook'
-        } Acccount ไม่จำเป็นต้องมีรหัสผ่าน`
+        message: t('sections.security.status.noPasswordRequired', { provider: providerName })
       };
     }
   };
@@ -73,8 +79,7 @@ const AccountSecuritySection = ({ user }) => {
       setIsEditing(false);
       reset();
     } catch (error) {
-      const errorMessage =
-        t(error.message) || 'เกิดข้อผิดพลาดในการเปลี่ยนรหัสผ่าน';
+      const errorMessage = translateServerError(error.message, locale);
       setApiError(errorMessage);
     } finally {
       setIsSaving(false);
@@ -111,10 +116,10 @@ const AccountSecuritySection = ({ user }) => {
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <h3 className="text-lg font-medium leading-6 text-gray-900">
-            🔐 ความปลอดภัยบัญชี
+            🔐 {t('sections.security.title')}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            จัดการความปลอดภัยและการเข้าถึงบัญชีของคุณ
+            {t('sections.security.subtitle')}
           </p>
         </div>
 
@@ -123,7 +128,7 @@ const AccountSecuritySection = ({ user }) => {
             {/* Password Section */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                รหัสผ่าน
+                {t('sections.security.password')}
               </label>
               <div className="mt-1">
                 {passwordStatus.hasPassword ? (
@@ -134,7 +139,7 @@ const AccountSecuritySection = ({ user }) => {
                           <ShieldCheckIcon className="w-5 h-5 text-green-600" />
                           <div>
                             <p className="text-sm font-medium text-green-800">
-                              รหัสผ่านได้รับการตั้งค่าแล้ว
+                              {t('sections.security.status.hasPassword')}
                             </p>
                             <p className="text-sm text-green-600">
                               {passwordStatus.message}
@@ -147,7 +152,7 @@ const AccountSecuritySection = ({ user }) => {
                           className="inline-flex items-center px-3 py-2 border border-green-300 shadow-sm text-sm leading-4 font-medium rounded-md text-green-700 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                         >
                           <KeyIcon className="w-4 h-4 mr-2" />
-                          เปลี่ยนรหัสผ่าน
+                          {t('sections.security.changePasswordButton')}
                         </button>
                       </div>
                     ) : (
@@ -160,18 +165,14 @@ const AccountSecuritySection = ({ user }) => {
                             <div className="password-input-thai">
                               <TextInput
                                 id="currentPassword"
-                                label="รหัสผ่านปัจจุบัน"
+                                label={t('sections.security.currentPassword')}
                                 type="password"
                                 disabled={isSaving}
                                 register={() =>
                                   register('currentPassword', {
-                                    required: 'กรุณาระบุรหัสผ่านปัจจุบัน',
-                                    minLength: {
-                                      ...minLength(6, 'รหัสผ่านปัจจุบัน')
-                                    },
-                                    maxLength: {
-                                      ...maxLength(64, 'รหัสผ่านปัจจุบัน')
-                                    }
+                                    ...required(),
+                                    ...minLength(6),
+                                    ...maxLength(64)
                                   })
                                 }
                                 unregister={unregister}
@@ -182,18 +183,14 @@ const AccountSecuritySection = ({ user }) => {
                             <div className="password-input-thai">
                               <TextInput
                                 id="newPassword"
-                                label="รหัสผ่านใหม่"
+                                label={t('sections.security.newPassword')}
                                 type="password"
                                 disabled={isSaving}
                                 register={() =>
                                   register('newPassword', {
-                                    required: 'กรุณาระบุรหัสผ่านใหม่',
-                                    minLength: {
-                                      ...minLength(6, 'รหัสผ่านใหม่')
-                                    },
-                                    maxLength: {
-                                      ...maxLength(64, 'รหัสผ่านใหม่')
-                                    }
+                                    ...required(),
+                                    ...minLength(6),
+                                    ...maxLength(64)
                                   })
                                 }
                                 unregister={unregister}
@@ -204,15 +201,15 @@ const AccountSecuritySection = ({ user }) => {
                             <div className="password-input-thai">
                               <TextInput
                                 id="confirmPassword"
-                                label="ยืนยันรหัสผ่านใหม่"
+                                label={t('sections.security.confirmPassword')}
                                 type="password"
                                 disabled={isSaving}
                                 register={() =>
                                   register('confirmPassword', {
-                                    required: 'กรุณายืนยันรหัสผ่านใหม่',
+                                    ...required(),
                                     validate: (value) =>
                                       value === newPassword ||
-                                      'รหัสผ่านไม่ตรงกัน'
+                                      t('sections.security.validation.confirmPasswordMismatch')
                                   })
                                 }
                                 unregister={unregister}
@@ -228,7 +225,7 @@ const AccountSecuritySection = ({ user }) => {
                               className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                             >
                               <CheckIcon className="w-4 h-4 mr-1" />
-                              {isSaving ? 'กำลังบันทึก...' : 'เปลี่ยนรหัสผ่าน'}
+                              {isSaving ? tCommon('actions.submitting') : t('sections.security.changePasswordButton')}
                             </button>
                             <button
                               type="button"
@@ -237,7 +234,7 @@ const AccountSecuritySection = ({ user }) => {
                               className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                             >
                               <XIcon className="w-4 h-4 mr-1" />
-                              ยกเลิก
+                              {tCommon('buttons.cancel')}
                             </button>
                           </div>
                         </form>
@@ -250,7 +247,7 @@ const AccountSecuritySection = ({ user }) => {
                       <ExclamationIcon className="w-5 h-5 text-blue-600" />
                       <div>
                         <p className="text-sm font-medium text-blue-800">
-                          ไม่มีรหัสผ่าน
+                          {t('sections.security.status.noPassword')}
                         </p>
                         <p className="text-sm text-blue-600">
                           {passwordStatus.message}
@@ -266,13 +263,13 @@ const AccountSecuritySection = ({ user }) => {
             {user.provider === 'email' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
-                  เคล็ดลับความปลอดภัย
+                  {t('sections.security.tips.title')}
                 </label>
                 <div className="space-y-2">
                   <div className="flex items-start space-x-2">
                     <span className="text-yellow-500 text-sm">!</span>
                     <span className="text-sm text-gray-700">
-                      แนะนำให้เปลี่ยนรหัสผ่านเป็นระยะๆ เพื่อความปลอดภัย
+                      {t('sections.security.tips.changeRegularly')}
                     </span>
                   </div>
                 </div>
@@ -287,9 +284,9 @@ const AccountSecuritySection = ({ user }) => {
         visible={success}
         Icon={CheckIcon}
         type="success"
-        title="เปลี่ยนรหัสผ่านสำเร็จ"
-        desc="รหัสผ่านของคุณได้รับการเปลี่ยนแปลงเรียบร้อยแล้ว"
-        buttonCaption="ตกลง"
+        title={t('sections.security.success.title')}
+        desc={t('sections.security.success.description')}
+        buttonCaption={tCommon('buttons.ok')}
         onClose={handleCloseSuccessModal}
       />
 
@@ -298,9 +295,9 @@ const AccountSecuritySection = ({ user }) => {
         visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={apiError}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={handleCloseApiErrorModal}
       />
     </div>

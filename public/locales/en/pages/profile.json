@@ -1,0 +1,96 @@
+{
+  "title": "My Profile",
+  "createPost": "Create Post",
+  "loading": "Loading profile...",
+  "warnings": {
+    "title": "Before creating a post, please complete the following:",
+    "emailNotVerified": "We sent a verification link to {{email}}. Please verify that you own this email (If not found, please check your Spam/Junk/Promotions folder)",
+    "nameRequired": "Please set your name",
+    "profileImageRequired": "Please set your profile picture",
+    "contactRequired": "Please set your phone number and Line ID so visitors can contact you",
+    "checkAgain": "Check Again"
+  },
+  "sections": {
+    "personal": {
+      "title": "Personal Information",
+      "subtitle": "Your basic information displayed in the system",
+      "profileImage": "Profile Picture",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailVerified": "Verified",
+      "emailNotVerified": "Not Verified",
+      "uploadImageError": "Unable to upload profile picture",
+      "imageUpload": {
+        "changeButton": "Change",
+        "errorTitle": "Unable to upload and preview file",
+        "errorInvalidType": "File '{{filename}}' is not a valid image type (.jpg, .jpeg, .png)",
+        "errorFileSize": "File '{{filename}}' exceeds 10MB size limit"
+      }
+    },
+    "account": {
+      "title": "Account Information",
+      "subtitle": "Information about your account status and usage history",
+      "registeredWith": "Registered With",
+      "memberSince": "Member Since",
+      "memberId": "Member ID",
+      "lastLogin": "Last Login",
+      "lastUpdated": "Last Updated",
+      "termsOfService": "Terms of Service",
+      "termsAccepted": "✓ Accepted",
+      "via": "via",
+      "notSpecified": "Not specified"
+    },
+    "contact": {
+      "title": "Contact Information",
+      "subtitle": "Contact details that visitors can use to reach you",
+      "phone": "Mobile",
+      "line": "Line ID",
+      "linePlaceholder": "somchai149_property (include @ if applicable)",
+      "phoneAction": "Call",
+      "lineAction": "Open LINE",
+      "noContact": {
+        "title": "No contact information",
+        "description": "Please add contact information so interested parties can reach you"
+      }
+    },
+    "social": {
+      "title": "Social Connections",
+      "subtitle": "Connect social accounts for easier login access",
+      "statusLabel": "Connection Status",
+      "connectButton": "Connect",
+      "notConnected": "Not Connected",
+      "descriptions": {
+        "email": "Sign in with email and password",
+        "google": "Sign in with Google account",
+        "facebook": "Sign in with Facebook account"
+      }
+    },
+    "security": {
+      "title": "Account Security",
+      "subtitle": "Manage your account security and access",
+      "password": "Password",
+      "changePasswordButton": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "status": {
+        "hasPassword": "Password is set",
+        "canChange": "You can change your password",
+        "noPassword": "No password",
+        "noPasswordRequired": "You registered with {{provider}} Account and don't need a password"
+      },
+      "tips": {
+        "title": "Security Tips",
+        "changeRegularly": "We recommend changing your password regularly for security"
+      },
+      "success": {
+        "title": "Password Changed Successfully",
+        "description": "Your password has been changed successfully"
+      },
+      "validation": {
+        "confirmPasswordMismatch": "Passwords do not match"
+      }
+    }
+  }
+}

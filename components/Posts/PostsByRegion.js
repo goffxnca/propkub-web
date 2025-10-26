@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const PostByRegion = ({
   regionId,
@@ -7,15 +8,17 @@ const PostByRegion = ({
   assetName,
   provinces
 }) => {
+  const router = useRouter();
+  const { locale } = router;
+
   return (
     <section className="mb-4">
       <h2 className="text-xl  tracking-tight text-gray-900 p-2">
-        {assetName + regionName}
+        {`${assetName}${locale === 'en' ? ' in ' : ''}${regionName}`}
       </h2>
       <ul className="flex w-full flex-wrap">
         {provinces.map((province) => (
           <li key={province.id} className="mx-2">
-            {/* lock this PostsByRegion to be type sell & location type province for now */}
             <Link
               href={`/${assetId}/spv${province.id}/${assetName}-${province.name}`}
               // target="_blank"

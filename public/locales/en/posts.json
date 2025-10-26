@@ -1,0 +1,145 @@
+{
+  "filter": {
+    "title": "I'm interested in?",
+    "search": "Search",
+    "reset": "Reset Filter",
+    "actions": {
+      "rent": "Rent",
+      "buy": "Buy",
+      "sale": "Create Post"
+    },
+    "location": {
+      "region": "Region",
+      "province": "Province",
+      "district": "District",
+      "subDistrict": "Sub-District"
+    }
+  },
+  "list": {
+    "pageTitle": "Open-Source Real Estate Listing - Propkub.com",
+    "latestPosts": "Latest Listings",
+    "searchResults": "Search Results ({{count}}) items found",
+    "error": {
+      "title": "Error Occurred",
+      "description": "Unable to load listings. Please try again",
+      "button": "OK"
+    }
+  },
+  "regions": {
+    "r1": "Northern",
+    "r2": "Central",
+    "r3": "Northeastern",
+    "r4": "Western",
+    "r5": "Eastern",
+    "r6": "Southern"
+  },
+  "byRegion": {
+    "sellLand": "Land for Sale"
+  },
+  "postTypes": {
+    "sale": "Sale",
+    "rent": "Rent"
+  },
+  "statuses": {
+    "active": "Published",
+    "hold": "On Hold",
+    "sold": "Sold",
+    "closed": "Closed"
+  },
+  "assetTypes": {
+    "condo": "Condo",
+    "townhome": "Townhome",
+    "house": "House",
+    "land": "Land"
+  },
+  "actions": {
+    "create": "Create Post",
+    "update": "Update Post",
+    "suspense": "Suspend",
+    "restore": "Reopen",
+    "sell": "Mark as Sold",
+    "close": "Close Post"
+  },
+  "card": {
+    "badge": "{{assetType}} for {{postType}}"
+  },
+  "fields": {
+    "title": "Title",
+    "slug": "Slug",
+    "desc": "Description",
+    "assetType": "Asset Type",
+    "postType": "Post Type",
+    "postTypeAlt": "I want to",
+    "price": "Price",
+    "status": "Status",
+    "thumbnail": "Thumbnail",
+    "images": "Images",
+    "facilities": "Facilities",
+    "specs": {
+      "label": "Specifications",
+      "beds": "Bedrooms",
+      "baths": "Bathrooms",
+      "kitchens": "Kitchens",
+      "parkings": "Parking Spaces"
+    },
+    "address": {
+      "subDistrictLabel": "Sub-District",
+      "subDistrictId": "Sub-District ID",
+      "districtLabel": "District",
+      "districtId": "District ID",
+      "provinceLabel": "Province",
+      "provinceId": "Province ID",
+      "regionId": "Region ID",
+      "location": {
+        "lat": "Latitude",
+        "lng": "Longitude"
+      }
+    },
+    "stats": {
+      "views": {
+        "post": "Views",
+        "phone": "Phone Views",
+        "line": "Line Views"
+      },
+      "shares": "Shares",
+      "pins": "Pins"
+    },
+    "cid": "CID",
+    "postNumber": "Post Number",
+    "isStudio": "Studio Room",
+    "video": "Video",
+    "land": "Land Size",
+    "landUnit": "Land Unit",
+    "area": "Area Size",
+    "areaUnit": "Area Unit",
+    "priceUnit": "Price Unit",
+    "condition": "Condition",
+    "refId": "Reference ID",
+    "createdAt": "Created At",
+    "createdBy": "Created By",
+    "updatedAt": "Updated At",
+    "updatedBy": "Updated By"
+  },
+  "sections": {
+    "basicInfo": "Basic Information",
+    "specs": "Specifications",
+    "details": "Details",
+    "facilities": "Facilities",
+    "images": "Images",
+    "location": "Location",
+    "video": "Video",
+    "similar": "Similar Listings"
+  },
+  "details": {
+    "type": "Type",
+    "createdAt": "Listed Date",
+    "updatedAt": "Last Updated",
+    "streetviewNote": "Below is the Google Map Street View at the pinned location. You can pan left/right to see the surrounding area. (Please note that in some cases/areas, the images may not reflect the current year.)",
+    "views": "Views"
+  },
+  "contact": {
+    "clickToCall": "Click to call",
+    "showPhone": "Phone Number",
+    "addLine": "Add LINE"
+  }
+}

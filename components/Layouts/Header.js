@@ -17,14 +17,17 @@ import { joinClasses } from '../../libs/utils/style-utils';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { ChatIcon } from '@heroicons/react/solid';
 import MenuLinkItem from '../UI/Public/MenuLinkItem';
+import LocaleSwitcher from '../UI/LocaleSwitcher';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const Header = () => {
   const { signout, user, isAgent, isAuthenticated, loading } =
     useContext(authContext);
+  const { t } = useTranslation();
 
   const navigations = [
     {
-      name: 'หน้าแรก',
+      name: t('nav.home'),
       description: "Your customers' data will be safe and secure.",
       href: '/',
       icon: HomeIcon,
@@ -32,7 +35,7 @@ const Header = () => {
       classes: 'md:hidden'
     },
     {
-      name: 'โปรไฟล์',
+      name: t('nav.profile'),
       description: "Your customers' data will be safe and secure.",
       href: '/profile',
       icon: UserIcon,
@@ -40,7 +43,7 @@ const Header = () => {
       classes: ''
     },
     {
-      name: 'แดชบอร์ด',
+      name: t('nav.dashboard'),
       description: "Your customers' data will be safe and secure.",
       href: '/dashboard',
       icon: ChartPieIcon,
@@ -48,7 +51,7 @@ const Header = () => {
       classes: ''
     },
     {
-      name: 'ลงประกาศ',
+      name: t('nav.createPost'),
       description: "Your customers' data will be safe and secure.",
       href: '/account/posts/create',
       icon: PencilAltIcon,
@@ -56,7 +59,7 @@ const Header = () => {
       classes: ''
     },
     {
-      name: 'ออกจากระบบ',
+      name: t('nav.logout'),
       description: "Your customers' data will be safe and secure.",
       href: '',
       onClick: () => {
@@ -67,7 +70,7 @@ const Header = () => {
       classes: ''
     },
     {
-      name: 'ลงประกาศฟรี',
+      name: t('nav.createPost'),
       description: 'Speak directly to your customers in a more meaningful way.',
       href: '/login',
       icon: PencilAltIcon,
@@ -75,7 +78,7 @@ const Header = () => {
       classes: ''
     },
     {
-      name: 'ติดต่อเรา',
+      name: t('nav.contact'),
       description: 'Speak directly to your customers in a more meaningful way.',
       href: '/contact',
       icon: MailIcon,
@@ -108,40 +111,42 @@ const Header = () => {
                 href="/"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
-                หน้าแรก
+                {t('nav.home')}
               </Link>
 
               <Link
                 href="/contact"
                 className="text-base font-medium text-gray-500 hover:text-gray-900"
               >
-                ติดต่อเรา
+                {t('nav.contact')}
               </Link>
             </Popover.Group>
           )}
 
           {/* Desktop actions */}
           {!loading && !isAuthenticated && (
-            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 gap-4">
+              <LocaleSwitcher />
               <Link
                 href="/login"
                 className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
               >
-                เข้าสู่ระบบ
+                {t('nav.login')}
               </Link>
 
               <Link
                 href="/signup"
                 className="ml-8 whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900"
               >
-                สมัครใช้งาน
+                {t('nav.signup')}
               </Link>
             </div>
           )}
 
           {/* top-right menus */}
           {isAuthenticated && (
-            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 gap-4">
+              <LocaleSwitcher />
               {/* chat messages */}
               {/* <Menu as="div" className="relative flex-shrink-0">
                 <div>
@@ -273,6 +278,7 @@ const Header = () => {
                   </div>
                 </div>
                 <hr className="border-b border-gray-50 my-4" />
+
                 <div className="mt-6">
                   <nav>
                     <ul className="grid gap-y-8">
@@ -307,6 +313,11 @@ const Header = () => {
                           </div>
                         ))}
                     </ul>
+
+                    {/* Mobile Language Switcher */}
+                    <div className="flex justify-center mt-8">
+                      <LocaleSwitcher />
+                    </div>
                   </nav>
                 </div>
               </div>
@@ -319,7 +330,7 @@ const Header = () => {
                       className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-primary-hover"
                       onClick={close}
                     >
-                      สมัครใช้งาน
+                      {t('nav.signup')}
                     </Link>
 
                     <Link
@@ -327,7 +338,7 @@ const Header = () => {
                       className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-accent hover:bg-accent-hover"
                       onClick={close}
                     >
-                      เข้าสู่ระบบ
+                      {t('nav.login')}
                     </Link>
                   </div>
                 </div>

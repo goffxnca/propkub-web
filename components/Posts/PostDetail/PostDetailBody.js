@@ -1,6 +1,8 @@
 import { getIcon } from '../../../libs/mappers/iconMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
-import { useMemo, useState } from 'react';
+import { useTranslation } from '../../../hooks/useTranslation';
+import { useMemo } from 'react';
+import { useState } from 'react';
 import Heading from '../../UI/Public/Heading';
 import LineBreak from '../../UI/Public/LineBreak';
 import PostMap from '../PostMap';
@@ -9,17 +11,22 @@ import SpecItem from '../Specs/SpecItem';
 import LocationIcon from '../../Icons/LocationIcon';
 import { formatAddressFull } from '../../../libs/formatters/addressFomatter';
 import YoutubeIframe from '../../UI/Public/YoutubeIframe';
-import { getAreaUnitById } from '../../../libs/mappers/areaUnitMapper';
+import { getAreaUnitLabel } from '../../../libs/mappers/areaUnitMapper';
 import sanitizeHtml from 'sanitize-html';
-import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
-import { getPostType } from '../../../libs/mappers/postTypeMapper';
-import { getCondition } from '../../../libs/mappers/conditionMapper';
+import { getPostTypeLabel } from '../../../libs/mappers/postTypeMapper';
+import { getConditionLabel } from '../../../libs/mappers/conditionMapper';
 import { ChartBarIcon } from '@heroicons/react/outline';
 import { SANITIZE_OPTIONS } from '../../../libs/constants';
 import { getLocalDateByISODateString } from '../../../libs/date-utils';
+import { useRouter } from 'next/router';
 import PostImageLightbox from '../PostImageLightbox';
 
 const PostDetailBody = ({ post, postViews, images }) => {
+  const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
+  const router = useRouter();
+  const locale = router.locale;
+
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -31,7 +38,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
     ? [
         {
           id: 'studio',
-          label: 'ห้องสตูดิโอ',
+          label: t('fields.isStudio'),
           icon: getIcon('studio')
         }
       ]
@@ -57,7 +64,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
   const isLand = post.assetType === 'land';
 
   const priceUnitFormat =
-    forRent || isLand ? ' / ' + getPriceUnit(post.priceUnit) : '';
+    forRent || isLand ? ' / ' + getPriceUnit(post.priceUnit, tCommon) : '';
 
   const addressFormat = formatAddressFull(post.address);
 
@@ -66,11 +73,14 @@ const PostDetailBody = ({ post, postViews, images }) => {
     [post.desc]
   );
 
-  const postType = getPostType(post.postType);
+  const postType = getPostTypeLabel(post.postType, locale, true);
 
-  const assetType = getAssetType(post.assetType);
+  const condition = getConditionLabel(post.condition, locale);
 
-  const condition = getCondition(post.condition);
+  const badgeLabel = t('card.badge', {
+    postType: t(`postTypes.${post.postType}`),
+    assetType: t(`assetTypes.${post.assetType}`)
+  });
 
   return (
     <div className="">
@@ -80,9 +90,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
           <span className="text-primary font-bold text-3xl">
             {priceWithFormat}
           </span>
-          <span className="text-gray-700 text-xl ml-1">
-            บาท{priceUnitFormat}
-          </span>
+          <span className="text-gray-700 text-xl ml-1">฿{priceUnitFormat}</span>
         </div>
 
         <div>
@@ -91,7 +99,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
               <SpecItem
                 className=""
                 Icon={SizeIcon}
-                label={`พื้นที่ใช้สอย ${post.area} ${getAreaUnitById(post.areaUnit)}`}
+                label={`${t('fields.area')} ${post.area} ${getAreaUnitLabel(post.areaUnit, locale)}`}
               />
             )}
 
@@ -99,7 +107,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
               <SpecItem
                 className=""
                 Icon={SizeIcon}
-                label={`ขนาดที่ดิน ${post.land} ${getAreaUnitById(post.landUnit)}`}
+                label={`${t('fields.land')} ${post.land} ${getAreaUnitLabel(post.landUnit, locale)}`}
               />
             )}
           </ul>
@@ -109,23 +117,31 @@ const PostDetailBody = ({ post, postViews, images }) => {
       <>
         <LineBreak />
         <div>
-          <Heading size="2" label="ข้อมูลเบื้องต้น" />
+          <Heading size="2" label={t('sections.basicInfo')} />
           <div className="md:flex md:flex-wrap text-gray-700">
             <div className="md:w-1/2">
-              ประเภท: {postType}
-              {assetType}
+              {t('details.type')}: {badgeLabel}
             </div>
-            {condition && <div className="md:w-1/2">สภาพ: {condition}</div>}
-            <div className="md:w-1/2">เลขประกาศ: {post.postNumber}</div>
-            {post.refId && (
-              <div className="md:w-1/2">เลขอ้างอิง: {post.refId}</div>
+            {condition && (
+              <div className="md:w-1/2">
+                {t('fields.condition')}: {condition}
+              </div>
             )}
             <div className="md:w-1/2">
-              วันที่ลงประกาศ: {getLocalDateByISODateString(post.createdAt)}
+              {t('fields.postNumber')}: {post.postNumber}
+            </div>
+            {post.refId && (
+              <div className="md:w-1/2">
+                {t('fields.refId')}: {post.refId}
+              </div>
+            )}
+            <div className="md:w-1/2">
+              {t('details.createdAt')}:{' '}
+              {getLocalDateByISODateString(post.createdAt)}
             </div>
             {post.updatedAt && (
               <div className="md:w-1/2">
-                วันที่อัพเดทล่าสุด:{' '}
+                {t('details.updatedAt')}:{' '}
                 {getLocalDateByISODateString(post.updatedAt)}
               </div>
             )}
@@ -137,7 +153,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label="แปลน" />
+            <Heading size="2" label={t('sections.specs')} />
             <div>
               <ul className="flex flex-wrap w-full gap-y-4">
                 {specsFormat?.map((spec) => (
@@ -156,7 +172,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
 
       <LineBreak />
       <div className="wysiwyg-content">
-        <Heading size="2" label="รายละเอียด" />
+        <Heading size="2" label={t('sections.details')} />
         <div
           className="text-gray-700 break-words"
           dangerouslySetInnerHTML={{ __html: purifiedDescInfo }}
@@ -167,7 +183,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label="สิ่งอำนวยความสะดวกและสาธารณูปโภค" />
+            <Heading size="2" label={t('fields.facilities')} />
             <div>
               <ul className="flex flex-wrap w-full gap-y-4">
                 {facilitiesFormat?.map((facility) => (
@@ -188,7 +204,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label="วิดีโอ" />
+            <Heading size="2" label={t('sections.video')} />
             <YoutubeIframe youtubeUrl={post.video} />
           </div>
         </>
@@ -196,7 +212,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
 
       <LineBreak />
       <div>
-        <Heading size="2" label="ทำเลที่ตั้ง" />
+        <Heading size="2" label={t('sections.location')} />
 
         <address className="not-italic">
           <div className="flex items-center">
@@ -213,9 +229,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         {true && (
           <>
             <span className="text-sm text-gray-500">
-              ด้านล่างเป็นภาพ Google Map Streetview ณ จุดที่ผู้ลงประกาศปัก Map
-              คุณสามารถเลื่อนซ้ายขวาเพื่อดูบรรยากาศรอบๆได้
-              (โปรดทราบว่าในบางกรณี/บางพื้นที่ ภาพอาจไม่อัพเดทตรงกับปีปัจจุบัน)
+              {t('details.streetviewNote')}
             </span>
             <PostMap
               mode="streetview"
@@ -263,7 +277,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
             <ChartBarIcon className="w-5 h-5" />
 
             <p className="text-base font-medium ml-1">
-              เข้าชม ({postViews || 0})
+              {t('details.views')} ({postViews || 0})
             </p>
           </div>
 

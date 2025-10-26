@@ -13,7 +13,7 @@ const DataTable = ({ items = [], columns = [], onRowClick = () => {} }) => {
                     <th
                       key={col.field}
                       scope="col"
-                      className="px-2 py-3.5 text-left text-sm font-semibold text-gray-900"
+                      className="px-2 py-3.5 text-left text-sm font-semibold text-gray-900 whitespace-nowrap"
                     >
                       {col.title}
                     </th>

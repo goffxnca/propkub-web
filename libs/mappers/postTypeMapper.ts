@@ -1,12 +1,30 @@
-import { PostType } from '../../src/types/misc/postType';
+import { PostType, PostTypeData } from '../../src/types/misc/postType';
+import { Locale } from '../../src/types/locale';
 
-const postTypes: PostType[] = [
-  { id: 'sale', label: 'ขาย' },
-  { id: 'rent', label: 'ให้เช่า' }
+const postTypes: PostTypeData[] = [
+  { id: 'sale', labelTH: 'ขาย', labelEN: 'Sale' },
+  { id: 'rent', labelTH: 'ให้เช่า', labelEN: 'Rent' }
 ];
 
-const getPostType = (postTypeId: string): string => {
-  return postTypes.find((p) => p.id === postTypeId)?.label || '';
+const getPostTypes = (locale: Locale = 'th'): PostType[] => {
+  return postTypes.map((pt) => ({
+    id: pt.id,
+    label: locale === 'en' ? pt.labelEN : pt.labelTH
+  }));
 };
 
-export { postTypes, getPostType };
+const getPostTypeLabel = (
+  postTypeId: string,
+  locale: Locale = 'th',
+  withEnglishPrefix: false
+): string => {
+  const postType = postTypes.find((p) => p.id === postTypeId);
+  if (!postType) return '';
+  return locale === 'en'
+    ? withEnglishPrefix
+      ? 'For ' + postType.labelEN
+      : postType.labelEN
+    : postType.labelTH;
+};
+
+export { getPostTypes, getPostTypeLabel };

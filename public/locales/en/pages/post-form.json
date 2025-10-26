@@ -1,0 +1,91 @@
+{
+  "mode": {
+    "create": "Create Listing",
+    "edit": "Edit Listing #{{postNumber}}"
+  },
+  "success": {
+    "create": {
+      "title": "Listing Created Successfully",
+      "message": "Your listing has been published and will appear on the home page within 30 minutes",
+      "button": "Go to Listing"
+    },
+    "update": {
+      "title": "Listing Updated Successfully",
+      "message": "Your listing has been updated successfully",
+      "button": "Go to Listing"
+    }
+  },
+  "sections": {
+    "media": {
+      "title": "Images",
+      "description": "You can upload {{min}}-{{max}} images per listing"
+    },
+    "location": {
+      "title": "Property Location",
+      "map": {
+        "searchLabel": "Type to search and auto-pin",
+        "searchPlaceholder": "Search by name or location, e.g., Condo Ideo Mobi Sukhumvit Eastgate (or read map pinning guide below)",
+        "searchButton": "Search",
+        "quotaRemaining": "Map search quota remaining",
+        "quotaNote": "times **We limit search attempts due to high Google Maps service costs",
+        "guideToggle": "Read map pinning guide",
+        "guideTitle": "Search examples to help locate your property easier, try in order:",
+        "guideExample1Note": "(Full name in Thai)",
+        "guideExample2Note": "(Full name in English)",
+        "guideExample3": "3. Condo Ideo Mobi Sukhumvit Eastgate Sukhumvit Road",
+        "guideExample3Note": "(Name + street/soi)",
+        "guideExample4": "4. Condo Ideo Mobi Sukhumvit Eastgate Bangna",
+        "guideExample4Note": "(Name + district)",
+        "guideExample5": "5. If you still can't find it after 4 searches, use your last search to find the nearest landmark, then scroll the map to pin it manually",
+        "modal": {
+          "title": "Pin Location",
+          "description": "Use the search field above to find your property's location"
+        },
+        "infoWindow": {
+          "waiting": "Waiting for property location pin",
+          "pinned": "Coordinates {{lat}},{{lng}} (Pinned)",
+          "instructions": "Click on the map or drag the red marker to change pin location"
+        }
+      }
+    },
+    "confirm": {
+      "title": "Confirmation"
+    }
+  },
+  "fields": {
+    "price": {
+      "unitPrefix": "/"
+    },
+    "desc": {
+      "info": "Describe your property in detail. Quality posts should have a description between 200-4000 characters. Please note that posting inappropriate or spam links is against our terms of use. If detected, your account will be permanently banned without prior notice. Allowed links include: links to your website or company, Facebook fan pages, LINE accounts, or your social media accounts. You can add links by highlighting text and clicking the chain icon above."
+    },
+    "refId": {
+      "label": "Reference ID (Optional)",
+      "placeholder": "Agent's internal reference number"
+    },
+    "images": {
+      "label": "Images",
+      "validation": {
+        "required": "Please upload {{min}}-{{max}} images for your listing",
+        "count": "Please upload {{min}}-{{max}} images for your listing"
+      }
+    },
+    "accept": {
+      "label": "I confirm that I am the owner or an authorized representative to post all images and information provided in this listing. I agree to take full responsibility for any disputes that may arise regarding this listing in the future."
+    },
+    "address": {
+      "regionId": {
+        "label": "Region"
+      },
+      "provinceId": {
+        "label": "Province"
+      },
+      "districtId": {
+        "label": "District"
+      },
+      "subDistrictId": {
+        "label": "Sub-District"
+      }
+    }
+  }
+}

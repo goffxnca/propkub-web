@@ -1,0 +1,145 @@
+{
+  "filter": {
+    "title": "ฉันกำลังสนใจ?",
+    "search": "ค้นหา",
+    "reset": "รีเซ็ตตัวกรอง",
+    "actions": {
+      "rent": "เช่า",
+      "buy": "ซื้อ",
+      "sale": "ลงประกาศ"
+    },
+    "location": {
+      "region": "ภาค",
+      "province": "จังหวัด",
+      "district": "เขต/อำเภอ",
+      "subDistrict": "แขวง/ตำบล"
+    }
+  },
+  "list": {
+    "pageTitle": "ลงประกาศอสังหาฟรี Propkub.com",
+    "latestPosts": "รายการประกาศล่าสุด",
+    "searchResults": "ผลการค้นหา พบ ({{count}}) รายการ",
+    "error": {
+      "title": "เกิดข้อผิดพลาด",
+      "description": "ไม่สามารถโหลดข้อมูลประกาศได้ กรุณาลองใหม่อีกครั้ง",
+      "button": "ตกลง"
+    }
+  },
+  "regions": {
+    "r1": "ภาคเหนือ",
+    "r2": "ภาคกลาง",
+    "r3": "ภาคตะวันออกเฉียงเหนือ",
+    "r4": "ภาคตะวันตก",
+    "r5": "ภาคตะวันออก",
+    "r6": "ภาคใต้"
+  },
+  "byRegion": {
+    "sellLand": "ขายที่ดิน"
+  },
+  "postTypes": {
+    "sale": "ขาย",
+    "rent": "ให้เช่า"
+  },
+  "statuses": {
+    "active": "เผยแพร่แล้ว",
+    "hold": "พักการใช้งาน",
+    "sold": "ขายแล้ว",
+    "closed": "ปิดประกาศ"
+  },
+  "assetTypes": {
+    "condo": "คอนโด",
+    "townhome": "ทาวน์โฮม",
+    "house": "บ้านเดี่ยว",
+    "land": "ที่ดิน"
+  },
+  "actions": {
+    "create": "สร้างประกาศ",
+    "update": "อัพเดทประกาศ",
+    "suspense": "พักการใช้งาน",
+    "restore": "เปิดประกาศใหม่",
+    "sell": "ปิดการขาย",
+    "close": "ปิดประกาศ"
+  },
+  "card": {
+    "badge": "{{postType}}{{assetType}}"
+  },
+  "fields": {
+    "title": "หัวข้อประกาศ",
+    "slug": "ลิงก์",
+    "desc": "รายละเอียด",
+    "assetType": "ประเภททรัพย์",
+    "postType": "ประเภทประกาศ",
+    "postTypeAlt": "ต้องการ",
+    "price": "ราคา",
+    "status": "สถานะ",
+    "thumbnail": "รูปภาพหลัก",
+    "images": "รูปภาพ",
+    "facilities": "สิ่งอำนวยความสะดวก",
+    "specs": {
+      "label": "สเปค",
+      "beds": "ห้องนอน",
+      "baths": "ห้องน้ำ",
+      "kitchens": "ห้องครัว",
+      "parkings": "ที่จอดรถ"
+    },
+    "address": {
+      "subDistrictLabel": "แขวง/ตำบล",
+      "subDistrictId": "รหัสแขวง/ตำบล",
+      "districtLabel": "เขต/อำเภอ",
+      "districtId": "รหัสเขต/อำเภอ",
+      "provinceLabel": "จังหวัด",
+      "provinceId": "รหัสจังหวัด",
+      "regionId": "รหัสภาค",
+      "location": {
+        "lat": "ละติจูด",
+        "lng": "ลองจิจูด"
+      }
+    },
+    "stats": {
+      "views": {
+        "post": "เข้าชม",
+        "phone": "ดูเบอร์โทรศัพท์",
+        "line": "ดูไอดีไลน์"
+      },
+      "shares": "แชร์",
+      "pins": "ปักหมุด"
+    },
+    "cid": "รหัสรอง",
+    "postNumber": "เลขประกาศ",
+    "isStudio": "ห้องสตูดิโอ",
+    "video": "วิดีโอ",
+    "land": "ขนาดที่ดิน",
+    "landUnit": "หน่วยที่ดิน",
+    "area": "พื้นที่ใช้สอย",
+    "areaUnit": "หน่วยพื้นที่ใช้สอย",
+    "priceUnit": "หน่วยราคา",
+    "condition": "สภาพ",
+    "refId": "เลขอ้างอิง",
+    "createdAt": "วันที่สร้าง",
+    "createdBy": "สร้างโดย",
+    "updatedAt": "วันที่อัพเดท",
+    "updatedBy": "อัพเดทโดย"
+  },
+  "sections": {
+    "basicInfo": "ข้อมูลเบื้องต้น",
+    "specs": "สเปค",
+    "details": "รายละเอียด",
+    "facilities": "สิ่งอำนวยความสะดวก",
+    "images": "รูปภาพ",
+    "location": "ที่ตั้ง",
+    "video": "วิดีโอ",
+    "similar": "ประกาศที่คล้ายกัน"
+  },
+  "details": {
+    "type": "ประเภท",
+    "createdAt": "วันที่ลงประกาศ",
+    "updatedAt": "วันที่อัพเดทล่าสุด",
+    "streetviewNote": "ด้านล่างเป็นภาพ Google Map Streetview ณ จุดที่ผู้ลงประกาศปัก Map คุณสามารถเลื่อนซ้ายขวาเพื่อดูบรรยากาศรอบๆได้ (โปรดทราบว่าในบางกรณี/บางพื้นที่ ภาพอาจไม่อัพเดทตรงกับปีปัจจุบัน)",
+    "views": "เข้าชม"
+  },
+  "contact": {
+    "clickToCall": "คลิกเพื่อโทรออก",
+    "showPhone": "หมายเลขโทรศัพท์",
+    "addLine": "แอดไลน์"
+  }
+}

@@ -1,19 +1,19 @@
 import { PhoneIcon, MailIcon, CheckIcon } from '@heroicons/react/solid';
 import { useForm } from 'react-hook-form';
-import {
-  EmailPattern,
-  maxLength,
-  minLength,
-  GenericPhonePattern
-} from '../../libs/form-validator';
+import { useValidators } from '../../hooks/useValidators';
 import TextAreaInput from '../UI/Public/Inputs/TextAreaInput';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Button from '../UI/Public/Button';
 import { useState } from 'react';
 import Modal from '../UI/Public/Modal';
 import { useRouter } from 'next/router';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const ContactForm = () => {
+  const { t } = useTranslation('pages/contact');
+  const { t: tCommon } = useTranslation('common');
+  const { required, minLength, maxLength, EmailPattern, GenericPhonePattern } =
+    useValidators();
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const router = useRouter();
@@ -143,11 +143,10 @@ const ContactForm = () => {
                 </svg>
               </div>
               <h1 className="text-lg font-medium text-white">
-                ติดต่อ PropKub.com
+                {t('hero.title')}
               </h1>
               <p className="mt-6 max-w-3xl text-base text-indigo-50">
-                เรามีทีมงานมืออาชีพพร้อมช่วยเหลือคุณตลอดเวลา
-                โปรดกรอกข้อมูลด้านล่างเพื่อรับการติดต่อกลับ
+                {t('hero.subtitle')}
               </p>
               <dl className="mt-8 space-y-6">
                 <dt>
@@ -259,7 +258,7 @@ const ContactForm = () => {
             {/* Contact form */}
             <div className="py-10 px-6 sm:px-10 lg:col-span-2 xl:p-12">
               <h2 className="text-lg font-medium text-gray-900">
-                กรอกรายละเอียดการติดต่อ
+                {t('form.title')}
               </h2>
               <form
                 onSubmit={handleSubmit(submitHandler)}
@@ -268,13 +267,13 @@ const ContactForm = () => {
                 <div className="col-span-2 md:col-span-1">
                   <TextInput
                     id="name"
-                    label="ชื่อผู้ติดต่อ"
+                    label={t('form.fields.name.label')}
                     spacingY={true}
                     register={() =>
                       register('name', {
-                        required: 'กรุณาระบุชื่อผู้ติดต่อ',
-                        minLength: { ...minLength(8, 'ชื่อผู้ติดต่อ') },
-                        maxLength: { ...maxLength(30, 'ชื่อผู้ติดต่อ') }
+                        ...required(),
+                        ...minLength(8),
+                        ...maxLength(30)
                       })
                     }
                     unregister={unregister}
@@ -285,12 +284,12 @@ const ContactForm = () => {
                 <div className="col-span-2 md:col-span-1">
                   <TextInput
                     id="email"
-                    label="อีเมล"
+                    label={t('form.fields.email.label')}
                     spacingY={true}
                     register={() =>
                       register('email', {
-                        required: 'กรุณาระบุอีเมล',
-                        pattern: EmailPattern()
+                        ...required(),
+                        ...EmailPattern()
                       })
                     }
                     unregister={unregister}
@@ -301,12 +300,12 @@ const ContactForm = () => {
                 <div className="col-span-2 md:col-span-1">
                   <TextInput
                     id="phone"
-                    label="เบอร์ติดต่อกลับ"
+                    label={t('form.fields.phone.label')}
                     spacingY={true}
                     register={() =>
                       register('phone', {
-                        required: 'กรุณาระบุเบอร์ติดต่อกลับ',
-                        pattern: GenericPhonePattern('หมายเลขโทรศัพท์มือถือ')
+                        ...required(),
+                        ...GenericPhonePattern()
                       })
                     }
                     unregister={unregister}
@@ -317,12 +316,12 @@ const ContactForm = () => {
                 <div className="col-span-2 md:col-span-1">
                   <TextInput
                     id="company"
-                    label="ชื่อบริษัท (ถ้ามี)"
+                    label={t('form.fields.company.label')}
                     spacingY={true}
                     register={() =>
                       register('company', {
-                        minLength: { ...minLength(6, 'ชื่อบริษัท') },
-                        maxLength: { ...maxLength(50, 'ชื่อบริษัท') }
+                        ...minLength(6),
+                        ...maxLength(50)
                       })
                     }
                     unregister={unregister}
@@ -333,12 +332,12 @@ const ContactForm = () => {
                 <div className="col-span-2">
                   <TextAreaInput
                     id="message"
-                    label="ข้อความ"
+                    label={t('form.fields.message.label')}
                     register={() =>
                       register('message', {
-                        required: 'กรุณาระบุข้อความ',
-                        minLength: { ...minLength(50, 'ข้อความ') },
-                        maxLength: { ...maxLength(500, 'ข้อความ') }
+                        ...required(),
+                        ...minLength(50),
+                        ...maxLength(500)
                       })
                     }
                     rows={7}
@@ -354,7 +353,9 @@ const ContactForm = () => {
                     spacingY={true}
                     loading={loading}
                   >
-                    ส่งข้อมูล
+                    {loading
+                      ? tCommon('actions.submitting')
+                      : tCommon('actions.submit')}
                   </Button>
                 </div>
               </form>
@@ -365,9 +366,9 @@ const ContactForm = () => {
 
       <Modal
         visible={sent}
-        title="ส่งข้อมูลสำเร็จ"
-        desc="เราจะตรวจสอบข้อความของคุณ และคุณจะได้รับการติดต่อกลับจากทีมของเรา"
-        buttonCaption="กลับหน้าหลัก"
+        title={t('form.success.title')}
+        desc={t('form.success.description')}
+        buttonCaption={tCommon('buttons.goHome')}
         Icon={CheckIcon}
         onClose={() => {
           router.push('/');

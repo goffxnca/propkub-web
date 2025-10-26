@@ -115,7 +115,6 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 - [ ] **Mobile App** - Native iOS and Android applications for better user experience
 - [ ] **AI-Powered Matching** - Integrate AI to help property seekers and owners/agents find perfect matches more easily
-- [ ] **Southeast Asia Expansion** - Scale as an open-source property platform across Southeast Asia
 - [ ] **Free Marketplace** - Create a truly free platform for home seekers, owners, and agents (no fees, unlike traditional property marketplace companies)
 - [ ] **Developer Community** - Build a welcoming place where developers of all skill levels can contribute to products that reach real end users
 

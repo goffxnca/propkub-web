@@ -4,12 +4,8 @@ import { useForm } from 'react-hook-form';
 import { addNewPost, updatePost } from '../../../libs/post-utils';
 import MediaSection from './MediaSection';
 import Modal from '../../UI/Public/Modal';
-import {
-  CheckIcon,
-  LockClosedIcon,
-  ExclamationIcon
-} from '@heroicons/react/outline';
-import { useContext, useEffect, useState } from 'react';
+import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
+import { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../../UI/Public/Button';
 import { authContext } from '../../../contexts/authContext';
@@ -17,12 +13,16 @@ import AddDoc from '../../Icons/AddDoc';
 import PageTitle from '../../UI/Private/PageTitle';
 // import Banner from "../../Banner/Banner";
 import ConfirmSection from './ConfirmSection';
-import Alert from '../../UI/Public/Alert';
+import ProfileWarnings from '../../Profile/ProfileWarnings';
 import { getFacilityObject } from '../../../libs/mappers/facilityMapper';
 import { getSpecsObject } from '../../../libs/mappers/specMapper';
 import { getEditedFields } from '../../../libs/form-utils';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const PostForm = ({ postData }) => {
+  const { t } = useTranslation('pages/profile');
+  const { t: tCommon } = useTranslation('common');
+  const { t: tForm } = useTranslation('pages/post-form');
   const isEditMode = !!postData;
 
   const defaultValues = isEditMode
@@ -58,31 +58,39 @@ const PostForm = ({ postData }) => {
     watch,
     setValue,
     setFocus,
+    trigger,
     formState: { errors, submitCount, dirtyFields, isDirty }
   } = useForm({ defaultValues: defaultValues });
 
   const router = useRouter();
+  const { locale } = router;
   const { user, isAgent, isProfileComplete } = useContext(authContext);
+
+  // Re-trigger validation when locale changes to update error messages
+  useEffect(() => {
+    if (submitCount > 0) {
+      trigger();
+    }
+  }, [locale, submitCount, trigger]);
 
   const [saving, setSaving] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [warningMessages, setWarningMessages] = useState([]);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [createdPostId, setCreatedPostId] = useState('');
 
   const modalSuccessTitle = isEditMode
-    ? 'อัพเดทประกาศสำเร็จ'
-    : 'สร้างประกาศสำเร็จ';
+    ? tForm('success.update.title')
+    : tForm('success.create.title');
   const modalSuccessMessage = isEditMode
-    ? 'ประกาศของคุณได้รับการอัพเดทเรียบร้อยแล้ว'
-    : 'ประกาศของคุณได้รับการเผยแพร่เป็นสาธารณะแล้ว และจะปรากฏบนหน้าแรกใน 30 นาที';
+    ? tForm('success.update.message')
+    : tForm('success.create.message');
 
+  const roleLabel = isAgent ? tCommon('roles.agent') : tCommon('roles.normal');
   const modeLabel = isEditMode
-    ? `แก้ไขประกาศ #${postData.postNumber}`
-    : 'ลงประกาศ';
-  const pageTitle =
-    modeLabel + (isAgent ? ` (เอเจ้นท์)` : ' (ผู้ใช้งานทั่วไป)');
+    ? tForm('mode.edit', { postNumber: postData.postNumber })
+    : tForm('mode.create');
+  const pageTitle = `${modeLabel} (${roleLabel})`;
 
   const allowCreatePost = isAgent ? isProfileComplete : true;
 
@@ -104,39 +112,13 @@ const PostForm = ({ postData }) => {
       setShowSuccessModal(true);
     } catch (error) {
       console.error(`${isEditMode ? 'Edit' : 'Create'} post failed:`, error);
-      setErrorMessage(
-        'เกิดข้อผิดพลาดในการบันทึกประกาศ กรุณาตรวจสอบข้อมูลและลองใหม่อีกครั้ง'
-      );
+      setErrorMessage(tCommon('error.generic.description'));
 
       setShowErrorModal(true);
     } finally {
       setSaving(false);
     }
   };
-
-  useEffect(() => {
-    const messages = [];
-    if (!user.emailVerified) {
-      messages.push(
-        `เราส่งลิ้งค์ยืนยันอีเมลไปที่ ${user?.email} กรุณายืนยันว่าคุณเป็นเจ้าของอีเมล (หากไม่พบอีเมล กรุณาตรวจสอบในโฟลเดอร์ Spam/Junk/Promotions)`
-      );
-    }
-    if (!user.name) {
-      messages.push('กรุณากำหนดชื่อ');
-    }
-
-    if (!user.profileImg) {
-      messages.push('กรุณากำหนดรูปภาพโปรไฟล์');
-    }
-
-    if (!user.phone || !user.line) {
-      messages.push(
-        'กรุณากำหนดหมายเลขโทรศัพท์และไลน์ไอดี เพื่อให้ผู้เข้าชมประกาศสามารถติดต่อคุณได้'
-      );
-    }
-
-    setWarningMessages(messages);
-  }, [user]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -150,26 +132,11 @@ const PostForm = ({ postData }) => {
         onSubmit={handleSubmit(submitHandler)}
       >
         {/* Profile warning messages */}
-        {warningMessages.length > 0 && (
-          <div>
-            <Alert
-              alertTitle="ก่อนลงประกาศกรุณาดำเนินการต่อไปนี้:"
-              messages={warningMessages}
-              showButton={true}
-              buttonLabel={'ไปที่โปรไฟล์'}
-              onClick={() => {
-                router.push('/profile');
-              }}
-            />
-
-            <div className="absolute bg-black bg-opacity-5 w-full h-full z-40">
-              <LockClosedIcon
-                className="h-20 w-20 md:h-40 md:w-40 flex-shrink-0 text-gray-500 m-auto mt-20 md:mt-40"
-                aria-hidden="true"
-              />
-            </div>
-          </div>
-        )}
+        <ProfileWarnings
+          user={user}
+          onCheckAgainClick={() => router.push('/profile')}
+          showLockOverlay={true}
+        />
 
         {/* Main basic section */}
         <BasicSection
@@ -225,7 +192,7 @@ const PostForm = ({ postData }) => {
           visible={showSuccessModal}
           title={modalSuccessTitle}
           desc={modalSuccessMessage}
-          buttonCaption="ไปยังประกาศ"
+          buttonCaption={isEditMode ? tForm('success.update.button') : tForm('success.create.button')}
           Icon={CheckIcon}
           onClose={() => {
             setShowSuccessModal(false);
@@ -237,9 +204,9 @@ const PostForm = ({ postData }) => {
         <Modal
           visible={showErrorModal}
           type="warning"
-          title="เกิดข้อผิดพลาด"
+          title={tCommon('error.generic.title')}
           desc={errorMessage}
-          buttonCaption="ตกลง"
+          buttonCaption={tCommon('buttons.ok')}
           Icon={ExclamationIcon}
           onClose={() => {
             setShowErrorModal(false);
@@ -256,7 +223,7 @@ const PostForm = ({ postData }) => {
               loading={saving}
               disabled={isEditMode && !formDataChanged}
             >
-              บันทึก
+              {tCommon('buttons.save')}
             </Button>
 
             <Button
@@ -265,7 +232,7 @@ const PostForm = ({ postData }) => {
                 router.push('/dashboard');
               }}
             >
-              ยกเลิก
+              {tCommon('buttons.cancel')}
             </Button>
           </div>
         )}

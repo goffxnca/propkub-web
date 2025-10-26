@@ -1,10 +1,10 @@
 import { getIcon } from '../../libs/mappers/iconMapper';
-import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
-import { getPostType } from '../../libs/mappers/postTypeMapper';
-import { getAssetType } from '../../libs/mappers/assetTypeMapper';
 import { formatAddress } from '../../libs/formatters/addressFomatter';
 import { useMemo } from 'react';
 import Link from 'next/link';
+import SpecItemWithCircle from './Specs/SpecItemWithCircle';
+import { useTranslation } from '../../hooks/useTranslation';
+import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
 
 const PostItem = ({
   id,
@@ -50,13 +50,23 @@ const PostItem = ({
     [specs, studioSpec]
   );
 
+  const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
+
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
-  const postTypeFormat = useMemo(() => getPostType(postType), [postType]);
-  const assetTypeFormat = useMemo(() => getAssetType(assetType), [assetType]);
-  const priceUnitFormat = useMemo(
-    () => (priceUnit ? ` / ${getPriceUnit(priceUnit)}` : ''),
-    [priceUnit]
+  const badgeLabel = useMemo(
+    () =>
+      t('card.badge', {
+        postType: t(`postTypes.${postType}`),
+        assetType: t(`assetTypes.${assetType}`)
+      }),
+    [postType, assetType, t]
   );
+  const priceUnitFormat = useMemo(() => {
+    if (!priceUnit) return '';
+    const label = getPriceUnit(priceUnit, tCommon);
+    return label ? ` / ${label}` : '';
+  }, [priceUnit, tCommon]);
   const addressFormat = useMemo(() => formatAddress(address), [address]);
 
   return (
@@ -66,8 +76,7 @@ const PostItem = ({
         <div className="relative aspect-square w-full overflow-hidden rounded-xl mb-3">
           {/* Badge */}
           <span className="absolute top-3 left-0 rounded-r-lg bg-white/95 backdrop-blur-sm py-1.5 px-3 text-xs font-semibold text-gray-700 z-20 shadow-sm">
-            {postTypeFormat}
-            {assetTypeFormat}
+            {badgeLabel}
           </span>
 
           {/* Image */}

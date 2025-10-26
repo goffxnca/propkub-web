@@ -1,0 +1,20 @@
+{
+  "title": "Login",
+  "form": {
+    "title": "Login",
+    "googleLogin": "Login with Google",
+    "or": "Or",
+    "fields": {
+      "email": {
+        "label": "Email"
+      },
+      "password": {
+        "label": "Password"
+      }
+    },
+    "forgotPassword": "Forgot password?",
+    "submit": "Login",
+    "noAccount": "Don't have an account?",
+    "signup": "Register"
+  }
+}

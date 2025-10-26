@@ -5,6 +5,7 @@ import {
   ShareIcon,
   BookmarkIcon
 } from '@heroicons/react/outline';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const PostDetailStats = ({
   postViews = 0,
@@ -13,34 +14,37 @@ const PostDetailStats = ({
   shares,
   pins
 }) => {
+  const { t } = useTranslation('posts');
+  const { t: tPage } = useTranslation('pages/account-post');
+
   const stats = [
     {
       id: 1,
-      name: 'เข้าชม',
+      name: t('fields.stats.views.post'),
       stat: postViews,
       icon: EyeIcon
     },
     {
       id: 2,
-      name: 'คลิกดูเบอร์',
+      name: t('fields.stats.views.phone'),
       stat: phoneViews,
       icon: PhoneIcon
     },
     {
       id: 3,
-      name: 'คลิกดูไลน์',
+      name: t('fields.stats.views.line'),
       stat: lineViews,
       icon: ChatIcon
     },
     {
       id: 4,
-      name: 'แชร์',
+      name: t('fields.stats.shares'),
       stat: shares,
       icon: ShareIcon
     },
     {
       id: 5,
-      name: 'บันทึก',
+      name: t('fields.stats.pins'),
       stat: pins,
       icon: BookmarkIcon
     }
@@ -49,7 +53,7 @@ const PostDetailStats = ({
   return (
     <div className="bg-white shadow sm:rounded-lg p-4">
       <h3 className="text-lg font-medium leading-6 text-gray-900">
-        ข้อมูลเชิงสถิติ
+        {tPage('stats.title')}
       </h3>
 
       <dl className="m-3 gap-2 grid grid-cols-2 ">
@@ -62,7 +66,7 @@ const PostDetailStats = ({
               <div className="absolute rounded-md bg-indigo-500 p-3">
                 <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
               </div>
-              <p className="ml-16 truncate text-xs font-medium text-gray-500">
+              <p className="ml-16 line-clamp-2 text-xs font-medium text-gray-500">
                 {item.name}
               </p>
             </dt>

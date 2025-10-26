@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
+import { useTranslation } from '../../hooks/useTranslation';
 
-import { getAssetType } from '../../libs/mappers/assetTypeMapper';
-import { getPostType } from '../../libs/mappers/postTypeMapper';
 import PostStatusBadge from '../Posts/PostStatusBadge/PostStatusBadge';
 
 import PageTitle from '../UI/Private/PageTitle';
@@ -20,6 +19,9 @@ import Link from 'next/link';
 
 const MyPropertyList = () => {
   const router = useRouter();
+  const { t } = useTranslation('posts');
+  const { t: tDashboard } = useTranslation('pages/dashboard');
+  const { t: tCommon } = useTranslation('common');
   const {
     data: myPosts,
     loading,
@@ -49,18 +51,20 @@ const MyPropertyList = () => {
   useEffect(() => {
     const fetchStats = async () => {
       setStatsLoading(true);
+
       try {
         const statsData = await getMyPostsStats();
         setStats(statsData);
       } catch (error) {
         console.error('Error fetching stats:', error);
-        setApiError('เกิดข้อผิดพลาดในการโหลดข้อมูลสถิติ');
+        setApiError(tCommon('error.generic.description'));
       } finally {
         setStatsLoading(false);
       }
     };
 
     fetchStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Update apiError when pagination hook has an error
@@ -72,7 +76,7 @@ const MyPropertyList = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-      <PageTitle label="แดชบอร์ด" />
+      <PageTitle label={tDashboard('title')} />
 
       <Stats
         totalCount={stats.totalPosts}
@@ -87,7 +91,7 @@ const MyPropertyList = () => {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-xl font-semibold text-gray-900">
-              ประกาศทั้งหมด
+              {tDashboard('allPosts')}
             </h1>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
@@ -98,7 +102,7 @@ const MyPropertyList = () => {
                 router.push('/account/posts/create');
               }}
             >
-              ลงประกาศ
+              {tDashboard('createPost')}
             </Button>
           </div>
         </div>
@@ -118,16 +122,16 @@ const MyPropertyList = () => {
                 </Link>
               )
             },
-            { title: 'เลขประกาศ', field: 'postNumber' },
+            { title: t('fields.postNumber'), field: 'postNumber' },
             // { title: "#", field: "cid" },
             {
-              title: 'ลงวันที่',
+              title: t('fields.createdAt'),
               field: 'createdAt',
               resolver: (item) =>
                 new Date(item.createdAt).toLocaleDateString('th-TH')
             },
             {
-              title: 'รูปภาพ',
+              title: t('fields.images'),
               field: 'image',
               custom: (item) => (
                 <div className="h-12 w-12 ">
@@ -141,49 +145,49 @@ const MyPropertyList = () => {
               )
             },
             {
-              title: 'สถานะ',
+              title: t('fields.status'),
               field: 'status',
               custom: (item) => <PostStatusBadge status={item.status} />
             },
             {
-              title: 'ประเภท',
+              title: t('fields.assetType'),
               field: 'assetType',
-              resolver: (item) => getAssetType(item.assetType)
+              resolver: (item) => t(`assetTypes.${item.assetType}`)
             },
 
             {
-              title: 'สำหรับ',
+              title: t('fields.postTypeAlt'),
               field: 'postType',
-              resolver: (item) => getPostType(item.postType)
+              resolver: (item) => t(`postTypes.${item.postType}`)
             },
             {
-              title: 'จังหวัด',
+              title: t('fields.address.provinceLabel'),
               field: 'address.provinceId',
               resolver: (item) => item.address.provinceLabel
             },
-            { title: 'หัวข้อประกาศ', field: 'title' },
+            { title: t('fields.title'), field: 'title' },
             {
-              title: 'เข้าชม',
+              title: t('fields.stats.views.post'),
               field: 'postViews',
               resolver: (item) => item.stats.views.post || 0
             },
             {
-              title: 'ดูเบอร์',
+              title: t('fields.stats.views.phone'),
               field: 'phoneViews',
               resolver: (item) => item.stats.views.phone || 0
             },
             {
-              title: 'ดูไลน์',
+              title: t('fields.stats.views.line'),
               field: 'lineViews',
               resolver: (item) => item.stats.views.line || 0
             },
             {
-              title: 'แชร์',
+              title: t('fields.stats.shares'),
               field: 'shares',
               resolver: (item) => item.stats.shares || 0
             },
             {
-              title: 'บันทึก',
+              title: t('fields.stats.pins'),
               field: 'pins',
               resolver: (item) => item.stats.pins || 0
             }
@@ -211,9 +215,9 @@ const MyPropertyList = () => {
         visible={!!apiError}
         Icon={ExclamationIcon}
         type="warning"
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         desc={apiError}
-        buttonCaption="ตกลง"
+        buttonCaption={tCommon('buttons.ok')}
         onClose={() => {
           setApiError('');
         }}
