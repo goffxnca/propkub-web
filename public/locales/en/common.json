@@ -61,6 +61,9 @@
     "submit": "Submit",
     "submitting": "Submitting..."
   },
+  "loading": {
+    "generic": "Loading..."
+  },
   "pagination": {
     "showing": "Showing {{start}} to {{end}} of {{total}} items"
   },
