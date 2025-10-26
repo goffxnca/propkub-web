@@ -2,13 +2,13 @@ const getUnixEpochTime = () => {
   return Date.now().toString();
 };
 
-const getLocalDateByISODateString = (isoDateSting) => {
-  const date = new Date(isoDateSting);
+const getLocalDateByISODateString = (isoDateString) => {
+  const date = new Date(isoDateString);
   return date.toLocaleDateString('th');
 };
 
-const getLocalDateTimeByISODateString = (isoDateSting) => {
-  const date = new Date(isoDateSting);
+const getLocalDateTimeByISODateString = (isoDateString) => {
+  const date = new Date(isoDateString);
   const timeSegments = date.toLocaleTimeString('th').split(':');
   const time = timeSegments[0] + ':' + timeSegments[1];
   return `${date.toLocaleDateString('th')} ${time}`;

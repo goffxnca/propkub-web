@@ -10,8 +10,8 @@ const Confirm = ({
   type = 'success',
   title,
   desc,
-  buttonCancelLabel = 'ยกเลิก',
-  buttonConfirmLabel = 'ยืนยัน',
+  buttonCancelLabel = 'Cancel',
+  buttonConfirmLabel = 'Confirm',
   onClose,
   onConfirm
 }) => {

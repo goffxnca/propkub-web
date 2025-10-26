@@ -3,7 +3,7 @@ import { resizeFile } from '../../../../../libs/utils/file-utils';
 import InlineError from '../../InlineError';
 import BaseInput from '../BaseInput';
 
-const maxfileSizeMB = 10;
+const maxFileSizeMB = 10;
 
 const ProfileImageInput = ({
   id,
@@ -63,7 +63,7 @@ const ProfileImageInput = ({
 
     //validate file size
     const fileSizeMB = file.size / 1024 / 1024;
-    if (fileSizeMB > maxfileSizeMB) {
+    if (fileSizeMB > maxFileSizeMB) {
       errorMessages.push(`ไฟล์ '${file.name}' มีขนาดไฟล์เกิน 10MB`);
     }
 

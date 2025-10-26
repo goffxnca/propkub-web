@@ -30,7 +30,7 @@ const GoogleMap = ({ address, onLocationSelected }) => {
         if (status == 'OK') {
           const { lat, lng } = results[0].geometry.location;
           if (lat && lng) {
-            // const addressSecments = actualAddress.split(" ");
+            // const addressSegments = actualAddress.split(" ");
             initializeMap({
               center: { lat: lat(), lng: lng() },
               // zoom: addressSecments.length > 2 ? 19 : 15,
@@ -40,7 +40,7 @@ const GoogleMap = ({ address, onLocationSelected }) => {
         } else {
           initializeMap({
             center: defaultCenter,
-            // zoom: addressSecments.length > 2 ? 19 : 15,
+            // zoom: addressSegments.length > 2 ? 19 : 15,
             zoom: 15
           });
 
@@ -71,7 +71,7 @@ const GoogleMap = ({ address, onLocationSelected }) => {
     } else {
       initMapFromAddressText();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
   const initializeMap = (options) => {

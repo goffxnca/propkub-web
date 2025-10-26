@@ -22,9 +22,6 @@ const MediaSection = ({
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
-          {/* <h3 className="text-lg font-medium leading-6 text-gray-900">
-            รูปภาพ&วิดีโอ
-          </h3> */}
           <h3 className="text-lg font-medium leading-6 text-gray-900">
             {tForm('sections.media.title')}
           </h3>

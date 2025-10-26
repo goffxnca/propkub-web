@@ -1,8 +1,8 @@
 const getYoutubeVideoId = (url) => {
-  const videoid = url.match(
+  const videoId = url.match(
     /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
   );
-  return videoid ? videoid[1] : null;
+  return videoId ? videoId[1] : null;
 };
 
 const randomLetter = () => {

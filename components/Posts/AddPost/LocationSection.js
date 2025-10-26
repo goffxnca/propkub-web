@@ -133,9 +133,9 @@ const LocationSection = ({
       setSubDistrictLabel(subDistrictLabel);
       if (districtLabel !== '-' && subDistrictLabel !== '-') {
         if (watchAddressSearch) {
-          //Render map with typed address ex. Condo Ideo Mobi Sukhumvit Eastgate (User can pinned the map at place which is not belong to district or subdistrict, it's okay we are accept this to happen)
+          //Render map with typed address ex. Condo Ideo Mobi Sukhumvit Eastgate (Users can pin the map at a place which does not belong to the district or subdistrict, it's okay for us to accept this to happen)
           setAddress(`${watchAddressSearch}__search`); //with __search, means render map for the searched place and auto pin the map,
-          // without __search means render the map area of specific subDistrict without pinning the map
+          // without __search means render the map area of specific subdistrict without pinning the map
 
           // setAddress(
           //   `${watchAddressSearch} ${getSubDistrictPrefix(

@@ -7,7 +7,7 @@ import { useTranslation } from '../../../../../hooks/useTranslation';
 
 const UploadImagesInputDetail = ({
   maxFile = 1,
-  maxfileSizeMB = 10,
+  maxFileSizeMB = 10,
   onImageChange,
   error
 }) => {
@@ -67,7 +67,7 @@ const UploadImagesInputDetail = ({
 
       //validate file size
       const fileSizeMB = file.size / 1024 / 1024;
-      if (fileSizeMB > maxfileSizeMB) {
+      if (fileSizeMB > maxFileSizeMB) {
         errors.push(t('upload.errors.maxSize', { filename: file.name }));
         continue;
       }
@@ -106,7 +106,7 @@ const UploadImagesInputDetail = ({
 
     //   //validate file size
     //   const fileSizeMB = file.size / 1024 / 1024;
-    //   if (fileSizeMB > maxfileSizeMB) {
+    //   if (fileSizeMB > maxFileSizeMB) {
     //     return errorMessages.push(`ไฟล์ '${file.name}' มีขนาดไฟล์เกิน 10MB`);
     //   }
 

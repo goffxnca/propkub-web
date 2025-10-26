@@ -4,7 +4,7 @@ import Modal from '../UI/Public/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { useTranslation } from '../../hooks/useTranslation';
 
-const maxfileSizeMB = 10;
+const maxFileSizeMB = 10;
 
 const ProfileImageInput = ({
   id,
@@ -60,15 +60,19 @@ const ProfileImageInput = ({
     // Validate file type
     if (!allowedFileTypes.includes(selectedFile.type)) {
       errorMessages.push(
-        t('sections.personal.imageUpload.errorInvalidType', { filename: selectedFile.name })
+        t('sections.personal.imageUpload.errorInvalidType', {
+          filename: selectedFile.name
+        })
       );
     }
 
     // Validate file size
     const fileSizeMB = selectedFile.size / 1024 / 1024;
-    if (fileSizeMB > maxfileSizeMB) {
+    if (fileSizeMB > maxFileSizeMB) {
       errorMessages.push(
-        t('sections.personal.imageUpload.errorFileSize', { filename: selectedFile.name })
+        t('sections.personal.imageUpload.errorFileSize', {
+          filename: selectedFile.name
+        })
       );
     }
 

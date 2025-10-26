@@ -13,7 +13,7 @@ const getSpecLabel = (specId: string): string => {
   return specs.find((a) => a.id === specId)?.label || '';
 };
 
-// Convert from {beds: 2} -> [{id: "ิbeds", label: "ห้องนอน", value: 2}]
+// Convert from {beds: 2} -> [{id: "beds", label: "ห้องนอน", value: 2}]
 const getSpecsArray = (specsObject: SpecsObject): SpecDbFormat[] => {
   if (!specsObject) return [];
 
@@ -28,7 +28,7 @@ const getSpecsArray = (specsObject: SpecsObject): SpecDbFormat[] => {
   return specArray;
 };
 
-// Convert from [{id: "ิbeds", label: "ห้องนอน", value: 2}] -> {beds: 2}
+// Convert from [{id: "beds", label: "ห้องนอน", value: 2}] -> {beds: 2}
 const getSpecsObject = (specsArray: SpecDbFormat[]): SpecsObject => {
   return specsArray.reduce((a, v) => ({ ...a, [v.id]: v.value }), {});
 };
