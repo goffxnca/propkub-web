@@ -9,7 +9,7 @@ const Modal = ({
   type = 'success',
   title,
   desc,
-  buttonCaption = 'ตกลง',
+  buttonCaption,
   onClose
 }) => {
   //   const [open, setOpen] = useState(true);
