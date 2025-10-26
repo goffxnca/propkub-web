@@ -106,7 +106,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ### Short Term
 
-- [/] Multi-language support
+- [x] Multi-language support
 - [ ] Enhanced property search filters
 - [ ] User dashboard improvements
 - [ ] Advanced analytics
