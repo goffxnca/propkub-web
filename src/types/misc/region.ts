@@ -8,4 +8,3 @@ export interface Region {
   id: string;
   label: string;
 }
-

@@ -10,10 +10,10 @@ const AddPostPage = () => {
   const { t } = useTranslation('pages/post-form');
   const { t: tCommon } = useTranslation('common');
   const { isAgent } = useContext(authContext);
-  
+
   const roleLabel = isAgent ? tCommon('roles.agent') : tCommon('roles.normal');
   const pageTitle = `${t('mode.create')} (${roleLabel})`;
-  
+
   return (
     <ProtectedRoute>
       <Head>

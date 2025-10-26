@@ -5,7 +5,9 @@ const HeroBanner = () => {
     <div className="bg-indigo-700 lg:max-w-7xl mx-auto md:rounded-md md:shadow-lg px-10">
       <div className="mx-auto max-w-2xl py-16  text-center sm:py-10 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          <span className="block">Post Property Listings for Free on PropKub.com</span>
+          <span className="block">
+            Post Property Listings for Free on PropKub.com
+          </span>
           <span className="block">
             on <span className="">PropKub.com</span>
             <span className="text-accent">(PropKub)</span>

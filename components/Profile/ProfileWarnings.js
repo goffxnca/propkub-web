@@ -4,7 +4,11 @@ import { LockClosedIcon } from '@heroicons/react/outline';
 import Alert from '../UI/Public/Alert';
 import { useTranslation } from '../../hooks/useTranslation';
 
-const ProfileWarnings = ({ user, onCheckAgainClick, showLockOverlay = false }) => {
+const ProfileWarnings = ({
+  user,
+  onCheckAgainClick,
+  showLockOverlay = false
+}) => {
   const router = useRouter();
   const { t } = useTranslation('pages/profile');
   const [warningMessages, setWarningMessages] = useState([]);
@@ -59,4 +63,3 @@ const ProfileWarnings = ({ user, onCheckAgainClick, showLockOverlay = false }) =
 };
 
 export default ProfileWarnings;
-

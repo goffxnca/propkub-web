@@ -25,4 +25,3 @@ export {
   getDistrictPrefix,
   getSubDistrictPrefix
 };
-

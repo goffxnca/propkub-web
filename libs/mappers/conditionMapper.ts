@@ -13,7 +13,10 @@ const getConditions = (locale: Locale = 'th'): Condition[] => {
   }));
 };
 
-const getConditionLabel = (conditionId: string, locale: Locale = 'th'): string => {
+const getConditionLabel = (
+  conditionId: string,
+  locale: Locale = 'th'
+): string => {
   const condition = conditions.find((c) => c.id === conditionId);
   if (!condition) return '';
   return locale === 'en' ? condition.labelEN : condition.labelTH;

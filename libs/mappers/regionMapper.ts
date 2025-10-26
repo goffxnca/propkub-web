@@ -24,4 +24,3 @@ const getRegionLabel = (regionId: string, locale: Locale = 'th'): string => {
 };
 
 export { getRegions, getRegionLabel };
-

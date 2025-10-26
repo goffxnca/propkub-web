@@ -16,4 +16,3 @@ const BrownRiceIcon = ({ className }: IconProps) => {
 };
 
 export default BrownRiceIcon;
-

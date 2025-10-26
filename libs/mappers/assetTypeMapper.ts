@@ -16,7 +16,10 @@ const getAssetTypes = (locale: Locale = 'th'): AssetType[] => {
   }));
 };
 
-const getAssetTypeLabel = (assetTypeId: string, locale: Locale = 'th'): string => {
+const getAssetTypeLabel = (
+  assetTypeId: string,
+  locale: Locale = 'th'
+): string => {
   const assetType = assetTypes.find((a) => a.id === assetTypeId);
   if (!assetType) return '';
   return locale === 'en' ? assetType.labelEN : assetType.labelTH;

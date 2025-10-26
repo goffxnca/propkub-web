@@ -43,7 +43,7 @@ const Stats = ({
 }: StatsProps) => {
   const { t: tDashboard } = useTranslation('pages/dashboard');
   const { t: tPosts } = useTranslation('posts');
-  
+
   const stats: StatItem[] = [
     {
       id: 1,

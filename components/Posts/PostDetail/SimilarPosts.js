@@ -4,7 +4,7 @@ import { useTranslation } from '../../../hooks/useTranslation';
 
 const SimilarPosts = ({ similarPosts }) => {
   const { t } = useTranslation('posts');
-  
+
   return (
     <>
       <div className="">

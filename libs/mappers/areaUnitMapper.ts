@@ -21,7 +21,10 @@ const getStandardAreaUnits = (locale: Locale = 'th'): AreaUnit[] => {
   return getAreaUnits(locale).filter((a) => a.id !== 'whole');
 };
 
-const getAreaUnitLabel = (areaUnitId: string, locale: Locale = 'th'): string => {
+const getAreaUnitLabel = (
+  areaUnitId: string,
+  locale: Locale = 'th'
+): string => {
   const areaUnit = areaUnits.find((a) => a.id === areaUnitId);
   if (!areaUnit) return '';
   return locale === 'en' ? areaUnit.labelEN : areaUnit.labelTH;

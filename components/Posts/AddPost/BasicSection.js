@@ -44,7 +44,9 @@ const BasicSection = ({
 
   const facilityList = useMemo(
     () =>
-      watchAssetType === 'land' ? getLandFacilities(locale) : getNonLandFacilities(locale),
+      watchAssetType === 'land'
+        ? getLandFacilities(locale)
+        : getNonLandFacilities(locale),
     [watchAssetType, locale]
   );
 

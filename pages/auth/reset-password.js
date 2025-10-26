@@ -167,7 +167,8 @@ const ResetPasswordPage = () => {
                       register('confirmPassword', {
                         ...required(),
                         validate: (value, { newPassword }) =>
-                          value === newPassword || t('form.validation.confirmPasswordMismatch')
+                          value === newPassword ||
+                          t('form.validation.confirmPasswordMismatch')
                       })
                     }
                     unregister={unregister}

@@ -192,7 +192,11 @@ const PostForm = ({ postData }) => {
           visible={showSuccessModal}
           title={modalSuccessTitle}
           desc={modalSuccessMessage}
-          buttonCaption={isEditMode ? tForm('success.update.button') : tForm('success.create.button')}
+          buttonCaption={
+            isEditMode
+              ? tForm('success.update.button')
+              : tForm('success.create.button')
+          }
           Icon={CheckIcon}
           onClose={() => {
             setShowSuccessModal(false);

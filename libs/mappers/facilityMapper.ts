@@ -1,4 +1,8 @@
-import { Facility, FacilityData, FacilitiesObject } from '../../src/types/misc/facility';
+import {
+  Facility,
+  FacilityData,
+  FacilitiesObject
+} from '../../src/types/misc/facility';
 import { Locale } from '../../src/types/locale';
 
 const facilitiesData: FacilityData[] = [
@@ -25,7 +29,11 @@ const facilitiesData: FacilityData[] = [
   { id: 'pool', labelTH: 'สระว่ายน้ำ', labelEN: 'Swimming Pool' },
   { id: 'library', labelTH: 'ห้องสมุด', labelEN: 'Library' },
   { id: 'playground', labelTH: 'สนามเด็กเล่น', labelEN: 'Playground' },
-  { id: 'rooftop', labelTH: 'ดาดฟ้า/สกายเล้าจน์', labelEN: 'Rooftop/Sky Lounge' },
+  {
+    id: 'rooftop',
+    labelTH: 'ดาดฟ้า/สกายเล้าจน์',
+    labelEN: 'Rooftop/Sky Lounge'
+  },
   { id: 'van', labelTH: 'รถรับส่งโครงการ', labelEN: 'Shuttle Service' },
   { id: 'lobby', labelTH: 'ล็อบบี้', labelEN: 'Lobby' },
   { id: 'mailbox', labelTH: 'เมลบ๊อกซ์', labelEN: 'Mailbox' },
@@ -34,13 +42,38 @@ const facilitiesData: FacilityData[] = [
   { id: 'wifi', labelTH: 'วายฟาย', labelEN: 'WiFi' },
 
   { id: 'electric', labelTH: 'ไฟฟ้า', labelEN: 'Electricity', forLand: true },
-  { id: 'pipedWater', labelTH: 'น้ำประปา', labelEN: 'Tap Water', forLand: true },
-  { id: 'groundWater', labelTH: 'น้ำบาดาล', labelEN: 'Groundwater', forLand: true },
-  { id: 'signal', labelTH: 'สัญญาณมือถือ', labelEN: 'Mobile Signal', forLand: true },
-  { id: 'community', labelTH: 'แหล่งชุมชน', labelEN: 'Near Community', forLand: true },
+  {
+    id: 'pipedWater',
+    labelTH: 'น้ำประปา',
+    labelEN: 'Tap Water',
+    forLand: true
+  },
+  {
+    id: 'groundWater',
+    labelTH: 'น้ำบาดาล',
+    labelEN: 'Groundwater',
+    forLand: true
+  },
+  {
+    id: 'signal',
+    labelTH: 'สัญญาณมือถือ',
+    labelEN: 'Mobile Signal',
+    forLand: true
+  },
+  {
+    id: 'community',
+    labelTH: 'แหล่งชุมชน',
+    labelEN: 'Near Community',
+    forLand: true
+  },
   { id: 'canal', labelTH: 'ติดคลอง', labelEN: 'Canal Front', forLand: true },
   { id: 'pond', labelTH: 'มีบ่อน้ำ', labelEN: 'Pond', forLand: true },
-  { id: 'commercial', labelTH: 'ค้าขายได้', labelEN: 'Commercial Use', forLand: true }
+  {
+    id: 'commercial',
+    labelTH: 'ค้าขายได้',
+    labelEN: 'Commercial Use',
+    forLand: true
+  }
 ];
 
 const getFacilities = (locale: Locale = 'th'): Facility[] => {
@@ -58,7 +91,10 @@ const getFacility = (facilityId: string, locale: Locale = 'th'): string => {
 };
 
 // Convert from {ac: true, sofa: false, ...} -> [{id: "tv", label: "ทีวี"}]
-const getFacilityArray = (facilitiesObject: FacilitiesObject, locale: Locale = 'th'): Facility[] => {
+const getFacilityArray = (
+  facilitiesObject: FacilitiesObject,
+  locale: Locale = 'th'
+): Facility[] => {
   const facilityArray: string[] = [];
   for (const [key, value] of Object.entries(facilitiesObject)) {
     if (value) {

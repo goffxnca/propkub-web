@@ -21,9 +21,9 @@ export const translateServerError = (
   }
 
   // Check if the error message exists in our translations
-  const translatedError = SERVER_ERRORS[locale][errorMessage as keyof typeof SERVER_ERRORS.th];
+  const translatedError =
+    SERVER_ERRORS[locale][errorMessage as keyof typeof SERVER_ERRORS.th];
 
   // Return translated error or generic error message
   return translatedError || SERVER_ERRORS[locale]._generic;
 };
-

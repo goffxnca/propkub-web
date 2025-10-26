@@ -23,7 +23,10 @@ export const useAnnouncements = () => {
   const router = useRouter();
   const locale = router.locale || 'th';
 
-  const getActiveAnnouncements = (): Array<{ key: string; message: string }> => {
+  const getActiveAnnouncements = (): Array<{
+    key: string;
+    message: string;
+  }> => {
     const localeAnnouncements = announcements[locale as 'th' | 'en'];
 
     return Object.entries(localeAnnouncements)
@@ -44,4 +47,3 @@ export const useAnnouncements = () => {
     getFirstActiveAnnouncement
   };
 };
-

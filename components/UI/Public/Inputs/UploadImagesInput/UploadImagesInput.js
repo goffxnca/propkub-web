@@ -46,7 +46,9 @@ const UploadImagesInput = ({
       {!reachMaxImageCount && (
         <div className="text-sm text-gray-600">
           <p className="">{t('upload.helperText')}</p>
-          <p className="text-xs text-gray-500">{t('upload.fileRequirements')}</p>
+          <p className="text-xs text-gray-500">
+            {t('upload.fileRequirements')}
+          </p>
         </div>
       )}
     </BaseInput>
