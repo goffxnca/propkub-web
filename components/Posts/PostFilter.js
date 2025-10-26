@@ -8,7 +8,7 @@ import { SearchIcon, ArrowRightIcon } from '@heroicons/react/solid';
 
 import regions from '../../data/regions.json';
 
-import { assetTypes } from '../../libs/mappers/assetTypeMapper';
+import { getAssetTypes } from '../../libs/mappers/assetTypeMapper';
 
 import SelectInput from '../UI/Public/Inputs/SelectInput';
 
@@ -33,9 +33,10 @@ const initialFilters = {
 
 const PostFilter = ({ onSearch, onReset }) => {
   const router = useRouter();
+  const { locale } = router;
   const { t } = useTranslation('posts');
   const [searchFilter, setSearchFilter] = useState({ ...initialFilters });
-  
+
   const postTypes = [
     { id: 'rent', label: t('filter.actions.rent'), searchFor: 'rent' },
     { id: 'buy', label: t('filter.actions.buy'), searchFor: 'sale' },
@@ -52,7 +53,7 @@ const PostFilter = ({ onSearch, onReset }) => {
     isActive: searchFilter.postType.id === postType.id
   }));
 
-  const assetTypeList = assetTypes.map((assetType) => ({
+  const assetTypeList = getAssetTypes(locale).map((assetType) => ({
     ...assetType,
     label: t(`assetTypes.${assetType.id}`),
     isActive: searchFilter.assetType === assetType.id
