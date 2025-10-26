@@ -20,12 +20,17 @@ const SimilarPostItem = ({
   specs,
   isStudio
 }) => {
+  const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
 
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
-  const postTypeFormat = useMemo(() => getPostType(postType), [postType]);
-  const assetTypeFormat = useMemo(() => getAssetType(assetType), [assetType]);
+
+  const badgeLabel = t('card.badge', {
+    postType: t(`postTypes.${postType}`),
+    assetType: t(`assetTypes.${assetType}`)
+  });
+
   const priceUnitFormat = useMemo(
     () => (priceUnit ? ` / ${getPriceUnit(priceUnit, tCommon)}` : ''),
     [priceUnit, tCommon]
@@ -41,7 +46,7 @@ const SimilarPostItem = ({
       >
         <div className="relative w-full overflow-hidden rounded-md ">
           <span className="absolute top-1 bg-gray-lighter py-0.5 px-2 text-sm text-gray-hard z-20 shadow-md rounded-r-md">
-            {postTypeFormat + assetTypeFormat}
+            {badgeLabel}
           </span>
           {/* <Image
               src={thumbnail}
