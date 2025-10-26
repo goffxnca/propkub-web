@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.0.2 (2025-10-26)
+
+### Features
+
+- Add internationalization (i18n) system with `useTranslation` hook and JSON-based translation files
+- Add LocaleSwitcher component with visual flag indicators (Thai/English)
+- Translate all pages: Profile, Post Creation/Editing, Post Details, Dashboard
+- Translate all mapper functions and dropdown options (post types, asset types, conditions, facilities, regions, units)
+
+### Improvements
+
+- Refactor reusable UI components to support dynamic translations
+- Centralize form validation messages with `useValidators` hook
+- Implement dynamic validation that updates on locale change without losing user input
+- Replace hardcoded Thai text with translation keys
+
 ## 2.0.1 (2025-08-24)
 
 ### Features

@@ -1,6 +1,6 @@
 import { envConfig } from '../../../../libs/envConfig';
 
-const GoogleLoginButton = ({ text = 'เชื่อมต่อด้วย Google' }) => {
+const GoogleLoginButton = ({ text = 'Connect with Google' }) => {
   const handleGoogleOAuth = () => {
     window.location.href = `${envConfig.apiUrl()}/auth/google`;
   };
