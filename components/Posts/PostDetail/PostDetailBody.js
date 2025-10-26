@@ -245,7 +245,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label={`รูปภาพทั้งหมด (${images.length} รูป)`} />
+            <Heading size="2" label={t('sections.images')} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {images.map((image, index) => (
                 <div
