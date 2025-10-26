@@ -187,7 +187,7 @@ const ContactForm = () => {
                   >
                     <img
                       src="https://scdn.line-apps.com/n/line_add_friends/btn/th.png"
-                      alt="เพิ่ม PropKub.com เป็นเพื่อนในไลน์"
+                      alt="Add PropKub.com as LINE friend"
                       height="36"
                       border="0"
                     />
