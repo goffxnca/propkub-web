@@ -35,17 +35,13 @@ const PostRow = ({
         <div className="bg-white rounded-xl p-4 hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
           <div className="flex items-start justify-between mb-2">
             <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700">
-              ฿{priceWithFormat} {priceUnitFormat}
+              {addressFormat}
             </span>
             <div className="flex items-center text-xs text-gray-400 gap-1">
               <ClockIcon className="w-3 h-3" />
               <TimeAgo datetime={createdAt} locale="th" />
             </div>
           </div>
-
-          <p className="text-sm font-medium text-gray-500 mb-1">
-            {addressFormat}
-          </p>
 
           <p className="text-base text-gray-900 mb-3 line-clamp-2 leading-relaxed flex-grow">
             {title}
