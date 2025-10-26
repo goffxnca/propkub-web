@@ -64,6 +64,8 @@
   "loading": {
     "generic": "กำลังโหลด..."
   },
+  "yes": "ใช่",
+  "no": "ไม่ใช่",
   "pagination": {
     "showing": "แสดง {{start}} ถึง {{end}} จาก {{total}} รายการ",
     "previous": "ก่อนหน้า",

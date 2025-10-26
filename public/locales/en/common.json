@@ -64,6 +64,8 @@
   "loading": {
     "generic": "Loading..."
   },
+  "yes": "Yes",
+  "no": "No",
   "pagination": {
     "showing": "Showing {{start}} to {{end}} of {{total}} items",
     "previous": "Previous",

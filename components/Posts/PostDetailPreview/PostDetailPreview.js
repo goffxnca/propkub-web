@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useRouter } from 'next/router';
 import PageTitle from '../../UI/Private/PageTitle';
 import sanitizeHtml from 'sanitize-html';
 import { getCondition } from '../../../libs/mappers/conditionMapper';
@@ -7,6 +8,7 @@ import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 import { formatAddressFull } from '../../../libs/formatters/addressFomatter';
 import { getSpecLabel, getSpecsArray } from '../../../libs/mappers/specMapper';
 import { orDefault } from '../../../libs/string-utils';
+import { getDateString } from '../../../libs/date-utils';
 import PostDetailStats from './PostDetailStats';
 import PostActionConsole from './PostActionConsole';
 import PostStatusBadge from '../PostStatusBadge/PostStatusBadge';
@@ -15,6 +17,7 @@ import { SANITIZE_OPTIONS } from '../../../libs/constants';
 import { useTranslation } from '../../../hooks/useTranslation';
 
 const PostDetailPreview = ({ post, postActions }) => {
+  const router = useRouter();
   const { t: tPosts } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
   // Calculated fields - exact order from posts.schema.ts
@@ -54,7 +57,11 @@ const PostDetailPreview = ({ post, postActions }) => {
 
   // Optional fields (schema order)
   const isStudio =
-    post.isStudio !== undefined ? (post.isStudio ? 'ใช่' : 'ไม่ใช่') : '-';
+    post.isStudio !== undefined
+      ? post.isStudio
+        ? tCommon('yes')
+        : tCommon('no')
+      : '-';
   const video = orDefault(post.video);
   const landWithUnit =
     post.land && post.landUnit
@@ -69,9 +76,10 @@ const PostDetailPreview = ({ post, postActions }) => {
       (tCommon(`conditions.${post.condition}`) || getCondition(post.condition))
   );
   const agentRefNumber = orDefault(post.refId);
-  const createdAt = new Date(post.createdAt).toLocaleDateString('th-TH');
+  const locale = router?.locale;
+  const createdAt = getDateString(post.createdAt, locale);
   const updatedAt = orDefault(
-    post.updatedAt && new Date(post.updatedAt).toLocaleDateString('th-TH')
+    post.updatedAt && getDateString(post.updatedAt, locale)
   );
 
   return (
