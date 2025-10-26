@@ -22,7 +22,6 @@ const PostItem = ({
 }) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
-  
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
 
   const studioSpec = useMemo(
@@ -80,6 +79,7 @@ const PostItem = ({
           </span>
 
           {/* Image */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={thumbnail}
             alt={thumbnailAlt}

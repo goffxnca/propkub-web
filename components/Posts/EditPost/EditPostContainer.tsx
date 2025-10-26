@@ -35,7 +35,7 @@ const EditPostContainer = ({ postId }) => {
     };
 
     fetchPostData();
-  }, [postId]);
+  }, [postId, tCommon]);
 
   if (fetching) return <Loader />;
 
@@ -60,7 +60,9 @@ const EditPostContainer = ({ postId }) => {
   return (
     <>
       <Head>
-        <title>{genPageTitle(t('mode.edit', { postNumber: post.postNumber }))}</title>
+        <title>
+          {genPageTitle(t('mode.edit', { postNumber: post.postNumber }))}
+        </title>
       </Head>
       <PostForm postData={post} />
     </>

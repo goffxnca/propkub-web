@@ -64,11 +64,15 @@ const AuthCallback = () => {
             setError(t('errors.linkingFailed'));
           } else if (error === 'already_linked') {
             setError(
-              t('errors.alreadyLinked', { provider: formatProviderName(provider) })
+              t('errors.alreadyLinked', {
+                provider: formatProviderName(provider)
+              })
             );
           } else if (error === 'oauth_cancelled') {
             setError(
-              t('errors.oauthCancelled', { provider: formatProviderName(provider) })
+              t('errors.oauthCancelled', {
+                provider: formatProviderName(provider)
+              })
             );
           } else {
             setError(t('errors.loginFailed'));
@@ -117,6 +121,7 @@ const AuthCallback = () => {
     if (router.isReady) {
       handleCallback();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, router.query, router, setUser]);
 
   const handleCloseErrorModal = () => {
@@ -149,11 +154,15 @@ const AuthCallback = () => {
         visible={showLinkSuccess}
         Icon={() => formatProviderIcon(linkProvider)}
         type="success"
-        title={t('success.title', { provider: formatProviderName(linkProvider) })}
+        title={t('success.title', {
+          provider: formatProviderName(linkProvider)
+        })}
         desc={
           <>
             <p className="mt-2 text-gray-500">
-              {t('success.description', { provider: formatProviderName(linkProvider) })}
+              {t('success.description', {
+                provider: formatProviderName(linkProvider)
+              })}
             </p>
           </>
         }
