@@ -76,7 +76,7 @@ const PostDetailPreview = ({ post, postActions }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <PageTitle label="รายละเอียดประกาศ" />
+      <PageTitle label={tPosts('details.title')} />
       <div className="lg:flex space-y-2 lg:space-x-2 lg:space-y-0">
         {/* Left Main Content */}
         <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-2/3">

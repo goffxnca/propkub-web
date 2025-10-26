@@ -131,6 +131,7 @@
     "similar": "Similar Listings"
   },
   "details": {
+    "title": "Post Details",
     "type": "Type",
     "createdAt": "Listed Date",
     "updatedAt": "Last Updated",
