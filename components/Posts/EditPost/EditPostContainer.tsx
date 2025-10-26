@@ -6,10 +6,13 @@ import Modal from '../../UI/Public/Modal';
 import { apiClient } from '../../../libs/client';
 import { genPageTitle } from '../../../libs/seo-utils';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
+import { useTranslation } from '../../../hooks/useTranslation';
 import PostForm from '../AddPost/PostForm';
 
 const EditPostContainer = ({ postId }) => {
   const router = useRouter();
+  const { t } = useTranslation('pages/post-form');
+  const { t: tCommon } = useTranslation('common');
   const [post, setPost] = useState(null);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState('');
@@ -24,7 +27,7 @@ const EditPostContainer = ({ postId }) => {
         setPost(postData);
       } catch (err) {
         console.error('Error fetching a post:', err);
-        setError('เกิดข้อผิดพลาดในการโหลดข้อมูลประกาศ กรุณาลองใหม่อีกครั้ง');
+        setError(tCommon('error.generic.description'));
         setPost(null);
       } finally {
         setFetching(false);
@@ -40,10 +43,10 @@ const EditPostContainer = ({ postId }) => {
     return (
       <Modal
         visible={true}
-        title="เกิดข้อผิดพลาด"
+        title={tCommon('error.generic.title')}
         type="warning"
         desc={error}
-        buttonCaption="กลับไปแดชบอร์ด"
+        buttonCaption={tCommon('buttons.goHome')}
         Icon={ExclamationCircleIcon}
         onClose={() => {
           router.push('/dashboard');
@@ -57,7 +60,7 @@ const EditPostContainer = ({ postId }) => {
   return (
     <>
       <Head>
-        <title>{genPageTitle(`แก้ไขประกาศหมายเลข ${post.postNumber}`)}</title>
+        <title>{genPageTitle(t('mode.edit', { postNumber: post.postNumber }))}</title>
       </Head>
       <PostForm postData={post} />
     </>
