@@ -130,7 +130,7 @@ const SignupForm = () => {
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  รหัสผ่าน
+                  Password
                 </label>
                 <div className="mt-1">
                   <input
@@ -165,7 +165,7 @@ const SignupForm = () => {
                     href="#"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
-                    เข้าสู่ระบบ?
+                    Login?
                   </a>
                 </div>
               </div> */}
