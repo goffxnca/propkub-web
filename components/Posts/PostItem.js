@@ -20,6 +20,9 @@ const PostItem = ({
   specs,
   isStudio
 }) => {
+  const { t } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
+  
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
 
   const studioSpec = useMemo(
@@ -28,12 +31,12 @@ const PostItem = ({
         ? [
             {
               id: 'studio',
-              label: 'ห้องสตูดิโอ',
+              label: t('fields.isStudio'),
               icon: getIcon('studio')
             }
           ]
         : [],
-    [isStudio]
+    [isStudio, t]
   );
 
   const specsFormat = useMemo(
@@ -49,9 +52,6 @@ const PostItem = ({
         .slice(0, 3),
     [specs, studioSpec]
   );
-
-  const { t } = useTranslation('posts');
-  const { t: tCommon } = useTranslation('common');
 
   const postLink = useMemo(() => `/property/${slug}`, [slug]);
   const badgeLabel = useMemo(
