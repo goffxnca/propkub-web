@@ -123,7 +123,6 @@ const PostForm = ({ postData }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Banner message= {'Image upload increase from 10 to 15 images'}/>
       <PageTitle
         label={modeLabel}
         leadingSlot={<AddDoc className="text-gray-500 w-8 h-8" />}

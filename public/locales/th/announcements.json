@@ -1,8 +1,8 @@
 {
   "imageUploadIncrease2025_09_16": {
-    "enabled": false,
+    "enabled": true,
     "type": "info",
-    "message": "[อัปเดต 16 กันยายน 2568] อัปโหลดรูปภาพต่อประกาศได้มากขึ้น จาก 8 รูปเป็น 10 รูป"
+    "message": "[อัปเดต 16 กันยายน 2568] อัปโหลดรูปภาพต่อประกาศได้มากขึ้น จาก 10 รูปเป็น 15 รูป"
   },
   "multilanguageSupport2025_10_26": {
     "enabled": true,
