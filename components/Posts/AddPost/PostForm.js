@@ -18,7 +18,6 @@ import { getFacilityObject } from '../../../libs/mappers/facilityMapper';
 import { getSpecsObject } from '../../../libs/mappers/specMapper';
 import { getEditedFields } from '../../../libs/form-utils';
 import { useTranslation } from '../../../hooks/useTranslation';
-import Banner from '../../Banner/Banner';
 
 const PostForm = ({ postData }) => {
   const { t } = useTranslation('pages/profile');
