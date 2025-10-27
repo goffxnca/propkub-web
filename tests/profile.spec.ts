@@ -4,7 +4,7 @@ import { ProfilePage } from './page-objects/ProfilePage';
 import { testConfig } from './config/testConfig';
 
 test.describe('Profile E2E', () => {
-  test('should display profile page after login', async ({ page }) => {
+  test('should display profile basic data', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const profilePage = new ProfilePage(page);
 

@@ -10,7 +10,10 @@ export class LoginPage {
     this.page = page;
     this.emailInput = page.locator('#email');
     this.passwordInput = page.locator('#password');
-    this.submitButton = page.getByRole('button', { name: 'Login', exact: true });
+    this.submitButton = page.getByRole('button', {
+      name: 'Login',
+      exact: true
+    });
   }
 
   async goto() {
@@ -21,6 +24,7 @@ export class LoginPage {
     await this.emailInput.fill(email);
     await this.passwordInput.fill(password);
     await this.submitButton.click();
+    await this.page.waitForTimeout(1000);
   }
 
   async expectLoginSuccessful() {
