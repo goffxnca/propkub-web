@@ -18,6 +18,7 @@ import { getFacilityObject } from '../../../libs/mappers/facilityMapper';
 import { getSpecsObject } from '../../../libs/mappers/specMapper';
 import { getEditedFields } from '../../../libs/form-utils';
 import { useTranslation } from '../../../hooks/useTranslation';
+import Banner from '../../Banner/Banner';
 
 const PostForm = ({ postData }) => {
   const { t } = useTranslation('pages/profile');
@@ -122,6 +123,7 @@ const PostForm = ({ postData }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Banner message= {'Image upload increase from 10 to 15 images'}/>
       <PageTitle
         label={modeLabel}
         leadingSlot={<AddDoc className="text-gray-500 w-8 h-8" />}
