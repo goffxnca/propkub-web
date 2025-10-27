@@ -58,11 +58,19 @@ const getDateString = (isoDateString, locale) => {
   );
 };
 
+const getTestTimestamp = () => {
+  const now = new Date();
+  const date = now.toISOString().slice(0, 10).replace(/-/g, ''); // yyyymmdd
+  const time = now.toISOString().slice(11, 16).replace(':', ''); // hhmm
+  return `${date}_${time}`;
+};
+
 export {
   getUnixEpochTime,
   getLocalDateByISODateString,
   getLocalDateTimeByISODateString,
   getThaiFullDateTimeString,
   getDateTimeString,
-  getDateString
+  getDateString,
+  getTestTimestamp
 };
