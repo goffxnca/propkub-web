@@ -24,7 +24,7 @@ export class LoginPage {
   }
 
   async expectLoginSuccessful() {
-    await expect(this.page).toHaveURL(/profile/, {
+    await expect(this.page).toHaveURL(/\/profile/, {
       timeout: 10000
     });
   }
