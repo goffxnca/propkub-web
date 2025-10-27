@@ -1,4 +1,5 @@
 import { type Page, expect } from '@playwright/test';
+import { getTestTimestamp } from '../../libs/date-utils';
 
 export class CreatePostPage {
   readonly page: Page;
@@ -12,9 +13,10 @@ export class CreatePostPage {
   }
 
   async fillBasicInfo() {
-    await this.page
-      .getByRole('textbox', { name: 'Title' })
-      .fill('Beautiful 2BR Condo in Central Bangkok [by E2E Test]');
+    const timestamp = getTestTimestamp();
+    const title = `Beautiful Condo in Central Bangkok [by E2E Test - ${timestamp}]`;
+
+    await this.page.getByRole('textbox', { name: 'Title' }).fill(title);
     await this.page.getByLabel('I want to').selectOption('sale');
     await this.page.getByLabel('Asset Type').selectOption('condo');
     await this.page
