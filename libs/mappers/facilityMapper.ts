@@ -2,7 +2,7 @@ import {
   Facility,
   FacilityData,
   FacilitiesObject
-} from '../../src/types/misc/facility';
+} from '../../types/misc/facility';
 import { Locale } from '../../types/locale';
 
 const facilitiesData: FacilityData[] = [

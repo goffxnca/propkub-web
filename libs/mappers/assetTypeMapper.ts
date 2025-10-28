@@ -1,4 +1,4 @@
-import { AssetType, AssetTypeData } from '../../src/types/misc/assetType';
+import { AssetType, AssetTypeData } from '../../types/misc/assetType';
 import { Locale } from '../../types/locale';
 
 const assetTypes: AssetTypeData[] = [

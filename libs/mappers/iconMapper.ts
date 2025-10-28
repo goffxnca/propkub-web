@@ -1,4 +1,4 @@
-import { IconComponent } from '../../src/types/misc/iconComponent';
+import { IconComponent } from '../../types/misc/iconComponent';
 import LocationIcon from '../../components/Icons/LocationIcon';
 import BedIcon from '../../components/Icons/BedIcon';
 import BathIcon from '../../components/Icons/BathIcon';

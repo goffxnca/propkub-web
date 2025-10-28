@@ -1,4 +1,4 @@
-import { AreaUnit, AreaUnitData } from '../../src/types/misc/areaUnit';
+import { AreaUnit, AreaUnitData } from '../../types/misc/areaUnit';
 import { Locale } from '../../types/locale';
 
 const areaUnits: AreaUnitData[] = [

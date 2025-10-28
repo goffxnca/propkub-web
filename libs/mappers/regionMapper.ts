@@ -1,4 +1,4 @@
-import { Region, RegionData } from '../../src/types/misc/region';
+import { Region, RegionData } from '../../types/misc/region';
 import { Locale } from '../../types/locale';
 
 const regions: RegionData[] = [

@@ -1,4 +1,4 @@
-import { PostType, PostTypeData } from '../../src/types/misc/postType';
+import { PostType, PostTypeData } from '../../types/misc/postType';
 import { Locale } from '../../types/locale';
 
 const postTypes: PostTypeData[] = [

@@ -1,4 +1,4 @@
-import { Condition, ConditionData } from '../../src/types/misc/condition';
+import { Condition, ConditionData } from '../../types/misc/condition';
 import { Locale } from '../../types/locale';
 
 const conditions: ConditionData[] = [
