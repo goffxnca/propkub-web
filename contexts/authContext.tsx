@@ -1,29 +1,40 @@
 import { useRouter } from 'next/router';
-import { createContext, useEffect, useState } from 'react';
+import {
+  createContext,
+  useEffect,
+  useState,
+  type PropsWithChildren
+} from 'react';
 import { apiClient } from '../libs/client';
 import { tokenManager } from '../libs/tokenManager';
 import { translateServerError } from '../libs/serverErrorTranslator';
+import { User, UserRole } from '../types/models/user';
 
-const initialContext = {
-  user: null,
-  isAuthenticated: false,
-  isNormalUser: false,
-  isAgent: false,
-  isProfileComplete: false,
-  signin: (email, password) => {},
-  signup: (email, password, name, isAgent) => {},
-  signout: (redirectTo) => {},
-  initializing: false,
-  loading: false,
-  error: '',
-  clearError: () => {},
-  setUser: () => {}
-};
+export interface AuthContextValue {
+  user: User | null;
+  isAuthenticated: boolean;
+  isNormalUser: boolean;
+  isAgent: boolean;
+  isProfileComplete: boolean;
+  signin: (email: string, password: string) => Promise<void>;
+  signup: (
+    email: string,
+    password: string,
+    name: string,
+    isAgent: boolean
+  ) => Promise<void>;
+  signout: (redirectTo?: string) => Promise<void>;
+  initializing: boolean;
+  loading: boolean;
+  error: string;
+  clearError: () => void;
+  setUser: (user: User | null) => void;
+}
 
-const AuthContext = createContext(initialContext);
+const AuthContext = createContext<AuthContextValue | null>(null);
 
-const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+const AuthContextProvider = ({ children }: PropsWithChildren) => {
+  const [user, setUser] = useState<User | null>(null);
   const [initializing, setInitializing] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -46,8 +57,8 @@ const AuthContextProvider = ({ children }) => {
           setUser(null);
           setInitializing(false);
         }
-      } catch (error) {
-        console.error('[Auth] Initialization failed:', error);
+      } catch (err: any) {
+        console.error('[Auth] Initialization failed:', err);
         tokenManager.removeToken();
         setUser(null);
         setInitializing(false);
@@ -57,24 +68,28 @@ const AuthContextProvider = ({ children }) => {
     initializeAuth();
   }, []);
 
-  const signin = async (email, password) => {
+  const signin = async (email: string, password: string): Promise<void> => {
     setLoading(true);
     try {
       const result = await apiClient.auth.login(email, password);
-
       tokenManager.setToken(result.accessToken);
       const userProfile = await apiClient.auth.getProfile();
       setUser(userProfile);
       setLoading(false);
-    } catch (error) {
-      const errorMessage = translateServerError(error.message, locale);
+    } catch (err: any) {
+      const errorMessage = translateServerError(err.message, locale);
       setError(errorMessage);
       setLoading(false);
-      console.error('[Auth] Login failed:', error.message);
+      console.error('[Auth] Login failed:', err.message);
     }
   };
 
-  const signup = async (email, password, name, isAgent) => {
+  const signup = async (
+    email: string,
+    password: string,
+    name: string,
+    isAgent: boolean
+  ): Promise<void> => {
     setLoading(true);
     try {
       const result = await apiClient.auth.signup(
@@ -85,27 +100,26 @@ const AuthContextProvider = ({ children }) => {
       );
 
       tokenManager.setToken(result.accessToken);
-
       const userProfile = await apiClient.auth.getProfile();
       setUser(userProfile);
       setLoading(false);
-    } catch (error) {
-      const errorMessage = translateServerError(error.message, locale);
+    } catch (err: any) {
+      const errorMessage = translateServerError(err.message, locale);
       setError(errorMessage);
       setLoading(false);
-      console.error('[Auth] Signup failed:', error.message);
+      console.error('[Auth] Signup failed:', err.message);
     }
   };
 
-  const signout = async (redirectTo = '/') => {
+  const signout = async (redirectTo = '/'): Promise<void> => {
     setLoading(true);
     try {
       tokenManager.removeToken();
       setUser(null);
       setLoading(false);
       router.push(redirectTo);
-    } catch (error) {
-      console.error('[Auth] Logout failed:', error.message);
+    } catch (err: any) {
+      console.error('[Auth] Logout failed:', err.message);
       setLoading(false);
     }
   };
@@ -115,17 +129,18 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const isAuthenticated = !!user;
-  const isNormalUser = user && user.role === 'normal';
-  const isAgent = user && user.role === 'agent';
-  const isProfileComplete =
+  const isNormalUser = user && user.role === UserRole.NORMAL;
+  const isAgent = user && user.role === UserRole.AGENT;
+  const isProfileComplete = !!(
     user &&
     user.email &&
     user.name &&
     user.phone &&
     user.line &&
-    user.profileImg;
+    user.profileImg
+  );
 
-  const authValue = {
+  const authValue: AuthContextValue = {
     user,
     isAuthenticated,
     isNormalUser,
@@ -142,7 +157,6 @@ const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    // @ts-ignore
     <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
