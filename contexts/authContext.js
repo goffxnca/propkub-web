@@ -78,9 +78,9 @@ const AuthContextProvider = ({ children }) => {
     setLoading(true);
     try {
       const result = await apiClient.auth.signup(
-        name,
         email,
         password,
+        name,
         isAgent
       );
 

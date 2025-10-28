@@ -2,7 +2,7 @@ import axios from 'axios';
 import { tokenManager } from './tokenManager';
 import { envConfig } from './envConfig';
 import { sleep } from './misc';
-import { MessageResponse } from '../types/http';
+import { AccessTokenResponse, MessageResponse } from '../types/http';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
@@ -72,20 +72,20 @@ serverApiInstance.interceptors.response.use(
 export const apiClient = {
   auth: {
     async signup(
-      name: string,
       email: string,
       password: string,
+      name: string,
       isAgent: boolean
-    ) {
+    ): Promise<AccessTokenResponse> {
       return apiInstance.post('/auth/register', {
-        name,
         email,
         password,
+        name,
         isAgent
       });
     },
 
-    async login(email: string, password: string) {
+    async login(email: string, password: string): Promise<AccessTokenResponse> {
       return apiInstance.post('/auth/login', {
         email,
         password
