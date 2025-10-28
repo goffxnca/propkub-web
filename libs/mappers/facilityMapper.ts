@@ -3,7 +3,7 @@ import {
   FacilityData,
   FacilitiesObject
 } from '../../src/types/misc/facility';
-import { Locale } from '../../src/types/locale';
+import { Locale } from '../../types/locale';
 
 const facilitiesData: FacilityData[] = [
   { id: 'ac', labelTH: 'แอร์', labelEN: 'Air Conditioning' },

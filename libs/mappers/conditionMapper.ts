@@ -1,5 +1,5 @@
 import { Condition, ConditionData } from '../../src/types/misc/condition';
-import { Locale } from '../../src/types/locale';
+import { Locale } from '../../types/locale';
 
 const conditions: ConditionData[] = [
   { id: 'used', labelTH: 'มือสอง', labelEN: 'Used' },

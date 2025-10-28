@@ -1,5 +1,5 @@
 import { PostType, PostTypeData } from '../../src/types/misc/postType';
-import { Locale } from '../../src/types/locale';
+import { Locale } from '../../types/locale';
 
 const postTypes: PostTypeData[] = [
   { id: 'sale', labelTH: 'ขาย', labelEN: 'Sale' },

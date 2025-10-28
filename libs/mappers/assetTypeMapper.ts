@@ -1,5 +1,5 @@
 import { AssetType, AssetTypeData } from '../../src/types/misc/assetType';
-import { Locale } from '../../src/types/locale';
+import { Locale } from '../../types/locale';
 
 const assetTypes: AssetTypeData[] = [
   { id: 'condo', labelTH: 'คอนโด', labelEN: 'Condo' },
