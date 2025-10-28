@@ -26,6 +26,7 @@ export interface User {
   facebookId?: string;
   lastLoginProvider?: string;
   lastLoginAt?: string;
+
   createdAt: string;
   createdBy: string;
   updatedAt?: string;
