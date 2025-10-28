@@ -3,6 +3,7 @@ import { tokenManager } from './tokenManager';
 import { envConfig } from './envConfig';
 import { sleep } from './misc';
 import { AccessTokenResponse, MessageResponse } from '../types/http';
+import { Province } from '../types/models/address';
 import { User } from '../types/models/user';
 
 const apiInstance = axios.create({
@@ -141,15 +142,15 @@ export const apiClient = {
   },
 
   provinces: {
-    async getAll() {
+    async getAll(): Promise<Province[]> {
       return apiInstance.get('/provinces');
     },
 
-    async getById(id) {
+    async getById(id: string): Promise<Province> {
       return apiInstance.get(`/provinces/${id}`);
     },
 
-    async getByRegionId(regionId) {
+    async getByRegionId(regionId: string): Promise<Province[]> {
       return apiInstance.get(`/provinces?regionId=${regionId}`);
     }
   },

@@ -17,7 +17,7 @@ interface CachedProvinces {
 
 const fetchProvinces = async (): Promise<Province[]> => {
   const response = await apiClient.provinces.getAll();
-  return response as unknown as Province[];
+  return response;
 };
 
 const fetchProvincesCacheFirst = async (): Promise<Province[]> => {
@@ -54,7 +54,7 @@ const fetchProvincesByRegionId = async (
 
 const getProvinceById = async (provinceId: string): Promise<Province> => {
   const response = await apiClient.provinces.getById(provinceId);
-  return response as unknown as Province;
+  return response;
 };
 
 const fetchDistrictsByProvinceId = async (
