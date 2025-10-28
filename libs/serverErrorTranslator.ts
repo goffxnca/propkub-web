@@ -14,7 +14,7 @@ const SERVER_ERRORS = {
  */
 export const translateServerError = (
   errorMessage: string,
-  locale: 'en' | 'th' = 'th'
+  locale: string = 'th'
 ): string => {
   if (!errorMessage) {
     return SERVER_ERRORS[locale]._generic;

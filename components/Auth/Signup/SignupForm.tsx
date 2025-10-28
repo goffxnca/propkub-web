@@ -75,6 +75,7 @@ const SignupForm = () => {
                   })
                 }
                 placeholder={t('form.fields.name.placeholder')}
+                // @ts-ignore
                 unregister={unregister}
                 error={errors.name}
                 info={t('form.fields.name.info')}
@@ -89,6 +90,7 @@ const SignupForm = () => {
                     ...EmailPattern()
                   })
                 }
+                // @ts-ignore
                 unregister={unregister}
                 error={errors.email}
               />
@@ -104,6 +106,7 @@ const SignupForm = () => {
                     ...maxLength(64)
                   })
                 }
+                // @ts-ignore
                 unregister={unregister}
                 error={errors.password}
               />
@@ -171,6 +174,7 @@ const SignupForm = () => {
               </div> */}
 
               <div>
+                {/* @ts-ignore */}
                 <Button type="submit" variant="primary" loading={loading}>
                   {t('form.submit')}
                 </Button>

@@ -11,7 +11,7 @@ const initialContext = {
   isAgent: false,
   isProfileComplete: false,
   signin: (email, password) => {},
-  signup: (email, password, role) => {},
+  signup: (email, password, name, isAgent) => {},
   signout: (redirectTo) => {},
   initializing: false,
   loading: false,

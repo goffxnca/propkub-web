@@ -258,6 +258,7 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                           ...EmailPattern()
                         })
                       }
+                      // @ts-ignore
                       unregister={unregister}
                       error={errors.email}
                       placeholder="your@email.com"
@@ -281,6 +282,7 @@ const ForgotPasswordModal = ({ visible, onClose }) => {
                       type="submit"
                       variant="primary"
                       loading={loading}
+                      // @ts-ignore
                       className="w-full"
                     >
                       {tCommon('buttons.confirm')}

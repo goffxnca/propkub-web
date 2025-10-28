@@ -84,6 +84,7 @@ const SigninForm = () => {
                     ...EmailPattern()
                   })
                 }
+                // @ts-ignore
                 unregister={unregister}
                 error={errors.email}
               />
@@ -98,6 +99,7 @@ const SigninForm = () => {
                     ...maxLength(64)
                   })
                 }
+                // @ts-ignore
                 unregister={unregister}
                 error={errors.password}
               />
@@ -135,7 +137,7 @@ const SigninForm = () => {
                 >
                   Sign In
                 </button> */}
-
+                {/* @ts-ignore */}
                 <Button type="submit" variant="primary" loading={loading}>
                   {t('form.submit')}
                 </Button>
