@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { authContext } from '../../../contexts/authContext';
+import { AuthContext } from '../../../contexts/authContext';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import Logo from '../../Layouts/Logo';
 import Button from '../../UI/Public/Button';
@@ -24,7 +24,7 @@ const SignupForm = () => {
     formState: { errors }
   } = useForm();
 
-  const { signup, loading, error, clearError } = useContext(authContext);
+  const { signup, loading, error, clearError } = useContext(AuthContext);
 
   const submitHandler = (data) => {
     signup(data.email, data.password, data.name, data.isAgent || false);

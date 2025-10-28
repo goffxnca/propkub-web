@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { authContext } from '../../../contexts/authContext';
+import { AuthContext } from '../../../contexts/authContext';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useValidators } from '../../../hooks/useValidators';
@@ -26,7 +26,7 @@ const SigninForm = () => {
     formState: { errors }
   } = useForm();
 
-  const { signin, loading, error, clearError } = useContext(authContext);
+  const { signin, loading, error, clearError } = useContext(AuthContext);
 
   const handleCloseErrorModal = () => {
     clearError();

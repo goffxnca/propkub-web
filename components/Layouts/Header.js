@@ -12,7 +12,7 @@ import {
 } from '@heroicons/react/outline';
 import Link from 'next/link';
 import Logo from './Logo';
-import { authContext } from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 import { joinClasses } from '../../libs/utils/style-utils';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { ChatIcon } from '@heroicons/react/solid';
@@ -22,7 +22,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 
 const Header = () => {
   const { signout, user, isAgent, isAuthenticated, loading } =
-    useContext(authContext);
+    useContext(AuthContext);
   const { t } = useTranslation();
 
   const navigations = [

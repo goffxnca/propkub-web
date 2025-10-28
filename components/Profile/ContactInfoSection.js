@@ -8,7 +8,7 @@ import {
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { apiClient } from '../../libs/client';
-import { authContext } from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 import { useValidators } from '../../hooks/useValidators';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Modal from '../UI/Public/Modal';
@@ -19,7 +19,7 @@ const ContactInfoSection = ({ user }) => {
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
   const { MobilePhonePattern, LineIdPattern, required } = useValidators();
-  const { setUser } = useContext(authContext);
+  const { setUser } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [apiError, setApiError] = useState('');

@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { authContext } from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 import Loader from '../UI/Common/modals/Loader';
 
 const GuestOnlyRoute = ({ children, redirectTo = null }) => {
-  const { initializing, isAuthenticated, isAgent } = useContext(authContext);
+  const { initializing, isAuthenticated, isAgent } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {

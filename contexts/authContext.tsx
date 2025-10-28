@@ -20,7 +20,7 @@ const initialContext = {
   setUser: () => {}
 };
 
-const authContext = createContext(initialContext);
+const AuthContext = createContext(initialContext);
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -111,7 +111,7 @@ const AuthContextProvider = ({ children }) => {
   };
 
   const clearError = () => {
-    setError(false);
+    setError('');
   };
 
   const isAuthenticated = !!user;
@@ -142,8 +142,9 @@ const AuthContextProvider = ({ children }) => {
   };
 
   return (
-    <authContext.Provider value={authValue}>{children}</authContext.Provider>
+    // @ts-ignore
+    <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>
   );
 };
 
-export { authContext, AuthContextProvider };
+export { AuthContext, AuthContextProvider };

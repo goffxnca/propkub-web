@@ -1,10 +1,10 @@
 import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { authContext } from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 import Loader from '../UI/Common/modals/Loader';
 
 const ProtectedRoute = ({ children, redirectTo = '/' }) => {
-  const { initializing, isAuthenticated } = useContext(authContext);
+  const { initializing, isAuthenticated } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {

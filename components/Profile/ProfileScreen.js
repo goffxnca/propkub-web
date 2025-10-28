@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import PageTitle from '../UI/Private/PageTitle';
-import { authContext } from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 import ProfileWarnings from './ProfileWarnings';
 import PersonalInfoSection from './PersonalInfoSection';
 import ContactInfoSection from './ContactInfoSection';
@@ -13,7 +13,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 
 const ProfileScreen = () => {
   const { t } = useTranslation('pages/profile');
-  const { isProfileComplete, user } = useContext(authContext);
+  const { isProfileComplete, user } = useContext(AuthContext);
   const router = useRouter();
 
   if (!user) {

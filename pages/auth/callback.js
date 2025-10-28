@@ -1,6 +1,6 @@
 import { useEffect, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import { authContext } from '../../contexts/authContext';
+import { AuthContext } from '../../contexts/authContext';
 import { apiClient } from '../../libs/client';
 import { ExclamationIcon, CheckIcon } from '@heroicons/react/outline';
 import Loader from '../../components/UI/Common/modals/Loader';
@@ -14,7 +14,7 @@ const AuthCallback = () => {
   const router = useRouter();
   const { t } = useTranslation('pages/auth-callback');
   const { t: tCommon } = useTranslation('common');
-  const { setUser } = useContext(authContext);
+  const { setUser } = useContext(AuthContext);
   const [error, setError] = useState('');
   const [isProcessing, setIsProcessing] = useState(true);
   const [showLinkSuccess, setShowLinkSuccess] = useState(false);

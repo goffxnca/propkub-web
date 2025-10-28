@@ -8,7 +8,7 @@ import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
 import { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Button from '../../UI/Public/Button';
-import { authContext } from '../../../contexts/authContext';
+import { AuthContext } from '../../../contexts/authContext';
 import AddDoc from '../../Icons/AddDoc';
 import PageTitle from '../../UI/Private/PageTitle';
 // import Banner from "../../Banner/Banner";
@@ -64,7 +64,7 @@ const PostForm = ({ postData }) => {
 
   const router = useRouter();
   const { locale } = router;
-  const { user, isAgent, isProfileComplete } = useContext(authContext);
+  const { user, isAgent, isProfileComplete } = useContext(AuthContext);
 
   // Re-trigger validation when locale changes to update error messages
   useEffect(() => {
