@@ -68,7 +68,7 @@ const AuthContextProvider = ({ children }: PropsWithChildren) => {
     initializeAuth();
   }, []);
 
-  const signin = async (email: string, password: string): Promise<void> => {
+  const signin = async (email: string, password: string) => {
     setLoading(true);
     try {
       const result = await apiClient.auth.login(email, password);
@@ -89,7 +89,7 @@ const AuthContextProvider = ({ children }: PropsWithChildren) => {
     password: string,
     name: string,
     isAgent: boolean
-  ): Promise<void> => {
+  ) => {
     setLoading(true);
     try {
       const result = await apiClient.auth.signup(
@@ -111,7 +111,7 @@ const AuthContextProvider = ({ children }: PropsWithChildren) => {
     }
   };
 
-  const signout = async (redirectTo = '/'): Promise<void> => {
+  const signout = async (redirectTo = '/') => {
     setLoading(true);
     try {
       tokenManager.removeToken();
