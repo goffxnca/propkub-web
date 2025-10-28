@@ -17,6 +17,7 @@ import { ResetPasswordRequest } from '../types/dtos/requests/resetPasswordReques
 import { UpdatePasswordRequest } from '../types/dtos/requests/updatePasswordRequest';
 import { UpdateProfileRequest } from '../types/dtos/requests/updateProfileRequest';
 import { CreatePostRequest } from '../types/dtos/requests/createPostRequest';
+import { UpdatePostRequest } from '../types/dtos/requests/updatePostRequest';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
@@ -173,7 +174,7 @@ export const apiClient = {
       return apiInstance.post('/posts', postData);
     },
 
-    async update(postId: string, postData: Partial<Post>): Promise<Post> {
+    async update(postId: string, postData: UpdatePostRequest): Promise<Post> {
       return apiInstance.patch(`/posts/${postId}`, postData);
     },
 
