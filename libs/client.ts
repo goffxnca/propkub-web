@@ -97,7 +97,7 @@ export const apiClient = {
       return apiInstance.get('/auth/profile');
     },
 
-    async verifyEmail(vtoken) {
+    async verifyEmail(vtoken: string): Promise<MessageResponse> {
       return apiInstance.get('/auth/verify-email', {
         params: { vtoken }
       });
@@ -109,27 +109,33 @@ export const apiClient = {
       });
     },
 
-    async validateResetToken(token) {
+    async validateResetToken(token: string): Promise<MessageResponse> {
       return apiInstance.get('/auth/validate-reset-token', {
         params: { token }
       });
     },
 
-    async resetPassword(token, newPassword) {
+    async resetPassword(
+      token: string,
+      newPassword: string
+    ): Promise<MessageResponse> {
       return apiInstance.post('/auth/reset-password', {
         token,
         newPassword
       });
     },
 
-    async updatePassword(currentPassword, newPassword) {
+    async updatePassword(
+      currentPassword: string,
+      newPassword: string
+    ): Promise<MessageResponse> {
       return apiInstance.post('/auth/update-password', {
         currentPassword,
         newPassword
       });
     },
 
-    async updateProfile(profileData) {
+    async updateProfile(profileData): Promise<User> {
       return apiInstance.patch('/auth/profile', profileData);
     }
   },
