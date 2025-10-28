@@ -3,7 +3,7 @@ import { tokenManager } from './tokenManager';
 import { envConfig } from './envConfig';
 import { sleep } from './misc';
 import { AccessTokenResponse, MessageResponse } from '../types/http';
-import { Province } from '../types/models/address';
+import { Province, District } from '../types/models/address';
 import { User } from '../types/models/user';
 
 const apiInstance = axios.create({
@@ -156,11 +156,11 @@ export const apiClient = {
   },
 
   districts: {
-    async getById(id) {
+    async getById(id: string): Promise<District> {
       return apiInstance.get(`/districts/${id}`);
     },
 
-    async getByProvinceId(provinceId) {
+    async getByProvinceId(provinceId: string): Promise<District[]> {
       return apiInstance.get(`/districts/province/${provinceId}`);
     }
   },

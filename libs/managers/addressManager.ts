@@ -61,7 +61,7 @@ const fetchDistrictsByProvinceId = async (
   provinceId: string
 ): Promise<District[]> => {
   const response = await apiClient.districts.getByProvinceId(provinceId);
-  return response as unknown as District[];
+  return response;
 };
 
 const fetchSubDistrictsByDistrictId = async (
@@ -73,7 +73,7 @@ const fetchSubDistrictsByDistrictId = async (
 
 const getDistrictById = async (id: string): Promise<District> => {
   const response = await apiClient.districts.getById(id);
-  return response as unknown as District;
+  return response;
 };
 
 const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
