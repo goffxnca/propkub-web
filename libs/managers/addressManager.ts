@@ -68,7 +68,7 @@ const fetchSubDistrictsByDistrictId = async (
   districtId: string
 ): Promise<SubDistrict[]> => {
   const response = await apiClient.subDistricts.getByDistrictId(districtId);
-  return response as unknown as SubDistrict[];
+  return response;
 };
 
 const getDistrictById = async (id: string): Promise<District> => {
@@ -78,7 +78,7 @@ const getDistrictById = async (id: string): Promise<District> => {
 
 const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
   const response = await apiClient.subDistricts.getById(id);
-  return response as unknown as SubDistrict;
+  return response;
 };
 
 const getLocationBreadcrumbs = async (
