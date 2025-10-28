@@ -16,6 +16,7 @@ import { LoginRequest } from '../types/dtos/requests/loginRequest';
 import { ResetPasswordRequest } from '../types/dtos/requests/resetPasswordRequest';
 import { UpdatePasswordRequest } from '../types/dtos/requests/updatePasswordRequest';
 import { UpdateProfileRequest } from '../types/dtos/requests/updateProfileRequest';
+import { CreatePostRequest } from '../types/dtos/requests/createPostRequest';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
@@ -84,12 +85,12 @@ serverApiInstance.interceptors.response.use(
 
 export const apiClient = {
   auth: {
-    async signup(signupRequest: SignupRequest): Promise<AccessTokenResponse> {
-      return apiInstance.post('/auth/register', signupRequest);
+    async signup(signupData: SignupRequest): Promise<AccessTokenResponse> {
+      return apiInstance.post('/auth/register', signupData);
     },
 
-    async login(loginRequest: LoginRequest): Promise<AccessTokenResponse> {
-      return apiInstance.post('/auth/login', loginRequest);
+    async login(loginData: LoginRequest): Promise<AccessTokenResponse> {
+      return apiInstance.post('/auth/login', loginData);
     },
 
     async getProfile(): Promise<User> {
@@ -115,21 +116,21 @@ export const apiClient = {
     },
 
     async resetPassword(
-      resetPasswordRequest: ResetPasswordRequest
+      resetPasswordData: ResetPasswordRequest
     ): Promise<MessageResponse> {
-      return apiInstance.post('/auth/reset-password', resetPasswordRequest);
+      return apiInstance.post('/auth/reset-password', resetPasswordData);
     },
 
     async updatePassword(
-      updatePasswordRequest: UpdatePasswordRequest
+      updatePasswordData: UpdatePasswordRequest
     ): Promise<MessageResponse> {
-      return apiInstance.post('/auth/update-password', updatePasswordRequest);
+      return apiInstance.post('/auth/update-password', updatePasswordData);
     },
 
     async updateProfile(
-      updateProfileRequest: UpdateProfileRequest
+      updateProfileData: UpdateProfileRequest
     ): Promise<User> {
-      return apiInstance.patch('/auth/profile', updateProfileRequest);
+      return apiInstance.patch('/auth/profile', updateProfileData);
     }
   },
 
@@ -168,7 +169,7 @@ export const apiClient = {
   },
 
   posts: {
-    async create(postData: Partial<Post>): Promise<Post> {
+    async create(postData: CreatePostRequest): Promise<Post> {
       return apiInstance.post('/posts', postData);
     },
 
