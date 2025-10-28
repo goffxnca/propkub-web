@@ -18,6 +18,7 @@ import { UpdatePasswordRequest } from '../types/dtos/requests/updatePasswordRequ
 import { UpdateProfileRequest } from '../types/dtos/requests/updateProfileRequest';
 import { CreatePostRequest } from '../types/dtos/requests/createPostRequest';
 import { UpdatePostRequest } from '../types/dtos/requests/updatePostRequest';
+import { PostSitemapResponse } from '../types/dtos/responses/postSitemapResponse';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
@@ -187,10 +188,11 @@ export const apiClient = {
     },
 
     async getMyPosts(
-      page = 1,
-      per_page = 20
+      paginationData: PaginationRequest
     ): Promise<paginatedItemsResponse<Post>> {
-      return apiInstance.get(`/posts/me?page=${page}&per_page=${per_page}`);
+      return apiInstance.get(`/posts/me`, {
+        params: paginationData
+      });
     },
 
     async getMyPostsStats(): Promise<PostStatsResponse> {
@@ -208,10 +210,10 @@ export const apiClient = {
     },
 
     async getAllPosts(
-      paginationRequest: PaginationRequest
+      paginationData: PaginationRequest
     ): Promise<paginatedItemsResponse<Post>> {
       return serverApiInstance.get('/posts', {
-        params: paginationRequest
+        params: paginationData
       });
     },
 
@@ -229,11 +231,11 @@ export const apiClient = {
       });
     },
 
-    async getLatestActiveForSitemap(): Promise<Partial<Post>> {
+    async getLatestActiveForSitemap(): Promise<PostSitemapResponse> {
       return serverApiInstance.get('/posts/latest-active-sitemap');
     },
 
-    async getAllActiveForSitemap(): Promise<Partial<Post>[]> {
+    async getAllActiveForSitemap(): Promise<PostSitemapResponse[]> {
       return serverApiInstance.get('/posts/all-active-sitemap');
     }
   }

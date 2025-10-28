@@ -44,7 +44,7 @@ export const getAllActivePostsByLocation = async ({
 };
 
 export const getMyPosts = async (page = 1, per_page = 20) => {
-  const response = await apiClient.posts.getMyPosts(page, per_page);
+  const response = await apiClient.posts.getMyPosts({ page, per_page });
   return response;
 };
 
