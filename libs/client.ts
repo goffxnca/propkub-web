@@ -5,6 +5,17 @@ import { sleep } from './misc';
 import { AccessTokenResponse, MessageResponse } from '../types/http';
 import { Province, District, SubDistrict } from '../types/models/address';
 import { User } from '../types/models/user';
+import { Post } from '../types/models/post';
+import { paginatedItemsResponse } from '../types/dtos/responses/paginatedItemsResponse';
+import { PostStatsResponse } from '../types/dtos/responses/postStatsResponse';
+import { PaginationRequest } from '../types/dtos/requests/paginationRequest';
+import { SearchPostRequest } from '../types/dtos/requests/searchPostRequest';
+import { PostStatType } from '../types/enums/postStatType';
+import { SignupRequest } from '../types/dtos/requests/signupRequest';
+import { LoginRequest } from '../types/dtos/requests/loginRequest';
+import { ResetPasswordRequest } from '../types/dtos/requests/resetPasswordRequest';
+import { UpdatePasswordRequest } from '../types/dtos/requests/updatePasswordRequest';
+import { UpdateProfileRequest } from '../types/dtos/requests/updateProfileRequest';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
@@ -73,25 +84,12 @@ serverApiInstance.interceptors.response.use(
 
 export const apiClient = {
   auth: {
-    async signup(
-      email: string,
-      password: string,
-      name: string,
-      isAgent: boolean
-    ): Promise<AccessTokenResponse> {
-      return apiInstance.post('/auth/register', {
-        email,
-        password,
-        name,
-        isAgent
-      });
+    async signup(signupRequest: SignupRequest): Promise<AccessTokenResponse> {
+      return apiInstance.post('/auth/register', signupRequest);
     },
 
-    async login(email: string, password: string): Promise<AccessTokenResponse> {
-      return apiInstance.post('/auth/login', {
-        email,
-        password
-      });
+    async login(loginRequest: LoginRequest): Promise<AccessTokenResponse> {
+      return apiInstance.post('/auth/login', loginRequest);
     },
 
     async getProfile(): Promise<User> {
@@ -117,27 +115,21 @@ export const apiClient = {
     },
 
     async resetPassword(
-      token: string,
-      newPassword: string
+      resetPasswordRequest: ResetPasswordRequest
     ): Promise<MessageResponse> {
-      return apiInstance.post('/auth/reset-password', {
-        token,
-        newPassword
-      });
+      return apiInstance.post('/auth/reset-password', resetPasswordRequest);
     },
 
     async updatePassword(
-      currentPassword: string,
-      newPassword: string
+      updatePasswordRequest: UpdatePasswordRequest
     ): Promise<MessageResponse> {
-      return apiInstance.post('/auth/update-password', {
-        currentPassword,
-        newPassword
-      });
+      return apiInstance.post('/auth/update-password', updatePasswordRequest);
     },
 
-    async updateProfile(profileData): Promise<User> {
-      return apiInstance.patch('/auth/profile', profileData);
+    async updateProfile(
+      updateProfileRequest: UpdateProfileRequest
+    ): Promise<User> {
+      return apiInstance.patch('/auth/profile', updateProfileRequest);
     }
   },
 
@@ -176,76 +168,70 @@ export const apiClient = {
   },
 
   posts: {
-    async create(postData) {
+    async create(postData: Partial<Post>): Promise<Post> {
       return apiInstance.post('/posts', postData);
     },
 
-    async update(postId, postData) {
+    async update(postId: string, postData: Partial<Post>): Promise<Post> {
       return apiInstance.patch(`/posts/${postId}`, postData);
     },
 
-    async getByNumber(postNumber) {
+    async getByNumber(postNumber: string): Promise<Post> {
       return serverApiInstance.get(`/posts/${postNumber}`);
     },
 
-    async getByIdForOwner(postId) {
+    async getByIdForOwner(postId: string): Promise<Post> {
       return apiInstance.get(`/posts/${postId}/me`);
     },
 
-    async getMyPosts(page = 1, per_page = 20) {
+    async getMyPosts(
+      page = 1,
+      per_page = 20
+    ): Promise<paginatedItemsResponse<Post>> {
       return apiInstance.get(`/posts/me?page=${page}&per_page=${per_page}`);
     },
 
-    async getMyPostsStats() {
+    async getMyPostsStats(): Promise<PostStatsResponse> {
       return apiInstance.get('/posts/me/stats');
     },
 
-    async closePost(postId) {
+    async closePost(postId: string): Promise<boolean> {
       return apiInstance.post(`/posts/${postId}/close`);
     },
 
-    async getSimilarPosts(postId) {
+    async getSimilarPosts(postId: string): Promise<Post[]> {
       return serverApiInstance.get('/posts/similar', {
         params: { postId }
       });
     },
 
-    async getAllPosts(page, per_page) {
+    async getAllPosts(
+      paginationRequest: PaginationRequest
+    ): Promise<paginatedItemsResponse<Post>> {
       return serverApiInstance.get('/posts', {
-        params: { page, per_page }
+        params: paginationRequest
       });
     },
 
-    async searchPosts({
-      postType,
-      assetType,
-      regionId,
-      provinceId,
-      districtId,
-      subDistrictId
-    }) {
-      return apiInstance.post('/posts/search', {
-        postType,
-        assetType,
-        regionId,
-        provinceId,
-        districtId,
-        subDistrictId
-      });
+    async searchPosts(searchPostRequest: SearchPostRequest): Promise<Post[]> {
+      return apiInstance.post('/posts/search', searchPostRequest);
     },
 
-    async increasePostStats(postId, statType) {
+    async increasePostStats(
+      postId: string,
+      statType: PostStatType
+    ): Promise<void> {
       await sleep(1);
       return apiInstance.post(`/posts/${postId}/stats`, {
         statType
       });
     },
 
-    async getLatestActiveForSitemap() {
+    async getLatestActiveForSitemap(): Promise<Partial<Post>> {
       return serverApiInstance.get('/posts/latest-active-sitemap');
     },
 
-    async getAllActiveForSitemap() {
+    async getAllActiveForSitemap(): Promise<Partial<Post>[]> {
       return serverApiInstance.get('/posts/all-active-sitemap');
     }
   }
