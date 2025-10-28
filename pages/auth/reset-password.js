@@ -55,7 +55,10 @@ const ResetPasswordPage = () => {
     setError('');
 
     try {
-      await apiClient.auth.resetPassword(token, data.newPassword);
+      await apiClient.auth.resetPassword({
+        token,
+        newPassword: data.newPassword
+      });
       setSuccess(true);
     } catch (err) {
       const errorMessage = translateServerError(err.message, locale);

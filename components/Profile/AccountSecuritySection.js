@@ -73,10 +73,10 @@ const AccountSecuritySection = ({ user }) => {
     setApiError('');
 
     try {
-      await apiClient.auth.updatePassword(
-        formData.currentPassword,
-        formData.newPassword
-      );
+      await apiClient.auth.updatePassword({
+        currentPassword: formData.currentPassword,
+        newPassword: formData.newPassword
+      });
       setSuccess(true);
       setIsEditing(false);
       reset();

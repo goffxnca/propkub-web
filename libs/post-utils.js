@@ -6,9 +6,8 @@ import { apiClient } from './client';
 import { populateAddressLabels } from './utils/address-utils';
 
 export const fetchActivePosts = async () => {
-  const response = await apiClient.posts.getAllPosts(1, 50);
-  const posts = response?.items || [];
-  return posts;
+  const response = await apiClient.posts.getAllPosts({ page: 1, per_page: 50 });
+  return response.items;
 };
 
 export const getAllActivePostsForSitemap = async () => {
