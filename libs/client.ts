@@ -3,6 +3,7 @@ import { tokenManager } from './tokenManager';
 import { envConfig } from './envConfig';
 import { sleep } from './misc';
 import { AccessTokenResponse, MessageResponse } from '../types/http';
+import { User } from '../types/models/user';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),
@@ -92,7 +93,7 @@ export const apiClient = {
       });
     },
 
-    async getProfile() {
+    async getProfile(): Promise<User> {
       return apiInstance.get('/auth/profile');
     },
 
