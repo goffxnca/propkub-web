@@ -1,4 +1,22 @@
-const BaseInput = ({ id, label, error, info, counter = 0, children }) => {
+import { ReactNode } from 'react';
+
+interface BaseInputProps {
+  id: string;
+  label?: string;
+  error?: string;
+  info?: string;
+  counter?: number;
+  children?: ReactNode;
+}
+
+const BaseInput = ({
+  id,
+  label,
+  error,
+  info,
+  counter = 0,
+  children
+}: BaseInputProps) => {
   return (
     <div>
       {label && (
