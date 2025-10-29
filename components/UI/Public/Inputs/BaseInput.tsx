@@ -1,9 +1,10 @@
 import { ReactNode } from 'react';
+import { ReactHookFormError } from '../../../../types/misc/form';
 
 interface BaseInputProps {
   id: string;
   label?: string;
-  error?: string;
+  error?: ReactHookFormError;
   info?: string;
   counter?: number;
   children?: ReactNode;
@@ -26,7 +27,9 @@ const BaseInput = ({
       )}
       <div>{children ? children : <p>Default BaseInput Children</p>}</div>
       <div className="flex justify-between">
-        {error && <p className="text-red-400 text-xs py-1 w-full">{error}</p>}
+        {error && (
+          <p className="text-red-400 text-xs py-1 w-full">{`${error?.message || ''}`}</p>
+        )}
         {counter > 0 && (
           <p className="text-gray-500 text-xs py-1 w-full text-right">
             {counter}
