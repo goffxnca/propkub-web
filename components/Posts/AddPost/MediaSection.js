@@ -16,7 +16,7 @@ const MediaSection = ({
   const watchVideo = watch('video');
 
   const minImages = 3;
-  const maxImages = 10;
+  const maxImages = 15;
 
   return (
     <div className="bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
