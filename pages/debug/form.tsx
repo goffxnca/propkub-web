@@ -31,7 +31,7 @@ const FormTestPage = () => {
           <div>
             <TextInput
               id="email"
-              label="Email Address"
+              label="Email"
               type="email"
               placeholder="your@email.com"
               register={() =>
@@ -40,7 +40,7 @@ const FormTestPage = () => {
                   ...EmailPattern()
                 })
               }
-              unregister={(name: string) => unregister(name as any)}
+              unregister={unregister}
               error={errors.email}
               info="Enter a valid email address"
             />
@@ -59,7 +59,7 @@ const FormTestPage = () => {
                 })
               }
               rows={7}
-              unregister={(name: string) => unregister(name as any)}
+              unregister={unregister}
               error={errors.message}
               note="Minimum 50 characters, maximum 500 characters"
             />
@@ -81,12 +81,10 @@ const FormTestPage = () => {
               </h3>
               <ul className="list-disc list-inside text-sm text-red-700 space-y-1">
                 {errors.email && (
-                  <li>Email: {errors.email.message || 'Invalid email'}</li>
+                  <li>Email: {`${errors?.email.message || ''}`}</li>
                 )}
                 {errors.message && (
-                  <li>
-                    Message: {errors.message.message || 'Invalid message'}
-                  </li>
+                  <li>Message: {`${errors?.message.message || ''}`}</li>
                 )}
               </ul>
             </div>
