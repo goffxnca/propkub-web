@@ -1,6 +1,33 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+  ReactNode,
+  ChangeEventHandler,
+  KeyboardEventHandler
+} from 'react';
 import BaseInput from './BaseInput';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
+import type { UseFormRegisterReturn } from 'react-hook-form';
+import { ReactHookFormError } from '../../../../types/misc/form';
+
+interface TextInputProps {
+  id: string;
+  type?: 'text' | 'password' | 'email' | 'tel' | 'number';
+  label?: string;
+  placeholder?: string;
+  value?: string | number;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  disabled?: boolean;
+  onKeyPress?: KeyboardEventHandler<HTMLInputElement>;
+  leadingSlot?: ReactNode;
+  tailingSlot?: ReactNode;
+  error?: ReactHookFormError;
+  info?: string;
+  register?: () => Partial<UseFormRegisterReturn>;
+  unregister?: (name: string) => void;
+  children?: ReactNode;
+  spacingY?: boolean;
+}
 
 const TextInput = ({
   id,
@@ -19,7 +46,7 @@ const TextInput = ({
   unregister = () => ({}),
   children,
   spacingY = false
-}) => {
+}: TextInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
   const inputRingAndBorderStyle = error
     ? 'focus:ring-red-300  border-red-200 focus:border-red-300'
@@ -29,7 +56,9 @@ const TextInput = ({
 
   const textboxSpacingY = spacingY ? 'py-3' : '';
 
-  let applyInputAttributes = {};
+  const applyInputAttributes: Partial<
+    React.InputHTMLAttributes<HTMLInputElement>
+  > = {};
   if (disabled) {
     applyInputAttributes.disabled = true;
   }
@@ -46,7 +75,12 @@ const TextInput = ({
   };
 
   return (
-    <BaseInput id={id} label={label} error={error?.message} info={info}>
+    <BaseInput
+      id={id}
+      label={label}
+      error={`${error?.message || ''}`}
+      info={info}
+    >
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <span className="text-gray-500 sm:text-sm">{leadingSlot}</span>
