@@ -7,8 +7,11 @@ import {
 } from 'react';
 import BaseInput from './BaseInput';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
-import type { UseFormRegisterReturn } from 'react-hook-form';
-import { ReactHookFormError } from '../../../../types/misc/form';
+import {
+  ReactHookFormError,
+  ReactHookFormRegister,
+  ReactHookFormUnRegister
+} from '../../../../types/misc/form';
 
 interface TextInputProps {
   id: string;
@@ -23,8 +26,8 @@ interface TextInputProps {
   tailingSlot?: ReactNode;
   error?: ReactHookFormError;
   info?: string;
-  register?: () => Partial<UseFormRegisterReturn>;
-  unregister?: (name: string) => void;
+  register?: ReactHookFormRegister;
+  unregister?: ReactHookFormUnRegister;
   children?: ReactNode;
   spacingY?: boolean;
 }
