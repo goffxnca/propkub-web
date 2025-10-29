@@ -2,10 +2,12 @@ import { useForm } from 'react-hook-form';
 import { useValidators } from '../../hooks/useValidators';
 import TextInput from '../../components/UI/Public/Inputs/TextInput';
 import TextAreaInput from '../../components/UI/Public/Inputs/TextAreaInput';
+import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
 
 interface FormData {
   email: string;
   message: string;
+  category: string;
 }
 
 const FormTestPage = () => {
@@ -47,6 +49,24 @@ const FormTestPage = () => {
           </div>
 
           <div>
+            <SelectInput
+              id="category"
+              label="Category"
+              options={[
+                { id: 'tech', label: 'Technology' },
+                { id: 'marketing', label: 'Marketing' }
+              ]}
+              register={() =>
+                register('category', {
+                  ...required()
+                })
+              }
+              unregister={unregister}
+              error={errors.category}
+            />
+          </div>
+
+          <div>
             <TextAreaInput
               id="message"
               label="Message"
@@ -82,6 +102,9 @@ const FormTestPage = () => {
               <ul className="list-disc list-inside text-sm text-red-700 space-y-1">
                 {errors.email && (
                   <li>Email: {`${errors?.email.message || ''}`}</li>
+                )}
+                {errors.category && (
+                  <li>Category: {`${errors?.category.message || ''}`}</li>
                 )}
                 {errors.message && (
                   <li>Message: {`${errors?.message.message || ''}`}</li>

@@ -1,5 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, ChangeEventHandler } from 'react';
 import BaseInput from './BaseInput';
+import {
+  ReactHookFormError,
+  ReactHookFormRegister,
+  ReactHookFormUnRegister
+} from '../../../../types/misc/form';
+
+interface SelectOption {
+  id: string | number;
+  label?: string;
+  name?: string;
+}
+
+interface SelectInputProps {
+  id: string;
+  label?: string;
+  options: SelectOption[];
+  showPreOption?: boolean;
+  value?: string | number;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
+  disabled?: boolean;
+  error?: ReactHookFormError;
+  register?: ReactHookFormRegister;
+  unregister?: ReactHookFormUnRegister;
+}
 
 const SelectInput = ({
   id,
@@ -12,12 +36,14 @@ const SelectInput = ({
   error,
   register = () => ({}),
   unregister = () => ({})
-}) => {
+}: SelectInputProps) => {
   const inputRingAndBorderStyle = error
     ? 'focus:ring-red-300 border-red-200 focus:border-red-300 '
     : 'focus:ring-indigo-500 focus:border-indigo-500';
 
-  let applyInputAttributes = {};
+  const applyInputAttributes: Partial<
+    React.SelectHTMLAttributes<HTMLSelectElement>
+  > = {};
   if (disabled) {
     applyInputAttributes.disabled = true;
   }
@@ -30,7 +56,7 @@ const SelectInput = ({
   }, []);
 
   return (
-    <BaseInput id={id} label={label} error={error?.message}>
+    <BaseInput id={id} label={label} error={error}>
       <select
         id={id}
         name={id}
