@@ -2,12 +2,14 @@ import { useForm } from 'react-hook-form';
 import { useValidators } from '../../hooks/useValidators';
 import TextInput from '../../components/UI/Public/Inputs/TextInput';
 import TextAreaInput from '../../components/UI/Public/Inputs/TextAreaInput';
+import CheckboxInput from '../../components/UI/Public/Inputs/CheckboxInput';
 import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
 
 interface FormData {
   email: string;
   message: string;
   category: string;
+  acceptTerms: boolean;
 }
 
 const FormTestPage = () => {
@@ -67,6 +69,20 @@ const FormTestPage = () => {
           </div>
 
           <div>
+            <CheckboxInput
+              id="acceptTerms"
+              label="I accept the terms"
+              register={() =>
+                register('acceptTerms', {
+                  ...required()
+                })
+              }
+              unregister={unregister}
+              error={errors.acceptTerms}
+            />
+          </div>
+
+          <div>
             <TextAreaInput
               id="message"
               label="Message"
@@ -105,6 +121,9 @@ const FormTestPage = () => {
                 )}
                 {errors.category && (
                   <li>Category: {`${errors?.category.message || ''}`}</li>
+                )}
+                {errors.acceptTerms && (
+                  <li>Terms: {`${errors?.acceptTerms.message || ''}`}</li>
                 )}
                 {errors.message && (
                   <li>Message: {`${errors?.message.message || ''}`}</li>

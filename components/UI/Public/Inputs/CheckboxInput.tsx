@@ -1,14 +1,26 @@
 import { useEffect } from 'react';
 import BaseInput from './BaseInput';
+import {
+  ReactHookFormError,
+  ReactHookFormRegister,
+  ReactHookFormUnRegister
+} from '../../../../types/misc/form';
+
+interface CheckboxInputProps {
+  id: string;
+  label?: string;
+  register?: ReactHookFormRegister;
+  unregister?: ReactHookFormUnRegister;
+  error?: ReactHookFormError;
+}
 
 const CheckboxInput = ({
   id,
-  groupId,
   label,
   register = () => ({}),
   unregister = () => ({}),
   error
-}) => {
+}: CheckboxInputProps) => {
   useEffect(() => {
     return () => {
       unregister(id);
@@ -17,14 +29,14 @@ const CheckboxInput = ({
   }, []);
 
   return (
-    <BaseInput id={id} error={error?.message}>
+    <BaseInput id={id} error={error}>
       <div className="flex items-start">
         <div className="flex items-center h-5">
           <input
             id={id}
             name={id}
             type="checkbox"
-            {...register(groupId ? `${groupId}.${id}` : id)}
+            {...register()}
             className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded cursor-pointer"
           />
         </div>
