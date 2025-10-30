@@ -3,6 +3,7 @@ import { useValidators } from '../../hooks/useValidators';
 import TextInput from '../../components/UI/Public/Inputs/TextInput';
 import TextAreaInput from '../../components/UI/Public/Inputs/TextAreaInput';
 import CheckboxInput from '../../components/UI/Public/Inputs/CheckboxInput';
+import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupInput';
 import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
 
 interface FormData {
@@ -10,6 +11,11 @@ interface FormData {
   message: string;
   category: string;
   acceptTerms: boolean;
+  interests?: {
+    design?: boolean;
+    engineering?: boolean;
+    marketing?: boolean;
+  };
 }
 
 const FormTestPage = () => {
@@ -69,6 +75,21 @@ const FormTestPage = () => {
           </div>
 
           <div>
+            <CheckboxGroupInput
+              id="interests"
+              groupLabel="Interests"
+              items={[
+                { id: 'design', label: 'Design' },
+                { id: 'engineering', label: 'Engineering' },
+                { id: 'marketing', label: 'Marketing' }
+              ]}
+              register={register}
+              unregister={unregister}
+              error={errors.interests}
+            />
+          </div>
+
+          <div>
             <CheckboxInput
               id="acceptTerms"
               label="I accept the terms"
@@ -90,8 +111,8 @@ const FormTestPage = () => {
               register={() =>
                 register('message', {
                   ...required(),
-                  ...minLength(50),
-                  ...maxLength(500)
+                  ...minLength(3),
+                  ...maxLength(100)
                 })
               }
               rows={7}
