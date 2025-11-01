@@ -7,9 +7,8 @@ import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupI
 import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
 import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
 import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
-import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
-import ProfileImageInput from '../../components/UI/Public/Inputs/ProfileImageInput/ProfileImageInput';
 import TextEditorInput from '../../components/UI/Public/Inputs/TextEditorInput';
+import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
 
 interface FormData {
   email: string;
@@ -22,11 +21,6 @@ interface FormData {
   images?: File[];
   description?: string;
   description_raw?: string;
-  profileImage?: {
-    fileData: File | null;
-    isFileChanged: boolean;
-    originFileUrl: string;
-  };
   interests?: {
     design?: boolean;
     engineering?: boolean;
@@ -208,18 +202,6 @@ const FormTestPage = () => {
           </div>
 
           <div>
-            <ProfileImageInput
-              id="profileImage"
-              label="Profile Image"
-              originFileUrl=""
-              register={() => register('profileImage', { ...required() })}
-              unregister={unregister}
-              error={errors.profileImage}
-              setValue={setValue}
-            />
-          </div>
-
-          <div>
             <CheckboxInput
               id="acceptTerms"
               label="I accept the terms"
@@ -289,11 +271,6 @@ const FormTestPage = () => {
                 {errors.description_raw && (
                   <li>
                     Description: {`${errors?.description_raw.message || ''}`}
-                  </li>
-                )}
-                {errors.profileImage && (
-                  <li>
-                    Profile Image: {`${errors?.profileImage.message || ''}`}
                   </li>
                 )}
                 {errors.images && (
