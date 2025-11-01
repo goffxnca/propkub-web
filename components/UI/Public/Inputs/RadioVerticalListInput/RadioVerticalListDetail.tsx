@@ -1,15 +1,28 @@
 import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
 import { joinClasses } from '../../../../../libs/utils/style-utils';
+import { ReactHookFormError } from '../../../../../types/misc/form';
+
+interface RadioVerticalListItem {
+  id: string | number;
+  name: string;
+  description?: string;
+}
+
+interface RadioVerticalListDetailProps {
+  items?: RadioVerticalListItem[];
+  error?: ReactHookFormError | boolean | null;
+  onChange?: (value: string | number) => void;
+}
 
 const RadioVerticalListDetail = ({
   items = [],
   error,
   onChange = () => {}
-}) => {
-  const [selected, setSelected] = useState('');
+}: RadioVerticalListDetailProps) => {
+  const [selected, setSelected] = useState<string | number>('');
 
-  const onChangeHandler = (value) => {
+  const onChangeHandler = (value: string | number) => {
     setSelected(value);
     onChange(value);
   };

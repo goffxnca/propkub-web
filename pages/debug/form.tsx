@@ -161,20 +161,6 @@ const FormTestPage = () => {
           </div>
 
           <div>
-            <CheckboxInput
-              id="acceptTerms"
-              label="I accept the terms"
-              register={() =>
-                register('acceptTerms', {
-                  ...required()
-                })
-              }
-              unregister={unregister}
-              error={errors.acceptTerms}
-            />
-          </div>
-
-          <div>
             <TextAreaInput
               id="message"
               label="Message"
@@ -190,6 +176,20 @@ const FormTestPage = () => {
               unregister={unregister}
               error={errors.message}
               note="Minimum 50 characters, maximum 500 characters"
+            />
+          </div>
+
+          <div>
+            <CheckboxInput
+              id="acceptTerms"
+              label="I accept the terms"
+              register={() =>
+                register('acceptTerms', {
+                  ...required()
+                })
+              }
+              unregister={unregister}
+              error={errors.acceptTerms}
             />
           </div>
 

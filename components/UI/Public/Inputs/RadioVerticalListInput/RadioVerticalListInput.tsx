@@ -55,7 +55,7 @@ const RadioVerticalListInput = ({
           <RadioVerticalListDetail
             items={items}
             error={error}
-            onChange={onChangeHandler as any}
+            onChange={onChangeHandler}
           />
         </div>
       </div>
