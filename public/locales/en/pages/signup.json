@@ -6,9 +6,9 @@
     "or": "Or",
     "fields": {
       "name": {
-        "label": "Username",
+        "label": "Name",
         "placeholder": "John Doe",
-        "info": "Can be changed later"
+        "info": "Can change later"
       },
       "email": {
         "label": "Email"
