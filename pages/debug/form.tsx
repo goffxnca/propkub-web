@@ -8,6 +8,7 @@ import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
 import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
 import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
 import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
+import ProfileImageInput from '../../components/UI/Public/Inputs/ProfileImageInput/ProfileImageInput';
 
 interface FormData {
   email: string;
@@ -18,6 +19,11 @@ interface FormData {
   price?: number;
   priceUnit?: string;
   images?: File[];
+  profileImage?: {
+    fileData: File | null;
+    isFileChanged: boolean;
+    originFileUrl: string;
+  };
   interests?: {
     design?: boolean;
     engineering?: boolean;
@@ -182,6 +188,18 @@ const FormTestPage = () => {
           </div>
 
           <div>
+            <ProfileImageInput
+              id="profileImage"
+              label="Profile Image"
+              originFileUrl=""
+              register={() => register('profileImage', { ...required() })}
+              unregister={unregister}
+              error={errors.profileImage}
+              setValue={setValue}
+            />
+          </div>
+
+          <div>
             <CheckboxInput
               id="acceptTerms"
               label="I accept the terms"
@@ -247,6 +265,11 @@ const FormTestPage = () => {
                 )}
                 {errors.message && (
                   <li>Message: {`${errors?.message.message || ''}`}</li>
+                )}
+                {errors.profileImage && (
+                  <li>
+                    Profile Image: {`${errors?.profileImage.message || ''}`}
+                  </li>
                 )}
                 {errors.images && (
                   <li>Images: {`${errors?.images.message || ''}`}</li>
