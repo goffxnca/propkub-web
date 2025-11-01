@@ -1,23 +1,46 @@
 import { useEffect, useState } from 'react';
 import BaseInput from './BaseInput';
 import dynamic from 'next/dynamic';
+import {
+  ReactHookFormError,
+  ReactHookFormUnRegister
+} from '../../../../types/misc/form';
+import type {
+  UseFormSetValue,
+  UseFormRegister,
+  RegisterOptions
+} from 'react-hook-form';
+import type { UnprivilegedEditor } from 'react-quill';
+
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import 'react-quill/dist/quill.snow.css';
+
+interface TextEditorInputProps {
+  id: string;
+  label?: string;
+  info?: string;
+  error?: ReactHookFormError;
+  register?: UseFormRegister<any>;
+  unregister?: ReactHookFormUnRegister;
+  setValue?: UseFormSetValue<any>;
+  defaultValue?: string;
+  validation?: RegisterOptions;
+}
 
 const TextEditorInput = ({
   id,
   label,
   info,
   error,
-  register = () => ({}),
+  register,
   unregister = () => ({}),
-  setValue = () => ({}),
+  setValue,
   defaultValue = '',
   validation = {}
-}) => {
-  const [editorHtmlValue, setEditorHtmlValue] = useState('');
-  const [editorRawLength, setEditorRawLength] = useState(0);
-  const [initialized, setInitialized] = useState(false);
+}: TextEditorInputProps) => {
+  const [editorHtmlValue, setEditorHtmlValue] = useState<string>('');
+  const [editorRawLength, setEditorRawLength] = useState<number>(0);
+  const [initialized, setInitialized] = useState<boolean>(false);
 
   const idForRawContent = id + '_raw';
 
@@ -30,17 +53,24 @@ const TextEditorInput = ({
 
   const formats = ['bold', 'italic', 'underline', 'list', 'link'];
 
-  const minLength = validation?.minLength?.value || 0;
-  const remainingLengthRequired = minLength - editorRawLength;
+  const minLength = (validation?.minLength as { value: number })?.value || 0;
+  const remainingLengthRequired = Math.max(0, minLength - editorRawLength);
 
-  const editorValueChangeHandler = (value, predicate, source, editor) => {
+  const editorValueChangeHandler = (
+    value: string,
+    _delta: any,
+    _source: string,
+    editor: UnprivilegedEditor
+  ) => {
     setEditorHtmlValue(value);
-    setValue(id, value, { shouldDirty: initialized });
-    const rawEditorValue = editor.getText().trim();
-    setValue(idForRawContent, rawEditorValue, {
-      shouldValidate: true
-    });
-    setEditorRawLength(rawEditorValue.length);
+    if (setValue) {
+      setValue(id, value, { shouldDirty: initialized });
+      const rawEditorValue = editor.getText().trim();
+      setValue(idForRawContent, rawEditorValue, {
+        shouldValidate: true
+      });
+      setEditorRawLength(rawEditorValue.length);
+    }
 
     if (!initialized) {
       setInitialized(true);
@@ -48,7 +78,7 @@ const TextEditorInput = ({
   };
 
   useEffect(() => {
-    if (defaultValue) {
+    if (defaultValue && setValue) {
       setEditorHtmlValue(defaultValue);
       setValue(id, defaultValue);
       setValue(idForRawContent, defaultValue);
@@ -64,16 +94,18 @@ const TextEditorInput = ({
     <BaseInput
       id={id}
       label={label}
-      error={error?.message}
+      error={error}
       info={info}
       counter={remainingLengthRequired}
     >
-      <input className="hidden" type="text" {...register(id)} />
-      <input
-        className="hidden"
-        type="text"
-        {...register(idForRawContent, validation)}
-      />
+      <>
+        <input className="hidden" type="text" {...register(id)} />
+        <input
+          className="hidden"
+          type="text"
+          {...register(idForRawContent, validation)}
+        />
+      </>
 
       <div className={`border ${error ? 'border-red-300' : 'border-gray-300'}`}>
         <ReactQuill
