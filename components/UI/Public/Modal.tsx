@@ -1,18 +1,28 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/outline';
+import type { ComponentType } from 'react';
+import type { SVGProps } from 'react';
+
+interface ModalProps {
+  visible: boolean;
+  title: string;
+  desc: string;
+  buttonCaption: string;
+  onClose: () => void;
+  Icon?: ComponentType<SVGProps<SVGSVGElement>>;
+  type?: 'success' | 'warning' | 'info';
+}
 
 const Modal = ({
   visible = false,
-  Icon = CheckIcon,
-  type = 'success',
   title,
   desc,
   buttonCaption,
-  onClose
-}) => {
-  //   const [open, setOpen] = useState(true);
-
+  onClose,
+  Icon = CheckIcon,
+  type = 'success'
+}: ModalProps) => {
   const iconTextColor =
     type === 'success'
       ? 'text-green-600'
