@@ -1,21 +1,33 @@
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/outline';
 import { ExclamationCircleIcon, XIcon } from '@heroicons/react/outline';
+import type { ComponentType } from 'react';
+import type { SVGProps } from 'react';
+
+interface ConfirmProps {
+  visible: boolean;
+  type: 'success' | 'warning' | 'info';
+  title: string;
+  desc: string;
+  buttonCancelLabel?: string;
+  buttonConfirmLabel?: string;
+  Icon?: ComponentType<SVGProps<SVGSVGElement>>;
+  onClose: () => void;
+  onConfirm: () => void;
+}
 
 const Confirm = ({
-  visible = false,
-  Icon = CheckIcon,
+  visible,
   type = 'success',
   title,
   desc,
   buttonCancelLabel = 'Cancel',
   buttonConfirmLabel = 'Confirm',
+  Icon = CheckIcon,
   onClose,
   onConfirm
-}) => {
-  const [open, setOpen] = useState(true);
-
+}: ConfirmProps) => {
   const iconTextColor =
     type === 'success'
       ? 'text-green-600'
