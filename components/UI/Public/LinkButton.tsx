@@ -1,10 +1,20 @@
+import { ReactNode, MouseEventHandler } from 'react';
+
+interface LinkButtonProps {
+  href: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+  variant?: 'primary' | 'secondary' | 'accent';
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
+  children?: ReactNode;
+}
+
 const LinkButton = ({
-  variant = 'primary',
-  href = '',
+  href,
   target = '_blank',
-  children,
-  onClick
-}) => {
+  variant = 'primary',
+  onClick,
+  children
+}: LinkButtonProps) => {
   const bgStyle =
     variant === 'secondary'
       ? 'bg-secondary hover:bg-secondary-hover'
