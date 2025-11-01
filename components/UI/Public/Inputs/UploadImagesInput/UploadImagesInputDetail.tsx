@@ -1,23 +1,36 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ChangeEvent } from 'react';
 import CirclePlus from '../../../../Icons/CirclePlus';
 import UploadImagePreviewItem from './UploadImagePreviewItem';
 import InlineError from '../../InlineError';
 import { resizeFile } from '../../../../../libs/utils/file-utils';
 import { useTranslation } from '../../../../../hooks/useTranslation';
+import { ReactHookFormError } from '../../../../../types/misc/form';
+
+interface InlineErrorType {
+  title: string;
+  messages: string[];
+}
+
+interface UploadImagesInputDetailProps {
+  maxFile?: number;
+  maxFileSizeMB?: number;
+  onImageChange: (files: File[]) => void;
+  error?: ReactHookFormError | boolean | null;
+}
 
 const UploadImagesInputDetail = ({
   maxFile = 1,
   maxFileSizeMB = 10,
   onImageChange,
   error
-}) => {
+}: UploadImagesInputDetailProps) => {
   const { t } = useTranslation('common');
-  const fileRef = useRef();
+  const fileRef = useRef<HTMLInputElement>(null);
 
-  const [files, setFiles] = useState([]); //track list of resized files
-  const [originalFiles, setOriginalFiles] = useState([]); //trakc original file (un-resized), used to detect the choosing the same file twice
-  const [fileUrls, setFileUrls] = useState([]);
-  const [inlineError, setInlineError] = useState(null);
+  const [files, setFiles] = useState<File[]>([]); //track list of resized files
+  const [originalFiles, setOriginalFiles] = useState<File[]>([]); //track original file (un-resized), used to detects choosing the same file twice
+  const [fileUrls, setFileUrls] = useState<string[]>([]);
+  const [inlineError, setInlineError] = useState<InlineErrorType | null>(null);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -34,9 +47,9 @@ const UploadImagesInputDetail = ({
   }, [files.length]);
 
   //multiple support
-  const filesSelectedHandler = async (event) => {
+  const filesSelectedHandler = async (event: ChangeEvent<HTMLInputElement>) => {
     const uploadFiles = event.target.files;
-    if (uploadFiles.length === 0) return;
+    if (!uploadFiles || uploadFiles.length === 0) return;
 
     const totalBrowsedFile = files.length;
     const totalBrowsingFile = uploadFiles.length;
@@ -48,15 +61,15 @@ const UploadImagesInputDetail = ({
       });
     }
 
-    const tempFiles = [];
-    const tempOriginalFiles = [];
-    const tempFileUrls = [];
+    const tempFiles: File[] = [];
+    const tempOriginalFiles: File[] = [];
+    const tempFileUrls: string[] = [];
 
     const allowedFileTypes = ['image/jpg', 'image/jpeg', 'image/png'];
 
-    const errors = [];
+    const errors: string[] = [];
 
-    for (const file of uploadFiles) {
+    for (const file of Array.from(uploadFiles)) {
       setInlineError(null);
 
       //validate file type
@@ -154,10 +167,10 @@ const UploadImagesInputDetail = ({
   };
 
   const addPlusClickHandler = () => {
-    fileRef.current.click();
+    fileRef.current?.click();
   };
 
-  const removeFileHandler = (imageIndex) => {
+  const removeFileHandler = (imageIndex: number) => {
     setFileUrls((prevFileUrls) =>
       prevFileUrls.filter((p, idx) => idx !== imageIndex)
     );
