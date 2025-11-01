@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import CirclePlus from '../../../../Icons/CirclePlus';
-import ImagePreviewItem from './UploadImagePreviewItem';
+import UploadImagePreviewItem from './UploadImagePreviewItem';
 import InlineError from '../../InlineError';
 import { resizeFile } from '../../../../../libs/utils/file-utils';
 import { useTranslation } from '../../../../../hooks/useTranslation';
@@ -171,7 +171,7 @@ const UploadImagesInputDetail = ({
     <div>
       <div className="flex items-center justify-center flex-wrap">
         {fileUrls.map((url, index) => (
-          <ImagePreviewItem
+          <UploadImagePreviewItem
             key={url}
             src={url}
             fileName={files[index]?.name}

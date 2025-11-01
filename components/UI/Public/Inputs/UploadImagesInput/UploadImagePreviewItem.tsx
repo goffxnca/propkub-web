@@ -5,7 +5,7 @@ interface UploadImagePreviewItemProps {
   onClose: (imageIndex: number) => void;
 }
 
-const ImagePreviewItem = ({
+const UploadImagePreviewItem = ({
   src,
   fileName,
   imageIndex,
@@ -38,4 +38,4 @@ const ImagePreviewItem = ({
   );
 };
 
-export default ImagePreviewItem;
+export default UploadImagePreviewItem;
