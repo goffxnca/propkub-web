@@ -6,12 +6,14 @@ import CheckboxInput from '../../components/UI/Public/Inputs/CheckboxInput';
 import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupInput';
 import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
 import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
+import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
 
 interface FormData {
   email: string;
   message: string;
   category: string;
   acceptTerms: boolean;
+  privacy?: string;
   price?: number;
   priceUnit?: string;
   interests?: {
@@ -91,6 +93,38 @@ const FormTestPage = () => {
               register={register}
               unregister={unregister}
               error={errors.interests}
+            />
+          </div>
+
+          <div>
+            <RadioVerticalListInput
+              id="privacy"
+              label="Privacy Setting"
+              items={[
+                {
+                  id: 'public',
+                  name: 'Public',
+                  description: 'Everyone can see this content'
+                },
+                {
+                  id: 'private',
+                  name: 'Private',
+                  description: 'Only you can see this content'
+                },
+                {
+                  id: 'friends',
+                  name: 'Friends Only',
+                  description: 'Only your friends can see this content'
+                }
+              ]}
+              register={() =>
+                register('privacy', {
+                  ...required()
+                })
+              }
+              unregister={unregister}
+              error={errors.privacy}
+              setValue={setValue}
             />
           </div>
 
@@ -179,6 +213,9 @@ const FormTestPage = () => {
                 )}
                 {errors.category && (
                   <li>Category: {`${errors?.category.message || ''}`}</li>
+                )}
+                {errors.privacy && (
+                  <li>Privacy: {`${errors?.privacy.message || ''}`}</li>
                 )}
                 {errors.price && (
                   <li>Price: {`${errors?.price.message || ''}`}</li>
