@@ -1,12 +1,20 @@
 import { ExclamationCircleIcon } from '@heroicons/react/solid';
 
+interface AlertProps {
+  title: string;
+  messages: string[];
+  showButton: boolean;
+  buttonLabel: string;
+  onClick?: () => void;
+}
+
 const Alert = ({
-  alertTitle = '',
+  title,
   messages = [],
   showButton = false,
   buttonLabel,
   onClick
-}) => {
+}: AlertProps) => {
   return (
     <div className="rounded-md bg-yellow-50 p-4">
       <div className="flex">
@@ -17,7 +25,7 @@ const Alert = ({
           />
         </div>
         <div className="ml-3">
-          <h3 className="text-sm font-medium text-yellow-800">{alertTitle}</h3>
+          <h3 className="text-sm font-medium text-yellow-800">{title}</h3>
           <div className="mt-2 text-sm text-yellow-700">
             <ul role="list" className="list-disc space-y-1 pl-5">
               {messages.map((msg, index) => (

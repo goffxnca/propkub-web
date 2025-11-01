@@ -43,7 +43,7 @@ const ProfileWarnings = ({
   return (
     <div>
       <Alert
-        alertTitle={t('warnings.title')}
+        title={t('warnings.title')}
         messages={warningMessages}
         showButton={true}
         buttonLabel={t('warnings.checkAgain')}
