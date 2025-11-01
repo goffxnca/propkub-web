@@ -1,7 +1,17 @@
 import { HomeIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 
-const Breadcrumbs = ({ items }) => {
+interface BreadcrumbItem {
+  name: string;
+  href: string;
+  current?: boolean;
+}
+
+interface BreadcrumbsProps {
+  items: BreadcrumbItem[];
+}
+
+const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
   return (
     <nav
       className="flex border-b border-gray-200 bg-white"
