@@ -1,6 +1,29 @@
+import { ReactNode } from 'react';
 import { resolveColumnValue } from '../../../../libs/utils/datatable-utils';
 
-const DataTable = ({ items = [], columns = [], onRowClick = () => {} }) => {
+interface DataTableColumn<T = any> {
+  title: string;
+  field?: string;
+  custom?: (item: T) => ReactNode;
+  resolver?: (item: T) => any;
+}
+
+interface DataTableItem {
+  _id: string | number;
+  [key: string]: any;
+}
+
+interface DataTableProps<T = DataTableItem> {
+  items?: T[];
+  columns?: DataTableColumn<T>[];
+  onRowClick?: (rowId: string | number) => void;
+}
+
+const DataTable = <T extends DataTableItem>({
+  items = [],
+  columns = [],
+  onRowClick = () => {}
+}: DataTableProps<T>) => {
   return (
     <div className="mt-8 flex flex-col overflow-x-scroll overflow-y-hidden">
       <div className="-my-2  lg:-mx-8">
