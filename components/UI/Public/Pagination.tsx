@@ -1,6 +1,18 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { useTranslation } from '../../../hooks/useTranslation';
 
+interface PaginationProps {
+  page: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  goToPage: (newPage: number) => void;
+  nextPage: () => void;
+  prevPage: () => void;
+  totalCount: number;
+  perPage: number;
+}
+
 const Pagination = ({
   page,
   totalPages,
@@ -11,7 +23,7 @@ const Pagination = ({
   prevPage,
   totalCount,
   perPage
-}) => {
+}: PaginationProps) => {
   const { t } = useTranslation('common');
   if (totalPages <= 1) return null;
 
@@ -19,8 +31,8 @@ const Pagination = ({
   const endItem = Math.min(page * perPage, totalCount);
 
   // Generate page numbers with smart truncation
-  const generatePageNumbers = () => {
-    const pages = [];
+  const generatePageNumbers = (): (number | string)[] => {
+    const pages: (number | string)[] = [];
 
     if (totalPages <= 7) {
       // Show all pages if total is 7 or less
@@ -116,7 +128,7 @@ const Pagination = ({
               ) : (
                 <button
                   key={pageNum}
-                  onClick={() => goToPage(pageNum)}
+                  onClick={() => goToPage(pageNum as number)}
                   aria-current={pageNum === page ? 'page' : undefined}
                   className={`relative inline-flex items-center px-4 py-2 text-sm font-semibold ${
                     pageNum === page
