@@ -1,5 +1,36 @@
 import { useEffect } from 'react';
 import BaseInput from './BaseInput';
+import {
+  ReactHookFormError,
+  ReactHookFormRegister,
+  ReactHookFormUnRegister
+} from '../../../../types/misc/form';
+import type { UseFormSetValue } from 'react-hook-form';
+
+interface UnitItem {
+  id: string | number;
+  label: string;
+  ignorePrefix?: boolean;
+}
+
+interface TextWithUnitInputProps {
+  id: string;
+  unitId: string;
+  unitDefaultValues?: (string | number)[]; //Sometimes the unit default values can be array too, ex. priceUnit where at a certain UI condition, it might use AreaUnit or TimeUnit so we pass the default unit value for both unit types, kind of too complex but I will re-think later
+  unitDefaultValue?: string | number | null;
+  unitItems?: UnitItem[];
+  unitPrefix?: string;
+  type?: 'text' | 'number';
+  decimalPlaces?: number;
+  label?: string;
+  placeholder?: string;
+  leadingSlot?: string;
+  error?: ReactHookFormError;
+  register?: ReactHookFormRegister;
+  registerUnit?: ReactHookFormRegister;
+  unregister?: ReactHookFormUnRegister;
+  setValue?: UseFormSetValue<any>;
+}
 
 const TextWithUnitInput = ({
   id,
@@ -18,7 +49,7 @@ const TextWithUnitInput = ({
   registerUnit = () => ({}),
   unregister = () => ({}),
   setValue
-}) => {
+}: TextWithUnitInputProps) => {
   useEffect(() => {
     if (unitItems.length === 0) {
       unregister(unitId);
@@ -55,7 +86,7 @@ const TextWithUnitInput = ({
     : 'focus:ring-indigo-500 focus:border-indigo-500';
 
   return (
-    <BaseInput id={id} label={label} error={error?.message}>
+    <BaseInput id={id} label={label} error={error}>
       <div>
         <div className="mt-1 relative rounded-md shadow-sm hide-spin">
           {leadingSlot && (
