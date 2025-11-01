@@ -1,10 +1,32 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, ChangeEvent } from 'react';
 import { resizeFile } from '../../libs/utils/file-utils';
 import Modal from '../UI/Public/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { useTranslation } from '../../hooks/useTranslation';
+import {
+  ReactHookFormError,
+  ReactHookFormRegister,
+  ReactHookFormUnRegister
+} from '../../types/misc/form';
+import type { UseFormSetValue } from 'react-hook-form';
 
 const maxFileSizeMB = 10;
+
+interface InlineErrorType {
+  title: string;
+  messages: string[];
+}
+
+interface ProfileImageInputProps {
+  id: string;
+  label?: string;
+  formError?: ReactHookFormError;
+  originFileUrl?: string;
+  register?: ReactHookFormRegister;
+  unregister?: ReactHookFormUnRegister;
+  setValue?: UseFormSetValue<any>;
+  disabled?: boolean;
+}
 
 const ProfileImageInput = ({
   id,
@@ -12,10 +34,10 @@ const ProfileImageInput = ({
   formError,
   originFileUrl = '',
   register = () => ({}),
-  unregister = () => ({}),
-  setValue = () => ({}),
+  unregister = () => {},
+  setValue,
   disabled = false
-}) => {
+}: ProfileImageInputProps) => {
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
   const errorStyle = formError ? 'border border-red-300' : '';
@@ -27,13 +49,13 @@ const ProfileImageInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fileRef = useRef();
-  const [file, setFile] = useState(null);
-  const [fileUrl, setFileUrl] = useState(originFileUrl);
-  const [error, setError] = useState(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileUrl, setFileUrl] = useState<string>(originFileUrl);
+  const [error, setError] = useState<InlineErrorType | null>(null);
 
   useEffect(() => {
-    if (fileUrl) {
+    if (fileUrl && setValue) {
       setValue(
         id,
         {
@@ -47,9 +69,9 @@ const ProfileImageInput = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileUrl, file]);
 
-  const filesSelectedHandler = async (event) => {
+  const filesSelectedHandler = async (event: ChangeEvent<HTMLInputElement>) => {
     setError(null);
-    const selectedFile = event.target.files[0];
+    const selectedFile = event.target.files?.[0];
     if (!selectedFile) {
       return;
     }
@@ -114,7 +136,7 @@ const ProfileImageInput = ({
               alt="Profile"
               className="h-full w-full object-cover"
               onError={(e) => {
-                e.target.src = '/user.png';
+                (e.target as HTMLImageElement).src = '/user.png';
               }}
             />
           </div>
@@ -124,7 +146,7 @@ const ProfileImageInput = ({
             disabled={disabled}
             className="rounded-md border border-gray-300 bg-white py-2 px-3 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={() => {
-              if (!disabled) {
+              if (!disabled && fileRef.current) {
                 fileRef.current.click();
               }
             }}
@@ -143,7 +165,9 @@ const ProfileImageInput = ({
         </div>
 
         {formError && (
-          <p className="text-red-400 text-xs py-1 mt-1">{formError.message}</p>
+          <p className="text-red-400 text-xs py-1 mt-1">
+            {`${formError?.message || ''}`}
+          </p>
         )}
       </div>
 
