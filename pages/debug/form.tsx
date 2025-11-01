@@ -5,12 +5,15 @@ import TextAreaInput from '../../components/UI/Public/Inputs/TextAreaInput';
 import CheckboxInput from '../../components/UI/Public/Inputs/CheckboxInput';
 import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupInput';
 import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
+import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
 
 interface FormData {
   email: string;
   message: string;
   category: string;
   acceptTerms: boolean;
+  price?: number;
+  priceUnit?: string;
   interests?: {
     design?: boolean;
     engineering?: boolean;
@@ -19,12 +22,14 @@ interface FormData {
 }
 
 const FormTestPage = () => {
-  const { required, EmailPattern, minLength, maxLength } = useValidators();
+  const { required, EmailPattern, minLength, maxLength, min, max } =
+    useValidators();
 
   const {
     register,
     unregister,
     handleSubmit,
+    setValue,
     formState: { errors }
   } = useForm<FormData>();
 
@@ -90,6 +95,38 @@ const FormTestPage = () => {
           </div>
 
           <div>
+            <TextWithUnitInput
+              id="price"
+              unitId="priceUnit"
+              unitItems={[
+                { id: 'month', label: 'per month' },
+                { id: 'year', label: 'per year' }
+              ]}
+              unitDefaultValues={['year']}
+              unitPrefix="/"
+              type="number"
+              label="Price"
+              leadingSlot="฿"
+              register={() =>
+                register('price', {
+                  ...required(),
+                  valueAsNumber: true,
+                  ...min(1),
+                  ...max(100)
+                })
+              }
+              registerUnit={() =>
+                register('priceUnit', {
+                  ...required()
+                })
+              }
+              unregister={unregister}
+              error={errors.price || errors.priceUnit}
+              setValue={setValue}
+            />
+          </div>
+
+          <div>
             <CheckboxInput
               id="acceptTerms"
               label="I accept the terms"
@@ -142,6 +179,12 @@ const FormTestPage = () => {
                 )}
                 {errors.category && (
                   <li>Category: {`${errors?.category.message || ''}`}</li>
+                )}
+                {errors.price && (
+                  <li>Price: {`${errors?.price.message || ''}`}</li>
+                )}
+                {errors.priceUnit && (
+                  <li>Price Unit: {`${errors?.priceUnit.message || ''}`}</li>
                 )}
                 {errors.acceptTerms && (
                   <li>Terms: {`${errors?.acceptTerms.message || ''}`}</li>
