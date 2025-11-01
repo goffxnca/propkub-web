@@ -9,6 +9,7 @@ import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInp
 import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
 import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
 import ProfileImageInput from '../../components/UI/Public/Inputs/ProfileImageInput/ProfileImageInput';
+import TextEditorInput from '../../components/UI/Public/Inputs/TextEditorInput';
 
 interface FormData {
   email: string;
@@ -19,6 +20,8 @@ interface FormData {
   price?: number;
   priceUnit?: string;
   images?: File[];
+  description?: string;
+  description_raw?: string;
   profileImage?: {
     fileData: File | null;
     isFileChanged: boolean;
@@ -169,6 +172,23 @@ const FormTestPage = () => {
           </div>
 
           <div>
+            <TextEditorInput
+              id="description"
+              label="Description"
+              info="Enter a detailed description (minimum 50 characters)"
+              validation={{
+                ...required(),
+                ...minLength(50),
+                ...maxLength(500)
+              }}
+              register={register}
+              unregister={unregister}
+              setValue={setValue}
+              error={errors.description_raw}
+            />
+          </div>
+
+          <div>
             <TextAreaInput
               id="message"
               label="Message"
@@ -265,6 +285,11 @@ const FormTestPage = () => {
                 )}
                 {errors.message && (
                   <li>Message: {`${errors?.message.message || ''}`}</li>
+                )}
+                {errors.description_raw && (
+                  <li>
+                    Description: {`${errors?.description_raw.message || ''}`}
+                  </li>
                 )}
                 {errors.profileImage && (
                   <li>
