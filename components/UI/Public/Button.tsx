@@ -1,5 +1,17 @@
+import { ReactNode, MouseEventHandler } from 'react';
 import SpinnerIcon from '../../Icons/SpinnerIcon';
 import Overlay from '../Common/modals/Overlay';
+
+interface ButtonProps {
+  type: 'button' | 'submit';
+  variant?: 'primary' | 'secondary' | 'accent';
+  loading?: boolean;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
+  Icon?: ReactNode;
+  disabled?: boolean;
+  spacingY?: boolean;
+  children?: ReactNode;
+}
 
 const Button = ({
   type = 'button',
@@ -8,9 +20,9 @@ const Button = ({
   onClick,
   Icon,
   disabled = false,
-  children,
-  spacingY = false
-}) => {
+  spacingY = false,
+  children
+}: ButtonProps) => {
   const bgStyle = disabled
     ? 'bg-primary bg-opacity-50'
     : variant === 'secondary'
@@ -22,17 +34,12 @@ const Button = ({
   const borderStyle = variant === 'secondary' ? 'border border-gray-300' : '';
   const buttonSpacingY = spacingY ? 'py-3' : 'py-4 md:py-2';
 
-  let applyButtonAttributes = {};
-  if (disabled) {
-    applyButtonAttributes.disabled = true;
-  }
-
   return (
     <button
       className={`w-full whitespace-nowrap ${buttonSpacingY} px-4 my-1 text-sm rounded-md font-medium hover:text-opacity-90 ${bgStyle} ${textStyle} ${borderStyle} `}
       onClick={onClick}
       type={type}
-      {...applyButtonAttributes}
+      disabled={disabled}
     >
       <div className="flex items-center justify-center overflow-hidden">
         {loading && (
@@ -45,7 +52,7 @@ const Button = ({
 
         <div className={`${loading && 'ml-1'}`}>{children}</div>
       </div>
-      {loading && <Overlay />}
+      {loading && <Overlay {...({} as any)} />}
     </button>
   );
 };
