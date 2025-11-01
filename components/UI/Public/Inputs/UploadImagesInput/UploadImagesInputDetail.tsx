@@ -218,7 +218,6 @@ const UploadImagesInputDetail = ({
         <InlineError
           title={inlineError.title}
           messages={inlineError.messages}
-          closeAfterMS={5000}
           onClose={() => setInlineError(null)}
         />
       )}

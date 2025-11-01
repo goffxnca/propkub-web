@@ -1,6 +1,12 @@
 import { ExclamationIcon } from '@heroicons/react/solid';
 
-const InlineError = ({ title, messages, closeAfterMS, onClose }) => {
+interface InlineErrorProps {
+  title: string;
+  messages: string[];
+  onClose?: () => void;
+}
+
+const InlineError = ({ title, messages, onClose }: InlineErrorProps) => {
   return (
     <div className="relative">
       <div className="rounded-md bg-red-50 p-4">
