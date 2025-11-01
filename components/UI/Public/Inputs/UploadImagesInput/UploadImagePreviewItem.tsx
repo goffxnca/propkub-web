@@ -1,4 +1,16 @@
-const ImagePreviewItem = ({ src, fileName, imageIndex, onClose }) => {
+interface UploadImagePreviewItemProps {
+  src: string;
+  fileName: string;
+  imageIndex: number;
+  onClose: (imageIndex: number) => void;
+}
+
+const ImagePreviewItem = ({
+  src,
+  fileName,
+  imageIndex,
+  onClose
+}: UploadImagePreviewItemProps) => {
   return (
     <div className="relative transition-all md:hover:scale-105 my-2 md:m-2 flex">
       {/* eslint-disable-next-line @next/next/no-img-element */}
