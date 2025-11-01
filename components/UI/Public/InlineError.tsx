@@ -1,18 +1,6 @@
 import { ExclamationIcon } from '@heroicons/react/solid';
 
 const InlineError = ({ title, messages, closeAfterMS, onClose }) => {
-  let timer;
-  //   useEffect(() => {
-  //     if (closeAfterMS && onClose) {
-  //       timer = setTimeout(() => {
-  //         onClose();
-  //       }, closeAfterMS);
-  //     }
-  //     return () => {
-  //       clearTimeout(timer);
-  //     };
-  //   }, []);
-
   return (
     <div className="relative">
       <div className="rounded-md bg-red-50 p-4">
