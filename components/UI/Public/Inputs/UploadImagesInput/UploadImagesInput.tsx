@@ -2,6 +2,23 @@ import { useEffect, useState } from 'react';
 import UploadImagesInputDetail from './UploadImagesInputDetail';
 import BaseInput from '../BaseInput';
 import { useTranslation } from '../../../../../hooks/useTranslation';
+import {
+  ReactHookFormError,
+  ReactHookFormRegister,
+  ReactHookFormUnRegister
+} from '../../../../../types/misc/form';
+import type { UseFormSetValue } from 'react-hook-form';
+
+interface UploadImagesInputProps {
+  id: string;
+  label?: string;
+  maxFile?: number;
+  error?: ReactHookFormError;
+  setValue?: UseFormSetValue<any>;
+  register?: ReactHookFormRegister;
+  unregister?: ReactHookFormUnRegister;
+  submitCount?: number;
+}
 
 const UploadImagesInput = ({
   id,
@@ -12,12 +29,14 @@ const UploadImagesInput = ({
   register = () => ({}),
   unregister = () => ({}),
   submitCount = 0
-}) => {
+}: UploadImagesInputProps) => {
   const { t } = useTranslation('common');
   const [reachMaxImageCount, setReachMaxImageCount] = useState(false);
 
-  const onImageChangeHandler = (images) => {
-    setValue(id, images, { shouldValidate: submitCount > 0 });
+  const onImageChangeHandler = (images: File[]) => {
+    if (setValue) {
+      setValue(id, images, { shouldValidate: submitCount > 0 });
+    }
     setReachMaxImageCount(images.length === maxFile);
   };
 
@@ -29,7 +48,7 @@ const UploadImagesInput = ({
   }, []);
 
   return (
-    <BaseInput id={id} label={label} error={error?.message} hiddenInput={true}>
+    <BaseInput id={id} label={label} error={error}>
       <div className="relative">
         <UploadImagesInputDetail
           maxFile={maxFile}
