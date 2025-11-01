@@ -7,6 +7,7 @@ import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupI
 import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
 import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
 import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
+import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
 
 interface FormData {
   email: string;
@@ -16,6 +17,7 @@ interface FormData {
   privacy?: string;
   price?: number;
   priceUnit?: string;
+  images?: File[];
   interests?: {
     design?: boolean;
     engineering?: boolean;
@@ -32,7 +34,7 @@ const FormTestPage = () => {
     unregister,
     handleSubmit,
     setValue,
-    formState: { errors }
+    formState: { errors, submitCount }
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
@@ -193,6 +195,23 @@ const FormTestPage = () => {
             />
           </div>
 
+          <div>
+            <UploadImagesInput
+              id="images"
+              label="Upload Images"
+              maxFile={3}
+              register={() =>
+                register('images', {
+                  ...required()
+                })
+              }
+              unregister={unregister}
+              error={errors.images as any}
+              setValue={setValue}
+              submitCount={submitCount}
+            />
+          </div>
+
           <div className="pt-4">
             <button
               type="submit"
@@ -228,6 +247,9 @@ const FormTestPage = () => {
                 )}
                 {errors.message && (
                   <li>Message: {`${errors?.message.message || ''}`}</li>
+                )}
+                {errors.images && (
+                  <li>Images: {`${errors?.images.message || ''}`}</li>
                 )}
               </ul>
             </div>
