@@ -2,24 +2,111 @@ import { useEffect } from 'react';
 import { Element as ScrollElement, scroller } from 'react-scroll';
 import { useTranslation } from '../../../hooks/useTranslation';
 
-let markers = [];
-let infoWindows = [];
-let placeId = null;
-let map = null;
-let geocoder = null;
+interface GoogleMapsLatLng {
+  lat(): number;
+  lng(): number;
+}
 
-const defaultCenter = {
+interface GoogleMapsMapOptions {
+  center?: { lat: number; lng: number };
+  zoom?: number;
+  minZoom?: number;
+  clickableIcons?: boolean;
+  gestureHandling?: string;
+  streetViewControl?: boolean;
+}
+
+interface GoogleMapsMap {
+  setCenter(center: { lat: number; lng: number }): void;
+  setZoom(zoom: number): void;
+  addListener(event: string, handler: (e: any) => void): void;
+}
+
+interface GoogleMapsGeocoder {
+  geocode(
+    request: { address: string; region: string },
+    callback: (
+      results: Array<{
+        geometry: { location: GoogleMapsLatLng };
+      }>,
+      status: string
+    ) => void
+  ): void;
+}
+
+interface GoogleMapsMarker {
+  setMap(map: GoogleMapsMap | null): void;
+  position: GoogleMapsLatLng;
+  addListener(event: string, handler: () => void): void;
+}
+
+interface GoogleMapsInfoWindow {
+  addListener(event: string, handler: () => void): void;
+  open(options: { map: GoogleMapsMap; shouldFocus: boolean }): void;
+  setMap(map: GoogleMapsMap | null): void;
+}
+
+interface GoogleMapsSize {
+  new (width: number, height: number): GoogleMapsSize;
+}
+
+interface GoogleMaps {
+  maps: {
+    Map: new (
+      element: HTMLElement,
+      options: GoogleMapsMapOptions
+    ) => GoogleMapsMap;
+    Marker: new (options: {
+      position: { lat: number; lng: number };
+      draggable: boolean;
+      map: GoogleMapsMap;
+    }) => GoogleMapsMarker;
+    Geocoder: new () => GoogleMapsGeocoder;
+    InfoWindow: new (options: {
+      content: string;
+      position: { lat: number; lng: number };
+      pixelOffset: GoogleMapsSize;
+    }) => GoogleMapsInfoWindow;
+    Size: GoogleMapsSize;
+  };
+}
+
+declare global {
+  interface Window {
+    google?: GoogleMaps;
+  }
+  const google: GoogleMaps;
+}
+
+interface Location {
+  lat: number;
+  lng: number;
+}
+
+interface GoogleMapProps {
+  address: string;
+  onLocationSelected: (location: Location | null) => void;
+}
+
+let markers: GoogleMapsMarker[] = [];
+let infoWindows: GoogleMapsInfoWindow[] = [];
+let placeId: string | null = null;
+let map: GoogleMapsMap | null = null;
+let geocoder: GoogleMapsGeocoder | null = null;
+
+const defaultCenter: Location = {
   lat: 13.7649084,
   lng: 100.5360959
 }; //Victory Monument
 
-const GoogleMap = ({ address, onLocationSelected }) => {
+const GoogleMap = ({ address, onLocationSelected }: GoogleMapProps) => {
   const { t } = useTranslation('pages/post-form');
   const searchMode = address.indexOf('__search') !== -1;
 
   const initMapFromAddressText = () => {
+    if (!window.google) return;
     if (!geocoder) {
-      geocoder = new google.maps.Geocoder();
+      geocoder = new window.google.maps.Geocoder();
     }
 
     const actualAddress = address.replace('__search', '');
@@ -74,8 +161,10 @@ const GoogleMap = ({ address, onLocationSelected }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
 
-  const initializeMap = (options) => {
-    const mapOptions = {
+  const initializeMap = (options: GoogleMapsMapOptions) => {
+    if (!window.google) return;
+
+    const mapOptions: GoogleMapsMapOptions = {
       zoom: 15,
       minZoom: 10,
       clickableIcons: false,
@@ -84,27 +173,36 @@ const GoogleMap = ({ address, onLocationSelected }) => {
       ...options
     };
 
-    if (map) {
+    if (map && mapOptions.center) {
       map.setCenter(mapOptions.center);
-      map.setZoom(mapOptions.zoom);
+      if (mapOptions.zoom) {
+        map.setZoom(mapOptions.zoom);
+      }
     } else {
-      map = new window.google.maps.Map(
-        document.getElementById('googleMap'),
-        mapOptions
-      );
+      const mapElement = document.getElementById('googleMap');
+      if (!mapElement) return;
 
-      map.addListener('click', (e, d, f) => {
+      map = new window.google.maps.Map(mapElement, mapOptions);
+
+      map.addListener('click', (e: { latLng: GoogleMapsLatLng }) => {
         const lat = e.latLng.lat();
         const lng = e.latLng.lng();
-        createMarker(map, { lat, lng }, true);
-        // createInfoWindow(map, { lat, lng }, false);
+        createMarker(map!, { lat, lng }, true);
       });
     }
-    createMarker(map, mapOptions.center, searchMode);
+    if (mapOptions.center) {
+      createMarker(map!, mapOptions.center, searchMode);
+    }
   };
 
-  const createInfoWindow = (map, position, isFirstMarker) => {
-    let contentText = isFirstMarker
+  const createInfoWindow = (
+    map: GoogleMapsMap,
+    position: Location,
+    isFirstMarker: boolean
+  ) => {
+    if (!window.google) return;
+
+    const contentText = isFirstMarker
       ? t('sections.location.map.infoWindow.waiting')
       : t('sections.location.map.infoWindow.pinned', {
           lat: position.lat.toFixed(4),
@@ -116,18 +214,24 @@ const GoogleMap = ({ address, onLocationSelected }) => {
         isFirstMarker ? 'text-primary' : 'text-green-600'
       }">${contentText}<br><div class='text-gray-400 text-xs italic'>${t('sections.location.map.infoWindow.instructions')}</div></div>`,
       position: position,
-      pixelOffset: new google.maps.Size(0, -42)
+      pixelOffset: new window.google.maps.Size(0, -42)
     });
 
     infoWindow.addListener('domready', () => {
-      return <infoWindow />;
+      // InfoWindow ready
     });
 
     infoWindows.push(infoWindow);
     infoWindow.open({ map, shouldFocus: false });
   };
 
-  const createMarker = (map, position, pin = false) => {
+  const createMarker = (
+    map: GoogleMapsMap,
+    position: Location,
+    pin = false
+  ) => {
+    if (!window.google) return;
+
     markers.forEach((mk) => mk.setMap(null));
     infoWindows.forEach((iw) => iw.setMap(null));
 
