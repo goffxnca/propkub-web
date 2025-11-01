@@ -1,4 +1,3 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { ExclamationIcon } from '@heroicons/react/solid';
 
 const InlineError = ({ title, messages, closeAfterMS, onClose }) => {
