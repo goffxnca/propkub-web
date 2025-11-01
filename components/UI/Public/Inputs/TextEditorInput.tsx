@@ -10,10 +10,12 @@ import type {
   UseFormRegister,
   RegisterOptions
 } from 'react-hook-form';
-import type { UnprivilegedEditor } from 'react-quill';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
+import 'react-quill-new/dist/quill.snow.css';
 
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
-import 'react-quill/dist/quill.snow.css';
+type UnprivilegedEditor = {
+  getText(): string;
+};
 
 interface TextEditorInputProps {
   id: string;
@@ -99,23 +101,28 @@ const TextEditorInput = ({
       counter={remainingLengthRequired}
     >
       <>
-        <input className="hidden" type="text" {...register(id)} />
-        <input
-          className="hidden"
-          type="text"
-          {...register(idForRawContent, validation)}
-        />
+        {register && (
+          <>
+            <input className="hidden" type="text" {...register(id)} />
+            <input
+              className="hidden"
+              type="text"
+              {...register(idForRawContent, validation)}
+            />
+          </>
+        )}
       </>
 
       <div className={`border ${error ? 'border-red-300' : 'border-gray-300'}`}>
-        <ReactQuill
-          id={id}
-          theme="snow"
-          value={editorHtmlValue}
-          onChange={editorValueChangeHandler}
-          modules={modules}
-          formats={formats}
-        />
+        <div id={id}>
+          <ReactQuill
+            theme="snow"
+            value={editorHtmlValue}
+            onChange={editorValueChangeHandler}
+            modules={modules}
+            formats={formats}
+          />
+        </div>
       </div>
       {/* {remainingLengthRequired > 0 && (
         <p className="text-red-400 text-xs py-1 text-right">
