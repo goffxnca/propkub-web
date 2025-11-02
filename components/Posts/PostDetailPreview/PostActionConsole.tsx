@@ -6,8 +6,19 @@ import Confirm from '../../UI/Public/Modals/Confirm';
 import Modal from '../../UI/Public/Modal';
 import { apiClient } from '../../../libs/client';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { PostStatus } from '../../../types/models/post';
 
-const PostActionConsole = ({ postId, postSlug, postStatus }) => {
+interface PostActionConsoleProps {
+  postId: string;
+  postSlug: string;
+  postStatus: PostStatus;
+}
+
+const PostActionConsole = ({
+  postId,
+  postSlug,
+  postStatus
+}: PostActionConsoleProps) => {
   const router = useRouter();
   const { t: tPage } = useTranslation('pages/account-post');
   const { t: tCommon } = useTranslation('common');
@@ -25,7 +36,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
       await apiClient.posts.closePost(postId);
       setShowSuccessModal(true);
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to close post:', error);
       setLoading(false);
       setErrorMessage(tCommon('error.generic.description'));
@@ -37,8 +48,9 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
     <div className="bg-white shadow sm:rounded-lg p-4 min-h-[100px]">
       <h3 className="text-lg font-medium leading-6 text-gray-900"></h3>
       <div className="grid grid-cols-2 gap-x-2">
-        {postStatus === 'active' && (
+        {postStatus === PostStatus.ACTIVE && (
           <Button
+            type="button"
             variant="primary"
             loading={false}
             onClick={() => {
@@ -50,6 +62,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
         )}
 
         <Button
+          type="button"
           variant="primary"
           loading={false}
           onClick={() => {
@@ -58,8 +71,9 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
         >
           {tPage('actions.view')}
         </Button>
-        {postStatus === 'active' && (
+        {postStatus === PostStatus.ACTIVE && (
           <Button
+            type="button"
             variant="accent"
             loading={loading}
             onClick={() => {
@@ -84,6 +98,7 @@ const PostActionConsole = ({ postId, postSlug, postStatus }) => {
 
       <Confirm
         visible={showConfirmModal}
+        type="warning"
         title={tPage('confirm.close.title')}
         desc={tPage('confirm.close.description')}
         buttonCancelLabel={tCommon('buttons.cancel')}
