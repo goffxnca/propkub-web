@@ -1,11 +1,12 @@
 import Logo from './Logo';
 import LocaleSwitcher from '../UI/LocaleSwitcher';
+import type { ReactNode } from 'react';
 
-// interface AuthLayoutProps {
-//   children: React.ReactNode;
-// }
+interface AuthLayoutProps {
+  children: ReactNode;
+}
 
-const AuthLayout = ({ children }) => {
+const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
     <div className="relative  w-screen h-screen">
       <div className="absolute top-0 left-0 w-screen h-screen  bg-white opacity-10 -z-10"></div>
