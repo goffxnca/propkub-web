@@ -1,8 +1,20 @@
 import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useValidators } from '../../../hooks/useValidators';
+import type { ReactHookFormUnRegister } from '../../../types/misc/form';
+import type { UseFormRegister, FieldErrors } from 'react-hook-form';
 
-const ConfirmSection = ({ register, unregister, errors }) => {
+interface ConfirmSectionProps {
+  register: UseFormRegister<any>;
+  unregister: ReactHookFormUnRegister;
+  errors?: FieldErrors<any>;
+}
+
+const ConfirmSection = ({
+  register,
+  unregister,
+  errors
+}: ConfirmSectionProps) => {
   const { t } = useTranslation('pages/post-form');
   const { required } = useValidators();
 
