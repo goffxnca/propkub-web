@@ -2,8 +2,8 @@ import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import PageTitle from '../../UI/Private/PageTitle';
 import sanitizeHtml from 'sanitize-html';
-import { getCondition } from '../../../libs/mappers/conditionMapper';
-import { getAreaUnitById } from '../../../libs/mappers/areaUnitMapper';
+import { getConditionLabel } from '../../../libs/mappers/conditionMapper';
+import { getAreaUnitLabel } from '../../../libs/mappers/areaUnitMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 import { formatAddressFull } from '../../../libs/formatters/addressFormatter';
 import { getSpecLabel, getSpecsArray } from '../../../libs/mappers/specMapper';
@@ -15,8 +15,24 @@ import PostStatusBadge from '../PostStatusBadge/PostStatusBadge';
 import PostTimeline from './PostTimeline';
 import { SANITIZE_OPTIONS } from '../../../libs/constants';
 import { useTranslation } from '../../../hooks/useTranslation';
+import type { Post } from '../../../types/models/post';
+import { Locale } from '../../../types/locale';
 
-const PostDetailPreview = ({ post, postActions }) => {
+interface PostActionItem {
+  type: string;
+  createdBy?: {
+    name: string;
+  };
+  createdAt: string;
+  note?: string;
+}
+
+interface PostDetailPreviewProps {
+  post: Post;
+  postActions?: PostActionItem[];
+}
+
+const PostDetailPreview = ({ post, postActions }: PostDetailPreviewProps) => {
   const router = useRouter();
   const { t: tPosts } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
@@ -65,15 +81,15 @@ const PostDetailPreview = ({ post, postActions }) => {
   const video = orDefault(post.video);
   const landWithUnit =
     post.land && post.landUnit
-      ? `${post.land} ${tCommon(`areaUnits.${post.landUnit}`) || getAreaUnitById(post.landUnit)}`
+      ? `${post.land} ${tCommon(`areaUnits.${post.landUnit}`) || getAreaUnitLabel(post.landUnit, router.locale as Locale)}`
       : orDefault(post.land);
   const areaWithUnit =
     post.area && post.areaUnit
-      ? `${post.area} ${tCommon(`areaUnits.${post.areaUnit}`) || getAreaUnitById(post.areaUnit)}`
+      ? `${post.area} ${tCommon(`areaUnits.${post.areaUnit}`) || getAreaUnitLabel(post.areaUnit, router.locale as Locale)}`
       : orDefault(post.area);
   const condition = orDefault(
     post.condition &&
-      (tCommon(`conditions.${post.condition}`) || getCondition(post.condition))
+      (tCommon(`conditions.${post.condition}`) || getConditionLabel(post.condition, router.locale as Locale))
   );
   const agentRefNumber = orDefault(post.refId);
   const locale = router?.locale;
@@ -303,7 +319,7 @@ const PostDetailPreview = ({ post, postActions }) => {
             shares={post.stats.shares || 0}
             pins={post.stats.pins || 0}
           />
-          <PostTimeline postActions={post.postActions} />
+          <PostTimeline postActions={postActions} />
           <PostActionConsole
             postId={post._id}
             postSlug={post.slug}
