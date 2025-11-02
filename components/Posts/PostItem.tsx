@@ -5,6 +5,28 @@ import Link from 'next/link';
 import SpecItemWithCircle from './Specs/SpecItemWithCircle';
 import { useTranslation } from '../../hooks/useTranslation';
 import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
+import type {
+  PostType,
+  AssetType,
+  Address,
+  Spec,
+  PriceUnit
+} from '../../types/models/post';
+
+interface PostItemProps {
+  id: string;
+  postType: PostType;
+  assetType: AssetType;
+  title: string;
+  slug: string;
+  thumbnail: string;
+  thumbnailAlt?: string;
+  price?: number;
+  priceUnit?: PriceUnit;
+  address: Address;
+  specs: Spec[];
+  isStudio?: boolean;
+}
 
 const PostItem = ({
   id,
@@ -19,7 +41,7 @@ const PostItem = ({
   address,
   specs,
   isStudio
-}) => {
+}: PostItemProps) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
