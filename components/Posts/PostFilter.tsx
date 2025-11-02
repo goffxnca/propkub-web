@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState, FormEventHandler, ChangeEventHandler } from 'react';
 import styles from './PostFilter.module.css';
 
 import orderby from 'lodash.orderby';
@@ -9,6 +9,9 @@ import { SearchIcon, ArrowRightIcon } from '@heroicons/react/solid';
 import regions from '../../data/regions.json';
 
 import { getAssetTypes } from '../../libs/mappers/assetTypeMapper';
+import { AssetType } from '../../types/misc/assetType';
+import { Province, District, SubDistrict } from '../../types/models/address';
+import { Locale } from '../../types/locale';
 
 import SelectInput from '../UI/Public/Inputs/SelectInput';
 
@@ -21,8 +24,35 @@ import {
 } from '../../libs/managers/addressManager';
 import { useTranslation } from '../../hooks/useTranslation';
 
-const initialFilters = {
-  postType: '',
+interface Region {
+  id: string;
+  name: string;
+}
+
+interface PostType {
+  id: string;
+  label?: string;
+  searchFor?: string;
+  isActive?: boolean;
+}
+
+interface SearchFilter {
+  postType: PostType | null;
+  assetType: string;
+  regionId: string;
+  provinceId: string;
+  districtId: string;
+  subDistrictId: string;
+  loading: boolean;
+}
+
+interface PostFilterProps {
+  onSearch: (filter: SearchFilter, callback: () => void) => void;
+  onReset: () => void;
+}
+
+const initialFilters: SearchFilter = {
+  postType: null,
   assetType: '',
   regionId: '',
   provinceId: '',
@@ -31,39 +61,39 @@ const initialFilters = {
   loading: false
 };
 
-const PostFilter = ({ onSearch, onReset }) => {
+const PostFilter = ({ onSearch, onReset }: PostFilterProps) => {
   const router = useRouter();
   const { locale } = router;
   const { t } = useTranslation('posts');
-  const [searchFilter, setSearchFilter] = useState({ ...initialFilters });
+  const [searchFilter, setSearchFilter] = useState<SearchFilter>({ ...initialFilters });
 
-  const postTypes = [
+  const postTypes: PostType[] = [
     { id: 'rent', label: t('filter.actions.rent'), searchFor: 'rent' },
     { id: 'buy', label: t('filter.actions.buy'), searchFor: 'sale' },
     { id: 'sale', label: t('filter.actions.sale') }
   ];
 
-  const [provinceList, setProvinceList] = useState([]);
-  const [districtList, setDistrictList] = useState([]);
-  const [subDistrictList, setSubDistrictList] = useState([]);
+  const [provinceList, setProvinceList] = useState<Province[]>([]);
+  const [districtList, setDistrictList] = useState<District[]>([]);
+  const [subDistrictList, setSubDistrictList] = useState<SubDistrict[]>([]);
 
   //computed
   const postTypeList = postTypes.map((postType) => ({
     ...postType,
-    isActive: searchFilter.postType.id === postType.id
+    isActive: searchFilter.postType?.id === postType.id
   }));
 
-  const assetTypeList = getAssetTypes(locale).map((assetType) => ({
+  const assetTypeList = getAssetTypes(locale as Locale).map((assetType: AssetType) => ({
     ...assetType,
     label: t(`assetTypes.${assetType.id}`),
     isActive: searchFilter.assetType === assetType.id
   }));
 
-  const regionList = useMemo(() => orderby(regions, 'name', 'asc'), []);
+  const regionList = useMemo(() => orderby(regions as Region[], 'name', 'asc'), []);
 
   //handlers
-  const selectPostTypeHandler = (postType) => {
-    if (postType.id !== searchFilter.postType.id) {
+  const selectPostTypeHandler = (postType: PostType) => {
+    if (postType.id !== searchFilter.postType?.id) {
       if (postType.id === 'sale') {
         router.push('/login');
       } else {
@@ -76,11 +106,11 @@ const PostFilter = ({ onSearch, onReset }) => {
     }
   };
 
-  const selectAssetTypeHandler = (assetType) => {
+  const selectAssetTypeHandler = (assetType: string) => {
     setSearchFilter((state) => ({ ...state, assetType: assetType }));
   };
 
-  const searchHandler = (event) => {
+  const searchHandler: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
     setSearchFilter((state) => ({ ...state, loading: true }));
@@ -89,19 +119,19 @@ const PostFilter = ({ onSearch, onReset }) => {
     });
   };
 
-  const regionChangeHandler = (event) => {
+  const regionChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setSearchFilter((state) => ({ ...state, regionId: event.target.value }));
   };
 
-  const provinceChangeHandler = (event) => {
+  const provinceChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setSearchFilter((state) => ({ ...state, provinceId: event.target.value }));
   };
 
-  const districtChangeHandler = (event) => {
+  const districtChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setSearchFilter((state) => ({ ...state, districtId: event.target.value }));
   };
 
-  const subDistrictChangeHandler = (event) => {
+  const subDistrictChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setSearchFilter((state) => ({
       ...state,
       subDistrictId: event.target.value
