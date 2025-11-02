@@ -4,9 +4,21 @@ import PostImageGrid from '../PostImageGrid';
 import PostDetailAgent from './PostDetailAgent';
 import PostDetailBody from './PostDetailBody';
 import SimilarPosts from './SimilarPosts';
+import type { Post } from '../../../types/models/post';
+import type { User } from '../../../types/models/user';
 
-const PostDetail = ({ post, similarPosts }) => {
-  const images = post.images.map((image) => ({
+interface ImageData {
+  original: string;
+  thumbnail: string;
+}
+
+interface PostDetailProps {
+  post: Post & { createdBy: User };
+  similarPosts: Post[];
+}
+
+const PostDetail = ({ post, similarPosts = [] }: PostDetailProps) => {
+  const images: ImageData[] = post.images.map((image) => ({
     original: image,
     thumbnail: image
   }));
