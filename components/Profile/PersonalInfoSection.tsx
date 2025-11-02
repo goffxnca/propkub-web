@@ -12,20 +12,44 @@ import { apiClient } from '../../libs/client';
 import { AuthContext } from '../../contexts/authContext';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Modal from '../UI/Public/Modal';
-
 import ProfileImageInput from './ProfileImageInput';
 import { uploadFileToStorage } from '../../libs/utils/file-utils';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useValidators } from '../../hooks/useValidators';
+import type { User } from '../../types/models/user';
+import type { ComponentType } from 'react';
+import type { SVGProps } from 'react';
 
-const PersonalInfoSection = ({ user }) => {
+interface ProfileImageData {
+  file: File | null;
+  changed: boolean;
+  origin: string;
+}
+
+interface PersonalInfoFormData {
+  name: string;
+  profileImg?: string | ProfileImageData;
+}
+
+interface PersonalInfoSectionProps {
+  user: User;
+}
+
+interface VerificationStatus {
+  text: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  color: string;
+  bgColor: string;
+}
+
+const PersonalInfoSection = ({ user }: PersonalInfoSectionProps) => {
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
   const { required, minLength, maxLength } = useValidators();
   const { setUser } = useContext(AuthContext);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [apiError, setApiError] = useState('');
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [apiError, setApiError] = useState<string>('');
 
   const getDefaultFormValues = () => ({
     name: user.name || '',
@@ -39,7 +63,7 @@ const PersonalInfoSection = ({ user }) => {
     setValue,
     reset,
     formState: { errors }
-  } = useForm({
+  } = useForm<PersonalInfoFormData>({
     defaultValues: getDefaultFormValues()
   });
 
@@ -55,14 +79,21 @@ const PersonalInfoSection = ({ user }) => {
     reset(getDefaultFormValues());
   };
 
-  const handleSave = async (formData) => {
+  const handleSave = async (formData: PersonalInfoFormData) => {
     setIsSaving(true);
     setApiError('');
 
     try {
-      const finalData = { name: formData.name };
+      const finalData: { name: string; profileImg?: string } = {
+        name: formData.name
+      };
 
-      if (formData.profileImg?.changed) {
+      if (
+        formData.profileImg &&
+        typeof formData.profileImg === 'object' &&
+        'changed' in formData.profileImg &&
+        formData.profileImg.changed
+      ) {
         const imageUrl = await uploadFileToStorage(
           'us',
           user._id,
@@ -91,7 +122,7 @@ const PersonalInfoSection = ({ user }) => {
     setApiError('');
   };
 
-  const getVerificationStatus = () => {
+  const getVerificationStatus = (): VerificationStatus => {
     if (user.emailVerified) {
       return {
         text: t('sections.personal.emailVerified'),
@@ -222,7 +253,7 @@ const PersonalInfoSection = ({ user }) => {
                       src={user.profileImg || '/user.png'}
                       className="h-full w-full object-cover"
                       onError={(e) => {
-                        e.target.src = '/user.png';
+                        (e.target as HTMLImageElement).src = '/user.png';
                       }}
                       alt=""
                     />
