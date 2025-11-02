@@ -4,24 +4,41 @@ import GoogleIcon from '../Icons/GoogleIcon';
 import FacebookIcon from '../Icons/FacebookIcon';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useRouter } from 'next/router';
+import { AuthProvider, type User } from '../../types/models/user';
+import type { ReactNode } from 'react';
 
-const AccountDetailsSection = ({ user }) => {
+interface ProviderDisplayInfo {
+  name: string;
+  icon: ReactNode;
+  color: string;
+}
+
+interface LoginProviderInfo {
+  icon: ReactNode;
+  name: string;
+}
+
+interface AccountDetailsSectionProps {
+  user: User;
+}
+
+const AccountDetailsSection = ({ user }: AccountDetailsSectionProps) => {
   const router = useRouter();
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
-  const getProviderDisplay = (provider) => {
-    const providerMap = {
-      email: {
+  const getProviderDisplay = (provider: AuthProvider): ProviderDisplayInfo => {
+    const providerMap: Record<AuthProvider, ProviderDisplayInfo> = {
+      [AuthProvider.EMAIL]: {
         name: tCommon('providers.email'),
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
         color: 'text-gray-600'
       },
-      google: {
+      [AuthProvider.GOOGLE]: {
         name: tCommon('providers.google'),
         icon: <GoogleIcon />,
         color: 'text-blue-600'
       },
-      facebook: {
+      [AuthProvider.FACEBOOK]: {
         name: tCommon('providers.facebook'),
         icon: <FacebookIcon className="text-blue-600" />,
         color: 'text-blue-800'
@@ -36,7 +53,9 @@ const AccountDetailsSection = ({ user }) => {
     );
   };
 
-  const getLoginProviderInfo = (provider) => {
+  const getLoginProviderInfo = (
+    provider: string | undefined
+  ): LoginProviderInfo => {
     if (!provider)
       return {
         icon: <MailIcon className="w-4 h-4 text-gray-600" />,
@@ -45,17 +64,17 @@ const AccountDetailsSection = ({ user }) => {
 
     const normalizedProvider = provider.toLowerCase();
     switch (normalizedProvider) {
-      case 'email':
+      case AuthProvider.EMAIL:
         return {
           icon: <MailIcon className="w-4 h-4 text-gray-600" />,
           name: tCommon('providers.email')
         };
-      case 'google':
+      case AuthProvider.GOOGLE:
         return {
           icon: <GoogleIcon />,
           name: tCommon('providers.google')
         };
-      case 'facebook':
+      case AuthProvider.FACEBOOK:
         return {
           icon: <FacebookIcon className="text-blue-600" />,
           name: tCommon('providers.facebook')
