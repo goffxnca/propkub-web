@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.1.0 (2025-11-02)
+
+### Improvements
+
+- Complete TypeScript migration for all components, pages, and utility functions
+
 ## 2.0.2 (2025-10-26)
 
 ### Features
