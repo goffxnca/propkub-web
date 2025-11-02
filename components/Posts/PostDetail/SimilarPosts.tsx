@@ -1,14 +1,19 @@
 import Heading from '../../UI/Public/Heading';
 import SimilarPostItem from './SimilarPostItem';
 import { useTranslation } from '../../../hooks/useTranslation';
+import type { Post } from '../../../types/models/post';
 
-const SimilarPosts = ({ similarPosts }) => {
+interface SimilarPostsProps {
+  similarPosts: Post[];
+}
+
+const SimilarPosts = ({ similarPosts }: SimilarPostsProps) => {
   const { t } = useTranslation('posts');
 
   return (
     <>
       <div className="">
-        <Heading size="2" label={t('sections.similar')} />
+        <Heading size={2} label={t('sections.similar')} />
         <div>
           <ul className="flex flex-wrap">
             {similarPosts.map((post) => (
@@ -22,7 +27,6 @@ const SimilarPosts = ({ similarPosts }) => {
                 title={post.title}
                 slug={post.slug}
                 thumbnail={post.thumbnail}
-                thumbnailAlt={post.thumbnailAlt}
                 price={post.price}
                 priceUnit={post.priceUnit}
                 address={post.address}
