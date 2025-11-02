@@ -18,38 +18,67 @@ import { getFacilityObject } from '../../../libs/mappers/facilityMapper';
 import { getSpecsObject } from '../../../libs/mappers/specMapper';
 import { getEditedFields } from '../../../libs/form-utils';
 import { useTranslation } from '../../../hooks/useTranslation';
+import type { Post } from '../../../types/models/post';
+import type { AuthContextValue } from '../../../contexts/authContext';
 
-const PostForm = ({ postData }) => {
+interface PostFormDefaultValues {
+  title?: string;
+  desc?: string;
+  assetType?: string;
+  postType?: string;
+  price?: number;
+  thumbnail?: string;
+  images?: string[] | File[];
+  facilities?: Record<string, boolean>;
+  specs?: Record<string, number>;
+  address?: any;
+  isStudio?: boolean;
+  land?: number;
+  landUnit?: string;
+  area?: number;
+  areaUnit?: string;
+  priceUnit?: string;
+  condition?: string;
+  refId?: string;
+  [key: string]: any;
+}
+
+interface PostFormProps {
+  postData?: Post;
+}
+
+const PostForm = ({ postData }: PostFormProps) => {
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
   const { t: tForm } = useTranslation('pages/post-form');
   const isEditMode = !!postData;
 
-  const defaultValues = isEditMode
-    ? {
-        // Required 10 fields excluded postNumber (Originally it's 11 required fields)
-        title: postData.title,
-        desc: postData.desc,
-        assetType: postData.assetType,
-        postType: postData.postType,
-        price: postData.price,
-        thumbnail: postData.thumbnail,
-        images: postData.images,
-        facilities: getFacilityObject(postData.facilities),
-        specs: getSpecsObject(postData.specs),
-        address: postData.address,
+  const defaultValues: PostFormDefaultValues =
+    isEditMode && postData
+      ? {
+          // Required 10 fields excluded postNumber (Originally it's 11 required fields)
+          title: postData.title,
+          desc: postData.desc,
+          assetType: postData.assetType,
+          postType: postData.postType,
+          price: postData.price,
+          thumbnail: postData.thumbnail,
+          images: postData.images,
+          facilities: getFacilityObject(postData.facilities),
+          specs: getSpecsObject(postData.specs),
+          address: postData.address,
 
-        // Optional 8 fields
-        isStudio: postData.isStudio,
-        land: postData.land,
-        landUnit: postData.landUnit,
-        area: postData.area,
-        areaUnit: postData.areaUnit,
-        priceUnit: postData.priceUnit,
-        condition: postData.condition,
-        refId: postData.refId
-      }
-    : {};
+          // Optional 8 fields
+          isStudio: postData.isStudio,
+          land: postData.land,
+          landUnit: postData.landUnit,
+          area: postData.area,
+          areaUnit: postData.areaUnit,
+          priceUnit: postData.priceUnit,
+          condition: postData.condition,
+          refId: postData.refId
+        }
+      : {};
 
   const {
     register,
@@ -64,7 +93,9 @@ const PostForm = ({ postData }) => {
 
   const router = useRouter();
   const { locale } = router;
-  const { user, isAgent, isProfileComplete } = useContext(AuthContext);
+  const { user, isAgent, isProfileComplete } = useContext(
+    AuthContext
+  ) as AuthContextValue;
 
   // Re-trigger validation when locale changes to update error messages
   useEffect(() => {
@@ -87,30 +118,34 @@ const PostForm = ({ postData }) => {
     : tForm('success.create.message');
 
   const roleLabel = isAgent ? tCommon('roles.agent') : tCommon('roles.normal');
-  const modeLabel = isEditMode
-    ? tForm('mode.edit', { postNumber: postData.postNumber })
-    : tForm('mode.create');
+  const modeLabel =
+    isEditMode && postData
+      ? tForm('mode.edit', { postNumber: postData.postNumber })
+      : tForm('mode.create');
   const pageTitle = `${modeLabel} (${roleLabel})`;
 
   const allowCreatePost = isAgent ? isProfileComplete : true;
 
   const formDataChanged = isDirty && Object.entries(dirtyFields).length > 0;
 
-  const submitHandler = async (formData) => {
+  const submitHandler = async (formData: any): Promise<void> => {
     setSaving(true);
 
     try {
-      if (isEditMode) {
+      if (isEditMode && postData) {
         //UPDATE MODE
-        const editedData = getEditedFields(dirtyFields, formData);
-        const result = await updatePost(postData._id, editedData);
+        const editedData = getEditedFields(
+          dirtyFields as Record<string, boolean>,
+          formData
+        );
+        await updatePost(postData._id, editedData);
       } else {
         // CREATE MODE
         const result = await addNewPost(formData);
         setCreatedPostId(result._id);
       }
       setShowSuccessModal(true);
-    } catch (error) {
+    } catch (error: any) {
       console.error(`${isEditMode ? 'Edit' : 'Create'} post failed:`, error);
       setErrorMessage(tCommon('error.generic.description'));
 
@@ -122,10 +157,7 @@ const PostForm = ({ postData }) => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <PageTitle
-        label={modeLabel}
-        leadingSlot={<AddDoc className="text-gray-500 w-8 h-8" />}
-      />
+      <PageTitle label={modeLabel} />
 
       <form
         className="space-y-6 relative"
@@ -166,11 +198,8 @@ const PostForm = ({ postData }) => {
             unregister={unregister}
             watch={watch}
             setValue={setValue}
-            setFocus={setFocus}
             errors={errors}
             submitCount={submitCount}
-            isEditMode={isEditMode}
-            defaultValues={defaultValues}
           />
         )}
 
@@ -179,11 +208,7 @@ const PostForm = ({ postData }) => {
           <ConfirmSection
             register={register}
             unregister={unregister}
-            watch={watch}
-            setValue={setValue}
-            setFocus={setFocus}
             errors={errors}
-            submitCount={submitCount}
           />
         )}
 
@@ -200,7 +225,7 @@ const PostForm = ({ postData }) => {
           Icon={CheckIcon}
           onClose={() => {
             setShowSuccessModal(false);
-            router.push(`/account/posts/${createdPostId || postData._id}`);
+            router.push(`/account/posts/${createdPostId || postData?._id}`);
           }}
         />
 
@@ -231,6 +256,7 @@ const PostForm = ({ postData }) => {
             </Button>
 
             <Button
+              type="button"
               variant="secondary"
               onClick={() => {
                 router.push('/dashboard');
