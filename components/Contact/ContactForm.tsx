@@ -9,6 +9,14 @@ import Modal from '../UI/Public/Modal';
 import { useRouter } from 'next/router';
 import { useTranslation } from '../../hooks/useTranslation';
 
+interface ContactFormData {
+  name: string;
+  email: string;
+  phone: string;
+  company?: string;
+  message: string;
+}
+
 const ContactForm = () => {
   const { t } = useTranslation('pages/contact');
   const { t: tCommon } = useTranslation('common');
@@ -24,9 +32,9 @@ const ContactForm = () => {
     handleSubmit,
     setValue,
     formState: { errors }
-  } = useForm();
+  } = useForm<ContactFormData>();
 
-  const submitHandler = (data) => {
+  const submitHandler = (data: ContactFormData) => {
     //TODO: save later
     setLoading(true);
     const timer = setTimeout(() => {
