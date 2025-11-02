@@ -16,6 +16,8 @@ import usePagination from '../../hooks/usePagination';
 import Pagination from '../UI/Public/Pagination';
 import Loader from '../UI/Common/modals/Loader';
 import Link from 'next/link';
+import type { Post } from '../../types/models/post';
+import type { PostStatsResponse } from '../../types/dtos/responses/postStatsResponse';
 
 const MyPostList = () => {
   const router = useRouter();
@@ -38,7 +40,7 @@ const MyPostList = () => {
   } = usePagination(getMyPosts, 10);
 
   const [apiError, setApiError] = useState('');
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState<PostStatsResponse>({
     totalPosts: 0,
     totalPostViews: 0,
     totalPhoneViews: 0,
@@ -55,7 +57,7 @@ const MyPostList = () => {
       try {
         const statsData = await getMyPostsStats();
         setStats(statsData);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching stats:', error);
         setApiError(tCommon('error.generic.description'));
       } finally {
@@ -107,8 +109,8 @@ const MyPostList = () => {
           </div>
         </div>
 
-        <DataTable
-          items={myPosts}
+        <DataTable<Post>
+          items={myPosts as Post[]}
           columns={[
             {
               title: '',
