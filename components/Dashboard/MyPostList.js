@@ -17,7 +17,7 @@ import Pagination from '../UI/Public/Pagination';
 import Loader from '../UI/Common/modals/Loader';
 import Link from 'next/link';
 
-const MyPropertyList = () => {
+const MyPostList = () => {
   const router = useRouter();
   const { t } = useTranslation('posts');
   const { t: tDashboard } = useTranslation('pages/dashboard');
@@ -226,4 +226,4 @@ const MyPropertyList = () => {
   );
 };
 
-export default MyPropertyList;
+export default MyPostList;
