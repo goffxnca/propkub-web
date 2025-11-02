@@ -13,6 +13,13 @@ import { translateServerError } from '../../libs/serverErrorTranslator';
 import GuestOnlyRoute from '../../components/Auth/GuestOnlyRoute';
 import { useTranslation } from '../../hooks/useTranslation';
 import { useValidators } from '../../hooks/useValidators';
+import type { ReactHookFormError } from '../../types/misc/form';
+import type { FieldErrors } from 'react-hook-form';
+
+interface ResetPasswordFormData {
+  newPassword: string;
+  confirmPassword: string;
+}
 
 const ResetPasswordPage = () => {
   const router = useRouter();
@@ -24,22 +31,23 @@ const ResetPasswordPage = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
-  const [tokenValid, setTokenValid] = useState(null);
+  const [tokenValid, setTokenValid] = useState<boolean | null>(null);
 
   const {
     register,
     unregister,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm<ResetPasswordFormData>();
 
   useEffect(() => {
     const validateToken = async () => {
-      if (router.isReady && token && locale) {
+      const tokenString = Array.isArray(token) ? token[0] : token;
+      if (router.isReady && tokenString && locale) {
         try {
-          await apiClient.auth.validateResetToken(token);
+          await apiClient.auth.validateResetToken(tokenString);
           setTokenValid(true);
-        } catch (err) {
+        } catch (err: any) {
           setTokenValid(false);
           const errorMessage = translateServerError(err.message, locale);
           setError(errorMessage);
@@ -50,17 +58,24 @@ const ResetPasswordPage = () => {
     validateToken();
   }, [router.isReady, token, locale]);
 
-  const submitHandler = async (data) => {
+  const submitHandler = async (data: ResetPasswordFormData): Promise<void> => {
     setLoading(true);
     setError('');
 
+    const tokenString = Array.isArray(token) ? token[0] : token;
+    if (!tokenString) {
+      setError(tCommon('error.generic.description'));
+      setLoading(false);
+      return;
+    }
+
     try {
       await apiClient.auth.resetPassword({
-        token,
+        token: tokenString,
         newPassword: data.newPassword
       });
       setSuccess(true);
-    } catch (err) {
+    } catch (err: any) {
       const errorMessage = translateServerError(err.message, locale);
       setError(errorMessage);
     } finally {
@@ -159,7 +174,7 @@ const ResetPasswordPage = () => {
                       })
                     }
                     unregister={unregister}
-                    error={errors.newPassword}
+                    error={errors.newPassword as ReactHookFormError}
                   />
 
                   <TextInput
@@ -175,7 +190,7 @@ const ResetPasswordPage = () => {
                       })
                     }
                     unregister={unregister}
-                    error={errors.confirmPassword}
+                    error={errors.confirmPassword as ReactHookFormError}
                   />
 
                   {error && (
