@@ -1,4 +1,4 @@
-const getYoutubeVideoId = (url) => {
+const getYoutubeVideoId = (url: string) => {
   const videoId = url.match(
     /(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/
   );
@@ -10,14 +10,14 @@ const randomLetter = () => {
   // return "hex";
 };
 
-const zeroPad = (num, places) => String(num).padStart(places, '0');
+const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
 
-const orDefault = (value, defaultValue = '-') =>
+const orDefault = <T>(value: T, defaultValue: string = '-'): T | string =>
   value == null || value === '' || (Array.isArray(value) && !value.length)
     ? defaultValue
     : value;
 
-const getLineUrl = (lineId) => {
+const getLineUrl = (lineId?: string | null) => {
   if (!lineId) return null;
   return `https://line.me/ti/p/~${lineId}`;
 };
