@@ -29,7 +29,7 @@ const ProfileScreen = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex items-center justify-between">
-        <PageTitle label={t('title')} leadingSlot={undefined} />
+        <PageTitle label={t('title')} />
         <div>
           <Button
             type="submit"
