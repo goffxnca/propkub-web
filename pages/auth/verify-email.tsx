@@ -11,22 +11,25 @@ const VerifyEmailPage = () => {
   const router = useRouter();
   const { vtoken } = router.query;
   const [message, setMessage] = useState('');
-
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const verifyEmail = async () => {
-      if (vtoken) {
+    const verifyEmail = async (): Promise<void> => {
+      const token = Array.isArray(vtoken) ? vtoken[0] : vtoken;
+      if (token) {
         try {
-          await apiClient.auth.verifyEmail(vtoken);
+          await apiClient.auth.verifyEmail(token);
           setMessage('อีเมลของคุณได้รับการยืนยันเรียบร้อย');
-        } catch (error) {
+        } catch (error: unknown) {
+          console.error('Email verification error:', error);
           setMessage('ลิ้งค์ยืนยันอีเมลไม่ถูกต้องหรือหมดอายุ');
           setIsError(true);
         } finally {
           setLoading(false);
         }
+      } else {
+        setLoading(false);
       }
     };
 
@@ -39,9 +42,8 @@ const VerifyEmailPage = () => {
   const modalButtonLabel = isError ? 'กลับหน้าแรก' : 'ไปหน้าโปรไฟล์';
 
   const onPressModalButton = () => {
-    if (window) {
-      window.location = isError ? '/' : '/profile';
-    }
+    const path = isError ? '/' : '/profile';
+    router.push(path);
   };
 
   return (
