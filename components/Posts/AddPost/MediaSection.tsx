@@ -1,8 +1,27 @@
-import { getYoutubeVideoId } from '../../../libs/string-utils';
-import TextInput from '../../UI/Public/Inputs/TextInput';
+// import { getYoutubeVideoId } from '../../../libs/string-utils';
+// import TextInput from '../../UI/Public/Inputs/TextInput';
 import UploadImagesInput from '../../UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
 import YoutubeIframe from '../../UI/Public/YoutubeIframe';
 import { useTranslation } from '../../../hooks/useTranslation';
+import {
+  ReactHookFormUnRegister,
+  ReactHookFormError
+} from '../../../types/misc/form';
+import type {
+  UseFormRegister,
+  UseFormWatch,
+  UseFormSetValue,
+  FieldErrors
+} from 'react-hook-form';
+
+interface MediaSectionProps {
+  register: UseFormRegister<any>;
+  unregister: ReactHookFormUnRegister;
+  watch: UseFormWatch<any>;
+  setValue: UseFormSetValue<any>;
+  errors: FieldErrors<any>;
+  submitCount: number;
+}
 
 const MediaSection = ({
   register,
@@ -11,7 +30,7 @@ const MediaSection = ({
   setValue,
   errors,
   submitCount
-}) => {
+}: MediaSectionProps) => {
   const { t: tForm } = useTranslation('pages/post-form');
   const watchVideo = watch('video');
 
@@ -60,7 +79,7 @@ const MediaSection = ({
                   })
                 }
                 unregister={unregister}
-                error={errors?.images}
+                error={errors?.images as ReactHookFormError}
                 setValue={setValue}
                 submitCount={submitCount}
               />
