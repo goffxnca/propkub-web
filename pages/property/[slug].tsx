@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import type { GetServerSideProps } from 'next';
 import PostDetail from '../../components/Posts/PostDetail/PostDetail';
 import {
   genPropertyDescriptionMeta,
@@ -6,8 +7,18 @@ import {
 } from '../../libs/seo-utils';
 import { FetchPostByNumber, FetchSimilarPosts } from '../../libs/post-utils';
 import { BASE_SITE_URL } from '../../libs/constants';
+import type { Post } from '../../types/models/post';
+import type { User } from '../../types/models/user';
 
-const PropertyDetailPage = ({ post, similarPosts }) => {
+interface PropertyDetailPageProps {
+  post: Post & { createdBy: User };
+  similarPosts: Post[];
+}
+
+const PropertyDetailPage = ({
+  post,
+  similarPosts
+}: PropertyDetailPageProps) => {
   return (
     <>
       <Head>
@@ -36,8 +47,10 @@ const PropertyDetailPage = ({ post, similarPosts }) => {
 };
 
 // Always fetch fresh post and similarPosts data from API (SSR)
-export async function getServerSideProps({ params }) {
-  const slug = params?.slug || '';
+export const getServerSideProps: GetServerSideProps<
+  PropertyDetailPageProps
+> = async ({ params }) => {
+  const slug = (params?.slug as string) || '';
   const parts = slug.split('_');
   const postNumber = parts[parts.length - 1];
 
@@ -56,17 +69,17 @@ export async function getServerSideProps({ params }) {
 
     return {
       props: {
-        post,
+        post: post as Post & { createdBy: User },
         similarPosts: similarPosts || []
       }
     };
-  } catch (error) {
+  } catch (error: unknown) {
     console.error(
       'Error occurred while fetching a post/similar posts:',
-      error?.message || error
+      error instanceof Error ? error.message : error
     );
     return { notFound: true };
   }
-}
+};
 
 export default PropertyDetailPage;
