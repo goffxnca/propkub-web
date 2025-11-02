@@ -5,8 +5,13 @@
     "message": "[Updated Sept 16, 2025] You can now upload more images per listing, from 8 to 10 images"
   },
   "multilanguageSupport2025_10_26": {
-    "enabled": true,
+    "enabled": false,
     "type": "info",
     "message": "[Updated Oct 26, 2025] Our v2.0.2 website now supports 2 languages! 🇹🇭🇺🇸 Switch language in the top right corner"
+  },
+  "imageUploadIncrease2025_10_29": {
+    "enabled": true,
+    "type": "info",
+    "message": "[Updated Oct 29, 2025] You can now upload more images per listing, from 10 to 15 images"
   }
 }
