@@ -4,6 +4,23 @@ import { formatAddress } from '../../libs/formatters/addressFormatter';
 import TimeAgo from 'timeago-react';
 import { useTranslation } from '../../hooks/useTranslation';
 import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
+import type {
+  PostType,
+  AssetType,
+  Address,
+  PriceUnit
+} from '../../types/models/post';
+
+interface PostRowProps {
+  postType: PostType;
+  assetType: AssetType;
+  title: string;
+  slug: string;
+  price?: number;
+  priceUnit?: PriceUnit;
+  address: Address;
+  createdAt: string;
+}
 
 const PostRow = ({
   postType,
@@ -14,7 +31,7 @@ const PostRow = ({
   priceUnit,
   address,
   createdAt
-}) => {
+}: PostRowProps) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
 
