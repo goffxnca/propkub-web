@@ -7,11 +7,27 @@ import { apiClient } from '../../../libs/client';
 import { genPageTitle } from '../../../libs/seo-utils';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
 import PostDetailPreview from './PostDetailPreview';
+import type { Post } from '../../../types/models/post';
 
-const PostDetailPreviewContainer = ({ postId }) => {
+interface PostActionItem {
+  type: string;
+  createdBy?: {
+    name: string;
+  };
+  createdAt: string;
+  note?: string;
+}
+
+interface PostDetailPreviewContainerProps {
+  postId: string;
+}
+
+const PostDetailPreviewContainer = ({
+  postId
+}: PostDetailPreviewContainerProps) => {
   const router = useRouter();
-  const [post, setPost] = useState(null);
-  const [postActions, setPostActions] = useState([]);
+  const [post, setPost] = useState<Post | null>(null);
+  const [postActions, setPostActions] = useState<PostActionItem[]>([]);
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState('');
 
@@ -23,7 +39,7 @@ const PostDetailPreviewContainer = ({ postId }) => {
       try {
         const postData = await apiClient.posts.getByIdForOwner(postId);
         setPost(postData);
-      } catch (err) {
+      } catch (err: any) {
         console.error('Error fetching a post:', err);
         setError('เกิดข้อผิดพลาดในการโหลดข้อมูลประกาศ กรุณาลองใหม่อีกครั้ง');
         setPost(null);
