@@ -19,13 +19,26 @@ import { ChatIcon } from '@heroicons/react/solid';
 import MenuLinkItem from '../UI/Public/MenuLinkItem';
 import LocaleSwitcher from '../UI/LocaleSwitcher';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { AuthContextValue } from '../../contexts/authContext';
+import type { ComponentType, SVGProps, MouseEventHandler } from 'react';
+
+interface NavigationItem {
+  name: string;
+  description: string;
+  href: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+  visible: boolean;
+  classes: string;
+  onClick?: () => void;
+  lineBreak?: boolean;
+}
 
 const Header = () => {
   const { signout, user, isAgent, isAuthenticated, loading } =
-    useContext(AuthContext);
+    useContext(AuthContext) as AuthContextValue;
   const { t } = useTranslation();
 
-  const navigations = [
+  const navigations: NavigationItem[] = [
     {
       name: t('nav.home'),
       description: "Your customers' data will be safe and secure.",
@@ -202,22 +215,21 @@ const Header = () => {
                       .map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
-                            <MenuLinkItem
-                              href={item.href}
-                              onClick={(e) => {
-                                if (item.onClick) {
-                                  e.preventDefault();
-                                  item.onClick();
-                                }
-                              }}
-                              className={joinClasses(
-                                active ? 'bg-gray-100' : '',
-                                'block px-4 py-2 text-sm text-gray-700',
-                                item.classes
-                              )}
-                            >
-                              {item.name}
-                            </MenuLinkItem>
+                            <div className={joinClasses(active ? 'bg-gray-100' : '', item.classes)}>
+                              <MenuLinkItem
+                                href={item.href}
+                                onClick={(e) => {
+                                  if (item.onClick) {
+                                    e.preventDefault();
+                                    item.onClick();
+                                  }
+                                }}
+                              >
+                                <span className="block px-4 py-2 text-sm text-gray-700">
+                                  {item.name}
+                                </span>
+                              </MenuLinkItem>
+                            </div>
                           )}
                         </Menu.Item>
                       ))}
@@ -328,7 +340,7 @@ const Header = () => {
                     <Link
                       href="/signup"
                       className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-primary hover:bg-primary-hover"
-                      onClick={close}
+                      onClick={() => close()}
                     >
                       {t('nav.signup')}
                     </Link>
@@ -336,7 +348,7 @@ const Header = () => {
                     <Link
                       href="/login"
                       className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-accent hover:bg-accent-hover"
-                      onClick={close}
+                      onClick={() => close()}
                     >
                       {t('nav.login')}
                     </Link>
