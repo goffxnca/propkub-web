@@ -1,20 +1,22 @@
+import type { Locale } from '../types/locale';
+
 const getUnixEpochTime = () => {
   return Date.now().toString();
 };
 
-const getLocalDateByISODateString = (isoDateString) => {
+const getLocalDateByISODateString = (isoDateString: string) => {
   const date = new Date(isoDateString);
   return date.toLocaleDateString('th');
 };
 
-const getLocalDateTimeByISODateString = (isoDateString) => {
+const getLocalDateTimeByISODateString = (isoDateString: string) => {
   const date = new Date(isoDateString);
   const timeSegments = date.toLocaleTimeString('th').split(':');
   const time = timeSegments[0] + ':' + timeSegments[1];
   return `${date.toLocaleDateString('th')} ${time}`;
 };
 
-const getThaiFullDateTimeString = (isoDateString) => {
+const getThaiFullDateTimeString = (isoDateString: string) => {
   return new Date(isoDateString).toLocaleDateString('th-TH', {
     year: 'numeric',
     month: 'short',
@@ -24,8 +26,8 @@ const getThaiFullDateTimeString = (isoDateString) => {
   });
 };
 
-const getDateTimeString = (isoDateString, locale) => {
-  const localeMap = {
+const getDateTimeString = (isoDateString: string, locale: Locale | string) => {
+  const localeMap: Record<string, string> = {
     th: 'th-TH',
     en: 'en-US'
   };
@@ -42,8 +44,8 @@ const getDateTimeString = (isoDateString, locale) => {
   );
 };
 
-const getDateString = (isoDateString, locale) => {
-  const localeMap = {
+const getDateString = (isoDateString: string, locale: Locale | string) => {
+  const localeMap: Record<string, string> = {
     th: 'th-TH',
     en: 'en-US'
   };
