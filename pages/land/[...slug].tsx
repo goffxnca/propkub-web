@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import type { GetServerSideProps } from 'next';
 import PostItem from '../../components/Posts/PostItem';
 import Breadcrumbs from '../../components/UI/Public/Breadcrumbs';
 import { getLocationPrefix } from '../../libs/location-utils';
@@ -9,24 +10,50 @@ import {
   getLocationBreadcrumbs
 } from '../../libs/managers/addressManager';
 import { getAllActivePostsByLocation } from '../../libs/post-utils';
-
 import {
   genPropertyDescriptionMeta,
   genPropertyTitleMeta,
   getCanonicalUrl
 } from '../../libs/seo-utils';
+import type { Post } from '../../types/models/post';
+import { AssetType, PostType } from '../../types/models/post';
+import type { District, SubDistrict } from '../../types/models/address';
+
+interface SubLocation {
+  id: string;
+  name: string;
+  href: string;
+}
+
+interface BreadcrumbItem {
+  name: string;
+  href: string;
+  current?: boolean;
+}
+
+interface LandPostsByLocationPageProps {
+  posts: Post[];
+  locationType: 'pv' | 'dt' | 'sd';
+  assetTypeAndPurpose: string;
+  locationName: string;
+  subLocations: SubLocation[];
+  isBangkok: boolean;
+  breadcrumbs: BreadcrumbItem[];
+  currentUrl: string;
+  title: string;
+}
 
 const LandPostsByLocationPage = ({
   posts,
   locationType,
   assetTypeAndPurpose,
-  locationName, // Ex. ภูเก็ต, คลองสามวา, บ่อวิน
+  locationName,
   subLocations,
   isBangkok,
   breadcrumbs,
   currentUrl,
   title
-}) => {
+}: LandPostsByLocationPageProps) => {
   const relatedAreasTitle = `ประกาศ${assetTypeAndPurpose}ในพื้นที่อื่นๆ ของ${getLocationPrefix(
     locationType,
     isBangkok
@@ -63,11 +90,9 @@ const LandPostsByLocationPage = ({
               id={post._id}
               postType={post.postType}
               assetType={post.assetType}
-              condition={post.condition}
               title={post.title}
               slug={post.slug}
               thumbnail={post.thumbnail}
-              thumbnailAlt={post.thumbnailAlt}
               price={post.price}
               priceUnit={post.priceUnit}
               address={post.address}
@@ -104,29 +129,29 @@ const LandPostsByLocationPage = ({
 };
 
 // Traditional SSR, fetch fresh data on every request
-export async function getServerSideProps({ params, resolvedUrl }) {
+export const getServerSideProps: GetServerSideProps<
+  LandPostsByLocationPageProps
+> = async ({ params, resolvedUrl }) => {
   // Ex. full url -> /land/ssds104603/ขายที่ดิน-บางชัน-คลองสามวา-กรุงเทพมหานคร
-  const [locationTypeAndCode, locationTHSlug] = params.slug; // [ssds104603, ขายที่ดิน-บางชัน-คลองสามวา-กรุงเทพมหานคร]
+  const slug = params?.slug as string[];
+  if (!slug || slug.length !== 2) {
+    return { notFound: true };
+  }
 
-  if (!(params.slug.length === 2 && locationTypeAndCode && locationTHSlug)) {
-    // Expect 2 url segments
-    return {
-      notFound: true
-    };
+  const [locationTypeAndCode, locationTHSlug] = slug; // [ssds104603, ขายที่ดิน-บางชัน-คลองสามวา-กรุงเทพมหานคร]
+
+  if (!locationTypeAndCode || !locationTHSlug) {
+    return { notFound: true };
   }
 
   const landIdPrefix = locationTypeAndCode.substr(0, 1); // s
   if (landIdPrefix !== 's') {
-    return {
-      notFound: true
-    };
+    return { notFound: true };
   }
 
-  const locationType = locationTypeAndCode.substr(1, 2); // sd
+  const locationType = locationTypeAndCode.substr(1, 2) as 'pv' | 'dt' | 'sd'; // sd
   if (locationType.length !== 2 || !['pv', 'dt', 'sd'].includes(locationType)) {
-    return {
-      notFound: true
-    };
+    return { notFound: true };
   }
 
   const slugTexts = locationTHSlug.split('-'); // [ 'ขายที่ดิน', 'บางชัน', 'คลองสามวา', 'กรุงเทพมหานคร' ]
@@ -151,18 +176,18 @@ export async function getServerSideProps({ params, resolvedUrl }) {
 
   // Get all posts by current location
   const posts = await getAllActivePostsByLocation({
-    assetType: 'land',
-    postType: 'sale',
+    assetType: AssetType.LAND,
+    postType: PostType.SALE,
     locationType,
     locationId
   });
 
   // Get all other sub-locations
-  const subLocations = await (locationId.startsWith('p')
+  const subLocationsData = await (locationId.startsWith('p')
     ? fetchDistrictsByProvinceId(locationId)
     : locationId.startsWith('d')
       ? fetchSubDistrictsByDistrictId(locationId)
-      : Promise.resolve([]));
+      : Promise.resolve<District[] | SubDistrict[]>([]));
 
   // Get all location breadcrumbs
   const breadcrumbs = await getLocationBreadcrumbs(locationId, locationType);
@@ -189,7 +214,7 @@ export async function getServerSideProps({ params, resolvedUrl }) {
           .join('-')}`,
         current: b.type === locationType
       })),
-      subLocations: (subLocations || []).map((sub) => ({
+      subLocations: (subLocationsData || []).map((sub) => ({
         ...sub,
         href: `/land/${landIdPrefix}${
           locationType === 'pv' ? 'dt' : locationType === 'dt' ? 'sd' : ''
@@ -200,6 +225,6 @@ export async function getServerSideProps({ params, resolvedUrl }) {
       }))
     }
   };
-}
+};
 
 export default LandPostsByLocationPage;
