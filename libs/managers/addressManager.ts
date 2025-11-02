@@ -4,7 +4,7 @@ import {
   District,
   SubDistrict,
   LocationBreadcrumb
-} from '../../src/types/models/address';
+} from '../../types/models/address';
 
 const PROVINCE_CACHE_KEY = 'provinces';
 const CACHE_VERSION = '1.0'; //Bump this version if provinces DB changes, ex. new province introduced in thailand
@@ -17,7 +17,7 @@ interface CachedProvinces {
 
 const fetchProvinces = async (): Promise<Province[]> => {
   const response = await apiClient.provinces.getAll();
-  return response as unknown as Province[];
+  return response;
 };
 
 const fetchProvincesCacheFirst = async (): Promise<Province[]> => {
@@ -54,31 +54,31 @@ const fetchProvincesByRegionId = async (
 
 const getProvinceById = async (provinceId: string): Promise<Province> => {
   const response = await apiClient.provinces.getById(provinceId);
-  return response as unknown as Province;
+  return response;
 };
 
 const fetchDistrictsByProvinceId = async (
   provinceId: string
 ): Promise<District[]> => {
   const response = await apiClient.districts.getByProvinceId(provinceId);
-  return response as unknown as District[];
+  return response;
 };
 
 const fetchSubDistrictsByDistrictId = async (
   districtId: string
 ): Promise<SubDistrict[]> => {
   const response = await apiClient.subDistricts.getByDistrictId(districtId);
-  return response as unknown as SubDistrict[];
+  return response;
 };
 
 const getDistrictById = async (id: string): Promise<District> => {
   const response = await apiClient.districts.getById(id);
-  return response as unknown as District;
+  return response;
 };
 
 const getSubdistrictById = async (id: string): Promise<SubDistrict> => {
   const response = await apiClient.subDistricts.getById(id);
-  return response as unknown as SubDistrict;
+  return response;
 };
 
 const getLocationBreadcrumbs = async (

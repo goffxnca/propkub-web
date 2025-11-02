@@ -4,12 +4,12 @@ import Head from 'next/head';
 import ProtectedRoute from '../../../components/Auth/ProtectedRoute';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useContext } from 'react';
-import { authContext } from '../../../contexts/authContext';
+import { AuthContext } from '../../../contexts/authContext';
 
 const AddPostPage = () => {
   const { t } = useTranslation('pages/post-form');
   const { t: tCommon } = useTranslation('common');
-  const { isAgent } = useContext(authContext);
+  const { isAgent } = useContext(AuthContext);
 
   const roleLabel = isAgent ? tCommon('roles.agent') : tCommon('roles.normal');
   const pageTitle = `${t('mode.create')} (${roleLabel})`;

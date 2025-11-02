@@ -8,7 +8,7 @@ const PostDetailPreviewPage = () => {
 
   return (
     <ProtectedRoute>
-      <PostDetailPreviewContainer postId={postId} />
+      <PostDetailPreviewContainer postId={postId as string} />
     </ProtectedRoute>
   );
 };

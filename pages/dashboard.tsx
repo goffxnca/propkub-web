@@ -1,4 +1,4 @@
-import MyPropertyList from '../components/Dashboard/MyPostList';
+import MyPostList from '../components/Dashboard/MyPostList';
 import Head from 'next/head';
 import { genPageTitle } from '../libs/seo-utils';
 import ProtectedRoute from '../components/Auth/ProtectedRoute';
@@ -9,7 +9,7 @@ const DashboardPage = () => {
       <Head>
         <title>{genPageTitle('แดชบอร์ด')}</title>
       </Head>
-      <MyPropertyList />
+      <MyPostList />
     </ProtectedRoute>
   );
 };

@@ -1,0 +1,334 @@
+import { useMemo } from 'react';
+import { useRouter } from 'next/router';
+import PageTitle from '../../UI/Private/PageTitle';
+import sanitizeHtml from 'sanitize-html';
+import { getConditionLabel } from '../../../libs/mappers/conditionMapper';
+import { getAreaUnitLabel } from '../../../libs/mappers/areaUnitMapper';
+import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
+import { formatAddressFull } from '../../../libs/formatters/addressFormatter';
+import { getSpecLabel, getSpecsArray } from '../../../libs/mappers/specMapper';
+import { orDefault } from '../../../libs/string-utils';
+import { getDateString } from '../../../libs/date-utils';
+import PostDetailStats from './PostDetailStats';
+import PostActionConsole from './PostActionConsole';
+import PostStatusBadge from '../PostStatusBadge/PostStatusBadge';
+import PostTimeline from './PostTimeline';
+import { SANITIZE_OPTIONS } from '../../../libs/constants';
+import { useTranslation } from '../../../hooks/useTranslation';
+import type { Post } from '../../../types/models/post';
+import { Locale } from '../../../types/locale';
+
+interface PostActionItem {
+  type: string;
+  createdBy?: {
+    name: string;
+  };
+  createdAt: string;
+  note?: string;
+}
+
+interface PostDetailPreviewProps {
+  post: Post;
+  postActions?: PostActionItem[];
+}
+
+const PostDetailPreview = ({ post, postActions }: PostDetailPreviewProps) => {
+  const router = useRouter();
+  const { t: tPosts } = useTranslation('posts');
+  const { t: tCommon } = useTranslation('common');
+  // Calculated fields - exact order from posts.schema.ts
+
+  // Required fields (schema order)
+  const title = post.title;
+  const purifiedDescInfo = useMemo(
+    () => sanitizeHtml(post.desc, SANITIZE_OPTIONS),
+    [post.desc]
+  );
+  const assetType = tPosts(`assetTypes.${post.assetType}`);
+  const postType = tPosts(`postTypes.${post.postType}`);
+
+  const forRent = post.postType === 'rent';
+  const isLand = post.assetType === 'land';
+
+  const priceWithUnit = post.priceUnit
+    ? `${post.price.toLocaleString()} ${
+        forRent || isLand ? '/ ' + getPriceUnit(post.priceUnit, tCommon) : ''
+      }`
+    : post.price.toLocaleString();
+  const thumbnail = post.thumbnail;
+  const images = post.images;
+  const facilities = orDefault(post.facilities.map((p) => p.label).join(', '));
+
+  const specs = orDefault(
+    post.specs
+      .map((spec) => {
+        const thaiLabel = getSpecLabel(spec.id);
+        return `${thaiLabel}: ${spec.value}`;
+      })
+      .join(', ')
+  );
+
+  const address = formatAddressFull(post.address);
+  const postNumber = post.postNumber;
+
+  // Optional fields (schema order)
+  const isStudio =
+    post.isStudio !== undefined
+      ? post.isStudio
+        ? tCommon('yes')
+        : tCommon('no')
+      : '-';
+  const video = orDefault(post.video);
+  const landWithUnit =
+    post.land && post.landUnit
+      ? `${post.land} ${tCommon(`areaUnits.${post.landUnit}`) || getAreaUnitLabel(post.landUnit, router.locale as Locale)}`
+      : orDefault(post.land);
+  const areaWithUnit =
+    post.area && post.areaUnit
+      ? `${post.area} ${tCommon(`areaUnits.${post.areaUnit}`) || getAreaUnitLabel(post.areaUnit, router.locale as Locale)}`
+      : orDefault(post.area);
+  const condition = orDefault(
+    post.condition &&
+      (tCommon(`conditions.${post.condition}`) || getConditionLabel(post.condition, router.locale as Locale))
+  );
+  const agentRefNumber = orDefault(post.refId);
+  const locale = router?.locale;
+  const createdAt = getDateString(post.createdAt, locale);
+  const updatedAt = orDefault(
+    post.updatedAt && getDateString(post.updatedAt, locale)
+  );
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PageTitle label={tPosts('details.title')} />
+      <div className="lg:flex space-y-2 lg:space-x-2 lg:space-y-0">
+        {/* Left Main Content */}
+        <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-2/3">
+          <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
+            <dl className="sm:divide-y sm:divide-gray-200">
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.postNumber')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {postNumber}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.status')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  <PostStatusBadge status={post.status} />
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.title')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {title}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.desc')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  <div
+                    className="break-words"
+                    dangerouslySetInnerHTML={{ __html: purifiedDescInfo }}
+                  />
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.postType')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {postType}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.assetType')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {assetType}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.condition')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {condition}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('sections.location')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {address}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.price')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  ฿{priceWithUnit}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.area')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {areaWithUnit}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.land')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {landWithUnit}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.thumbnail')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={thumbnail}
+                    className="h-20 w-20 object-cover rounded-sm"
+                    alt="thumbnail"
+                  />
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.images')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  <ul className="flex flex-wrap">
+                    {images.map((image, index) => (
+                      <li key={index} className="m-1">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={image}
+                          className="h-20 w-20 object-cover rounded-sm"
+                          alt={`image-${index}`}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.video')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {video}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.facilities')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {facilities}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.specs.label')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {specs}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.isStudio')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {isStudio}
+                </dd>
+              </div>
+
+              {/* Optional fields */}
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.refId')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {agentRefNumber}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.createdAt')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {createdAt}
+                </dd>
+              </div>
+
+              <div className="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5 sm:px-6">
+                <dt className="text-sm font-medium text-gray-500">
+                  {tPosts('fields.updatedAt')}
+                </dt>
+                <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                  {updatedAt}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        {/* Right Side Bar */}
+        <div className="overflow-hidden bg-white shadow sm:rounded-lg lg:w-1/3 p-4 space-y-2">
+          <PostDetailStats
+            postViews={post.stats.views.post || 0}
+            phoneViews={post.stats.views.phone || 0}
+            lineViews={post.stats.views.line || 0}
+            shares={post.stats.shares || 0}
+            pins={post.stats.pins || 0}
+          />
+          <PostTimeline postActions={postActions} />
+          <PostActionConsole
+            postId={post._id}
+            postSlug={post.slug}
+            postStatus={post.status}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PostDetailPreview;

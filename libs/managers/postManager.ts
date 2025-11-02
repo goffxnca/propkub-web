@@ -1,15 +1,12 @@
+import { PostStatType } from '../../types/enums/postStatType';
 import { apiClient } from '../client';
 
-const increasePostView = async (postId: string): Promise<void> => {
-  await apiClient.posts.incrementViews(postId);
-};
-
 const increasePhoneView = async (postId: string): Promise<void> => {
-  await apiClient.posts.increasePostStats(postId, 'phone_views');
+  await apiClient.posts.increasePostStats(postId, PostStatType.PHONE_VIEWS);
 };
 
 const increaseLineView = async (postId: string): Promise<void> => {
-  await apiClient.posts.increasePostStats(postId, 'line_views');
+  await apiClient.posts.increasePostStats(postId, PostStatType.LINE_VIEWS);
 };
 
-export { increasePostView, increasePhoneView, increaseLineView };
+export { increasePhoneView, increaseLineView };
