@@ -3,20 +3,27 @@ import { useRouter } from 'next/router';
 import { LockClosedIcon } from '@heroicons/react/outline';
 import Alert from '../UI/Public/Alert';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { User } from '../../types/models/user';
+
+interface ProfileWarningsProps {
+  user: User;
+  onCheckAgainClick: () => void;
+  showLockOverlay?: boolean;
+}
 
 const ProfileWarnings = ({
   user,
   onCheckAgainClick,
   showLockOverlay = false
-}) => {
+}: ProfileWarningsProps) => {
   const router = useRouter();
   const { t } = useTranslation('pages/profile');
-  const [warningMessages, setWarningMessages] = useState([]);
+  const [warningMessages, setWarningMessages] = useState<string[]>([]);
 
   useEffect(() => {
     if (!user) return;
 
-    const messages = [];
+    const messages: string[] = [];
     if (!user.emailVerified) {
       messages.push(t('warnings.emailNotVerified', { email: user.email }));
     }
