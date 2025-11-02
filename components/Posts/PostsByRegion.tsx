@@ -1,5 +1,15 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { Province } from '../../types/models/address';
+import { Locale } from '../../types/locale';
+
+interface PostsByRegionProps {
+  regionId: string;
+  regionName: string;
+  assetId: string;
+  assetName: string;
+  provinces: Province[];
+}
 
 const PostByRegion = ({
   regionId,
@@ -7,14 +17,14 @@ const PostByRegion = ({
   assetId,
   assetName,
   provinces
-}) => {
+}: PostsByRegionProps) => {
   const router = useRouter();
   const { locale } = router;
 
   return (
     <section className="mb-4">
       <h2 className="text-xl  tracking-tight text-gray-900 p-2">
-        {`${assetName}${locale === 'en' ? ' in ' : ''}${regionName}`}
+        {`${assetName}${(locale as Locale) === 'en' ? ' in ' : ''}${regionName}`}
       </h2>
       <ul className="flex w-full flex-wrap">
         {provinces.map((province) => (
