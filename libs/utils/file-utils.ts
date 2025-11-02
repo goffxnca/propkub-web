@@ -3,8 +3,8 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage';
 import Resizer from 'react-image-file-resizer';
 import { randomOneToN } from '../number-utils';
 
-const resizeFile = async (file) => {
-  return new Promise((resolve) => {
+const resizeFile = async (file: File): Promise<File> => {
+  return new Promise<File>((resolve) => {
     Resizer.imageFileResizer(
       file,
       800,
@@ -13,14 +13,18 @@ const resizeFile = async (file) => {
       75,
       0,
       (resizedFile) => {
-        resolve(resizedFile);
+        resolve(resizedFile as File);
       },
       'file'
     );
   });
 };
 
-const uploadFileToStorage = async (type, postNumber, file) => {
+const uploadFileToStorage = async (
+  type: string,
+  postNumber: string,
+  file: File
+): Promise<string | undefined> => {
   initFirebase();
   const storage = getStorage();
   const storageRef = ref(
@@ -29,7 +33,7 @@ const uploadFileToStorage = async (type, postNumber, file) => {
   );
 
   return uploadBytes(storageRef, file).then((snapshot) =>
-    getDownloadURL(snapshot.ref).then((downloadUrl) => {
+    getDownloadURL(snapshot.ref).then((downloadUrl: string) => {
       if (downloadUrl) {
         const tokenIndex = downloadUrl.indexOf('&token');
         //if there's a token segment in image url, drop it
@@ -37,16 +41,17 @@ const uploadFileToStorage = async (type, postNumber, file) => {
           ? downloadUrl
           : downloadUrl.substring(0, tokenIndex);
       }
+      return undefined;
     })
   );
 };
 
-const getFileExtension = (filename) => {
+const getFileExtension = (filename: string | undefined): string => {
   let fileExtension = '';
   if (typeof filename === 'string' && filename.length > 0) {
     const filenameSegments = filename.split('.');
     if (filenameSegments.length > 0) {
-      fileExtension = filenameSegments.pop();
+      fileExtension = filenameSegments.pop() || '';
     }
   }
 
