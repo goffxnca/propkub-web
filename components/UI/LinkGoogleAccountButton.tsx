@@ -1,10 +1,16 @@
 import { envConfig } from '../../libs/envConfig';
 
+interface LinkGoogleAccountButtonProps {
+  currentUserEmail?: string;
+  size?: 'sm' | 'md';
+  buttonText?: string;
+}
+
 const LinkGoogleAccountButton = ({
   currentUserEmail,
   size = 'sm',
   buttonText = ''
-}) => {
+}: LinkGoogleAccountButtonProps) => {
   const handleGoogleLinking = () => {
     if (!currentUserEmail) {
       console.error(
