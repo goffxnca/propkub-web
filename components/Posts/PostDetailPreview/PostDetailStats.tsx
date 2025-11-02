@@ -6,18 +6,35 @@ import {
   BookmarkIcon
 } from '@heroicons/react/outline';
 import { useTranslation } from '../../../hooks/useTranslation';
+import type { ComponentType } from 'react';
+import type { SVGProps } from 'react';
+
+interface PostDetailStatsProps {
+  postViews?: number;
+  phoneViews?: number;
+  lineViews?: number;
+  shares?: number;
+  pins?: number;
+}
+
+interface StatItem {
+  id: number;
+  name: string;
+  stat: number;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
 
 const PostDetailStats = ({
   postViews = 0,
   phoneViews = 0,
   lineViews = 0,
-  shares,
-  pins
-}) => {
+  shares = 0,
+  pins = 0
+}: PostDetailStatsProps) => {
   const { t } = useTranslation('posts');
   const { t: tPage } = useTranslation('pages/account-post');
 
-  const stats = [
+  const stats: StatItem[] = [
     {
       id: 1,
       name: t('fields.stats.views.post'),
