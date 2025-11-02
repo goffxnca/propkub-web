@@ -7,7 +7,20 @@ import {
 } from '../../../libs/mappers/postActionMapper';
 import { useTranslation } from '../../../hooks/useTranslation';
 
-const PostTimeline = ({ postActions = [] }) => {
+interface PostActionItem {
+  type: string;
+  createdBy?: {
+    name: string;
+  };
+  createdAt: string;
+  note?: string;
+}
+
+interface PostTimelineProps {
+  postActions?: PostActionItem[];
+}
+
+const PostTimeline = ({ postActions = [] }: PostTimelineProps) => {
   const { t: tPosts } = useTranslation('posts');
   const { t: tAccountPost } = useTranslation('pages/account-post');
 
@@ -15,7 +28,7 @@ const PostTimeline = ({ postActions = [] }) => {
     return null;
   }
 
-  const renderActionIcon = (actionType) => {
+  const renderActionIcon = (actionType: string) => {
     const IconComponent = getPostActionIconById(actionType);
     return (
       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100">
