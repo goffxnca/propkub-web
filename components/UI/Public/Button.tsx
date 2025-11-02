@@ -52,7 +52,7 @@ const Button = ({
 
         <div className={`${loading && 'ml-1'}`}>{children}</div>
       </div>
-      {loading && <Overlay {...({} as any)} />}
+      {loading && <Overlay />}
     </button>
   );
 };

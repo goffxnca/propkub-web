@@ -1,7 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactNode, MouseEventHandler } from 'react';
 import { createPortal } from 'react-dom';
 
-const Overlay = ({ onClick, children }) => {
+interface OverlayProps {
+  onClick?: MouseEventHandler<HTMLDivElement>;
+  children?: ReactNode;
+}
+
+const Overlay = ({ onClick, children }: OverlayProps) => {
   const [isMounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -9,6 +14,12 @@ const Overlay = ({ onClick, children }) => {
   }, []);
 
   if (!isMounted) {
+    return null;
+  }
+
+  const overlayElement = document.getElementById('overlay');
+
+  if (!overlayElement) {
     return null;
   }
 
@@ -24,7 +35,7 @@ const Overlay = ({ onClick, children }) => {
         {children}
       </div>
     </>,
-    document.getElementById('overlay')
+    overlayElement
   );
 };
 
