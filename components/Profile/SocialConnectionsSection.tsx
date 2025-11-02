@@ -5,38 +5,51 @@ import { MailIcon } from '@heroicons/react/outline';
 import LinkGoogleAccountButton from '../UI/LinkGoogleAccountButton';
 import LinkFacebookAccountButton from '../UI/LinkFacebookAccountButton';
 import { useTranslation } from '../../hooks/useTranslation';
+import { AuthProvider, type User } from '../../types/models/user';
+import type { ReactNode } from 'react';
 
-const SocialConnectionsSection = ({ user }) => {
+interface ProviderInfo {
+  name: string;
+  icon: ReactNode;
+  color: string;
+  description: string;
+}
+
+interface SocialConnectionsSectionProps {
+  user: User;
+}
+
+const SocialConnectionsSection = ({ user }: SocialConnectionsSectionProps) => {
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
-  const getConnectionStatus = (provider) => {
+  const getConnectionStatus = (provider: AuthProvider): boolean => {
     switch (provider) {
-      case 'google':
-        return user.provider === 'google' || !!user.googleId;
-      case 'facebook':
-        return user.provider === 'facebook' || !!user.facebookId;
-      case 'email':
+      case AuthProvider.GOOGLE:
+        return user.provider === AuthProvider.GOOGLE || !!user.googleId;
+      case AuthProvider.FACEBOOK:
+        return user.provider === AuthProvider.FACEBOOK || !!user.facebookId;
+      case AuthProvider.EMAIL:
         return true;
       default:
         return false;
     }
   };
 
-  const getProviderInfo = (provider) => {
-    const providerMap = {
-      email: {
+  const getProviderInfo = (provider: AuthProvider): ProviderInfo => {
+    const providerMap: Record<AuthProvider, ProviderInfo> = {
+      [AuthProvider.EMAIL]: {
         name: tCommon('providers.email'),
         icon: <MailIcon className="w-5 h-5 text-gray-600" />,
         color: 'text-gray-600',
         description: t('sections.social.descriptions.email')
       },
-      google: {
+      [AuthProvider.GOOGLE]: {
         name: tCommon('providers.google'),
         icon: <GoogleIcon className="w-5 h-5" />,
         color: 'text-blue-600',
         description: t('sections.social.descriptions.google')
       },
-      facebook: {
+      [AuthProvider.FACEBOOK]: {
         name: tCommon('providers.facebook'),
         icon: <FacebookIcon className="w-5 h-5 text-blue-600" />,
         color: 'text-blue-800',
@@ -46,20 +59,23 @@ const SocialConnectionsSection = ({ user }) => {
     return providerMap[provider];
   };
 
-  const getAllProviders = () => {
+  const getAllProviders = (): AuthProvider[] => {
     // If user signed up with Google or Facebook, don't show email option
     // (since we don't allow linking back to email accounts)
-    if (user.provider === 'google' || user.provider === 'facebook') {
-      // return ['google', 'facebook']; //TODO: Use this when facebook linking ready
-      return ['google'];
+    if (
+      user.provider === AuthProvider.GOOGLE ||
+      user.provider === AuthProvider.FACEBOOK
+    ) {
+      // return [AuthProvider.GOOGLE, AuthProvider.FACEBOOK]; //TODO: Use this when facebook linking ready
+      return [AuthProvider.GOOGLE];
     }
 
     // If user signed up with email, show all options
-    // return ['email', 'google', 'facebook']; //TODO: Use this when facebook linking ready
-    return ['email', 'google'];
+    // return [AuthProvider.EMAIL, AuthProvider.GOOGLE, AuthProvider.FACEBOOK]; //TODO: Use this when facebook linking ready
+    return [AuthProvider.EMAIL, AuthProvider.GOOGLE];
   };
 
-  const renderConnectionStatus = (provider) => {
+  const renderConnectionStatus = (provider: AuthProvider): ReactNode => {
     const isConnected = getConnectionStatus(provider);
     const info = getProviderInfo(provider);
 
@@ -90,13 +106,13 @@ const SocialConnectionsSection = ({ user }) => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          {provider === 'google' ? (
+          {provider === AuthProvider.GOOGLE ? (
             <LinkGoogleAccountButton
               currentUserEmail={user.email}
               size="sm"
               buttonText={t('sections.social.connectButton')}
             />
-          ) : provider === 'facebook' ? (
+          ) : provider === AuthProvider.FACEBOOK ? (
             <LinkFacebookAccountButton
               currentUserEmail={user.email}
               size="sm"
