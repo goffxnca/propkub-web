@@ -19,8 +19,30 @@ import { useTranslation } from '../../../hooks/useTranslation';
 import { useRouter } from 'next/router';
 import { getRegions } from '../../../libs/mappers/regionMapper';
 import { useValidators } from '../../../hooks/useValidators';
+import {
+  ReactHookFormUnRegister,
+  ReactHookFormError
+} from '../../../types/misc/form';
+import type {
+  UseFormRegister,
+  UseFormWatch,
+  UseFormSetValue,
+  FieldErrors
+} from 'react-hook-form';
+import { Province, District, SubDistrict } from '../../../types/models/address';
+import { Location } from '../../../types/models/post';
+import { Locale } from '../../../types/locale';
 
 const MAP_SEARCH_QUOTA = 5; //TODO: CHANGE TO 3 LATER
+
+interface LocationSectionProps {
+  register: UseFormRegister<any>;
+  unregister: ReactHookFormUnRegister;
+  watch: UseFormWatch<any>;
+  setValue: UseFormSetValue<any>;
+  submitCount: number;
+  errors: FieldErrors<any>;
+}
 
 const LocationSection = ({
   register,
@@ -29,18 +51,18 @@ const LocationSection = ({
   setValue,
   submitCount,
   errors
-}) => {
+}: LocationSectionProps) => {
   const { t } = useTranslation('pages/post-form');
   const { t: tCommon } = useTranslation('common');
   const { required } = useValidators();
   const router = useRouter();
-  const locale = router.locale;
+  const locale = router.locale as Locale;
 
   const regionList = useMemo(() => getRegions(locale), [locale]);
 
-  const [provinceList, setProvinceList] = useState([]);
-  const [districtList, setDistrictList] = useState([]);
-  const [subDistrictList, setSubDistrictList] = useState([]);
+  const [provinceList, setProvinceList] = useState<Province[]>([]);
+  const [districtList, setDistrictList] = useState<District[]>([]);
+  const [subDistrictList, setSubDistrictList] = useState<SubDistrict[]>([]);
 
   const watchRegionId = watch('address.regionId');
   const watchProvinceId = watch('address.provinceId');
@@ -123,12 +145,16 @@ const LocationSection = ({
 
   const renderMap = () => {
     if (watchSubDistrictId && mapSearchQuotaRemaining) {
-      const districtElem = document.getElementById('address.districtId');
-      const districtLabel = districtElem.item(districtElem.selectedIndex).label;
-      const subDistrictElem = document.getElementById('address.subDistrictId');
-      const subDistrictLabel = subDistrictElem.item(
-        subDistrictElem.selectedIndex
-      ).label;
+      const districtElem = document.getElementById(
+        'address.districtId'
+      ) as HTMLSelectElement | null;
+      const districtLabel =
+        districtElem?.options[districtElem.selectedIndex]?.label || '';
+      const subDistrictElem = document.getElementById(
+        'address.subDistrictId'
+      ) as HTMLSelectElement | null;
+      const subDistrictLabel =
+        subDistrictElem?.options[subDistrictElem.selectedIndex]?.label || '';
 
       setSubDistrictLabel(subDistrictLabel);
       if (districtLabel !== '-' && subDistrictLabel !== '-') {
@@ -210,7 +236,7 @@ const LocationSection = ({
                   })
                 }
                 unregister={unregister}
-                error={errors?.address?.regionId}
+                error={(errors?.address as any)?.regionId as ReactHookFormError}
               />
             </div>
             <div className="col-span-6 sm:col-span-3">
@@ -225,7 +251,9 @@ const LocationSection = ({
                   })
                 }
                 unregister={unregister}
-                error={errors?.address?.provinceId}
+                error={
+                  (errors?.address as any)?.provinceId as ReactHookFormError
+                }
               />
             </div>
             <div className="col-span-6 sm:col-span-3">
@@ -240,7 +268,9 @@ const LocationSection = ({
                   })
                 }
                 unregister={unregister}
-                error={errors?.address?.districtId}
+                error={
+                  (errors?.address as any)?.districtId as ReactHookFormError
+                }
               />
             </div>
             <div className="col-span-6 sm:col-span-3">
@@ -255,7 +285,9 @@ const LocationSection = ({
                   })
                 }
                 unregister={unregister}
-                error={errors?.address?.subDistrictId}
+                error={
+                  (errors?.address as any)?.subDistrictId as ReactHookFormError
+                }
               />
             </div>
             {!missingMapKeyInDevMode && (
@@ -301,7 +333,9 @@ const LocationSection = ({
                           ) : null
                         }
                         disabled={!mapSearchQuotaRemaining}
-                        onKeyPress={(e) => {
+                        onKeyPress={(
+                          e: React.KeyboardEvent<HTMLInputElement>
+                        ) => {
                           if (e.key === 'Enter') {
                             e.preventDefault();
                             if (mapSearchQuotaRemaining) {
@@ -311,7 +345,9 @@ const LocationSection = ({
                         }}
                         register={() => register('searchAddress', {})}
                         unregister={unregister}
-                        error={errors?.address?.search}
+                        error={
+                          (errors?.address as any)?.search as ReactHookFormError
+                        }
                       />
                     )}
                     <p className="text-xs text-gray-600 my-1">
@@ -367,7 +403,7 @@ const LocationSection = ({
                     )}
 
                     <div
-                      className={`${errors?.address?.location && 'border border-red-400'}`}
+                      className={`${(errors?.address as any)?.location && 'border border-red-400'}`}
                     >
                       <GoogleMap
                         address={mapAddress}
@@ -444,9 +480,9 @@ const LocationSection = ({
                           ...required()
                         })}
                       />
-                      {errors?.address?.location && (
+                      {(errors?.address as any)?.location && (
                         <div className="text-red-400 text-xs py-1">
-                          {errors.address.location.message}
+                          {(errors.address as any).location.message}
                         </div>
                       )}
                     </div>
