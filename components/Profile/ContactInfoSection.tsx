@@ -14,8 +14,18 @@ import TextInput from '../UI/Public/Inputs/TextInput';
 import Modal from '../UI/Public/Modal';
 import { getLineUrl } from '../../libs/string-utils';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { User } from '../../types/models/user';
 
-const ContactInfoSection = ({ user }) => {
+interface ContactInfoFormData {
+  phone: string;
+  line: string;
+}
+
+interface ContactInfoSectionProps {
+  user: User;
+}
+
+const ContactInfoSection = ({ user }: ContactInfoSectionProps) => {
   const { t } = useTranslation('pages/profile');
   const { t: tCommon } = useTranslation('common');
   const { MobilePhonePattern, LineIdPattern, required } = useValidators();
@@ -31,7 +41,7 @@ const ContactInfoSection = ({ user }) => {
     setValue,
     reset,
     formState: { errors }
-  } = useForm({
+  } = useForm<ContactInfoFormData>({
     defaultValues: {
       phone: user.phone || '',
       line: user.line || ''
@@ -56,7 +66,7 @@ const ContactInfoSection = ({ user }) => {
     });
   };
 
-  const handleSave = async (formData) => {
+  const handleSave = async (formData: ContactInfoFormData) => {
     setIsSaving(true);
     setApiError('');
 
@@ -64,7 +74,7 @@ const ContactInfoSection = ({ user }) => {
       const updatedUser = await apiClient.auth.updateProfile(formData);
       setUser(updatedUser);
       setIsEditing(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to save contact info:', error);
       setApiError(tCommon('error.generic.description'));
     } finally {
@@ -75,7 +85,7 @@ const ContactInfoSection = ({ user }) => {
   const handleCloseApiErrorModal = () => {
     setApiError('');
   };
-  const formatPhoneNumber = (phone) => {
+  const formatPhoneNumber = (phone: string | undefined): string | null => {
     if (!phone) return null;
     if (phone.length === 10 && phone.startsWith('0')) {
       return `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`;
