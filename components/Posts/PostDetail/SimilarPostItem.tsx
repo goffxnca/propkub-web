@@ -1,9 +1,31 @@
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { getAssetType } from '../../../libs/mappers/assetTypeMapper';
-import { getPostType } from '../../../libs/mappers/postTypeMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 import { useTranslation } from '../../../hooks/useTranslation';
+import type {
+  PostType,
+  AssetType,
+  Condition,
+  Address,
+  Spec,
+  PriceUnit
+} from '../../../types/models/post';
+
+interface SimilarPostItemProps {
+  id: string;
+  postType: PostType;
+  assetType: AssetType;
+  condition?: Condition;
+  title: string;
+  slug: string;
+  thumbnail: string;
+  thumbnailAlt?: string;
+  price?: number;
+  priceUnit?: PriceUnit;
+  address: Address;
+  specs: Spec[];
+  isStudio?: boolean;
+}
 
 const SimilarPostItem = ({
   id,
@@ -19,7 +41,7 @@ const SimilarPostItem = ({
   address,
   specs,
   isStudio
-}) => {
+}: SimilarPostItemProps) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
   const priceWithFormat = useMemo(() => price?.toLocaleString(), [price]);
