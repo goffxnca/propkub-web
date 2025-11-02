@@ -10,8 +10,14 @@ import {
 } from '../../../libs/managers/postManager';
 import { getLineUrl } from '../../../libs/string-utils';
 import { useTranslation } from '../../../hooks/useTranslation';
+import type { User } from '../../../types/models/user';
 
-const PostDetailAgent = ({ postId, postOwner }) => {
+interface PostDetailAgentProps {
+  postId: string;
+  postOwner: User;
+}
+
+const PostDetailAgent = ({ postId, postOwner }: PostDetailAgentProps) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
   const [phoneVisible, setPhoneVisible] = useState(false);
@@ -27,7 +33,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
     try {
       await increasePhoneView(postId);
       setPhoneVisible(true);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to increase phone view:', error);
       setError(tCommon('error.generic.description'));
     } finally {
@@ -41,7 +47,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
 
     try {
       await increaseLineView(postId);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to increase line view:', error);
       setError(tCommon('error.generic.description'));
     } finally {
@@ -71,6 +77,7 @@ const PostDetailAgent = ({ postId, postOwner }) => {
         <LineBreak />
         <div className="flex flex-col">
           <Button
+            type="button"
             variant="primary"
             onClick={handlePhoneClick}
             disabled={isLoading}
@@ -96,7 +103,6 @@ const PostDetailAgent = ({ postId, postOwner }) => {
             variant="secondary"
             href={getLineUrl(postOwner.line)}
             onClick={handleLineClick}
-            disabled={isLoading}
           >
             <LineIcon className="text-green-500 md:w-6 md:h-6 mr-1" />
             {t('contact.addLine')}
