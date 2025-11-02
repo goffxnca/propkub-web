@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import type { GetStaticProps } from 'next';
 // import Link from "next/link";
 // import HeroBanner from "../components/Banner/HeroBanner";
 // import StatsBanner from "../components/Banner/Stats";
@@ -8,8 +9,16 @@ import { fetchProvinces } from '../libs/managers/addressManager';
 import { fetchActivePosts } from '../libs/post-utils';
 import { genPageTitle } from '../libs/seo-utils';
 import { useTranslation } from '../hooks/useTranslation';
+import type { Post } from '../types/models/post';
+import type { Province } from '../types/models/address';
 
-const HomePage = ({ posts, provinces, hasError }) => {
+interface HomePageProps {
+  posts: Post[];
+  provinces: Province[];
+  hasError: boolean;
+}
+
+const HomePage = ({ posts, provinces, hasError }: HomePageProps) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
 
@@ -32,32 +41,41 @@ const HomePage = ({ posts, provinces, hasError }) => {
   );
 };
 
-export async function getStaticProps() {
-  let posts = [];
-  let provinces = [];
+export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
+  let posts: Post[] = [];
+  let provinces: Province[] = [];
   let hasError = false;
 
   try {
-    posts = await fetchActivePosts(process.env.HOMEPAGE_LIMIT);
-  } catch (error) {
-    console.error('Failed to fetch posts for homepage:', error);
+    posts = await fetchActivePosts();
+  } catch (error: unknown) {
+    console.error(
+      'Failed to fetch posts for homepage:',
+      error instanceof Error ? error.message : error
+    );
     hasError = true;
     posts = [];
   }
 
   try {
     provinces = await fetchProvinces();
-  } catch (error) {
-    console.error('Failed to fetch provinces for homepage:', error);
+  } catch (error: unknown) {
+    console.error(
+      'Failed to fetch provinces for homepage:',
+      error instanceof Error ? error.message : error
+    );
     hasError = true;
     provinces = [];
   }
 
-  const returnProps = {
+  const returnProps: {
+    props: HomePageProps;
+    revalidate?: number;
+  } = {
     props: {
-      posts: posts,
+      posts,
       provinces: provinces || [],
-      hasError: hasError
+      hasError
     }
   };
 
@@ -91,6 +109,6 @@ export async function getStaticProps() {
   );
 
   return returnProps;
-}
+};
 
 export default HomePage;
