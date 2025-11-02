@@ -1,4 +1,17 @@
-const SpecItemWithCircle = ({ label, Icon, circle = true }) => {
+import type { ComponentType } from 'react';
+import type { SVGProps } from 'react';
+
+interface SpecItemWithCircleProps {
+  label: string;
+  Icon: ComponentType<SVGProps<SVGSVGElement>>;
+  circle?: boolean;
+}
+
+const SpecItemWithCircle = ({
+  label,
+  Icon,
+  circle = true
+}: SpecItemWithCircleProps) => {
   return (
     <div className="flex items-center mr-4">
       <div className={`${circle && 'p-1.5 bg-gray-light rounded-full'}`}>
