@@ -18,8 +18,37 @@ import TextEditorInput from '../../UI/Public/Inputs/TextEditorInput';
 import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useRouter } from 'next/router';
+import {
+  ReactHookFormUnRegister,
+  ReactHookFormError
+} from '../../../types/misc/form';
+import type {
+  UseFormRegister,
+  UseFormWatch,
+  UseFormSetValue,
+  FieldErrors
+} from 'react-hook-form';
+import { Locale } from '../../../types/locale';
 
 const genericDropdownItems = getDropdownOptions(5);
+
+interface BasicSectionDefaultValues {
+  priceUnit?: string;
+  areaUnit?: string;
+  landUnit?: string;
+  desc?: string;
+  [key: string]: any;
+}
+
+interface BasicSectionProps {
+  register: UseFormRegister<any>;
+  unregister: ReactHookFormUnRegister;
+  watch: UseFormWatch<any>;
+  setValue: UseFormSetValue<any>;
+  errors: FieldErrors<any>;
+  isEditMode?: boolean;
+  defaultValues?: BasicSectionDefaultValues;
+}
 
 const BasicSection = ({
   register,
@@ -28,10 +57,10 @@ const BasicSection = ({
   setValue,
   errors,
   isEditMode = false,
-  defaultValues
-}) => {
+  defaultValues = {}
+}: BasicSectionProps) => {
   const router = useRouter();
-  const { locale } = router;
+  const locale = router.locale as Locale;
   const { t } = useTranslation('posts');
   const { t: tForm } = useTranslation('pages/post-form');
   const { required, min, max, minLength, maxLength } = useValidators();
@@ -80,7 +109,7 @@ const BasicSection = ({
                 })
               }
               unregister={unregister}
-              error={errors.title}
+              error={errors.title as ReactHookFormError}
             />
           </div>
 
@@ -96,8 +125,8 @@ const BasicSection = ({
                     ...required()
                   })
                 }
-                unregister={unregister}
-                error={errors?.postType}
+              unregister={unregister}
+              error={errors?.postType as ReactHookFormError}
               />
             </div>
 
@@ -112,8 +141,8 @@ const BasicSection = ({
                     ...required()
                   })
                 }
-                unregister={unregister}
-                error={errors?.assetType}
+              unregister={unregister}
+              error={errors?.assetType as ReactHookFormError}
               />
             </div>
 
@@ -129,7 +158,7 @@ const BasicSection = ({
                     })
                   }
                   unregister={unregister}
-                  error={errors?.condition}
+                  error={errors?.condition as ReactHookFormError}
                 />
               </div>
             )}
@@ -161,7 +190,7 @@ const BasicSection = ({
                   })
                 }
                 unregister={unregister}
-                error={errors?.price || errors?.priceUnit}
+                error={(errors?.price || errors?.priceUnit) as ReactHookFormError}
                 setValue={setValue}
               />
             </div>
@@ -191,7 +220,7 @@ const BasicSection = ({
                     })
                   }
                   unregister={unregister}
-                  error={errors?.area || errors?.areaUnit}
+                  error={(errors?.area || errors?.areaUnit) as ReactHookFormError}
                   setValue={setValue}
                 />
               </div>
@@ -222,7 +251,7 @@ const BasicSection = ({
                     })
                   }
                   unregister={unregister}
-                  error={errors?.land || errors?.landUnit}
+                  error={(errors?.land || errors?.landUnit) as ReactHookFormError}
                   setValue={setValue}
                 />
               </div>
@@ -254,7 +283,7 @@ const BasicSection = ({
                         })
                       }
                       unregister={unregister}
-                      error={errors?.specs?.beds}
+                      error={(errors?.specs as any)?.beds as ReactHookFormError}
                     />
                   </div>
                 )}
@@ -264,7 +293,6 @@ const BasicSection = ({
                     <SelectInput
                       id="specs.baths"
                       label={t('fields.specs.baths')}
-                      type="number"
                       showPreOption={false}
                       options={genericDropdownItems}
                       register={() =>
@@ -273,7 +301,7 @@ const BasicSection = ({
                         })
                       }
                       unregister={unregister}
-                      error={errors?.specs?.baths}
+                      error={(errors?.specs as any)?.baths as ReactHookFormError}
                     />
                   </div>
                 )}
@@ -283,7 +311,6 @@ const BasicSection = ({
                     <SelectInput
                       id="specs.kitchens"
                       label={t('fields.specs.kitchens')}
-                      type="number"
                       showPreOption={false}
                       options={genericDropdownItems}
                       register={() =>
@@ -292,7 +319,7 @@ const BasicSection = ({
                         })
                       }
                       unregister={unregister}
-                      error={errors?.specs?.kitchens}
+                      error={(errors?.specs as any)?.kitchens as ReactHookFormError}
                     />
                   </div>
                 )}
@@ -301,7 +328,6 @@ const BasicSection = ({
                   <SelectInput
                     id="specs.parkings"
                     label={t('fields.specs.parkings')}
-                    type="number"
                     showPreOption={false}
                     options={genericDropdownItems}
                     register={() =>
@@ -310,7 +336,7 @@ const BasicSection = ({
                       })
                     }
                     unregister={unregister}
-                    error={errors?.specs?.parkings}
+                    error={(errors?.specs as any)?.parkings as ReactHookFormError}
                   />
                 </div>
               </>
@@ -330,8 +356,8 @@ const BasicSection = ({
               register={register}
               unregister={unregister}
               setValue={setValue}
-              error={errors?.desc_raw}
-              defaultValue={defaultValues.desc}
+              error={errors?.desc_raw as ReactHookFormError}
+              defaultValue={defaultValues?.desc}
             />
           </div>
 
@@ -357,7 +383,7 @@ const BasicSection = ({
                 })
               }
               unregister={unregister}
-              error={errors.refId}
+              error={errors.refId as ReactHookFormError}
             />
           </div>
         </div>
