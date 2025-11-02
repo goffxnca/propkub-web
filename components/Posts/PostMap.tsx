@@ -1,9 +1,16 @@
+interface PostMapProps {
+  mode?: 'place' | 'streetview';
+  lat?: number;
+  lng?: number;
+  heading?: number;
+}
+
 const PostMap = ({
   mode = 'place',
   lat = 13.76496,
   lng = 100.53829,
   heading = 0
-}) => {
+}: PostMapProps) => {
   const baseGoogleMapEmbeddedAPIUrl = `https://www.google.com/maps/embed/v1/${mode}?key=${process.env.NEXT_PUBLIC_GGMAP_API_KEY}`;
   const params =
     mode === 'place'
@@ -19,7 +26,7 @@ const PostMap = ({
         width="600"
         height="450"
         style={{ border: 0, margin: '0 auto' }}
-        allowFullScreen=""
+        allowFullScreen={true}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
       ></iframe>
