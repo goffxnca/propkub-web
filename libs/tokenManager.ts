@@ -2,16 +2,23 @@
 
 const TOKEN_KEY = 'accessToken';
 
-export const tokenManager = {
+interface TokenManager {
+  setToken: (token: string) => void;
+  getToken: () => string | null;
+  removeToken: () => void;
+  hasToken: () => boolean;
+}
+
+export const tokenManager: TokenManager = {
   // Store token in localStorage
-  setToken(token) {
+  setToken(token: string) {
     if (typeof window !== 'undefined') {
       localStorage.setItem(TOKEN_KEY, token);
     }
   },
 
   // Get token from localStorage
-  getToken() {
+  getToken(): string | null {
     if (typeof window !== 'undefined') {
       return localStorage.getItem(TOKEN_KEY);
     }
@@ -26,7 +33,7 @@ export const tokenManager = {
   },
 
   // Check if token exists
-  hasToken() {
+  hasToken(): boolean {
     return !!this.getToken();
   }
 };
