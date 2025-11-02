@@ -1,11 +1,17 @@
 import { envConfig } from '../../libs/envConfig';
 import FacebookIcon from '../Icons/FacebookIcon';
 
+interface LinkFacebookAccountButtonProps {
+  currentUserEmail?: string;
+  size?: 'sm' | 'md';
+  buttonText?: string;
+}
+
 const LinkFacebookAccountButton = ({
   currentUserEmail,
   size = 'sm',
   buttonText = ''
-}) => {
+}: LinkFacebookAccountButtonProps) => {
   const handleFacebookLinking = () => {
     if (!currentUserEmail) {
       console.error(
