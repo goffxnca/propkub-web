@@ -14,8 +14,25 @@ import { useValidators } from '../../hooks/useValidators';
 import { apiClient } from '../../libs/client';
 import { translateServerError } from '../../libs/serverErrorTranslator';
 import { useTranslation } from '../../hooks/useTranslation';
+import { AuthProvider, type User } from '../../types/models/user';
 
-const AccountSecuritySection = ({ user }) => {
+interface PasswordFormData {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
+interface AccountSecuritySectionProps {
+  user: User;
+}
+
+interface PasswordStatus {
+  hasPassword: boolean;
+  canChangePassword: boolean;
+  message: string;
+}
+
+const AccountSecuritySection = ({ user }: AccountSecuritySectionProps) => {
   const router = useRouter();
   const { locale } = router;
   const { t } = useTranslation('pages/profile');
@@ -33,11 +50,11 @@ const AccountSecuritySection = ({ user }) => {
     formState: { errors },
     reset,
     watch
-  } = useForm();
+  } = useForm<PasswordFormData>();
 
-  const getPasswordStatus = () => {
+  const getPasswordStatus = (): PasswordStatus => {
     // Users who signed up with email have passwords
-    if (user.provider === 'email') {
+    if (user.provider === AuthProvider.EMAIL) {
       return {
         hasPassword: true,
         canChangePassword: true,
@@ -68,7 +85,7 @@ const AccountSecuritySection = ({ user }) => {
     reset();
   };
 
-  const handleSave = async (formData) => {
+  const handleSave = async (formData: PasswordFormData) => {
     setIsSaving(true);
     setApiError('');
 
@@ -80,7 +97,7 @@ const AccountSecuritySection = ({ user }) => {
       setSuccess(true);
       setIsEditing(false);
       reset();
-    } catch (error) {
+    } catch (error: any) {
       const errorMessage = translateServerError(error.message, locale);
       setApiError(errorMessage);
     } finally {
@@ -266,7 +283,7 @@ const AccountSecuritySection = ({ user }) => {
             </div>
 
             {/* Security Tips */}
-            {user.provider === 'email' && (
+            {user.provider === AuthProvider.EMAIL && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">
                   {t('sections.security.tips.title')}
