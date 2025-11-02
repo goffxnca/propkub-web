@@ -1,4 +1,9 @@
-const getLocationPrefix = (locationType, isBangkok) => {
+type LocationType = 'pv' | 'dt' | 'sd';
+
+const getLocationPrefix = (
+  locationType: LocationType,
+  isBangkok: boolean
+): string => {
   const prefix =
     locationType === 'pv'
       ? 'จังหวัด'
