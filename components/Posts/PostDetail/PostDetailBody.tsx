@@ -1,8 +1,7 @@
 import { getIcon } from '../../../libs/mappers/iconMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 import { useTranslation } from '../../../hooks/useTranslation';
-import { useMemo } from 'react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Heading from '../../UI/Public/Heading';
 import LineBreak from '../../UI/Public/LineBreak';
 import PostMap from '../PostMap';
@@ -20,21 +19,50 @@ import { SANITIZE_OPTIONS } from '../../../libs/constants';
 import { getLocalDateByISODateString } from '../../../libs/date-utils';
 import { useRouter } from 'next/router';
 import PostImageLightbox from '../PostImageLightbox';
+import type { Post } from '../../../types/models/post';
+import type { User } from '../../../types/models/user';
+import { Locale } from '../../../types/locale';
+import type { ComponentType } from 'react';
 
-const PostDetailBody = ({ post, postViews, images }) => {
+interface ImageData {
+  original: string;
+  thumbnail: string;
+}
+
+interface FormattedSpec {
+  id: string;
+  label: string;
+  value?: number;
+  icon: ComponentType<any>;
+}
+
+interface FormattedFacility {
+  id: string;
+  label: string;
+  icon: ComponentType<any>;
+}
+
+interface PostDetailBodyProps {
+  post: Post & { createdBy?: User };
+  postViews: number;
+  images: ImageData[];
+}
+
+const PostDetailBody = ({ post, postViews, images }: PostDetailBodyProps) => {
   const { t } = useTranslation('posts');
   const { t: tCommon } = useTranslation('common');
   const router = useRouter();
-  const locale = router.locale;
+  const locale = router.locale as Locale;
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
-  const openLightbox = (index) => {
+  const openLightbox = (index: number) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
   };
-  const studioSpec = post?.isStudio
+
+  const studioSpec: FormattedSpec[] = post?.isStudio
     ? [
         {
           id: 'studio',
@@ -44,19 +72,20 @@ const PostDetailBody = ({ post, postViews, images }) => {
       ]
     : [];
 
-  const specsFormat = studioSpec.concat(
+  const specsFormat: FormattedSpec[] = studioSpec.concat(
     post?.specs.map((spec) => ({
       ...spec,
       label: `${spec.value} ${spec.label}`,
       icon: getIcon(spec.id)
-    }))
+    })) || []
   );
 
-  const facilitiesFormat = post?.facilities.map((facility) => ({
-    ...facility,
-    label: facility.label,
-    icon: getIcon(facility.id)
-  }));
+  const facilitiesFormat: FormattedFacility[] =
+    post?.facilities.map((facility) => ({
+      ...facility,
+      label: facility.label,
+      icon: getIcon(facility.id)
+    })) || [];
 
   const priceWithFormat = post?.price?.toLocaleString();
 
@@ -73,9 +102,11 @@ const PostDetailBody = ({ post, postViews, images }) => {
     [post.desc]
   );
 
-  const postType = getPostTypeLabel(post.postType, locale, true);
+  const postType = getPostTypeLabel(post.postType, locale, false);
 
-  const condition = getConditionLabel(post.condition, locale);
+  const condition = post.condition
+    ? getConditionLabel(post.condition, locale)
+    : '';
 
   const badgeLabel = t('card.badge', {
     postType: t(`postTypes.${post.postType}`),
@@ -117,7 +148,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
       <>
         <LineBreak />
         <div>
-          <Heading size="2" label={t('sections.basicInfo')} />
+          <Heading size={2} label={t('sections.basicInfo')} />
           <div className="md:flex md:flex-wrap text-gray-700">
             <div className="md:w-1/2">
               {t('details.type')}: {badgeLabel}
@@ -153,7 +184,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label={t('sections.specs')} />
+            <Heading size={2} label={t('sections.specs')} />
             <div>
               <ul className="flex flex-wrap w-full gap-y-4">
                 {specsFormat?.map((spec) => (
@@ -172,7 +203,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
 
       <LineBreak />
       <div className="wysiwyg-content">
-        <Heading size="2" label={t('sections.details')} />
+        <Heading size={2} label={t('sections.details')} />
         <div
           className="text-gray-700 break-words"
           dangerouslySetInnerHTML={{ __html: purifiedDescInfo }}
@@ -183,7 +214,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label={t('fields.facilities')} />
+            <Heading size={2} label={t('fields.facilities')} />
             <div>
               <ul className="flex flex-wrap w-full gap-y-4">
                 {facilitiesFormat?.map((facility) => (
@@ -204,7 +235,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label={t('sections.video')} />
+            <Heading size={2} label={t('sections.video')} />
             <YoutubeIframe youtubeUrl={post.video} />
           </div>
         </>
@@ -212,7 +243,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
 
       <LineBreak />
       <div>
-        <Heading size="2" label={t('sections.location')} />
+        <Heading size={2} label={t('sections.location')} />
 
         <address className="not-italic">
           <div className="flex items-center">
@@ -235,7 +266,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
               mode="streetview"
               lat={post?.address?.location?.lat}
               lng={post?.address?.location?.lng}
-              heading={post?.address?.location?.h}
+              heading={(post?.address?.location as any)?.h || 0}
             />
           </>
         )}
@@ -245,7 +276,7 @@ const PostDetailBody = ({ post, postViews, images }) => {
         <>
           <LineBreak />
           <div>
-            <Heading size="2" label={t('sections.images')} />
+            <Heading size={2} label={t('sections.images')} />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               {images.map((image, index) => (
                 <div
