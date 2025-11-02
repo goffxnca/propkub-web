@@ -9,11 +9,35 @@ import Modal from '../UI/Public/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { cleanObject } from '../../libs/object-utils';
 import { useTranslation } from '../../hooks/useTranslation';
+import type { Post } from '../../types/models/post';
+import type { Province } from '../../types/models/address';
 
-const PostList = ({ posts, provinces, hasError }) => {
+interface PostType {
+  id: string;
+  label?: string;
+  searchFor?: string;
+}
+
+interface SearchFilter {
+  postType: PostType | null;
+  assetType: string;
+  regionId: string;
+  provinceId: string;
+  districtId: string;
+  subDistrictId: string;
+  loading: boolean;
+}
+
+interface PostListProps {
+  posts: Post[];
+  provinces: Province[];
+  hasError: boolean;
+}
+
+const PostList = ({ posts, provinces, hasError }: PostListProps) => {
   const { t } = useTranslation('posts');
   const [searchCount, setSearchCount] = useState(0);
-  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState<Post[]>([]);
   const [localError, setLocalError] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(hasError);
 
@@ -23,21 +47,24 @@ const PostList = ({ posts, provinces, hasError }) => {
     }
   }, [hasError, localError]);
 
-  const searchHandler = async (filters, onDone) => {
+  const searchHandler = async (
+    filters: SearchFilter,
+    onDone: () => void
+  ): Promise<void> => {
     try {
       const { postType } = filters;
       const cleanFilters = cleanObject({
         ...filters,
-        postType: postType.searchFor
-      });
+        postType: postType?.searchFor
+      }) as any;
       const results = await queryPostWithFilters(cleanFilters);
-      setFilteredPosts(results);
+      setFilteredPosts(results as Post[]);
       setSearchCount((prevSearchCount) => prevSearchCount + 1);
       scroller.scrollTo('searchResult', {
         smooth: true
       });
       onDone();
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to search posts:', error);
       setLocalError(true);
       onDone();
@@ -88,7 +115,6 @@ const PostList = ({ posts, provinces, hasError }) => {
               title={post.title}
               slug={post.slug}
               thumbnail={post.thumbnail}
-              thumbnailAlt={post.thumbnailAlt}
               price={post.price}
               priceUnit={post.priceUnit}
               address={post.address}
