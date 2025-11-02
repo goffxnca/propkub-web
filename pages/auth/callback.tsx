@@ -9,6 +9,7 @@ import GoogleIcon from '../../components/Icons/GoogleIcon';
 import FacebookIcon from '../../components/Icons/FacebookIcon';
 import { tokenManager } from '../../libs/tokenManager';
 import { useTranslation } from '../../hooks/useTranslation';
+import { AuthProvider } from '../../types/models/user';
 
 const AuthCallback = () => {
   const router = useRouter();
@@ -20,24 +21,24 @@ const AuthCallback = () => {
   const [showLinkSuccess, setShowLinkSuccess] = useState(false);
   const [linkProvider, setLinkProvider] = useState('');
 
-  const formatProviderName = (provider) => {
+  const formatProviderName = (provider: AuthProvider) => {
     if (!provider) return 'provider';
     const normalized = provider?.toLowerCase();
     switch (normalized) {
-      case 'google':
+      case AuthProvider.GOOGLE:
         return tCommon('providers.google');
-      case 'facebook':
+      case AuthProvider.FACEBOOK:
         return tCommon('providers.facebook');
       default:
         return provider;
     }
   };
 
-  const formatProviderIcon = (provider) => {
+  const formatProviderIcon = (provider: AuthProvider) => {
     switch ((provider || '').toLowerCase()) {
-      case 'google':
+      case AuthProvider.GOOGLE:
         return <GoogleIcon className="h-6 w-6" />;
-      case 'facebook':
+      case AuthProvider.FACEBOOK:
         return <FacebookIcon className="h-6 w-6 text-blue-800" />;
       default:
         return <CheckIcon className="h-6 w-6 text-green-600" />;
@@ -56,8 +57,8 @@ const AuthCallback = () => {
           if (error === 'email_mismatch') {
             setError(
               t('errors.emailMismatch', {
-                provider: formatProviderName(provider),
-                email: expectedEmail || 'email'
+                provider: formatProviderName(provider as AuthProvider),
+                email: expectedEmail?.toString() || 'email'
               })
             );
           } else if (error === 'linking_failed') {
@@ -65,13 +66,13 @@ const AuthCallback = () => {
           } else if (error === 'already_linked') {
             setError(
               t('errors.alreadyLinked', {
-                provider: formatProviderName(provider)
+                provider: formatProviderName(provider as AuthProvider)
               })
             );
           } else if (error === 'oauth_cancelled') {
             setError(
               t('errors.oauthCancelled', {
-                provider: formatProviderName(provider)
+                provider: formatProviderName(provider as AuthProvider)
               })
             );
           } else {
@@ -152,20 +153,14 @@ const AuthCallback = () => {
 
       <Modal
         visible={showLinkSuccess}
-        Icon={() => formatProviderIcon(linkProvider)}
+        Icon={() => formatProviderIcon(linkProvider as AuthProvider)}
         type="success"
         title={t('success.title', {
-          provider: formatProviderName(linkProvider)
+          provider: formatProviderName(linkProvider as AuthProvider)
         })}
-        desc={
-          <>
-            <p className="mt-2 text-gray-500">
-              {t('success.description', {
-                provider: formatProviderName(linkProvider)
-              })}
-            </p>
-          </>
-        }
+        desc={t('success.description', {
+          provider: formatProviderName(linkProvider as AuthProvider)
+        })}
         buttonCaption={tCommon('buttons.ok')}
         onClose={() => router.push('/profile')}
       />
