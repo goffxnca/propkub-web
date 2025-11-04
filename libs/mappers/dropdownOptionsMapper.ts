@@ -1,4 +1,4 @@
-import { DropdownOption } from '../../types/misc/dropdownOption';
+import { DropdownOption } from '@/types/misc/dropdownOption';
 
 const getDropdownOptions = (total: number): DropdownOption[] => {
   const baseOption: DropdownOption = { id: 0, label: '0' };

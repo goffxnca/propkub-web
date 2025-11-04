@@ -1,15 +1,15 @@
 import { useEffect, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
-import { AuthContext } from '../../contexts/authContext';
-import { apiClient } from '../../libs/client';
+import { useTranslation } from '@/hooks/useTranslation';
+import { AuthContext } from '@/contexts/authContext';
+import { AuthProvider } from '@/types/models/user';
+import GoogleIcon from '@/components/Icons/GoogleIcon';
+import FacebookIcon from '@/components/Icons/FacebookIcon';
 import { ExclamationIcon, CheckIcon } from '@heroicons/react/outline';
-import Loader from '../../components/UI/Common/modals/Loader';
-import Modal from '../../components/UI/Public/Modal';
-import GoogleIcon from '../../components/Icons/GoogleIcon';
-import FacebookIcon from '../../components/Icons/FacebookIcon';
-import { tokenManager } from '../../libs/tokenManager';
-import { useTranslation } from '../../hooks/useTranslation';
-import { AuthProvider } from '../../types/models/user';
+import { tokenManager } from '@/libs/tokenManager';
+import { apiClient } from '@/libs/client';
+import Loader from '@/components/UI/Common/modals/Loader';
+import Modal from '@/components/UI/Modal';
 
 const AuthCallback = () => {
   const router = useRouter();

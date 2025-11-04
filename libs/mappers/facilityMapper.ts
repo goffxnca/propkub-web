@@ -1,9 +1,9 @@
+import { Locale } from '@/types/locale';
 import {
+  FacilitiesObject,
   Facility,
-  FacilityData,
-  FacilitiesObject
-} from '../../types/misc/facility';
-import { Locale } from '../../types/locale';
+  FacilityData
+} from '@/types/misc/facility';
 
 const facilitiesData: FacilityData[] = [
   { id: 'ac', labelTH: 'แอร์', labelEN: 'Air Conditioning' },

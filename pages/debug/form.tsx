@@ -1,14 +1,14 @@
+import CheckboxGroupInput from '@/components/UI/Inputs/CheckboxGroupInput';
+import CheckboxInput from '@/components/UI/Inputs/CheckboxInput';
+import RadioVerticalListInput from '@/components/UI/Inputs/RadioVerticalListInput/RadioVerticalListInput';
+import SelectInput from '@/components/UI/Inputs/SelectInput';
+import TextAreaInput from '@/components/UI/Inputs/TextAreaInput';
+import TextEditorInput from '@/components/UI/Inputs/TextEditorInput';
+import TextInput from '@/components/UI/Inputs/TextInput';
+import TextWithUnitInput from '@/components/UI/Inputs/TextWithUnitInput';
+import UploadImagesInput from '@/components/UI/Inputs/UploadImagesInput/UploadImagesInput';
+import { useValidators } from '@/hooks/useValidators';
 import { useForm } from 'react-hook-form';
-import { useValidators } from '../../hooks/useValidators';
-import TextInput from '../../components/UI/Public/Inputs/TextInput';
-import TextAreaInput from '../../components/UI/Public/Inputs/TextAreaInput';
-import CheckboxInput from '../../components/UI/Public/Inputs/CheckboxInput';
-import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupInput';
-import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
-import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
-import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
-import TextEditorInput from '../../components/UI/Public/Inputs/TextEditorInput';
-import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
 
 interface FormData {
   email: string;

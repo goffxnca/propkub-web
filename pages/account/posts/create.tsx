@@ -1,10 +1,11 @@
-import PostForm from '../../../components/Posts/AddPost/PostForm';
-import { genPageTitle } from '../../../libs/seo-utils';
+import ProtectedRoute from '@/components/Auth/ProtectedRoute';
+import PostForm from '@/components/Posts/AddPost/PostForm';
+import { AuthContext } from '@/contexts/authContext';
+import { useTranslation } from '@/hooks/useTranslation';
+import { genPageTitle } from '@/libs/seo-utils';
 import Head from 'next/head';
-import ProtectedRoute from '../../../components/Auth/ProtectedRoute';
-import { useTranslation } from '../../../hooks/useTranslation';
+
 import { useContext } from 'react';
-import { AuthContext } from '../../../contexts/authContext';
 
 const AddPostPage = () => {
   const { t } = useTranslation('pages/post-form');

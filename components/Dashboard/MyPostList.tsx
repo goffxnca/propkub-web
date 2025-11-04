@@ -1,23 +1,20 @@
-import { useRouter } from 'next/router';
-import { useTranslation } from '../../hooks/useTranslation';
-
-import PostStatusBadge from '../Posts/PostStatusBadge/PostStatusBadge';
-
-import PageTitle from '../UI/Private/PageTitle';
-import Button from '../UI/Public/Button';
-import DataTable from '../UI/Public/DataTable/DataTable';
-import Stats from './Stats';
-import Modal from '../UI/Public/Modal';
+import usePagination from '@/hooks/usePagination';
+import { useTranslation } from '@/hooks/useTranslation';
+import { getMyPosts, getMyPostsStats } from '@/libs/post-utils';
+import { PostStatsResponse } from '@/types/dtos/responses/postStatsResponse';
 import { SearchIcon, ExclamationIcon } from '@heroicons/react/outline';
-
-import { useState, useEffect } from 'react';
-import { getMyPosts, getMyPostsStats } from '../../libs/post-utils';
-import usePagination from '../../hooks/usePagination';
-import Pagination from '../UI/Public/Pagination';
-import Loader from '../UI/Common/modals/Loader';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import PageTitle from '../UI/PageTitle';
+import Stats from './Stats';
+import Button from '../UI/Button';
+import DataTable from '../UI/DataTable';
+import { Post } from '@/types/models/post';
 import Link from 'next/link';
-import type { Post } from '../../types/models/post';
-import type { PostStatsResponse } from '../../types/dtos/responses/postStatsResponse';
+import PostStatusBadge from '../Posts/PostStatusBadge/PostStatusBadge';
+import Pagination from '../UI/Pagination';
+import Loader from '../UI/Common/modals/Loader';
+import Modal from '../UI/Modal';
 
 const MyPostList = () => {
   const router = useRouter();

@@ -1,11 +1,11 @@
-import { getStatusLabelById } from '../../../libs/mappers/statusMapper';
-import Card from '../../UI/Public/Card';
+import { getStatusLabelById } from '@/libs/mappers/statusMapper';
+import { Post } from '@/types/models/post';
+import { User } from '@/types/models/user';
 import PostImageGrid from '../PostImageGrid';
-import PostDetailAgent from './PostDetailAgent';
+import Card from '@/components/UI/Card';
 import PostDetailBody from './PostDetailBody';
+import PostDetailAgent from './PostDetailAgent';
 import SimilarPosts from './SimilarPosts';
-import type { Post } from '../../../types/models/post';
-import type { User } from '../../../types/models/user';
 
 interface ImageData {
   original: string;

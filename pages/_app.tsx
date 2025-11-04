@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import type { AppProps } from 'next/app';
 import type { ReactElement } from 'react';
-import MainLayout from '../components/Layouts/MainLayout';
-import { AuthContextProvider } from '../contexts/authContext';
 import '../styles/globals.css';
+import MainLayout from '@/components/Layouts/MainLayout';
+import { AuthContextProvider } from '@/contexts/authContext';
 
 type NextPageWithLayout = AppProps['Component'] & {
   getLayout?: (page: ReactElement) => ReactElement;

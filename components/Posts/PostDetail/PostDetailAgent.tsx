@@ -1,16 +1,16 @@
-import { PhoneIcon } from '@heroicons/react/solid';
-import LineBreak from '../../UI/Public/LineBreak';
-import Button from '../../UI/Public/Button';
-import { useState } from 'react';
-import LinkButton from '../../UI/Public/LinkButton';
-import LineIcon from '../../Icons/LineIcon';
+import LineIcon from '@/components/Icons/LineIcon';
+import Button from '@/components/UI/Button';
+import LineBreak from '@/components/UI/LineBreak';
+import LinkButton from '@/components/UI/LinkButton';
+import { useTranslation } from '@/hooks/useTranslation';
 import {
-  increasePhoneView,
-  increaseLineView
-} from '../../../libs/managers/postManager';
-import { getLineUrl } from '../../../libs/string-utils';
-import { useTranslation } from '../../../hooks/useTranslation';
-import type { User } from '../../../types/models/user';
+  increaseLineView,
+  increasePhoneView
+} from '@/libs/managers/postManager';
+import { getLineUrl } from '@/libs/string-utils';
+import { User } from '@/types/models/user';
+import { PhoneIcon } from '@heroicons/react/solid';
+import { useState } from 'react';
 
 interface PostDetailAgentProps {
   postId: string;

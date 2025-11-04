@@ -1,10 +1,10 @@
+import GuestOnlyRoute from '@/components/Auth/GuestOnlyRoute';
+import SignupForm from '@/components/Auth/Signup/SignupForm';
+import AuthLayout from '@/components/Layouts/AuthLayout';
+import { useTranslation } from '@/hooks/useTranslation';
+import { BASE_SITE_URL } from '@/libs/constants';
+import { genPageTitle } from '@/libs/seo-utils';
 import Head from 'next/head';
-import SignupForm from '../components/Auth/Signup/SignupForm';
-import AuthLayout from '../components/Layouts/AuthLayout';
-import GuestOnlyRoute from '../components/Auth/GuestOnlyRoute';
-import { BASE_SITE_URL } from '../libs/constants';
-import { genPageTitle } from '../libs/seo-utils';
-import { useTranslation } from '../hooks/useTranslation';
 
 const SignupPage = () => {
   const { t } = useTranslation('pages/signup');

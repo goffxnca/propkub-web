@@ -4,7 +4,7 @@ import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../../types/misc/form';
+} from '@/types/misc/form';
 
 interface CheckboxInputProps {
   id: string;

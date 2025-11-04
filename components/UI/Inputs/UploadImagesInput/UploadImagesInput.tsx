@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import UploadImagesInputDetail from './UploadImagesInputDetail';
-import BaseInput from '../BaseInput';
-import { useTranslation } from '../../../../../hooks/useTranslation';
+import { useTranslation } from '@/hooks/useTranslation';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../../../types/misc/form';
+} from '@/types/misc/form';
+import { useEffect, useState } from 'react';
 import type { UseFormSetValue } from 'react-hook-form';
+import BaseInput from '../BaseInput';
+import UploadImagesInputDetail from './UploadImagesInputDetail';
 
 interface UploadImagesInputProps {
   id: string;

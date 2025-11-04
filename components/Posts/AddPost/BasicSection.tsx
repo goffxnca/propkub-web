@@ -1,34 +1,31 @@
-import SelectInput from '../../UI/Public/Inputs/SelectInput';
-import TextInput from '../../UI/Public/Inputs/TextInput';
-import { getPostTypes } from '../../../libs/mappers/postTypeMapper';
-import { getAssetTypes } from '../../../libs/mappers/assetTypeMapper';
-import { getConditions } from '../../../libs/mappers/conditionMapper';
-import { getPriceUnitList } from '../../../libs/mappers/priceUnitMapper';
-import { getStandardAreaUnits } from '../../../libs/mappers/areaUnitMapper';
-import { useValidators } from '../../../hooks/useValidators';
-import CheckboxGroupInput from '../../UI/Public/Inputs/CheckboxGroupInput';
+import CheckboxGroupInput from '@/components/UI/Inputs/CheckboxGroupInput';
+import CheckboxInput from '@/components/UI/Inputs/CheckboxInput';
+import SelectInput from '@/components/UI/Inputs/SelectInput';
+import TextEditorInput from '@/components/UI/Inputs/TextEditorInput';
+import TextInput from '@/components/UI/Inputs/TextInput';
+import TextWithUnitInput from '@/components/UI/Inputs/TextWithUnitInput';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { getStandardAreaUnits } from '@/libs/mappers/areaUnitMapper';
+import { getAssetTypes } from '@/libs/mappers/assetTypeMapper';
+import { getConditions } from '@/libs/mappers/conditionMapper';
+import { getDropdownOptions } from '@/libs/mappers/dropdownOptionsMapper';
 import {
   getLandFacilities,
   getNonLandFacilities
-} from '../../../libs/mappers/facilityMapper';
-import TextWithUnitInput from '../../UI/Public/Inputs/TextWithUnitInput';
-import { getDropdownOptions } from '../../../libs/mappers/dropdownOptionsMapper';
-import { useEffect, useMemo } from 'react';
-import TextEditorInput from '../../UI/Public/Inputs/TextEditorInput';
-import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
-import { useTranslation } from '../../../hooks/useTranslation';
+} from '@/libs/mappers/facilityMapper';
+import { getPostTypes } from '@/libs/mappers/postTypeMapper';
+import { getPriceUnitList } from '@/libs/mappers/priceUnitMapper';
+import { Locale } from '@/types/locale';
+import { ReactHookFormError, ReactHookFormUnRegister } from '@/types/misc/form';
 import { useRouter } from 'next/router';
-import {
-  ReactHookFormUnRegister,
-  ReactHookFormError
-} from '../../../types/misc/form';
+import { useEffect, useMemo } from 'react';
 import type {
   UseFormRegister,
   UseFormWatch,
   UseFormSetValue,
   FieldErrors
 } from 'react-hook-form';
-import { Locale } from '../../../types/locale';
 
 const genericDropdownItems = getDropdownOptions(5);
 
@@ -125,8 +122,8 @@ const BasicSection = ({
                     ...required()
                   })
                 }
-              unregister={unregister}
-              error={errors?.postType as ReactHookFormError}
+                unregister={unregister}
+                error={errors?.postType as ReactHookFormError}
               />
             </div>
 
@@ -141,8 +138,8 @@ const BasicSection = ({
                     ...required()
                   })
                 }
-              unregister={unregister}
-              error={errors?.assetType as ReactHookFormError}
+                unregister={unregister}
+                error={errors?.assetType as ReactHookFormError}
               />
             </div>
 
@@ -190,7 +187,9 @@ const BasicSection = ({
                   })
                 }
                 unregister={unregister}
-                error={(errors?.price || errors?.priceUnit) as ReactHookFormError}
+                error={
+                  (errors?.price || errors?.priceUnit) as ReactHookFormError
+                }
                 setValue={setValue}
               />
             </div>
@@ -220,7 +219,9 @@ const BasicSection = ({
                     })
                   }
                   unregister={unregister}
-                  error={(errors?.area || errors?.areaUnit) as ReactHookFormError}
+                  error={
+                    (errors?.area || errors?.areaUnit) as ReactHookFormError
+                  }
                   setValue={setValue}
                 />
               </div>
@@ -251,7 +252,9 @@ const BasicSection = ({
                     })
                   }
                   unregister={unregister}
-                  error={(errors?.land || errors?.landUnit) as ReactHookFormError}
+                  error={
+                    (errors?.land || errors?.landUnit) as ReactHookFormError
+                  }
                   setValue={setValue}
                 />
               </div>
@@ -301,7 +304,9 @@ const BasicSection = ({
                         })
                       }
                       unregister={unregister}
-                      error={(errors?.specs as any)?.baths as ReactHookFormError}
+                      error={
+                        (errors?.specs as any)?.baths as ReactHookFormError
+                      }
                     />
                   </div>
                 )}
@@ -319,7 +324,9 @@ const BasicSection = ({
                         })
                       }
                       unregister={unregister}
-                      error={(errors?.specs as any)?.kitchens as ReactHookFormError}
+                      error={
+                        (errors?.specs as any)?.kitchens as ReactHookFormError
+                      }
                     />
                   </div>
                 )}
@@ -336,7 +343,9 @@ const BasicSection = ({
                       })
                     }
                     unregister={unregister}
-                    error={(errors?.specs as any)?.parkings as ReactHookFormError}
+                    error={
+                      (errors?.specs as any)?.parkings as ReactHookFormError
+                    }
                   />
                 </div>
               </>

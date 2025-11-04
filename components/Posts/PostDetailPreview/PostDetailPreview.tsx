@@ -1,22 +1,22 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import PageTitle from '../../UI/Private/PageTitle';
 import sanitizeHtml from 'sanitize-html';
-import { getConditionLabel } from '../../../libs/mappers/conditionMapper';
-import { getAreaUnitLabel } from '../../../libs/mappers/areaUnitMapper';
-import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
-import { formatAddressFull } from '../../../libs/formatters/addressFormatter';
-import { getSpecLabel, getSpecsArray } from '../../../libs/mappers/specMapper';
-import { orDefault } from '../../../libs/string-utils';
-import { getDateString } from '../../../libs/date-utils';
-import PostDetailStats from './PostDetailStats';
-import PostActionConsole from './PostActionConsole';
+import { Post } from '@/types/models/post';
+import { useTranslation } from '@/hooks/useTranslation';
+import { SANITIZE_OPTIONS } from '@/libs/constants';
+import { getPriceUnit } from '@/libs/mappers/priceUnitMapper';
+import { orDefault } from '@/libs/string-utils';
+import { getSpecLabel } from '@/libs/mappers/specMapper';
+import { formatAddressFull } from '@/libs/formatters/addressFormatter';
+import { getAreaUnitLabel } from '@/libs/mappers/areaUnitMapper';
+import { getConditionLabel } from '@/libs/mappers/conditionMapper';
+import { Locale } from '@/types/locale';
+import { getDateString } from '@/libs/date-utils';
+import PageTitle from '@/components/UI/PageTitle';
 import PostStatusBadge from '../PostStatusBadge/PostStatusBadge';
+import PostDetailStats from './PostDetailStats';
 import PostTimeline from './PostTimeline';
-import { SANITIZE_OPTIONS } from '../../../libs/constants';
-import { useTranslation } from '../../../hooks/useTranslation';
-import type { Post } from '../../../types/models/post';
-import { Locale } from '../../../types/locale';
+import PostActionConsole from './PostActionConsole';
 
 interface PostActionItem {
   type: string;
@@ -89,7 +89,8 @@ const PostDetailPreview = ({ post, postActions }: PostDetailPreviewProps) => {
       : orDefault(post.area);
   const condition = orDefault(
     post.condition &&
-      (tCommon(`conditions.${post.condition}`) || getConditionLabel(post.condition, router.locale as Locale))
+      (tCommon(`conditions.${post.condition}`) ||
+        getConditionLabel(post.condition, router.locale as Locale))
   );
   const agentRefNumber = orDefault(post.refId);
   const locale = router?.locale;

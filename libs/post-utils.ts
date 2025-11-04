@@ -1,23 +1,24 @@
-import { getFacilityArray } from './mappers/facilityMapper';
-import { getSpecsArray } from './mappers/specMapper';
-import { getUnixEpochTime } from './date-utils';
-import { uploadFileToStorage } from './utils/file-utils';
-import { apiClient } from './client';
-import { populateAddressLabels } from './utils/address-utils';
-import type {
-  Post,
+import {
   Address,
   AreaUnit,
-  PriceUnit,
-  Condition
-} from '../types/models/post';
-import type { SearchPostRequest } from '../types/dtos/requests/searchPostRequest';
-import type { CreatePostRequest } from '../types/dtos/requests/createPostRequest';
-import type { UpdatePostRequest } from '../types/dtos/requests/updatePostRequest';
-import type { PostSitemapResponse } from '../types/dtos/responses/postSitemapResponse';
-import type { PostStatsResponse } from '../types/dtos/responses/postStatsResponse';
-import type { paginatedItemsResponse } from '../types/dtos/responses/paginatedItemsResponse';
-import type { AssetType, PostType } from '../types/models/post';
+  AssetType,
+  Condition,
+  Post,
+  PostType,
+  PriceUnit
+} from '@/types/models/post';
+import { apiClient } from './client';
+import { PostSitemapResponse } from '@/types/dtos/responses/postSitemapResponse';
+import { SearchPostRequest } from '@/types/dtos/requests/searchPostRequest';
+import { paginatedItemsResponse } from '@/types/dtos/responses/paginatedItemsResponse';
+import { PostStatsResponse } from '@/types/dtos/responses/postStatsResponse';
+import { getUnixEpochTime } from './date-utils';
+import { uploadFileToStorage } from './utils/file-utils';
+import { CreatePostRequest } from '@/types/dtos/requests/createPostRequest';
+import { getFacilityArray } from './mappers/facilityMapper';
+import { getSpecsArray } from './mappers/specMapper';
+import { populateAddressLabels } from './utils/address-utils';
+import { UpdatePostRequest } from '@/types/dtos/requests/updatePostRequest';
 
 export const fetchActivePosts = async (): Promise<Post[]> => {
   const response = await apiClient.posts.getAllPosts({ page: 1, per_page: 50 });

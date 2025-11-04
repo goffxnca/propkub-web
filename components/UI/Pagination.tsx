@@ -1,5 +1,5 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
-import { useTranslation } from '../../../hooks/useTranslation';
 
 interface PaginationProps {
   page: number;

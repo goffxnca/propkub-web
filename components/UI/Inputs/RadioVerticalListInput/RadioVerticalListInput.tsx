@@ -1,12 +1,12 @@
-import { useEffect } from 'react';
-import BaseInput from '../BaseInput';
-import RadioVerticalListDetail from './RadioVerticalListDetail';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../../../types/misc/form';
+} from '@/types/misc/form';
+import { useEffect } from 'react';
 import type { UseFormSetValue } from 'react-hook-form';
+import BaseInput from '../BaseInput';
+import RadioVerticalListDetail from './RadioVerticalListDetail';
 
 interface RadioVerticalListItem {
   id: string | number;

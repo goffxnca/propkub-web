@@ -1,28 +1,32 @@
-import { Fragment, useEffect, useMemo, useState, FormEventHandler, ChangeEventHandler } from 'react';
+import {
+  Fragment,
+  useEffect,
+  useMemo,
+  useState,
+  FormEventHandler,
+  ChangeEventHandler
+} from 'react';
 import styles from './PostFilter.module.css';
 
 import orderby from 'lodash.orderby';
 
-import LocationIcon from '../Icons/LocationIcon';
 import { SearchIcon, ArrowRightIcon } from '@heroicons/react/solid';
 
-import regions from '../../data/regions.json';
-
-import { getAssetTypes } from '../../libs/mappers/assetTypeMapper';
-import { AssetType } from '../../types/misc/assetType';
-import { Province, District, SubDistrict } from '../../types/models/address';
-import { Locale } from '../../types/locale';
-
-import SelectInput from '../UI/Public/Inputs/SelectInput';
-
-import Loader from '../UI/Common/modals/Loader';
 import { useRouter } from 'next/router';
+import { useTranslation } from '@/hooks/useTranslation';
+import { District, Province, SubDistrict } from '@/types/models/address';
+import { getAssetTypes } from '@/libs/mappers/assetTypeMapper';
+import { Locale } from '@/types/locale';
+import { AssetType } from '@/types/misc/assetType';
 import {
-  fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
+  fetchProvincesByRegionId,
   fetchSubDistrictsByDistrictId
-} from '../../libs/managers/addressManager';
-import { useTranslation } from '../../hooks/useTranslation';
+} from '@/libs/managers/addressManager';
+import LocationIcon from '../Icons/LocationIcon';
+import SelectInput from '../UI/Inputs/SelectInput';
+import Loader from '../UI/Common/modals/Loader';
+import regions from '../../data/regions.json';
 
 interface Region {
   id: string;
@@ -65,7 +69,9 @@ const PostFilter = ({ onSearch, onReset }: PostFilterProps) => {
   const router = useRouter();
   const { locale } = router;
   const { t } = useTranslation('posts');
-  const [searchFilter, setSearchFilter] = useState<SearchFilter>({ ...initialFilters });
+  const [searchFilter, setSearchFilter] = useState<SearchFilter>({
+    ...initialFilters
+  });
 
   const postTypes: PostType[] = [
     { id: 'rent', label: t('filter.actions.rent'), searchFor: 'rent' },
@@ -83,13 +89,18 @@ const PostFilter = ({ onSearch, onReset }: PostFilterProps) => {
     isActive: searchFilter.postType?.id === postType.id
   }));
 
-  const assetTypeList = getAssetTypes(locale as Locale).map((assetType: AssetType) => ({
-    ...assetType,
-    label: t(`assetTypes.${assetType.id}`),
-    isActive: searchFilter.assetType === assetType.id
-  }));
+  const assetTypeList = getAssetTypes(locale as Locale).map(
+    (assetType: AssetType) => ({
+      ...assetType,
+      label: t(`assetTypes.${assetType.id}`),
+      isActive: searchFilter.assetType === assetType.id
+    })
+  );
 
-  const regionList = useMemo(() => orderby(regions as Region[], 'name', 'asc'), []);
+  const regionList = useMemo(
+    () => orderby(regions as Region[], 'name', 'asc'),
+    []
+  );
 
   //handlers
   const selectPostTypeHandler = (postType: PostType) => {
@@ -119,19 +130,27 @@ const PostFilter = ({ onSearch, onReset }: PostFilterProps) => {
     });
   };
 
-  const regionChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
+  const regionChangeHandler: ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     setSearchFilter((state) => ({ ...state, regionId: event.target.value }));
   };
 
-  const provinceChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
+  const provinceChangeHandler: ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     setSearchFilter((state) => ({ ...state, provinceId: event.target.value }));
   };
 
-  const districtChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
+  const districtChangeHandler: ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     setSearchFilter((state) => ({ ...state, districtId: event.target.value }));
   };
 
-  const subDistrictChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
+  const subDistrictChangeHandler: ChangeEventHandler<HTMLSelectElement> = (
+    event
+  ) => {
     setSearchFilter((state) => ({
       ...state,
       subDistrictId: event.target.value

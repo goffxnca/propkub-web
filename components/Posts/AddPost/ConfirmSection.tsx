@@ -1,8 +1,8 @@
-import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
-import { useTranslation } from '../../../hooks/useTranslation';
-import { useValidators } from '../../../hooks/useValidators';
-import type { ReactHookFormUnRegister } from '../../../types/misc/form';
-import type { UseFormRegister, FieldErrors } from 'react-hook-form';
+import CheckboxInput from '@/components/UI/Inputs/CheckboxInput';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { ReactHookFormUnRegister } from '@/types/misc/form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 interface ConfirmSectionProps {
   register: UseFormRegister<any>;

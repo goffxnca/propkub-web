@@ -1,16 +1,15 @@
 import Head from 'next/head';
 import type { GetStaticProps } from 'next';
+import { Post } from '@/types/models/post';
+import { Province } from '@/types/models/address';
+import { useTranslation } from '@/hooks/useTranslation';
+import { BASE_SITE_URL } from '@/libs/constants';
+import PostList from '@/components/Posts/PostList';
+import { fetchActivePosts } from '@/libs/post-utils';
+import { fetchProvinces } from '@/libs/managers/addressManager';
 // import Link from "next/link";
 // import HeroBanner from "../components/Banner/HeroBanner";
 // import StatsBanner from "../components/Banner/Stats";
-import PostList from '../components/Posts/PostList';
-import { BASE_SITE_URL } from '../libs/constants';
-import { fetchProvinces } from '../libs/managers/addressManager';
-import { fetchActivePosts } from '../libs/post-utils';
-import { genPageTitle } from '../libs/seo-utils';
-import { useTranslation } from '../hooks/useTranslation';
-import type { Post } from '../types/models/post';
-import type { Province } from '../types/models/address';
 
 interface HomePageProps {
   posts: Post[];

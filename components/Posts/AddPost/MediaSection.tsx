@@ -1,12 +1,6 @@
-// import { getYoutubeVideoId } from '../../../libs/string-utils';
-// import TextInput from '../../UI/Public/Inputs/TextInput';
-import UploadImagesInput from '../../UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
-import YoutubeIframe from '../../UI/Public/YoutubeIframe';
-import { useTranslation } from '../../../hooks/useTranslation';
-import {
-  ReactHookFormUnRegister,
-  ReactHookFormError
-} from '../../../types/misc/form';
+import UploadImagesInput from '@/components/UI/Inputs/UploadImagesInput/UploadImagesInput';
+import { useTranslation } from '@/hooks/useTranslation';
+import { ReactHookFormError, ReactHookFormUnRegister } from '@/types/misc/form';
 import type {
   UseFormRegister,
   UseFormWatch,

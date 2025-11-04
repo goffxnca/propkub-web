@@ -8,13 +8,13 @@ import {
   CheckIcon,
   XIcon
 } from '@heroicons/react/outline';
-import TextInput from '../UI/Public/Inputs/TextInput';
-import Modal from '../UI/Public/Modal';
-import { useValidators } from '../../hooks/useValidators';
-import { apiClient } from '../../libs/client';
-import { translateServerError } from '../../libs/serverErrorTranslator';
-import { useTranslation } from '../../hooks/useTranslation';
-import { AuthProvider, type User } from '../../types/models/user';
+import { AuthProvider, User } from '@/types/models/user';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { apiClient } from '@/libs/client';
+import { translateServerError } from '@/libs/serverErrorTranslator';
+import TextInput from '../UI/Inputs/TextInput';
+import Modal from '../UI/Modal';
 
 interface PasswordFormData {
   currentPassword: string;

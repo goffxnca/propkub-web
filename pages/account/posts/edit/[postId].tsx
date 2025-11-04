@@ -1,6 +1,6 @@
+import ProtectedRoute from '@/components/Auth/ProtectedRoute';
+import EditPostContainer from '@/components/Posts/EditPost/EditPostContainer';
 import { useRouter } from 'next/router';
-import ProtectedRoute from '../../../../components/Auth/ProtectedRoute';
-import EditPostContainer from '../../../../components/Posts/EditPost/EditPostContainer';
 
 const EditPostPage = () => {
   const router = useRouter();

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.1.1 (2025-11-04)
+
+### Improvements
+
+- Upgrade project to use root alias imports with the `@/..` for example: `import Button from '@/components/UI/Button';`
+- Consolidated UI components: removed `components/UI/private/..` and `components/UI/public/..` all shared components now live under `components/UI/..`.
+
 ## 2.1.0 (2025-11-02)
 
 ### Improvements

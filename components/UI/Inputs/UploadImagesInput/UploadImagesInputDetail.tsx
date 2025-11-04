@@ -1,10 +1,10 @@
+import { useTranslation } from '@/hooks/useTranslation';
+import { resizeFile } from '@/libs/utils/file-utils';
+import { ReactHookFormError } from '@/types/misc/form';
 import { useEffect, useRef, useState, ChangeEvent } from 'react';
-import CirclePlus from '../../../../Icons/CirclePlus';
 import UploadImagePreviewItem from './UploadImagePreviewItem';
+import CirclePlus from '@/components/Icons/CirclePlus';
 import InlineError from '../../InlineError';
-import { resizeFile } from '../../../../../libs/utils/file-utils';
-import { useTranslation } from '../../../../../hooks/useTranslation';
-import { ReactHookFormError } from '../../../../../types/misc/form';
 
 interface InlineErrorType {
   title: string;

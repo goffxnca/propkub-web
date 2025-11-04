@@ -1,5 +1,4 @@
-import { getYoutubeVideoId } from '../../../libs/string-utils';
-import styles from './YoutubeIframe.module.css';
+import { getYoutubeVideoId } from '@/libs/string-utils';
 
 interface YoutubeIframeProps {
   youtubeUrl?: string;
@@ -11,7 +10,7 @@ const YoutubeIframe = ({ youtubeUrl = '' }: YoutubeIframeProps) => {
   if (!youtubeVideoId) return null;
 
   return (
-    <div className={styles.iframeContainer}>
+    <div className="iframeContainer">
       <iframe
         width="853"
         height="480"
@@ -20,7 +19,7 @@ const YoutubeIframe = ({ youtubeUrl = '' }: YoutubeIframeProps) => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         title="Embedded Youtube"
-        className={styles.responsiveIframe}
+        className="responsiveIframe"
       />
     </div>
   );

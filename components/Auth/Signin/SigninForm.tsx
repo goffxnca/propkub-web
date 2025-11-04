@@ -1,17 +1,16 @@
-import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { AuthContext } from '../../../contexts/authContext';
+import Logo from '@/components/Layouts/Logo';
+import Button from '@/components/UI/Button';
+import TextInput from '@/components/UI/Inputs/TextInput';
+import GoogleLoginButton from '@/components/UI/SocialLogin/GoogleLoginButton';
+import { AuthContext } from '@/contexts/authContext';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
 import { ExclamationIcon } from '@heroicons/react/outline';
-import { useTranslation } from '../../../hooks/useTranslation';
-import { useValidators } from '../../../hooks/useValidators';
-import Logo from '../../Layouts/Logo';
-import Button from '../../UI/Public/Button';
-import TextInput from '../../UI/Public/Inputs/TextInput';
-import GoogleLoginButton from '../../UI/Public/SocialLogin/GoogleLoginButton';
-import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton';
-import Modal from '../../UI/Public/Modal';
+import Link from 'next/link';
+import { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import ForgotPasswordModal from '../ForgotPasswordModal';
+import Modal from '@/components/UI/Modal';
 
 const SigninForm = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);

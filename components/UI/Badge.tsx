@@ -1,5 +1,4 @@
-import React from 'react';
-import { Variant } from '../../../libs/utils/style-utils';
+import { Variant } from '@/libs/utils/style-utils';
 
 interface BadgeProps {
   children: React.ReactNode;

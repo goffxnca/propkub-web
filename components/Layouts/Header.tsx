@@ -1,4 +1,4 @@
-import { Fragment, useContext } from 'react';
+import { ComponentType, Fragment, SVGProps, useContext } from 'react';
 import { Popover, Transition, Menu } from '@headlessui/react';
 import {
   MenuIcon,
@@ -11,16 +11,13 @@ import {
   PencilAltIcon
 } from '@heroicons/react/outline';
 import Link from 'next/link';
-import Logo from './Logo';
-import { AuthContext } from '../../contexts/authContext';
-import { joinClasses } from '../../libs/utils/style-utils';
+import { AuthContext, AuthContextValue } from '@/contexts/authContext';
+import { useTranslation } from '@/hooks/useTranslation';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import { ChatIcon } from '@heroicons/react/solid';
-import MenuLinkItem from '../UI/Public/MenuLinkItem';
+import Logo from './Logo';
 import LocaleSwitcher from '../UI/LocaleSwitcher';
-import { useTranslation } from '../../hooks/useTranslation';
-import type { AuthContextValue } from '../../contexts/authContext';
-import type { ComponentType, SVGProps, MouseEventHandler } from 'react';
+import { joinClasses } from '@/libs/utils/style-utils';
+import MenuLinkItem from '../UI/MenuLinkItem';
 
 interface NavigationItem {
   name: string;
@@ -34,8 +31,9 @@ interface NavigationItem {
 }
 
 const Header = () => {
-  const { signout, user, isAgent, isAuthenticated, loading } =
-    useContext(AuthContext) as AuthContextValue;
+  const { signout, user, isAgent, isAuthenticated, loading } = useContext(
+    AuthContext
+  ) as AuthContextValue;
   const { t } = useTranslation();
 
   const navigations: NavigationItem[] = [
@@ -215,7 +213,12 @@ const Header = () => {
                       .map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
-                            <div className={joinClasses(active ? 'bg-gray-100' : '', item.classes)}>
+                            <div
+                              className={joinClasses(
+                                active ? 'bg-gray-100' : '',
+                                item.classes
+                              )}
+                            >
                               <MenuLinkItem
                                 href={item.href}
                                 onClick={(e) => {

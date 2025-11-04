@@ -1,14 +1,14 @@
 import Head from 'next/head';
 import type { GetServerSideProps } from 'next';
-import PostDetail from '../../components/Posts/PostDetail/PostDetail';
+import { Post } from '@/types/models/post';
+import { User } from '@/types/models/user';
 import {
   genPropertyDescriptionMeta,
   genPropertyTitleMeta
-} from '../../libs/seo-utils';
-import { FetchPostByNumber, FetchSimilarPosts } from '../../libs/post-utils';
-import { BASE_SITE_URL } from '../../libs/constants';
-import type { Post } from '../../types/models/post';
-import type { User } from '../../types/models/user';
+} from '@/libs/seo-utils';
+import { BASE_SITE_URL } from '@/libs/constants';
+import PostDetail from '@/components/Posts/PostDetail/PostDetail';
+import { FetchPostByNumber, FetchSimilarPosts } from '@/libs/post-utils';
 
 interface PropertyDetailPageProps {
   post: Post & { createdBy: User };

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
-import { joinClasses } from '../../../../../libs/utils/style-utils';
-import { ReactHookFormError } from '../../../../../types/misc/form';
+import { ReactHookFormError } from '@/types/misc/form';
+import { joinClasses } from '@/libs/utils/style-utils';
 
 interface RadioVerticalListItem {
   id: string | number;

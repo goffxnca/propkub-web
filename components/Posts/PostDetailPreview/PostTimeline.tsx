@@ -1,11 +1,11 @@
-import React from 'react';
-import Badge from '../../UI/Badge/Badge';
-import { getThaiFullDateTimeString } from '../../../libs/date-utils';
+import Badge from '@/components/UI/Badge';
+import { useTranslation } from '@/hooks/useTranslation';
+import { getThaiFullDateTimeString } from '@/libs/date-utils';
 import {
-  getPostActionVariantById,
-  getPostActionIconById
-} from '../../../libs/mappers/postActionMapper';
-import { useTranslation } from '../../../hooks/useTranslation';
+  getPostActionIconById,
+  getPostActionVariantById
+} from '@/libs/mappers/postActionMapper';
+import React from 'react';
 
 interface PostActionItem {
   type: string;

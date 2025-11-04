@@ -1,16 +1,18 @@
 import { useMemo, useState, useEffect } from 'react';
+
+import { animateScroll, Element, scroller } from 'react-scroll';
+
+import { ExclamationIcon } from '@heroicons/react/outline';
+import { Post } from '@/types/models/post';
+import { Province } from '@/types/models/address';
+import { useTranslation } from '@/hooks/useTranslation';
+import { cleanObject } from '@/libs/object-utils';
+import { queryPostWithFilters } from '@/libs/post-utils';
 import PostFilter from './PostFilter';
 import PostItem from './PostItem';
-import { animateScroll, Element, scroller } from 'react-scroll';
-import { queryPostWithFilters } from '../../libs/post-utils';
 import PostRow from './PostRow';
 import PostsByRegion from './PostsByRegion';
-import Modal from '../UI/Public/Modal';
-import { ExclamationIcon } from '@heroicons/react/outline';
-import { cleanObject } from '../../libs/object-utils';
-import { useTranslation } from '../../hooks/useTranslation';
-import type { Post } from '../../types/models/post';
-import type { Province } from '../../types/models/address';
+import Modal from '../UI/Modal';
 
 interface PostType {
   id: string;

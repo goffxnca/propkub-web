@@ -1,8 +1,8 @@
+import ContactForm from '@/components/Contact/ContactForm';
+import { useTranslation } from '@/hooks/useTranslation';
+import { BASE_SITE_URL } from '@/libs/constants';
+import { genPageTitle } from '@/libs/seo-utils';
 import Head from 'next/head';
-import ContactForm from '../components/Contact/ContactForm';
-import { BASE_SITE_URL } from '../libs/constants';
-import { genPageTitle } from '../libs/seo-utils';
-import { useTranslation } from '../hooks/useTranslation';
 
 const ContactPage = () => {
   const { t } = useTranslation('pages/contact');

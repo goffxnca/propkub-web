@@ -1,12 +1,12 @@
+import { useTranslation } from '@/hooks/useTranslation';
+import { AuthProvider, User } from '@/types/models/user';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/outline';
+import { MailIcon } from '@heroicons/react/outline';
+import type { ReactNode } from 'react';
 import GoogleIcon from '../Icons/GoogleIcon';
 import FacebookIcon from '../Icons/FacebookIcon';
-import { MailIcon } from '@heroicons/react/outline';
 import LinkGoogleAccountButton from '../UI/LinkGoogleAccountButton';
 import LinkFacebookAccountButton from '../UI/LinkFacebookAccountButton';
-import { useTranslation } from '../../hooks/useTranslation';
-import { AuthProvider, type User } from '../../types/models/user';
-import type { ReactNode } from 'react';
 
 interface ProviderInfo {
   name: string;

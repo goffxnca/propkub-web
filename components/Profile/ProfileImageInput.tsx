@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState, ChangeEvent } from 'react';
-import { resizeFile } from '../../libs/utils/file-utils';
-import Modal from '../UI/Public/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
-import { useTranslation } from '../../hooks/useTranslation';
+import type { UseFormSetValue } from 'react-hook-form';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../types/misc/form';
-import type { UseFormSetValue } from 'react-hook-form';
+} from '@/types/misc/form';
+import { useTranslation } from '@/hooks/useTranslation';
+import { resizeFile } from '@/libs/utils/file-utils';
+import Modal from '../UI/Modal';
 
 const maxFileSizeMB = 10;
 

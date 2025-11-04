@@ -1,4 +1,4 @@
-import { AssetType, PostType } from '../../models/post';
+import { AssetType, PostType } from '@/types/models/post';
 
 export interface SearchPostRequest {
   assetType: AssetType;

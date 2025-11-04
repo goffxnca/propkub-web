@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
-import PageTitle from '../UI/Private/PageTitle';
-import { AuthContext } from '../../contexts/authContext';
+import { useTranslation } from '@/hooks/useTranslation';
+import { AuthContext } from '@/contexts/authContext';
+import PageTitle from '../UI/PageTitle';
+import Button from '../UI/Button';
 import ProfileWarnings from './ProfileWarnings';
 import PersonalInfoSection from './PersonalInfoSection';
-import ContactInfoSection from './ContactInfoSection';
 import AccountDetailsSection from './AccountDetailsSection';
-import AccountSecuritySection from './AccountSecuritySection';
+import ContactInfoSection from './ContactInfoSection';
 import SocialConnectionsSection from './SocialConnectionsSection';
-import Button from '../UI/Public/Button';
-import { useTranslation } from '../../hooks/useTranslation';
+import AccountSecuritySection from './AccountSecuritySection';
 
 const ProfileScreen = () => {
   const { t } = useTranslation('pages/profile');

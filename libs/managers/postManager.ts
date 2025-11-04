@@ -1,4 +1,4 @@
-import { PostStatType } from '../../types/enums/postStatType';
+import { PostStatType } from '@/types/enums/postStatType';
 import { apiClient } from '../client';
 
 const increasePhoneView = async (postId: string): Promise<void> => {

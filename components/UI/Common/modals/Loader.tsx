@@ -1,4 +1,4 @@
-import SpinnerIcon from '../../../Icons/SpinnerIcon';
+import SpinnerIcon from '@/components/Icons/SpinnerIcon';
 import Overlay from './Overlay';
 
 const Loader = () => {

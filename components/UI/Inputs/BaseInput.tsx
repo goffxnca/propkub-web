@@ -1,5 +1,5 @@
+import { ReactHookFormError } from '@/types/misc/form';
 import { ReactNode } from 'react';
-import { ReactHookFormError } from '../../../../types/misc/form';
 
 interface BaseInputProps {
   id: string;

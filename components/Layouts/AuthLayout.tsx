@@ -1,6 +1,6 @@
+import type { ReactNode } from 'react';
 import Logo from './Logo';
 import LocaleSwitcher from '../UI/LocaleSwitcher';
-import type { ReactNode } from 'react';
 
 interface AuthLayoutProps {
   children: ReactNode;

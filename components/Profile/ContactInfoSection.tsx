@@ -1,3 +1,8 @@
+import { AuthContext } from '@/contexts/authContext';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { apiClient } from '@/libs/client';
+import { User } from '@/types/models/user';
 import {
   PhoneIcon,
   PencilIcon,
@@ -7,14 +12,9 @@ import {
 } from '@heroicons/react/outline';
 import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { apiClient } from '../../libs/client';
-import { AuthContext } from '../../contexts/authContext';
-import { useValidators } from '../../hooks/useValidators';
-import TextInput from '../UI/Public/Inputs/TextInput';
-import Modal from '../UI/Public/Modal';
-import { getLineUrl } from '../../libs/string-utils';
-import { useTranslation } from '../../hooks/useTranslation';
-import type { User } from '../../types/models/user';
+import TextInput from '../UI/Inputs/TextInput';
+import { getLineUrl } from '@/libs/string-utils';
+import Modal from '../UI/Modal';
 
 interface ContactInfoFormData {
   phone: string;

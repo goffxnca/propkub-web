@@ -1,37 +1,33 @@
-import SelectInput from '../../UI/Public/Inputs/SelectInput';
-import { useEffect, useMemo, useState } from 'react';
-import GoogleMap from '../../UI/Public/GoogleMap';
-import TextInput from '../../UI/Public/Inputs/TextInput';
-import Modal from '../../UI/Public/Modal';
-import { LocationMarkerIcon } from '@heroicons/react/outline';
-import {
-  fetchProvincesByRegionId,
-  fetchDistrictsByProvinceId,
-  fetchSubDistrictsByDistrictId
-} from '../../../libs/managers/addressManager';
+import GoogleMap from '@/components/UI/GoogleMap';
+import SelectInput from '@/components/UI/Inputs/SelectInput';
+import TextInput from '@/components/UI/Inputs/TextInput';
+import Modal from '@/components/UI/Modal';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { envConfig } from '@/libs/envConfig';
 import {
   getDistrictPrefix,
   getSubDistrictPrefix
-} from '../../../libs/formatters/addressFormatter';
-import PostMap from '../../../components/Posts/PostMap';
-import { envConfig } from '../../../libs/envConfig';
-import { useTranslation } from '../../../hooks/useTranslation';
-import { useRouter } from 'next/router';
-import { getRegions } from '../../../libs/mappers/regionMapper';
-import { useValidators } from '../../../hooks/useValidators';
+} from '@/libs/formatters/addressFormatter';
 import {
-  ReactHookFormUnRegister,
-  ReactHookFormError
-} from '../../../types/misc/form';
+  fetchDistrictsByProvinceId,
+  fetchProvincesByRegionId,
+  fetchSubDistrictsByDistrictId
+} from '@/libs/managers/addressManager';
+import { getRegions } from '@/libs/mappers/regionMapper';
+import { Locale } from '@/types/locale';
+import { ReactHookFormError, ReactHookFormUnRegister } from '@/types/misc/form';
+import { District, Province, SubDistrict } from '@/types/models/address';
+import { LocationMarkerIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
+import { useEffect, useMemo, useState } from 'react';
+
 import type {
   UseFormRegister,
   UseFormWatch,
   UseFormSetValue,
   FieldErrors
 } from 'react-hook-form';
-import { Province, District, SubDistrict } from '../../../types/models/address';
-import { Location } from '../../../types/models/post';
-import { Locale } from '../../../types/locale';
 
 const MAP_SEARCH_QUOTA = 5; //TODO: CHANGE TO 3 LATER
 
