@@ -1,3 +1,9 @@
+import { AuthContext } from '@/contexts/authContext';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { apiClient } from '@/libs/client';
+import { uploadFileToStorage } from '@/libs/utils/file-utils';
+import { User } from '@/types/models/user';
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -6,19 +12,11 @@ import {
   XIcon,
   ExclamationIcon
 } from '@heroicons/react/outline';
-import { useState, useContext } from 'react';
+import { useState, useContext, ComponentType, SVGProps } from 'react';
 import { useForm } from 'react-hook-form';
-import { apiClient } from '../../libs/client';
-import { AuthContext } from '../../contexts/authContext';
+import ProfileImageInput from './ProfileImageInput';
 import TextInput from '../UI/Inputs/TextInput';
 import Modal from '../UI/Modal';
-import ProfileImageInput from './ProfileImageInput';
-import { uploadFileToStorage } from '../../libs/utils/file-utils';
-import { useTranslation } from '../../hooks/useTranslation';
-import { useValidators } from '../../hooks/useValidators';
-import type { User } from '../../types/models/user';
-import type { ComponentType } from 'react';
-import type { SVGProps } from 'react';
 
 interface ProfileImageData {
   file: File | null;

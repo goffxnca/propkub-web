@@ -10,7 +10,7 @@ import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../types/misc/form';
+} from '@/types/misc/form';
 import BaseInput from './BaseInput';
 
 interface TextInputProps {

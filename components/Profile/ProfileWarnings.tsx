@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { LockClosedIcon } from '@heroicons/react/outline';
+import { User } from '@/types/models/user';
+import { useTranslation } from '@/hooks/useTranslation';
 import Alert from '../UI/Alert';
-import { useTranslation } from '../../hooks/useTranslation';
-import type { User } from '../../types/models/user';
 
 interface ProfileWarningsProps {
   user: User;

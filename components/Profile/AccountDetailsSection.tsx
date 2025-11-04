@@ -1,11 +1,11 @@
+import { useTranslation } from '@/hooks/useTranslation';
+import { AuthProvider, User } from '@/types/models/user';
 import { CalendarIcon, LoginIcon, MailIcon } from '@heroicons/react/outline';
-import { getDateTimeString } from '../../libs/date-utils';
+import { useRouter } from 'next/router';
+import { ReactNode } from 'react';
 import GoogleIcon from '../Icons/GoogleIcon';
 import FacebookIcon from '../Icons/FacebookIcon';
-import { useTranslation } from '../../hooks/useTranslation';
-import { useRouter } from 'next/router';
-import { AuthProvider, type User } from '../../types/models/user';
-import type { ReactNode } from 'react';
+import { getDateTimeString } from '@/libs/date-utils';
 
 interface ProviderDisplayInfo {
   name: string;

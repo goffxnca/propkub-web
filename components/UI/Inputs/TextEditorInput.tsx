@@ -1,9 +1,6 @@
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import {
-  ReactHookFormError,
-  ReactHookFormUnRegister
-} from '../../../types/misc/form';
+
 import type {
   UseFormSetValue,
   UseFormRegister,
@@ -11,6 +8,7 @@ import type {
 } from 'react-hook-form';
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
+import { ReactHookFormError, ReactHookFormUnRegister } from '@/types/misc/form';
 import BaseInput from './BaseInput';
 
 type UnprivilegedEditor = {

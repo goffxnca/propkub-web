@@ -1,4 +1,4 @@
-import { envConfig } from '../../../libs/envConfig';
+import { envConfig } from '@/libs/envConfig';
 
 interface FacebookLoginButtonProps {
   text?: string;

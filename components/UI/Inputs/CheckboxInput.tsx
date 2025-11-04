@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
+import BaseInput from './BaseInput';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../types/misc/form';
-import BaseInput from './BaseInput';
+} from '@/types/misc/form';
 
 interface CheckboxInputProps {
   id: string;

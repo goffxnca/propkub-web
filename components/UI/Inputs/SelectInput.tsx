@@ -1,9 +1,9 @@
-import { useEffect, ChangeEventHandler } from 'react';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../types/misc/form';
+} from '@/types/misc/form';
+import { useEffect, ChangeEventHandler } from 'react';
 import BaseInput from './BaseInput';
 
 interface SelectOption {

@@ -1,4 +1,4 @@
-import { envConfig } from '../../libs/envConfig';
+import { envConfig } from '@/libs/envConfig';
 import FacebookIcon from '../Icons/FacebookIcon';
 
 interface LinkFacebookAccountButtonProps {
