@@ -1,4 +1,4 @@
-import { PostStatus } from '../../types/misc/postStatus';
+import { PostStatus } from '@/types/misc/postStatus';
 import { Variant } from '../utils/style-utils';
 
 const postStatuses: PostStatus[] = [

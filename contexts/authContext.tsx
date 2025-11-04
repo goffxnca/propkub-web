@@ -1,3 +1,7 @@
+import { apiClient } from '@/libs/client';
+import { translateServerError } from '@/libs/serverErrorTranslator';
+import { tokenManager } from '@/libs/tokenManager';
+import { User, UserRole } from '@/types/models/user';
 import { useRouter } from 'next/router';
 import {
   createContext,
@@ -5,10 +9,6 @@ import {
   useState,
   type PropsWithChildren
 } from 'react';
-import { apiClient } from '../libs/client';
-import { tokenManager } from '../libs/tokenManager';
-import { translateServerError } from '../libs/serverErrorTranslator';
-import { User, UserRole } from '../types/models/user';
 
 export interface AuthContextValue {
   user: User | null;

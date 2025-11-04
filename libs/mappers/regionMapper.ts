@@ -1,5 +1,5 @@
-import { Region, RegionData } from '../../types/misc/region';
-import { Locale } from '../../types/locale';
+import { Locale } from '@/types/locale';
+import { Region, RegionData } from '@/types/misc/region';
 
 const regions: RegionData[] = [
   { id: 'r1', labelTH: 'ภาคเหนือ', labelEN: 'Northern' },

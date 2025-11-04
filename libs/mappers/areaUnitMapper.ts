@@ -1,5 +1,5 @@
-import { AreaUnit, AreaUnitData } from '../../types/misc/areaUnit';
-import { Locale } from '../../types/locale';
+import { Locale } from '@/types/locale';
+import { AreaUnit, AreaUnitData } from '@/types/misc/areaUnit';
 
 const areaUnits: AreaUnitData[] = [
   { id: 'whole', labelTH: 'ยกแปลง', labelEN: 'Whole Plot', ignorePrefix: true },

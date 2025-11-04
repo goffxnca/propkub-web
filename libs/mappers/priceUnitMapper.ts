@@ -1,6 +1,6 @@
+import { Locale } from '@/types/locale';
+import { PriceUnit } from '@/types/misc/priceUnit';
 import { getAreaUnits } from './areaUnitMapper';
-import { PriceUnit } from '../../types/misc/priceUnit';
-import { Locale } from '../../types/locale';
 
 interface TimeUnitData {
   id: string;

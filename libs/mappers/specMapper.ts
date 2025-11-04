@@ -1,4 +1,4 @@
-import { Spec, SpecDbFormat, SpecsObject } from '../../types/misc/spec';
+import { Spec, SpecDbFormat, SpecsObject } from '@/types/misc/spec';
 
 const specs: Spec[] = [
   { id: 'beds', label: 'ห้องนอน' },

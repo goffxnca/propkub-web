@@ -1,10 +1,10 @@
-import { apiClient } from '../../libs/client';
 import {
-  Province,
   District,
-  SubDistrict,
-  LocationBreadcrumb
-} from '../../types/models/address';
+  LocationBreadcrumb,
+  Province,
+  SubDistrict
+} from '@/types/models/address';
+import { apiClient } from '../client';
 
 const PROVINCE_CACHE_KEY = 'provinces';
 const CACHE_VERSION = '1.0'; //Bump this version if provinces DB changes, ex. new province introduced in thailand

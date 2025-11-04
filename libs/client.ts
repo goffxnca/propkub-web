@@ -1,24 +1,24 @@
 import axios from 'axios';
-import { tokenManager } from './tokenManager';
 import { envConfig } from './envConfig';
+import { tokenManager } from './tokenManager';
+import { SignupRequest } from '@/types/dtos/requests/signupRequest';
+import { AccessTokenResponse, MessageResponse } from '@/types/http';
+import { LoginRequest } from '@/types/dtos/requests/loginRequest';
+import { User } from '@/types/models/user';
+import { ResetPasswordRequest } from '@/types/dtos/requests/resetPasswordRequest';
+import { UpdatePasswordRequest } from '@/types/dtos/requests/updatePasswordRequest';
+import { UpdateProfileRequest } from '@/types/dtos/requests/updateProfileRequest';
+import { District, Province, SubDistrict } from '@/types/models/address';
+import { CreatePostRequest } from '@/types/dtos/requests/createPostRequest';
+import { Post } from '@/types/models/post';
+import { UpdatePostRequest } from '@/types/dtos/requests/updatePostRequest';
+import { PaginationRequest } from '@/types/dtos/requests/paginationRequest';
+import { paginatedItemsResponse } from '@/types/dtos/responses/paginatedItemsResponse';
+import { PostStatsResponse } from '@/types/dtos/responses/postStatsResponse';
+import { SearchPostRequest } from '@/types/dtos/requests/searchPostRequest';
+import { PostStatType } from '@/types/enums/postStatType';
 import { sleep } from './misc';
-import { AccessTokenResponse, MessageResponse } from '../types/http';
-import { Province, District, SubDistrict } from '../types/models/address';
-import { User } from '../types/models/user';
-import { Post } from '../types/models/post';
-import { paginatedItemsResponse } from '../types/dtos/responses/paginatedItemsResponse';
-import { PostStatsResponse } from '../types/dtos/responses/postStatsResponse';
-import { PaginationRequest } from '../types/dtos/requests/paginationRequest';
-import { SearchPostRequest } from '../types/dtos/requests/searchPostRequest';
-import { PostStatType } from '../types/enums/postStatType';
-import { SignupRequest } from '../types/dtos/requests/signupRequest';
-import { LoginRequest } from '../types/dtos/requests/loginRequest';
-import { ResetPasswordRequest } from '../types/dtos/requests/resetPasswordRequest';
-import { UpdatePasswordRequest } from '../types/dtos/requests/updatePasswordRequest';
-import { UpdateProfileRequest } from '../types/dtos/requests/updateProfileRequest';
-import { CreatePostRequest } from '../types/dtos/requests/createPostRequest';
-import { UpdatePostRequest } from '../types/dtos/requests/updatePostRequest';
-import { PostSitemapResponse } from '../types/dtos/responses/postSitemapResponse';
+import { PostSitemapResponse } from '@/types/dtos/responses/postSitemapResponse';
 
 const apiInstance = axios.create({
   baseURL: envConfig.apiUrl(),

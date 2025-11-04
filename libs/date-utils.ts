@@ -1,4 +1,4 @@
-import type { Locale } from '../types/locale';
+import { Locale } from '@/types/locale';
 
 const getUnixEpochTime = () => {
   return Date.now().toString();

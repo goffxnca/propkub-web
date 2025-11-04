@@ -1,6 +1,6 @@
 import { IconProps } from './types';
 
-const Mailbox = ({ className }: IconProps) => {
+const MailboxIcon = ({ className }: IconProps) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +15,4 @@ const Mailbox = ({ className }: IconProps) => {
   );
 };
 
-export default Mailbox;
+export default MailboxIcon;
