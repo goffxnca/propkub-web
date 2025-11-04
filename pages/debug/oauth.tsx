@@ -1,5 +1,5 @@
+import { envConfig } from '@/libs/envConfig';
 import { useRouter } from 'next/router';
-import { envConfig } from '../../libs/envConfig';
 
 const DebugOAuth = () => {
   const router = useRouter();

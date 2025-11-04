@@ -1,23 +1,22 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import type { GetServerSideProps } from 'next';
-import PostItem from '../../components/Posts/PostItem';
-import Breadcrumbs from '../../components/UI/Breadcrumbs';
-import { getLocationPrefix } from '../../libs/location-utils';
-import {
-  fetchDistrictsByProvinceId,
-  fetchSubDistrictsByDistrictId,
-  getLocationBreadcrumbs
-} from '../../libs/managers/addressManager';
-import { getAllActivePostsByLocation } from '../../libs/post-utils';
+import { AssetType, Post, PostType } from '@/types/models/post';
+import { getLocationPrefix } from '@/libs/location-utils';
 import {
   genPropertyDescriptionMeta,
   genPropertyTitleMeta,
   getCanonicalUrl
-} from '../../libs/seo-utils';
-import type { Post } from '../../types/models/post';
-import { AssetType, PostType } from '../../types/models/post';
-import type { District, SubDistrict } from '../../types/models/address';
+} from '@/libs/seo-utils';
+import Breadcrumbs from '@/components/UI/Breadcrumbs';
+import PostItem from '@/components/Posts/PostItem';
+import { getAllActivePostsByLocation } from '@/libs/post-utils';
+import {
+  fetchDistrictsByProvinceId,
+  fetchSubDistrictsByDistrictId,
+  getLocationBreadcrumbs
+} from '@/libs/managers/addressManager';
+import { District, SubDistrict } from '@/types/models/address';
 
 interface SubLocation {
   id: string;

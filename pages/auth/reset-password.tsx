@@ -1,20 +1,22 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import Modal from '../../components/UI/Modal';
-import { apiClient } from '../../libs/client';
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/outline';
-import { genPageTitle } from '../../libs/seo-utils';
+
 import Head from 'next/head';
-import Loader from '../../components/UI/Common/modals/Loader';
-import TextInput from '../../components/UI/Inputs/TextInput';
-import Button from '../../components/UI/Button';
-import { translateServerError } from '../../libs/serverErrorTranslator';
-import GuestOnlyRoute from '../../components/Auth/GuestOnlyRoute';
-import { useTranslation } from '../../hooks/useTranslation';
-import { useValidators } from '../../hooks/useValidators';
-import type { ReactHookFormError } from '../../types/misc/form';
+
 import type { FieldErrors } from 'react-hook-form';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { apiClient } from '@/libs/client';
+import { translateServerError } from '@/libs/serverErrorTranslator';
+import GuestOnlyRoute from '@/components/Auth/GuestOnlyRoute';
+import { genPageTitle } from '@/libs/seo-utils';
+import Loader from '@/components/UI/Common/modals/Loader';
+import Modal from '@/components/UI/Modal';
+import TextInput from '@/components/UI/Inputs/TextInput';
+import { ReactHookFormError } from '@/types/misc/form';
+import Button from '@/components/UI/Button';
 
 interface ResetPasswordFormData {
   newPassword: string;

@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Modal from '../../components/UI/Modal';
-import { apiClient } from '../../libs/client';
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/outline';
-import { genPageTitle } from '../../libs/seo-utils';
 import Head from 'next/head';
-import Loader from '../../components/UI/Common/modals/Loader';
+import { apiClient } from '@/libs/client';
+import { genPageTitle } from '@/libs/seo-utils';
+import Loader from '@/components/UI/Common/modals/Loader';
+import Modal from '@/components/UI/Modal';
 
 const VerifyEmailPage = () => {
   const router = useRouter();

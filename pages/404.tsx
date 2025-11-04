@@ -1,5 +1,5 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import Link from 'next/link';
-import { useTranslation } from '../hooks/useTranslation';
 
 const PageNotFound = () => {
   const { t } = useTranslation('common');
