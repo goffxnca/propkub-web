@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { resolveColumnValue } from '../../../../libs/utils/datatable-utils';
+import { resolveColumnValue } from '../../libs/utils/datatable-utils';
 
 interface DataTableColumn<T = any> {
   title: string;

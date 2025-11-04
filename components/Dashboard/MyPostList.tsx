@@ -5,7 +5,7 @@ import PostStatusBadge from '../Posts/PostStatusBadge/PostStatusBadge';
 
 import PageTitle from '../UI/PageTitle';
 import Button from '../UI/Public/Button';
-import DataTable from '../UI/Public/DataTable/DataTable';
+import DataTable from '../UI/DataTable';
 import Stats from './Stats';
 import Modal from '../UI/Public/Modal';
 import { SearchIcon, ExclamationIcon } from '@heroicons/react/outline';
