@@ -7,7 +7,7 @@ import Modal from '../../UI/Modal';
 import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
 import { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Button from '../../UI/Public/Button';
+import Button from '../../UI/Button';
 import { AuthContext } from '../../../contexts/authContext';
 import AddDoc from '../../Icons/AddDoc';
 import PageTitle from '../../UI/PageTitle';

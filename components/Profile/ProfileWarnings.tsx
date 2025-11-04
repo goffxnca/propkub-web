@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { LockClosedIcon } from '@heroicons/react/outline';
-import Alert from '../UI/Public/Alert';
+import Alert from '../UI/Alert';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { User } from '../../types/models/user';
 

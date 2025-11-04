@@ -2,7 +2,7 @@ import { getIcon } from '../../../libs/mappers/iconMapper';
 import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useMemo, useState } from 'react';
-import Heading from '../../UI/Public/Heading';
+import Heading from '../../UI/Heading';
 import LineBreak from '../../UI/LineBreak';
 import PostMap from '../PostMap';
 import SizeIcon from '../../Icons/SizeIcon';

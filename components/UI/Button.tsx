@@ -1,6 +1,6 @@
 import { ReactNode, MouseEventHandler } from 'react';
-import SpinnerIcon from '../../Icons/SpinnerIcon';
-import Overlay from '../Common/modals/Overlay';
+import SpinnerIcon from '../Icons/SpinnerIcon';
+import Overlay from './Common/modals/Overlay';
 
 interface ButtonProps {
   type: 'button' | 'submit';

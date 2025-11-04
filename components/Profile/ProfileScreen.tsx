@@ -8,7 +8,7 @@ import ContactInfoSection from './ContactInfoSection';
 import AccountDetailsSection from './AccountDetailsSection';
 import AccountSecuritySection from './AccountSecuritySection';
 import SocialConnectionsSection from './SocialConnectionsSection';
-import Button from '../UI/Public/Button';
+import Button from '../UI/Button';
 import { useTranslation } from '../../hooks/useTranslation';
 
 const ProfileScreen = () => {

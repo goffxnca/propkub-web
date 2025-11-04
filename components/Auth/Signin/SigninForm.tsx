@@ -6,7 +6,7 @@ import { ExclamationIcon } from '@heroicons/react/outline';
 import { useTranslation } from '@/hooks/useTranslation';
 import { useValidators } from '@/hooks/useValidators';
 import Logo from '@/components/Layouts/Logo';
-import Button from '@/components/UI/Public/Button';
+import Button from '@/components/UI/Button';
 import TextInput from '@/components/UI/Public/Inputs/TextInput';
 import GoogleLoginButton from '@/components/UI/Public/SocialLogin/GoogleLoginButton';
 import Modal from '@/components/UI/Modal';

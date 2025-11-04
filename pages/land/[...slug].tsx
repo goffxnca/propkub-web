@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import type { GetServerSideProps } from 'next';
 import PostItem from '../../components/Posts/PostItem';
-import Breadcrumbs from '../../components/UI/Public/Breadcrumbs';
+import Breadcrumbs from '../../components/UI/Breadcrumbs';
 import { getLocationPrefix } from '../../libs/location-utils';
 import {
   fetchDistrictsByProvinceId,

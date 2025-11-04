@@ -1,6 +1,6 @@
 import { PhoneIcon } from '@heroicons/react/solid';
 import LineBreak from '../../UI/LineBreak';
-import Button from '../../UI/Public/Button';
+import Button from '../../UI/Button';
 import { useState } from 'react';
 import LinkButton from '../../UI/LinkButton';
 import LineIcon from '../../Icons/LineIcon';

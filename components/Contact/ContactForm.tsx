@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useValidators } from '../../hooks/useValidators';
 import TextAreaInput from '../UI/Public/Inputs/TextAreaInput';
 import TextInput from '../UI/Public/Inputs/TextInput';
-import Button from '../UI/Public/Button';
+import Button from '../UI/Button';
 import { useState } from 'react';
 import Modal from '../UI/Modal';
 import { useRouter } from 'next/router';

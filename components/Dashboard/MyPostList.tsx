@@ -4,7 +4,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 import PostStatusBadge from '../Posts/PostStatusBadge/PostStatusBadge';
 
 import PageTitle from '../UI/PageTitle';
-import Button from '../UI/Public/Button';
+import Button from '../UI/Button';
 import DataTable from '../UI/DataTable';
 import Stats from './Stats';
 import Modal from '../UI/Modal';

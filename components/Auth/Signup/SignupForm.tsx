@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../contexts/authContext';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import Logo from '../../Layouts/Logo';
-import Button from '../../UI/Public/Button';
+import Button from '../../UI/Button';
 import TextInput from '../../UI/Public/Inputs/TextInput';
 import GoogleLoginButton from '../../UI/Public/SocialLogin/GoogleLoginButton';
 import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton';

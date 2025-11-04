@@ -8,7 +8,7 @@ import { genPageTitle } from '../../libs/seo-utils';
 import Head from 'next/head';
 import Loader from '../../components/UI/Common/modals/Loader';
 import TextInput from '../../components/UI/Public/Inputs/TextInput';
-import Button from '../../components/UI/Public/Button';
+import Button from '../../components/UI/Button';
 import { translateServerError } from '../../libs/serverErrorTranslator';
 import GuestOnlyRoute from '../../components/Auth/GuestOnlyRoute';
 import { useTranslation } from '../../hooks/useTranslation';

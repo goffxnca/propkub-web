@@ -1,4 +1,4 @@
-import Heading from '../../UI/Public/Heading';
+import Heading from '../../UI/Heading';
 import SimilarPostItem from './SimilarPostItem';
 import { useTranslation } from '../../../hooks/useTranslation';
 import type { Post } from '../../../types/models/post';
