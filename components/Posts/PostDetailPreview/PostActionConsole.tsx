@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '../../UI/Button';
 import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import Confirm from '../../UI/Public/Modals/Confirm';
+import Confirm from '../../UI/Confirm';
 import Modal from '../../UI/Modal';
 import { apiClient } from '../../../libs/client';
 import { useTranslation } from '../../../hooks/useTranslation';

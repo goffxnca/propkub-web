@@ -8,7 +8,7 @@ import { useValidators } from '@/hooks/useValidators';
 import Logo from '@/components/Layouts/Logo';
 import Button from '@/components/UI/Button';
 import TextInput from '@/components/UI/Public/Inputs/TextInput';
-import GoogleLoginButton from '@/components/UI/Public/SocialLogin/GoogleLoginButton';
+import GoogleLoginButton from '@/components/UI/SocialLogin/GoogleLoginButton';
 import Modal from '@/components/UI/Modal';
 import ForgotPasswordModal from '@/components/Auth/ForgotPasswordModal';
 

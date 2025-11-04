@@ -1,10 +1,12 @@
-import { envConfig } from '../../../../libs/envConfig';
+import { envConfig } from '../../../libs/envConfig';
 
 interface GoogleLoginButtonProps {
   text?: string;
 }
 
-const GoogleLoginButton = ({ text = 'Connect with Google' }: GoogleLoginButtonProps) => {
+const GoogleLoginButton = ({
+  text = 'Connect with Google'
+}: GoogleLoginButtonProps) => {
   const handleGoogleOAuth = () => {
     window.location.href = `${envConfig.apiUrl()}/auth/google`;
   };

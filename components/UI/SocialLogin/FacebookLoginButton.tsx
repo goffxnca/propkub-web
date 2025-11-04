@@ -1,10 +1,12 @@
-import { envConfig } from '../../../../libs/envConfig';
+import { envConfig } from '../../../libs/envConfig';
 
 interface FacebookLoginButtonProps {
   text?: string;
 }
 
-const FacebookLoginButton = ({ text = 'Connect with Facebook' }: FacebookLoginButtonProps) => {
+const FacebookLoginButton = ({
+  text = 'Connect with Facebook'
+}: FacebookLoginButtonProps) => {
   const handleFacebookOAuth = () => {
     window.location.href = `${envConfig.apiUrl()}/auth/facebook`;
   };
