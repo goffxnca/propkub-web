@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { useValidators } from '../../hooks/useValidators';
-import TextInput from '../../components/UI/Public/Inputs/TextInput';
-import TextAreaInput from '../../components/UI/Public/Inputs/TextAreaInput';
+import TextInput from '../../components/UI/Inputs/TextInput';
+import TextAreaInput from '../../components/UI/Inputs/TextAreaInput';
 import CheckboxInput from '../../components/UI/Public/Inputs/CheckboxInput';
 import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupInput';
-import SelectInput from '../../components/UI/Public/Inputs/SelectInput';
+import SelectInput from '../../components/UI/Inputs/SelectInput';
 import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
 import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
 import TextEditorInput from '../../components/UI/Public/Inputs/TextEditorInput';

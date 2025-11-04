@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { apiClient } from '../../libs/client';
 import { AuthContext } from '../../contexts/authContext';
 import { useValidators } from '../../hooks/useValidators';
-import TextInput from '../UI/Public/Inputs/TextInput';
+import TextInput from '../UI/Inputs/TextInput';
 import Modal from '../UI/Modal';
 import { getLineUrl } from '../../libs/string-utils';
 import { useTranslation } from '../../hooks/useTranslation';

@@ -8,7 +8,7 @@ import {
   ExclamationCircleIcon,
   XIcon
 } from '@heroicons/react/outline';
-import TextInput from '../UI/Public/Inputs/TextInput';
+import TextInput from '../UI/Inputs/TextInput';
 import Button from '../UI/Button';
 import { apiClient } from '../../libs/client';
 import { translateServerError } from '../../libs/serverErrorTranslator';

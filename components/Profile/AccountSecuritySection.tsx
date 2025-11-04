@@ -8,7 +8,7 @@ import {
   CheckIcon,
   XIcon
 } from '@heroicons/react/outline';
-import TextInput from '../UI/Public/Inputs/TextInput';
+import TextInput from '../UI/Inputs/TextInput';
 import Modal from '../UI/Modal';
 import { useValidators } from '../../hooks/useValidators';
 import { apiClient } from '../../libs/client';

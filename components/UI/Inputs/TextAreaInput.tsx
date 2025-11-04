@@ -1,10 +1,10 @@
 import { useEffect, ChangeEventHandler } from 'react';
-import BaseInput from './BaseInput';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../../types/misc/form';
+} from '../../../types/misc/form';
+import BaseInput from '../Public/Inputs/BaseInput';
 
 interface TextAreaInputProps {
   id: string;

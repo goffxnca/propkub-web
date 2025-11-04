@@ -5,13 +5,13 @@ import {
   ChangeEventHandler,
   KeyboardEventHandler
 } from 'react';
-import BaseInput from './BaseInput';
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../../types/misc/form';
+} from '../../../types/misc/form';
+import BaseInput from '../Public/Inputs/BaseInput';
 
 interface TextInputProps {
   id: string;

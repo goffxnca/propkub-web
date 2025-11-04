@@ -1,5 +1,5 @@
-import SelectInput from '../../UI/Public/Inputs/SelectInput';
-import TextInput from '../../UI/Public/Inputs/TextInput';
+import SelectInput from '../../UI/Inputs/SelectInput';
+import TextInput from '../../UI/Inputs/TextInput';
 import { getPostTypes } from '../../../libs/mappers/postTypeMapper';
 import { getAssetTypes } from '../../../libs/mappers/assetTypeMapper';
 import { getConditions } from '../../../libs/mappers/conditionMapper';
@@ -125,8 +125,8 @@ const BasicSection = ({
                     ...required()
                   })
                 }
-              unregister={unregister}
-              error={errors?.postType as ReactHookFormError}
+                unregister={unregister}
+                error={errors?.postType as ReactHookFormError}
               />
             </div>
 
@@ -141,8 +141,8 @@ const BasicSection = ({
                     ...required()
                   })
                 }
-              unregister={unregister}
-              error={errors?.assetType as ReactHookFormError}
+                unregister={unregister}
+                error={errors?.assetType as ReactHookFormError}
               />
             </div>
 
@@ -190,7 +190,9 @@ const BasicSection = ({
                   })
                 }
                 unregister={unregister}
-                error={(errors?.price || errors?.priceUnit) as ReactHookFormError}
+                error={
+                  (errors?.price || errors?.priceUnit) as ReactHookFormError
+                }
                 setValue={setValue}
               />
             </div>
@@ -220,7 +222,9 @@ const BasicSection = ({
                     })
                   }
                   unregister={unregister}
-                  error={(errors?.area || errors?.areaUnit) as ReactHookFormError}
+                  error={
+                    (errors?.area || errors?.areaUnit) as ReactHookFormError
+                  }
                   setValue={setValue}
                 />
               </div>
@@ -251,7 +255,9 @@ const BasicSection = ({
                     })
                   }
                   unregister={unregister}
-                  error={(errors?.land || errors?.landUnit) as ReactHookFormError}
+                  error={
+                    (errors?.land || errors?.landUnit) as ReactHookFormError
+                  }
                   setValue={setValue}
                 />
               </div>
@@ -301,7 +307,9 @@ const BasicSection = ({
                         })
                       }
                       unregister={unregister}
-                      error={(errors?.specs as any)?.baths as ReactHookFormError}
+                      error={
+                        (errors?.specs as any)?.baths as ReactHookFormError
+                      }
                     />
                   </div>
                 )}
@@ -319,7 +327,9 @@ const BasicSection = ({
                         })
                       }
                       unregister={unregister}
-                      error={(errors?.specs as any)?.kitchens as ReactHookFormError}
+                      error={
+                        (errors?.specs as any)?.kitchens as ReactHookFormError
+                      }
                     />
                   </div>
                 )}
@@ -336,7 +346,9 @@ const BasicSection = ({
                       })
                     }
                     unregister={unregister}
-                    error={(errors?.specs as any)?.parkings as ReactHookFormError}
+                    error={
+                      (errors?.specs as any)?.parkings as ReactHookFormError
+                    }
                   />
                 </div>
               </>

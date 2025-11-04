@@ -1,7 +1,7 @@
-import SelectInput from '../../UI/Public/Inputs/SelectInput';
+import SelectInput from '../../UI/Inputs/SelectInput';
 import { useEffect, useMemo, useState } from 'react';
 import GoogleMap from '../../UI/GoogleMap';
-import TextInput from '../../UI/Public/Inputs/TextInput';
+import TextInput from '../../UI/Inputs/TextInput';
 import Modal from '../../UI/Modal';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import {

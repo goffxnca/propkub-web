@@ -10,7 +10,7 @@ import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { apiClient } from '../../libs/client';
 import { AuthContext } from '../../contexts/authContext';
-import TextInput from '../UI/Public/Inputs/TextInput';
+import TextInput from '../UI/Inputs/TextInput';
 import Modal from '../UI/Modal';
 import ProfileImageInput from './ProfileImageInput';
 import { uploadFileToStorage } from '../../libs/utils/file-utils';

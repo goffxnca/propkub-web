@@ -1,8 +1,8 @@
 import { PhoneIcon, MailIcon, CheckIcon } from '@heroicons/react/solid';
 import { useForm } from 'react-hook-form';
 import { useValidators } from '../../hooks/useValidators';
-import TextAreaInput from '../UI/Public/Inputs/TextAreaInput';
-import TextInput from '../UI/Public/Inputs/TextInput';
+import TextAreaInput from '../UI/Inputs/TextAreaInput';
+import TextInput from '../UI/Inputs/TextInput';
 import Button from '../UI/Button';
 import { useState } from 'react';
 import Modal from '../UI/Modal';
