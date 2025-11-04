@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts/authContext';
 import { apiClient } from '../../libs/client';
 import { ExclamationIcon, CheckIcon } from '@heroicons/react/outline';
 import Loader from '../../components/UI/Common/modals/Loader';
-import Modal from '../../components/UI/Public/Modal';
+import Modal from '../../components/UI/Modal';
 import GoogleIcon from '../../components/Icons/GoogleIcon';
 import FacebookIcon from '../../components/Icons/FacebookIcon';
 import { tokenManager } from '../../libs/tokenManager';

@@ -9,7 +9,7 @@ import Logo from '@/components/Layouts/Logo';
 import Button from '@/components/UI/Public/Button';
 import TextInput from '@/components/UI/Public/Inputs/TextInput';
 import GoogleLoginButton from '@/components/UI/Public/SocialLogin/GoogleLoginButton';
-import Modal from '@/components/UI/Public/Modal';
+import Modal from '@/components/UI/Modal';
 import ForgotPasswordModal from '@/components/Auth/ForgotPasswordModal';
 
 const SigninForm = () => {

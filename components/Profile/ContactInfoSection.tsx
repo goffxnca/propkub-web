@@ -11,7 +11,7 @@ import { apiClient } from '../../libs/client';
 import { AuthContext } from '../../contexts/authContext';
 import { useValidators } from '../../hooks/useValidators';
 import TextInput from '../UI/Public/Inputs/TextInput';
-import Modal from '../UI/Public/Modal';
+import Modal from '../UI/Modal';
 import { getLineUrl } from '../../libs/string-utils';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { User } from '../../types/models/user';

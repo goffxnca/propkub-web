@@ -7,13 +7,13 @@ import PageTitle from '../UI/PageTitle';
 import Button from '../UI/Public/Button';
 import DataTable from '../UI/DataTable';
 import Stats from './Stats';
-import Modal from '../UI/Public/Modal';
+import Modal from '../UI/Modal';
 import { SearchIcon, ExclamationIcon } from '@heroicons/react/outline';
 
 import { useState, useEffect } from 'react';
 import { getMyPosts, getMyPostsStats } from '../../libs/post-utils';
 import usePagination from '../../hooks/usePagination';
-import Pagination from '../UI/Public/Pagination';
+import Pagination from '../UI/Pagination';
 import Loader from '../UI/Common/modals/Loader';
 import Link from 'next/link';
 import type { Post } from '../../types/models/post';

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Modal from '../../components/UI/Public/Modal';
+import Modal from '../../components/UI/Modal';
 import { apiClient } from '../../libs/client';
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/outline';
 import { genPageTitle } from '../../libs/seo-utils';

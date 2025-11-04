@@ -3,7 +3,7 @@ import BasicSection from './BasicSection';
 import { useForm } from 'react-hook-form';
 import { addNewPost, updatePost } from '../../../libs/post-utils';
 import MediaSection from './MediaSection';
-import Modal from '../../UI/Public/Modal';
+import Modal from '../../UI/Modal';
 import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
 import { useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';

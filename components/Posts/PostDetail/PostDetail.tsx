@@ -1,5 +1,5 @@
 import { getStatusLabelById } from '../../../libs/mappers/statusMapper';
-import Card from '../../UI/Public/Card';
+import Card from '../../UI/Card';
 import PostImageGrid from '../PostImageGrid';
 import PostDetailAgent from './PostDetailAgent';
 import PostDetailBody from './PostDetailBody';

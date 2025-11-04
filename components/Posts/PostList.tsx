@@ -5,7 +5,7 @@ import { animateScroll, Element, scroller } from 'react-scroll';
 import { queryPostWithFilters } from '../../libs/post-utils';
 import PostRow from './PostRow';
 import PostsByRegion from './PostsByRegion';
-import Modal from '../UI/Public/Modal';
+import Modal from '../UI/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { cleanObject } from '../../libs/object-utils';
 import { useTranslation } from '../../hooks/useTranslation';

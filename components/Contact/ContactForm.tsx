@@ -5,7 +5,7 @@ import TextAreaInput from '../UI/Public/Inputs/TextAreaInput';
 import TextInput from '../UI/Public/Inputs/TextInput';
 import Button from '../UI/Public/Button';
 import { useState } from 'react';
-import Modal from '../UI/Public/Modal';
+import Modal from '../UI/Modal';
 import { useRouter } from 'next/router';
 import { useTranslation } from '../../hooks/useTranslation';
 

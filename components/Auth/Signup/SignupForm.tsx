@@ -8,7 +8,7 @@ import Button from '../../UI/Public/Button';
 import TextInput from '../../UI/Public/Inputs/TextInput';
 import GoogleLoginButton from '../../UI/Public/SocialLogin/GoogleLoginButton';
 import FacebookLoginButton from '../../UI/Public/SocialLogin/FacebookLoginButton';
-import Modal from '../../UI/Public/Modal';
+import Modal from '../../UI/Modal';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useValidators } from '../../../hooks/useValidators';
 

@@ -3,7 +3,7 @@ import Button from '../../UI/Public/Button';
 import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 import Confirm from '../../UI/Public/Modals/Confirm';
-import Modal from '../../UI/Public/Modal';
+import Modal from '../../UI/Modal';
 import { apiClient } from '../../../libs/client';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { PostStatus } from '../../../types/models/post';

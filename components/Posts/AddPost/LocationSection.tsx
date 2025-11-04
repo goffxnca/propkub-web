@@ -1,8 +1,8 @@
 import SelectInput from '../../UI/Public/Inputs/SelectInput';
 import { useEffect, useMemo, useState } from 'react';
-import GoogleMap from '../../UI/Public/GoogleMap';
+import GoogleMap from '../../UI/GoogleMap';
 import TextInput from '../../UI/Public/Inputs/TextInput';
-import Modal from '../../UI/Public/Modal';
+import Modal from '../../UI/Modal';
 import { LocationMarkerIcon } from '@heroicons/react/outline';
 import {
   fetchProvincesByRegionId,

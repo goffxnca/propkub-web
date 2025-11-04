@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, ChangeEvent } from 'react';
 import { resizeFile } from '../../libs/utils/file-utils';
-import Modal from '../UI/Public/Modal';
+import Modal from '../UI/Modal';
 import { ExclamationIcon } from '@heroicons/react/outline';
 import { useTranslation } from '../../hooks/useTranslation';
 import {

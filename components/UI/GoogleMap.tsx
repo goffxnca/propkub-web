@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { Element as ScrollElement, scroller } from 'react-scroll';
-import { useTranslation } from '../../../hooks/useTranslation';
+import { useTranslation } from '../../hooks/useTranslation';
 
 interface GoogleMapsLatLng {
   lat(): number;

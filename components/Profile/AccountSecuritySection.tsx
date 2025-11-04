@@ -9,7 +9,7 @@ import {
   XIcon
 } from '@heroicons/react/outline';
 import TextInput from '../UI/Public/Inputs/TextInput';
-import Modal from '../UI/Public/Modal';
+import Modal from '../UI/Modal';
 import { useValidators } from '../../hooks/useValidators';
 import { apiClient } from '../../libs/client';
 import { translateServerError } from '../../libs/serverErrorTranslator';

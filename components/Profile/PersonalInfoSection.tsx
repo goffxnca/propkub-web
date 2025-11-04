@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import { apiClient } from '../../libs/client';
 import { AuthContext } from '../../contexts/authContext';
 import TextInput from '../UI/Public/Inputs/TextInput';
-import Modal from '../UI/Public/Modal';
+import Modal from '../UI/Modal';
 import ProfileImageInput from './ProfileImageInput';
 import { uploadFileToStorage } from '../../libs/utils/file-utils';
 import { useTranslation } from '../../hooks/useTranslation';
