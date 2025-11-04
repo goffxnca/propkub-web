@@ -1,5 +1,5 @@
+import { getTestTimestamp } from '@/libs/date-utils';
 import { type Page, expect } from '@playwright/test';
-import { getTestTimestamp } from '../../libs/date-utils';
 
 export class CreatePostPage {
   readonly page: Page;
