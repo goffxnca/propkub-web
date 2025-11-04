@@ -1,13 +1,13 @@
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
 import { PhoneIcon, MailIcon, CheckIcon } from '@heroicons/react/solid';
-import { useForm } from 'react-hook-form';
-import { useValidators } from '../../hooks/useValidators';
-import TextAreaInput from '../UI/Inputs/TextAreaInput';
-import TextInput from '../UI/Inputs/TextInput';
-import Button from '../UI/Button';
-import { useState } from 'react';
-import Modal from '../UI/Modal';
 import { useRouter } from 'next/router';
-import { useTranslation } from '../../hooks/useTranslation';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import TextInput from '../UI/Inputs/TextInput';
+import TextAreaInput from '../UI/Inputs/TextAreaInput';
+import Button from '../UI/Button';
+import Modal from '../UI/Modal';
 
 interface ContactFormData {
   name: string;

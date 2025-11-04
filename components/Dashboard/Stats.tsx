@@ -1,3 +1,4 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import {
   EyeIcon,
   DocumentDuplicateIcon,
@@ -6,7 +7,6 @@ import {
   ShareIcon,
   BookmarkIcon
 } from '@heroicons/react/outline';
-import { useTranslation } from '../../hooks/useTranslation';
 
 interface Link {
   href: string;

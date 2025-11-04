@@ -1,19 +1,19 @@
-import { Fragment, useState } from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { apiClient } from '@/libs/client';
+import { translateServerError } from '@/libs/serverErrorTranslator';
 import { Dialog, Transition } from '@headlessui/react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
 import {
-  MailIcon,
   CheckIcon,
   ExclamationCircleIcon,
+  MailIcon,
   XIcon
 } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import TextInput from '../UI/Inputs/TextInput';
 import Button from '../UI/Button';
-import { apiClient } from '../../libs/client';
-import { translateServerError } from '../../libs/serverErrorTranslator';
-import { useTranslation } from '../../hooks/useTranslation';
-import { useValidators } from '../../hooks/useValidators';
 
 const ForgotPasswordModal = ({ visible, onClose }) => {
   const router = useRouter();

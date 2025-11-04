@@ -1,5 +1,5 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import getConfig from 'next/config';
-import { useTranslation } from '../../hooks/useTranslation';
 
 const { publicRuntimeConfig } = getConfig();
 

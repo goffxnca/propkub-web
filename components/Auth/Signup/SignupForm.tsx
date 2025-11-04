@@ -1,16 +1,15 @@
-import Link from 'next/link';
-import { useContext, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { AuthContext } from '../../../contexts/authContext';
+import Logo from '@/components/Layouts/Logo';
+import Button from '@/components/UI/Button';
+import TextInput from '@/components/UI/Inputs/TextInput';
+import Modal from '@/components/UI/Modal';
+import GoogleLoginButton from '@/components/UI/SocialLogin/GoogleLoginButton';
+import { AuthContext } from '@/contexts/authContext';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
 import { ExclamationIcon } from '@heroicons/react/outline';
-import Logo from '../../Layouts/Logo';
-import Button from '../../UI/Button';
-import TextInput from '../../UI/Inputs/TextInput';
-import GoogleLoginButton from '../../UI/SocialLogin/GoogleLoginButton';
-import FacebookLoginButton from '../../UI/SocialLogin/FacebookLoginButton';
-import Modal from '../../UI/Modal';
-import { useTranslation } from '../../../hooks/useTranslation';
-import { useValidators } from '../../../hooks/useValidators';
+import Link from 'next/link';
+import { useContext } from 'react';
+import { useForm } from 'react-hook-form';
 
 const SignupForm = () => {
   const { t } = useTranslation('pages/signup');
