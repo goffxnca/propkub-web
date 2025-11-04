@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '@/contexts/authContext';
 import { ExclamationIcon } from '@heroicons/react/outline';

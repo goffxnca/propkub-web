@@ -1,5 +1,5 @@
 import React from 'react';
-import Badge from '../../UI/Badge/Badge';
+import Badge from '../../UI/Badge';
 import { getStatusVariantById } from '../../../libs/mappers/statusMapper';
 import { useTranslation } from '../../../hooks/useTranslation';
 

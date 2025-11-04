@@ -1,5 +1,5 @@
 import React from 'react';
-import Badge from '../../UI/Badge/Badge';
+import Badge from '../../UI/Badge';
 import { getThaiFullDateTimeString } from '../../../libs/date-utils';
 import {
   getPostActionVariantById,
