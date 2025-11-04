@@ -16,7 +16,7 @@ import { AuthContext } from '../../contexts/authContext';
 import { joinClasses } from '../../libs/utils/style-utils';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import { ChatIcon } from '@heroicons/react/solid';
-import MenuLinkItem from '../UI/Public/MenuLinkItem';
+import MenuLinkItem from '../UI/MenuLinkItem';
 import LocaleSwitcher from '../UI/LocaleSwitcher';
 import { useTranslation } from '../../hooks/useTranslation';
 import type { AuthContextValue } from '../../contexts/authContext';
@@ -34,8 +34,9 @@ interface NavigationItem {
 }
 
 const Header = () => {
-  const { signout, user, isAgent, isAuthenticated, loading } =
-    useContext(AuthContext) as AuthContextValue;
+  const { signout, user, isAgent, isAuthenticated, loading } = useContext(
+    AuthContext
+  ) as AuthContextValue;
   const { t } = useTranslation();
 
   const navigations: NavigationItem[] = [
@@ -215,7 +216,12 @@ const Header = () => {
                       .map((item) => (
                         <Menu.Item key={item.name}>
                           {({ active }) => (
-                            <div className={joinClasses(active ? 'bg-gray-100' : '', item.classes)}>
+                            <div
+                              className={joinClasses(
+                                active ? 'bg-gray-100' : '',
+                                item.classes
+                              )}
+                            >
                               <MenuLinkItem
                                 href={item.href}
                                 onClick={(e) => {

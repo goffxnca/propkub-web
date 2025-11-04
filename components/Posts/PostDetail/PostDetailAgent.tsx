@@ -1,8 +1,8 @@
 import { PhoneIcon } from '@heroicons/react/solid';
-import LineBreak from '../../UI/Public/LineBreak';
+import LineBreak from '../../UI/LineBreak';
 import Button from '../../UI/Public/Button';
 import { useState } from 'react';
-import LinkButton from '../../UI/Public/LinkButton';
+import LinkButton from '../../UI/LinkButton';
 import LineIcon from '../../Icons/LineIcon';
 import {
   increasePhoneView,

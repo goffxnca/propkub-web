@@ -1,4 +1,4 @@
-import { getYoutubeVideoId } from '../../../libs/string-utils';
+import { getYoutubeVideoId } from '../../libs/string-utils';
 import styles from './YoutubeIframe.module.css';
 
 interface YoutubeIframeProps {
