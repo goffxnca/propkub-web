@@ -1,15 +1,15 @@
-import Link from 'next/link';
-import { useMemo } from 'react';
-import { getPriceUnit } from '../../../libs/mappers/priceUnitMapper';
-import { useTranslation } from '../../../hooks/useTranslation';
-import type {
-  PostType,
+import { useTranslation } from '@/hooks/useTranslation';
+import { getPriceUnit } from '@/libs/mappers/priceUnitMapper';
+import {
+  Address,
   AssetType,
   Condition,
-  Address,
-  Spec,
-  PriceUnit
-} from '../../../types/models/post';
+  PostType,
+  PriceUnit,
+  Spec
+} from '@/types/models/post';
+import Link from 'next/link';
+import { useMemo } from 'react';
 
 interface SimilarPostItemProps {
   id: string;

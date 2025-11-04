@@ -1,15 +1,10 @@
+import { useTranslation } from '@/hooks/useTranslation';
+import { formatAddress } from '@/libs/formatters/addressFormatter';
+import { getPriceUnit } from '@/libs/mappers/priceUnitMapper';
+import { Address, AssetType, PostType, PriceUnit } from '@/types/models/post';
 import { ClockIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
-import { formatAddress } from '../../libs/formatters/addressFormatter';
 import TimeAgo from 'timeago-react';
-import { useTranslation } from '../../hooks/useTranslation';
-import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
-import type {
-  PostType,
-  AssetType,
-  Address,
-  PriceUnit
-} from '../../types/models/post';
 
 interface PostRowProps {
   postType: PostType;

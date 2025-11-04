@@ -1,7 +1,6 @@
-import React from 'react';
-import Badge from '../../UI/Badge';
-import { getStatusVariantById } from '../../../libs/mappers/statusMapper';
-import { useTranslation } from '../../../hooks/useTranslation';
+import Badge from '@/components/UI/Badge';
+import { useTranslation } from '@/hooks/useTranslation';
+import { getStatusVariantById } from '@/libs/mappers/statusMapper';
 
 interface PostStatusBadgeProps {
   status: string;

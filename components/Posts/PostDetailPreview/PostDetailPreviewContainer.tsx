@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import Head from 'next/head';
-import Loader from '../../UI/Common/modals/Loader';
-import Modal from '../../UI/Modal';
-import { apiClient } from '../../../libs/client';
-import { genPageTitle } from '../../../libs/seo-utils';
+import Loader from '@/components/UI/Common/modals/Loader';
+import Modal from '@/components/UI/Modal';
+import { apiClient } from '@/libs/client';
+import { genPageTitle } from '@/libs/seo-utils';
+import { Post } from '@/types/models/post';
 import { ExclamationCircleIcon } from '@heroicons/react/outline';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import PostDetailPreview from './PostDetailPreview';
-import type { Post } from '../../../types/models/post';
 
 interface PostActionItem {
   type: string;

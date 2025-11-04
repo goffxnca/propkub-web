@@ -1,9 +1,6 @@
-import UploadImagesInput from '../../UI/Inputs/UploadImagesInput/UploadImagesInput';
-import { useTranslation } from '../../../hooks/useTranslation';
-import {
-  ReactHookFormUnRegister,
-  ReactHookFormError
-} from '../../../types/misc/form';
+import UploadImagesInput from '@/components/UI/Inputs/UploadImagesInput/UploadImagesInput';
+import { useTranslation } from '@/hooks/useTranslation';
+import { ReactHookFormError, ReactHookFormUnRegister } from '@/types/misc/form';
 import type {
   UseFormRegister,
   UseFormWatch,

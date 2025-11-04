@@ -1,34 +1,31 @@
-import SelectInput from '../../UI/Inputs/SelectInput';
-import TextInput from '../../UI/Inputs/TextInput';
-import { getPostTypes } from '../../../libs/mappers/postTypeMapper';
-import { getAssetTypes } from '../../../libs/mappers/assetTypeMapper';
-import { getConditions } from '../../../libs/mappers/conditionMapper';
-import { getPriceUnitList } from '../../../libs/mappers/priceUnitMapper';
-import { getStandardAreaUnits } from '../../../libs/mappers/areaUnitMapper';
-import { useValidators } from '../../../hooks/useValidators';
-import CheckboxGroupInput from '../../UI/Inputs/CheckboxGroupInput';
+import CheckboxGroupInput from '@/components/UI/Inputs/CheckboxGroupInput';
+import CheckboxInput from '@/components/UI/Inputs/CheckboxInput';
+import SelectInput from '@/components/UI/Inputs/SelectInput';
+import TextEditorInput from '@/components/UI/Inputs/TextEditorInput';
+import TextInput from '@/components/UI/Inputs/TextInput';
+import TextWithUnitInput from '@/components/UI/Inputs/TextWithUnitInput';
+import { useTranslation } from '@/hooks/useTranslation';
+import { useValidators } from '@/hooks/useValidators';
+import { getStandardAreaUnits } from '@/libs/mappers/areaUnitMapper';
+import { getAssetTypes } from '@/libs/mappers/assetTypeMapper';
+import { getConditions } from '@/libs/mappers/conditionMapper';
+import { getDropdownOptions } from '@/libs/mappers/dropdownOptionsMapper';
 import {
   getLandFacilities,
   getNonLandFacilities
-} from '../../../libs/mappers/facilityMapper';
-import TextWithUnitInput from '../../UI/Inputs/TextWithUnitInput';
-import { getDropdownOptions } from '../../../libs/mappers/dropdownOptionsMapper';
-import { useEffect, useMemo } from 'react';
-import TextEditorInput from '../../UI/Inputs/TextEditorInput';
-import CheckboxInput from '../../UI/Inputs/CheckboxInput';
-import { useTranslation } from '../../../hooks/useTranslation';
+} from '@/libs/mappers/facilityMapper';
+import { getPostTypes } from '@/libs/mappers/postTypeMapper';
+import { getPriceUnitList } from '@/libs/mappers/priceUnitMapper';
+import { Locale } from '@/types/locale';
+import { ReactHookFormError, ReactHookFormUnRegister } from '@/types/misc/form';
 import { useRouter } from 'next/router';
-import {
-  ReactHookFormUnRegister,
-  ReactHookFormError
-} from '../../../types/misc/form';
+import { useEffect, useMemo } from 'react';
 import type {
   UseFormRegister,
   UseFormWatch,
   UseFormSetValue,
   FieldErrors
 } from 'react-hook-form';
-import { Locale } from '../../../types/locale';
 
 const genericDropdownItems = getDropdownOptions(5);
 

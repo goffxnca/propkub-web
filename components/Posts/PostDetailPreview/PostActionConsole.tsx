@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import Button from '../../UI/Button';
+import Button from '@/components/UI/Button';
+import Confirm from '@/components/UI/Confirm';
+import Modal from '@/components/UI/Modal';
+import { useTranslation } from '@/hooks/useTranslation';
+import { apiClient } from '@/libs/client';
+import { PostStatus } from '@/types/models/post';
 import { CheckIcon, ExclamationIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import Confirm from '../../UI/Confirm';
-import Modal from '../../UI/Modal';
-import { apiClient } from '../../../libs/client';
-import { useTranslation } from '../../../hooks/useTranslation';
-import { PostStatus } from '../../../types/models/post';
+import { useState } from 'react';
 
 interface PostActionConsoleProps {
   postId: string;

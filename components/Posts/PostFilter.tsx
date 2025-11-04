@@ -10,26 +10,23 @@ import styles from './PostFilter.module.css';
 
 import orderby from 'lodash.orderby';
 
-import LocationIcon from '../Icons/LocationIcon';
 import { SearchIcon, ArrowRightIcon } from '@heroicons/react/solid';
 
-import regions from '../../data/regions.json';
-
-import { getAssetTypes } from '../../libs/mappers/assetTypeMapper';
-import { AssetType } from '../../types/misc/assetType';
-import { Province, District, SubDistrict } from '../../types/models/address';
-import { Locale } from '../../types/locale';
-
-import SelectInput from '../UI/Inputs/SelectInput';
-
-import Loader from '../UI/Common/modals/Loader';
 import { useRouter } from 'next/router';
+import { useTranslation } from '@/hooks/useTranslation';
+import { District, Province, SubDistrict } from '@/types/models/address';
+import { getAssetTypes } from '@/libs/mappers/assetTypeMapper';
+import { Locale } from '@/types/locale';
+import { AssetType } from '@/types/misc/assetType';
 import {
-  fetchProvincesByRegionId,
   fetchDistrictsByProvinceId,
+  fetchProvincesByRegionId,
   fetchSubDistrictsByDistrictId
-} from '../../libs/managers/addressManager';
-import { useTranslation } from '../../hooks/useTranslation';
+} from '@/libs/managers/addressManager';
+import LocationIcon from '../Icons/LocationIcon';
+import SelectInput from '../UI/Inputs/SelectInput';
+import Loader from '../UI/Common/modals/Loader';
+import regions from '../../data/regions.json';
 
 interface Region {
   id: string;

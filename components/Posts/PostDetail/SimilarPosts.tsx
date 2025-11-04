@@ -1,7 +1,7 @@
-import Heading from '../../UI/Heading';
+import Heading from '@/components/UI/Heading';
+import { useTranslation } from '@/hooks/useTranslation';
+import { Post } from '@/types/models/post';
 import SimilarPostItem from './SimilarPostItem';
-import { useTranslation } from '../../../hooks/useTranslation';
-import type { Post } from '../../../types/models/post';
 
 interface SimilarPostsProps {
   similarPosts: Post[];

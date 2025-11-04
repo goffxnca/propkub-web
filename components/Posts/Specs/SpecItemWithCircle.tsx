@@ -1,5 +1,4 @@
-import type { ComponentType } from 'react';
-import type { SVGProps } from 'react';
+import { ComponentType, SVGProps } from 'react';
 
 interface SpecItemWithCircleProps {
   label: string;

@@ -1,7 +1,7 @@
+import { Locale } from '@/types/locale';
+import { Province } from '@/types/models/address';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Province } from '../../types/models/address';
-import { Locale } from '../../types/locale';
 
 interface PostsByRegionProps {
   regionId: string;

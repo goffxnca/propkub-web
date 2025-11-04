@@ -1,17 +1,16 @@
-import { getIcon } from '../../libs/mappers/iconMapper';
-import { formatAddress } from '../../libs/formatters/addressFormatter';
 import { useMemo } from 'react';
 import Link from 'next/link';
-import SpecItemWithCircle from './Specs/SpecItemWithCircle';
-import { useTranslation } from '../../hooks/useTranslation';
-import { getPriceUnit } from '../../libs/mappers/priceUnitMapper';
-import type {
-  PostType,
-  AssetType,
+import {
   Address,
-  Spec,
-  PriceUnit
-} from '../../types/models/post';
+  AssetType,
+  PostType,
+  PriceUnit,
+  Spec
+} from '@/types/models/post';
+import { useTranslation } from '@/hooks/useTranslation';
+import { getIcon } from '@/libs/mappers/iconMapper';
+import { getPriceUnit } from '@/libs/mappers/priceUnitMapper';
+import { formatAddress } from '@/libs/formatters/addressFormatter';
 
 interface PostItemProps {
   id: string;

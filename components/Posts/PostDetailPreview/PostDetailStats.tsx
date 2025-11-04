@@ -1,3 +1,4 @@
+import { useTranslation } from '@/hooks/useTranslation';
 import {
   EyeIcon,
   PhoneIcon,
@@ -5,7 +6,6 @@ import {
   ShareIcon,
   BookmarkIcon
 } from '@heroicons/react/outline';
-import { useTranslation } from '../../../hooks/useTranslation';
 import type { ComponentType } from 'react';
 import type { SVGProps } from 'react';
 
