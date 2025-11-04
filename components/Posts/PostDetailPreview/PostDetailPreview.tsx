@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import PageTitle from '../../UI/Private/PageTitle';
+import PageTitle from '../../UI/PageTitle';
 import sanitizeHtml from 'sanitize-html';
 import { getConditionLabel } from '../../../libs/mappers/conditionMapper';
 import { getAreaUnitLabel } from '../../../libs/mappers/areaUnitMapper';
@@ -89,7 +89,8 @@ const PostDetailPreview = ({ post, postActions }: PostDetailPreviewProps) => {
       : orDefault(post.area);
   const condition = orDefault(
     post.condition &&
-      (tCommon(`conditions.${post.condition}`) || getConditionLabel(post.condition, router.locale as Locale))
+      (tCommon(`conditions.${post.condition}`) ||
+        getConditionLabel(post.condition, router.locale as Locale))
   );
   const agentRefNumber = orDefault(post.refId);
   const locale = router?.locale;

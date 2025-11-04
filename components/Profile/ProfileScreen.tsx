@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
-import PageTitle from '../UI/Private/PageTitle';
+import PageTitle from '../UI/PageTitle';
 import { AuthContext } from '../../contexts/authContext';
 import ProfileWarnings from './ProfileWarnings';
 import PersonalInfoSection from './PersonalInfoSection';

@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import Button from '../../UI/Public/Button';
 import { AuthContext } from '../../../contexts/authContext';
 import AddDoc from '../../Icons/AddDoc';
-import PageTitle from '../../UI/Private/PageTitle';
+import PageTitle from '../../UI/PageTitle';
 // import Banner from "../../Banner/Banner";
 import ConfirmSection from './ConfirmSection';
 import ProfileWarnings from '../../Profile/ProfileWarnings';

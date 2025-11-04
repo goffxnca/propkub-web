@@ -3,7 +3,7 @@ import { useTranslation } from '../../hooks/useTranslation';
 
 import PostStatusBadge from '../Posts/PostStatusBadge/PostStatusBadge';
 
-import PageTitle from '../UI/Private/PageTitle';
+import PageTitle from '../UI/PageTitle';
 import Button from '../UI/Public/Button';
 import DataTable from '../UI/Public/DataTable/DataTable';
 import Stats from './Stats';
