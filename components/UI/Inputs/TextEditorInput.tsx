@@ -11,7 +11,7 @@ import type {
 } from 'react-hook-form';
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
-import BaseInput from '../Public/Inputs/BaseInput';
+import BaseInput from './BaseInput';
 
 type UnprivilegedEditor = {
   getText(): string;

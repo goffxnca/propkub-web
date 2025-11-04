@@ -11,7 +11,7 @@ import {
   ReactHookFormRegister,
   ReactHookFormUnRegister
 } from '../../../types/misc/form';
-import BaseInput from '../Public/Inputs/BaseInput';
+import BaseInput from './BaseInput';
 
 interface TextInputProps {
   id: string;

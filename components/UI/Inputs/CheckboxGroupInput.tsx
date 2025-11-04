@@ -5,7 +5,7 @@ import {
   ReactHookFormUnRegister
 } from '../../../types/misc/form';
 import CheckboxInput from '../Inputs/CheckboxInput';
-import BaseInput from '../Public/Inputs/BaseInput';
+import BaseInput from './BaseInput';
 
 interface CheckboxGroupItem {
   id: string;

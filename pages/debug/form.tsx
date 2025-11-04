@@ -6,9 +6,9 @@ import CheckboxInput from '../../components/UI/Inputs/CheckboxInput';
 import CheckboxGroupInput from '../../components/UI/Inputs/CheckboxGroupInput';
 import SelectInput from '../../components/UI/Inputs/SelectInput';
 import TextWithUnitInput from '../../components/UI/Inputs/TextWithUnitInput';
-import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
+import RadioVerticalListInput from '../../components/UI/Inputs/RadioVerticalListInput/RadioVerticalListInput';
 import TextEditorInput from '../../components/UI/Inputs/TextEditorInput';
-import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
+import UploadImagesInput from '../../components/UI/Inputs/UploadImagesInput/UploadImagesInput';
 
 interface FormData {
   email: string;

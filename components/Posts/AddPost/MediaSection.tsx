@@ -1,7 +1,4 @@
-// import { getYoutubeVideoId } from '../../../libs/string-utils';
-// import TextInput from '../../UI/Public/Inputs/TextInput';
-import UploadImagesInput from '../../UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
-import YoutubeIframe from '../../UI/YoutubeIframe';
+import UploadImagesInput from '../../UI/Inputs/UploadImagesInput/UploadImagesInput';
 import { useTranslation } from '../../../hooks/useTranslation';
 import {
   ReactHookFormUnRegister,
