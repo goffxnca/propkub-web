@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import BaseInput from './BaseInput';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../../types/misc/form';
+} from '../../../types/misc/form';
 import type { UseFormSetValue } from 'react-hook-form';
+import BaseInput from '../Public/Inputs/BaseInput';
 
 interface UnitItem {
   id: string | number;

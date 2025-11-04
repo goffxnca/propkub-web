@@ -2,12 +2,12 @@ import { useForm } from 'react-hook-form';
 import { useValidators } from '../../hooks/useValidators';
 import TextInput from '../../components/UI/Inputs/TextInput';
 import TextAreaInput from '../../components/UI/Inputs/TextAreaInput';
-import CheckboxInput from '../../components/UI/Public/Inputs/CheckboxInput';
-import CheckboxGroupInput from '../../components/UI/Public/Inputs/CheckboxGroupInput';
+import CheckboxInput from '../../components/UI/Inputs/CheckboxInput';
+import CheckboxGroupInput from '../../components/UI/Inputs/CheckboxGroupInput';
 import SelectInput from '../../components/UI/Inputs/SelectInput';
-import TextWithUnitInput from '../../components/UI/Public/Inputs/TextWithUnitInput';
+import TextWithUnitInput from '../../components/UI/Inputs/TextWithUnitInput';
 import RadioVerticalListInput from '../../components/UI/Public/Inputs/RadioVerticalListInput/RadioVerticalListInput';
-import TextEditorInput from '../../components/UI/Public/Inputs/TextEditorInput';
+import TextEditorInput from '../../components/UI/Inputs/TextEditorInput';
 import UploadImagesInput from '../../components/UI/Public/Inputs/UploadImagesInput/UploadImagesInput';
 
 interface FormData {

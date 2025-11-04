@@ -6,16 +6,16 @@ import { getConditions } from '../../../libs/mappers/conditionMapper';
 import { getPriceUnitList } from '../../../libs/mappers/priceUnitMapper';
 import { getStandardAreaUnits } from '../../../libs/mappers/areaUnitMapper';
 import { useValidators } from '../../../hooks/useValidators';
-import CheckboxGroupInput from '../../UI/Public/Inputs/CheckboxGroupInput';
+import CheckboxGroupInput from '../../UI/Inputs/CheckboxGroupInput';
 import {
   getLandFacilities,
   getNonLandFacilities
 } from '../../../libs/mappers/facilityMapper';
-import TextWithUnitInput from '../../UI/Public/Inputs/TextWithUnitInput';
+import TextWithUnitInput from '../../UI/Inputs/TextWithUnitInput';
 import { getDropdownOptions } from '../../../libs/mappers/dropdownOptionsMapper';
 import { useEffect, useMemo } from 'react';
-import TextEditorInput from '../../UI/Public/Inputs/TextEditorInput';
-import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
+import TextEditorInput from '../../UI/Inputs/TextEditorInput';
+import CheckboxInput from '../../UI/Inputs/CheckboxInput';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useRouter } from 'next/router';
 import {

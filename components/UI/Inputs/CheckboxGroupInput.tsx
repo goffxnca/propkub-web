@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import BaseInput from './BaseInput';
-import CheckboxInput from './CheckboxInput';
 import {
   ReactHookFormError,
   ReactHookFormRegister,
   ReactHookFormUnRegister
-} from '../../../../types/misc/form';
+} from '../../../types/misc/form';
+import CheckboxInput from '../Inputs/CheckboxInput';
+import BaseInput from '../Public/Inputs/BaseInput';
 
 interface CheckboxGroupItem {
   id: string;

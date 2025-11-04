@@ -1,4 +1,4 @@
-import CheckboxInput from '../../UI/Public/Inputs/CheckboxInput';
+import CheckboxInput from '../../UI/Inputs/CheckboxInput';
 import { useTranslation } from '../../../hooks/useTranslation';
 import { useValidators } from '../../../hooks/useValidators';
 import type { ReactHookFormUnRegister } from '../../../types/misc/form';
