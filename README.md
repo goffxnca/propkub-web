@@ -35,7 +35,7 @@ PropKub is a full-stack property platform built with modern technologies. The pl
 - **SendGrid** - Email services
 - **LogRocket** - Logging solution
 
-> **Note:** You can explore the backend code in [Propkub API repository](https://github.com/goffxnca/propkub-api) — we share it to promote transparency. It’s not quite ready for external contributions yet, as we’re still working on finding a secure and contributor-friendly way to manage and share credentials that are tied to billing accounts (SendGrid, Firebase, MongoDB Atlas, etc.) directly to public contributors.
+> **Note:** You can explore the [Propkub API repository](https://github.com/goffxnca/propkub-api) — we share it for transparency. It’s not open for external contributions yet, as we’re still setting up a secure way to share billing-linked credentials (SendGrid, Firebase, LogRocket, etc.) with public contributors.
 
 ## 🏗️ Project Structure
 
