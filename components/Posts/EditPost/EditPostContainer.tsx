@@ -35,7 +35,8 @@ const EditPostContainer = ({ postId }) => {
     };
 
     fetchPostData();
-  }, [postId, tCommon]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postId]);
 
   if (fetching) return <Loader />;
 
