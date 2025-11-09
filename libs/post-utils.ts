@@ -53,8 +53,7 @@ export const getAllActivePostsByLocation = async ({
 }: GetAllActivePostsByLocationParams): Promise<Post[]> => {
   const conditions: Partial<SearchPostRequest> = {
     assetType: assetType,
-    postType: postType,
-    regionId: ''
+    postType: postType
   };
 
   if (locationType === 'pv') {

@@ -76,13 +76,15 @@ const LandPostsByLocationPage = ({
 
       <div className="lg:max-w-7xl mx-auto">
         <Breadcrumbs items={breadcrumbs} />
-        <h1 className="text-xl font-bold p-2">{title}</h1>
+        <h1 className="text-2xl font-extrabold tracking-tight text-gray-700 p-2">
+          {title}
+        </h1>
         {!posts.length && (
           <div className="text-xl mt-10 text-center">
             <span>--ยังไม่มีประกาศ{assetTypeAndPurpose}ในพื้นที่นี้--</span>
           </div>
         )}
-        <ul className="flex flex-wrap justify-between mb-10">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10 px-4">
           {posts.slice(0, 30).map((post, index) => (
             <PostItem
               key={post._id}
