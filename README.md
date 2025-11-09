@@ -14,8 +14,7 @@ PropKub is a full-stack property platform built with modern technologies. The pl
 
 ## 🚀 Live Demo
 
-- **Frontend:** [https://propkub.com](https://propkub.com)
-- **API Documentation:** [https://dev-api.propkub.com/api](https://dev-api.propkub.com/api)
+[https://propkub.com](https://propkub.com)
 
 ## 🛠️ Tech Stack
 
@@ -94,8 +93,8 @@ propkub-web/          # Frontend (Next.js)
 
 The frontend connects to our development API:
 
-- **Base URL:** `https://dev-api.propkub.com`
-- **Documentation:** [Swagger UI](https://dev-api.propkub.com/api)
+- **Base URL:** `https://dev-api.propkub.com/v1`
+- **Documentation:** [Swagger UI](https://dev-api.propkub.com/v1/docs)
 - **Authentication:** JWT-based with Google/Facebook OAuth
 
 ## 🤝 Contributing
