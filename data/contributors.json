@@ -1,0 +1,27 @@
+[
+  {
+    "id": "jane-doe",
+    "name": "Jane Doe",
+    "role": "Frontend Engineer",
+    "avatar": "/user.png",
+    "bio": "Works on the UI and accessibility improvements for the project.",
+    "socials": [
+      { "platform": "github", "url": "https://github.com/janedoe" },
+      { "platform": "twitter", "url": "https://twitter.com/janedoe" }
+    ],
+    "contributions": ["frontend", "docs"],
+    "featured": true
+  },
+  {
+    "id": "john-smith",
+    "name": "John Smith",
+    "role": "Backend Engineer",
+    "avatar": "/user.png",
+    "bio": "Maintains APIs and server-side logic for the project.",
+    "socials": [
+      { "platform": "github", "url": "https://github.com/johnsmith" }
+    ],
+    "contributions": ["api", "infrastructure"],
+    "featured": false
+  }
+]
