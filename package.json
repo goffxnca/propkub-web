@@ -1,6 +1,8 @@
 {
   "name": "propkub-web",
   "version": "2.1.1",
+  "description": "",
+  "author": "Goff Phatt",
   "private": true,
   "scripts": {
     "dev": "next dev -p 65432",
@@ -55,6 +57,6 @@
     "typescript": "5.8.3"
   },
   "engines": {
-    "node": "22.x"
+    "node": "24"
   }
 }
