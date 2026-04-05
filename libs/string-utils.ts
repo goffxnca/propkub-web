@@ -10,7 +10,8 @@ const randomLetter = () => {
   // return "hex";
 };
 
-const zeroPad = (num: number, places: number) => String(num).padStart(places, '0');
+const zeroPad = (num: number, places: number) =>
+  String(num).padStart(places, '0');
 
 const orDefault = <T>(value: T, defaultValue: string = '-'): T | string =>
   value == null || value === '' || (Array.isArray(value) && !value.length)
