@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'package.json'
+          node-version-file: 'package.json'
           cache: 'yarn'
 
       - name: Install dependencies
