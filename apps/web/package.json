@@ -1,8 +1,9 @@
 {
   "name": "propkub-web",
   "version": "2.1.1",
-  "description": "",
+  "description": "Frontend web application for Propkub.com",
   "author": "Goff Phatt",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev -p 65432",
