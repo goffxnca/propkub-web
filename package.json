@@ -1,10 +1,11 @@
 {
   "name": "propkub",
-  "description": "Open source monorepo for PropKub.com - Thailand's property marketplace",
+  "description": "Open-source monorepo for PropKub.com - Thailand's property marketplace",
   "author": "Goff Phatt",
   "license": "MIT",
   "private": true,
   "workspaces": [
+    "apps/api",
     "apps/web"
   ],
   "scripts": {
