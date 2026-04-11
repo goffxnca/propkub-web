@@ -9,9 +9,12 @@
     "apps/web"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
-    "dev:web": "npm run dev -w apps/web",
-    "dev:api": "npm run dev -w apps/api"
+    "dev": "concurrently \"npm run dev -w apps/api\" \"npm run dev -w apps/web\"",
+    "lint": "concurrently \"npm run lint -w apps/api\" \"npm run lint -w apps/web\"",
+    "lint:fix": "concurrently \"npm run lint:fix -w apps/api\" \"npm run lint:fix -w apps/web\"",
+    "format": "concurrently \"npm run format -w apps/api\" \"npm run format -w apps/web\"",
+    "format:fix": "concurrently \"npm run format:fix -w apps/api\" \"npm run format:fix -w apps/web\"",
+    "test": "npm run test:e2e -w apps/api"
   },
   "engines": {
     "node": "24"
