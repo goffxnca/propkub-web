@@ -1,0 +1,53 @@
+name: API CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-format-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint -w apps/api
+
+      - name: Run Prettier check
+        run: npm run format -w apps/api
+
+      - name: Create .env.test file
+        run: |
+          cat > .env.test << EOF
+          MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}
+          JWT_SECRET=${{ secrets.TEST_JWT_SECRET }}
+          GOOGLE_CLIENT_ID=${{ secrets.TEST_GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET=${{ secrets.TEST_GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CALLBACK_URL=${{ secrets.TEST_GOOGLE_CALLBACK_URL }}
+          FACEBOOK_CLIENT_ID=${{ secrets.TEST_FACEBOOK_CLIENT_ID }}
+          FACEBOOK_CLIENT_SECRET=${{ secrets.TEST_FACEBOOK_CLIENT_SECRET }}
+          FACEBOOK_CALLBACK_URL=${{ secrets.TEST_FACEBOOK_CALLBACK_URL }}
+          SENDGRID_API_KEY=${{ secrets.TEST_SENDGRID_API_KEY }}
+          BREVO_API_KEY=${{ secrets.TEST_BREVO_API_KEY }}
+          EMAIL_BCC=${{ secrets.TEST_EMAIL_BCC }}
+          FRONTEND_WEB_URL=${{ secrets.TEST_FRONTEND_WEB_URL }}
+          API_KEY_FOR_NEXTJS_SERVER=${{ secrets.TEST_API_KEY_FOR_NEXTJS_SERVER }}
+          SENTRY_DSN=${{ secrets.TEST_SENTRY_DSN }}
+          FOO=${{ secrets.TEST_FOO }}
+          EOF
+        shell: bash
+
+      - name: Run e2e tests
+        run: npm run test:e2e -w apps/api
