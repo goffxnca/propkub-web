@@ -30,7 +30,7 @@ jobs:
 
       - name: Create .env.test file
         run: |
-          cat > .env.test << EOF
+          cat > apps/api/.env.test << EOF
           MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}
           JWT_SECRET=${{ secrets.TEST_JWT_SECRET }}
           GOOGLE_CLIENT_ID=${{ secrets.TEST_GOOGLE_CLIENT_ID }}
