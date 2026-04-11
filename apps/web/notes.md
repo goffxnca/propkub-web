@@ -1,3 +1,9 @@
+01/09/2022
+province =77
+district =966
+subDistrict =7451
+
+**Pages**
 //Single property
 https://propkub.com/property/%E0%B8%82%E0%B8%B2%E0%B8%A2%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%94%E0%B8%B4%E0%B8%99%E0%B8%AA%E0%B8%A7%E0%B8%A2%E0%B9%83%E0%B8%99%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B9%82%E0%B8%84%E0%B8%A3%E0%B8%B2%E0%B8%8A%E0%B8%9F%E0%B8%A3%E0%B8%B5%E0%B9%82%E0%B8%AD%E0%B8%99%E0%B8%AA%E0%B8%A3%E0%B9%89%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88%E0%B8%AD%E0%B8%B2%E0%B8%A8%E0%B8%B1%E0%B8%A2_DIP3Z9J0qrSLikyVsWxe
 
@@ -22,14 +28,8 @@ https://propkub.com/land/szo0035/ขายที่ดิน-เขาค้อ-
 //All Land By BTS
 https://propkub.com/land/sbt0035/ขายที่ดิน-ติดบีทีเอส-บางนา
 
-
 //URL for filterations (should put cannonical as main url):
 https://propkub.com/land/pv15/ที่ดิน-นครนายก?sort=price&order=desc
-
-
-
-
-
 
 //All Condo By Area
 https://propkub.com/condo/คอนโด-ติดบีทีเอส-อโศก_keoketef

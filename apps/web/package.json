@@ -1,0 +1,63 @@
+{
+  "name": "propkub-web",
+  "version": "2.1.1",
+  "description": "NextJS frontend web application for Propkub.com",
+  "author": "Goff Phatt",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 65432",
+    "build": "next build",
+    "start": "next start -p 3232",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "analyze": "cross-env ANALYZE=true next build",
+    "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
+    "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
+    "test": "playwright test",
+    "test:h": "playwright test --headed",
+    "test:h:create-post": "playwright test post-creation.spec.ts --headed",
+    "test:r": "playwright show-report",
+    "test:cg": "playwright codegen http://localhost:65432/"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.6.6",
+    "@heroicons/react": "^1.0.6",
+    "@sentry/nextjs": "^10",
+    "@tailwindcss/typography": "^0.5.7",
+    "axios": "^1.10.0",
+    "firebase": "^9.9.1",
+    "lodash.orderby": "^4.6.0",
+    "next": "^14.2.26",
+    "react": "18",
+    "react-dom": "18",
+    "react-hook-form": "^7.34.0",
+    "react-image-file-resizer": "^0.4.8",
+    "react-quill-new": "^3.6.0",
+    "react-scroll": "^1.8.7",
+    "sanitize-html": "^2.7.1",
+    "timeago-react": "^3.0.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^12.2.5",
+    "@playwright/test": "^1.56.1",
+    "@tailwindcss/forms": "^0.5.2",
+    "@types/node": "^24.9.1",
+    "@types/react": "19.1.0",
+    "autoprefixer": "^10.4.7",
+    "cross-env": "^7.0.3",
+    "eslint": "8.20.0",
+    "eslint-config-next": "^14.2.26",
+    "eslint-config-prettier": "^10.1.8",
+    "postcss": "^8.4.14",
+    "prettier": "^3.6.2",
+    "tailwindcss": "^3.1.6",
+    "typescript": "5.8.3"
+  },
+  "engines": {
+    "node": "24"
+  }
+}

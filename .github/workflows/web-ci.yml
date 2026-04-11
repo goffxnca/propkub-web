@@ -1,4 +1,4 @@
-name: CI
+name: Web CI
 
 on:
   push:
@@ -17,13 +17,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: 'package.json'
-          cache: 'yarn'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: Run ESLint
-        run: yarn lint
+        run: npm run lint -w apps/web
 
       - name: Run Prettier check
-        run: yarn format
+        run: npm run format -w apps/web
