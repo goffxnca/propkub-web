@@ -1,7 +1,7 @@
 {
   "name": "propkub-web",
   "version": "2.1.1",
-  "description": "Frontend web application for Propkub.com",
+  "description": "NextJS frontend web application for Propkub.com",
   "author": "Goff Phatt",
   "license": "MIT",
   "private": true,
