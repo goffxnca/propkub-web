@@ -1,10 +1,6 @@
 # PropKub - Property Discovery Platform
 
-> **PropKub** is a property discovery platform for Thailand, helping users find their perfect home, condominium, land, and commercial property.
-
-## 🏠 About PropKub
-
-PropKub is a full-stack property platform built with modern technologies. The platform connects property seekers with real estate opportunities across Thailand, featuring:
+Open-source monorepo for PropKub.com — 🇹🇭 Thailand's property marketplace. Built with Next.js and NestJS, featuring:
 
 - **Property Listings** - Browse homes, condominiums, land, and commercial properties
 - **Advanced Search** - Filter by location, price, property type, and more
@@ -12,7 +8,7 @@ PropKub is a full-stack property platform built with modern technologies. The pl
 - **Interactive Maps** - Visualize property locations with Google Maps integration
 - **Agent Management System** - Connect with real estate agents and property professionals
 
-## 🚀 Live Demo
+## 🚀 Live App
 
 [https://propkub.com](https://propkub.com)
 
@@ -20,10 +16,9 @@ PropKub is a full-stack property platform built with modern technologies. The pl
 
 ### Frontend
 
-- **Next.js 13** - React framework with App Router
+- **Next.js 14** - React framework
 - **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first CSS framework
-- **Redux Toolkit** - State management
 - **React Hook Form** - Form handling
 
 ### Backend
@@ -33,57 +28,50 @@ PropKub is a full-stack property platform built with modern technologies. The pl
 - **JWT** - Authentication
 - **Swagger** - API documentation
 - **SendGrid** - Email services
-- **LogRocket** - Logging solution
 
-> **Note:** You can explore the [Propkub API repository](https://github.com/goffxnca/propkub-api) — we share it for transparency. It’s not open for external contributions yet, as we’re still setting up a secure way to share billing-linked credentials (SendGrid, Firebase, LogRocket, etc.) with public contributors.
+> **Note:** The API was previously maintained in a separate repository [propkub-api](https://github.com/goffxnca/propkub-api) and has since been migrated into this monorepo. The original repo is archived and preserved for historical reference.
 
 ## 🏗️ Project Structure
 
 ```
-propkub-web/          # Frontend (Next.js)
-├── components/       # Reusable UI components
-├── pages/           # Next.js pages
-├── libs/            # Utility functions
-├── contexts/        # React contexts
-└── styles/          # Global styles
+propkub/
+├── apps/
+│   ├── web/          # Frontend (Next.js)
+│   └── api/          # Backend (NestJS)
+├── package.json      # Workspace root
+└── package-lock.json
 ```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+
-- Yarn package manager
-
-### Frontend Development
+- Node.js 24+
+- npm
 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/goffxnca/propkub-web.git
-   cd propkub-web
+   git clone https://github.com/goffxnca/propkub.git
+   cd propkub
    ```
 
 2. **Install dependencies**
 
    ```bash
-   yarn install
+   npm install
    ```
 
 3. **Configure environment**
 
    ```bash
-   # Create dev environment file
-   cp .env.example .env.development
-
-   # No need to edit any values for now - all basic required values
-   # are ready for contributors to start working and connecting to dev API
+   cp apps/web/.env.example apps/web/.env.development
    ```
 
 4. **Start development server**
 
    ```bash
-   yarn dev
+   npm run dev
    ```
 
 5. **Open your browser**
@@ -123,14 +111,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Goff Patt** - [@goffxnca](https://github.com/goffxnca)
-
-## 🙏 Acknowledgments
-
-- Built with ❤️ for the Thailand property market
-- Special thanks to all contributors
-- Powered by the open source community
+**Goff Phatt** - [@goffxnca](https://github.com/goffxnca)
 
 ---
 
-**Ready to contribute?** Check out our [open issues](https://github.com/goffxnca/propkub-web/issues) and join the community! 🚀
+**Ready to contribute?** Check out our [open issues](https://github.com/goffxnca/propkub/issues) and join the community! 🚀
