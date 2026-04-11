@@ -9,9 +9,14 @@
     "apps/web"
   ],
   "scripts": {
-    "dev:web": "npm run dev -w apps/web"
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:web": "npm run dev -w apps/web",
+    "dev:api": "npm run dev -w apps/api"
   },
   "engines": {
     "node": "24"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
