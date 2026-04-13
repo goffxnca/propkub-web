@@ -6,7 +6,10 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { BASE_SITE_URL } from '@/libs/constants';
 import PostList from '@/components/Posts/PostList';
 import { fetchActivePosts } from '@/libs/post-utils';
-import { fetchProvinces } from '@/libs/managers/addressManager';
+import {
+  fetchProvinces,
+  fetchProvincesServerSide
+} from '@/libs/managers/addressManager';
 // import Link from "next/link";
 // import HeroBanner from "../components/Banner/HeroBanner";
 // import StatsBanner from "../components/Banner/Stats";
@@ -52,17 +55,19 @@ export const getStaticProps: GetStaticProps<HomePageProps> = async () => {
       'Failed to fetch posts for homepage:',
       error instanceof Error ? error.message : error
     );
+    console.log('HAS ERROR TRUE HERE FETCH fetchActivePosts');
     hasError = true;
     posts = [];
   }
 
   try {
-    provinces = await fetchProvinces();
+    provinces = await fetchProvincesServerSide();
   } catch (error: unknown) {
     console.error(
       'Failed to fetch provinces for homepage:',
       error instanceof Error ? error.message : error
     );
+    console.log('HAS ERROR TRUE HERE FETCH fetchPROVINCES');
     hasError = true;
     provinces = [];
   }

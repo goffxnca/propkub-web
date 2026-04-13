@@ -20,6 +20,11 @@ const fetchProvinces = async (): Promise<Province[]> => {
   return response;
 };
 
+const fetchProvincesServerSide = async (): Promise<Province[]> => {
+  const response = await apiClient.provinces.getAllServerSide();
+  return response;
+};
+
 const fetchProvincesCacheFirst = async (): Promise<Province[]> => {
   const cached = localStorage.getItem(PROVINCE_CACHE_KEY);
   if (cached) {
@@ -119,5 +124,6 @@ export {
   fetchDistrictsByProvinceId,
   fetchSubDistrictsByDistrictId,
   getLocationBreadcrumbs,
-  fetchProvinces
+  fetchProvinces,
+  fetchProvincesServerSide
 };

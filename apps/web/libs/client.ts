@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { envConfig } from './envConfig';
 import { tokenManager } from './tokenManager';
 import { SignupRequest } from '@/types/dtos/requests/signupRequest';
@@ -52,38 +52,45 @@ apiInstance.interceptors.response.use(
   }
 );
 
-// Create a server-side API instance with API key
-const serverApiInstance = axios.create({
-  baseURL: envConfig.apiUrl(),
-  timeout: 10000,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-});
+let _serverApiInstance: AxiosInstance | null = null;
 
-serverApiInstance.interceptors.request.use(
-  (config) => {
-    const apiKey = envConfig.apiKey();
-    if (apiKey) {
-      config.headers['x-api-key'] = apiKey;
+const getServerApiInstance = (): AxiosInstance => {
+  if (_serverApiInstance) return _serverApiInstance;
+
+  _serverApiInstance = axios.create({
+    baseURL: envConfig.serverApiUrl(),
+    timeout: 10000,
+    headers: {
+      'Content-Type': 'application/json'
     }
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+  });
 
-serverApiInstance.interceptors.response.use(
-  (response) => {
-    return response.data;
-  },
-  (error) => {
-    const errorMessage =
-      error.response?.data?.message || error.message || 'API request failed';
-    throw new Error(errorMessage);
-  }
-);
+  _serverApiInstance.interceptors.request.use(
+    (config) => {
+      const apiKey = envConfig.apiKey();
+      if (apiKey) {
+        config.headers['x-api-key'] = apiKey;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  _serverApiInstance.interceptors.response.use(
+    (response) => {
+      return response.data;
+    },
+    (error) => {
+      const errorMessage =
+        error.response?.data?.message || error.message || 'API request failed';
+      throw new Error(errorMessage);
+    }
+  );
+
+  return _serverApiInstance;
+};
 
 export const apiClient = {
   auth: {
@@ -141,6 +148,10 @@ export const apiClient = {
       return apiInstance.get('/provinces');
     },
 
+    async getAllServerSide(): Promise<Province[]> {
+      return getServerApiInstance().get('/provinces');
+    },
+
     async getById(id: string): Promise<Province> {
       return apiInstance.get(`/provinces/${id}`);
     },
@@ -180,7 +191,7 @@ export const apiClient = {
     },
 
     async getByNumber(postNumber: string): Promise<Post> {
-      return serverApiInstance.get(`/posts/${postNumber}`);
+      return getServerApiInstance().get(`/posts/${postNumber}`);
     },
 
     async getByIdForOwner(postId: string): Promise<Post> {
@@ -204,7 +215,7 @@ export const apiClient = {
     },
 
     async getSimilarPosts(postId: string): Promise<Post[]> {
-      return serverApiInstance.get('/posts/similar', {
+      return getServerApiInstance().get('/posts/similar', {
         params: { postId }
       });
     },
@@ -212,7 +223,7 @@ export const apiClient = {
     async getAllPosts(
       paginationData: PaginationRequest
     ): Promise<paginatedItemsResponse<Post>> {
-      return serverApiInstance.get('/posts', {
+      return getServerApiInstance().get('/posts', {
         params: paginationData
       });
     },
@@ -232,11 +243,11 @@ export const apiClient = {
     },
 
     async getLatestActiveForSitemap(): Promise<PostSitemapResponse> {
-      return serverApiInstance.get('/posts/latest-active-sitemap');
+      return getServerApiInstance().get('/posts/latest-active-sitemap');
     },
 
     async getAllActiveForSitemap(): Promise<PostSitemapResponse[]> {
-      return serverApiInstance.get('/posts/all-active-sitemap');
+      return getServerApiInstance().get('/posts/all-active-sitemap');
     }
   }
 };

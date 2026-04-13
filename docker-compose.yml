@@ -7,3 +7,13 @@ services:
       - ./apps/api/.env.development
     volumes:
       - ./apps/api/src:/app/src
+
+  web:
+    build: ./apps/web
+    ports:
+      - "65432:65432"
+    env_file:
+      - ./apps/web/.env.development
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules

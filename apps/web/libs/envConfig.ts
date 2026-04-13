@@ -10,6 +10,11 @@ const envConfig = {
     if (!value) throw new Error('NEXT_PUBLIC_API_URL is required');
     return value;
   },
+  serverApiUrl: () => {
+    const value = process.env.API_URL;
+    if (!value) throw new Error('API_URL is required');
+    return value;
+  },
   apiKey: () => {
     const value = process.env.API_KEY;
     if (!value) throw new Error('API_KEY is required');
